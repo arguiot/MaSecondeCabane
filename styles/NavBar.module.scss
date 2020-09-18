@@ -1,0 +1,103 @@
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100px;
+    border-bottom: 1px solid var(--text-color);
+    z-index: 100;
+
+    .logo {
+        display: block;
+        position: relative;
+        left: 5vw;
+        top: 0;
+        width: 100px;
+        height: 100px;
+        background: url("../public/vercel.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+    }
+    .menuContainer {
+        position: fixed;
+        top: 0;
+        left: calc(5vw + 100px);
+        right: calc(5vw + 100px);
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+            margin: 50px;
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 16px;
+            /* identical to box height */
+            text-align: center;
+            letter-spacing: 0.3em;
+        }
+    }
+    .cart {
+        position: fixed;
+        top: 35px;
+        right: 120px;
+    }
+
+    .menuToggle {
+        display: none;
+        width: 40px;
+        height: 30px;
+        position: fixed;
+        top: 40px;
+        right: 50px;
+        // display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+        z-index: 100;
+        .l {
+            transition: all 250ms ease-in-out;
+            width: 40px;
+            height: 2px;
+            background: var(--text-color);
+        }
+        &.cross {
+            .l:nth-child(1) {
+                transform: rotate(45deg) translate(0, calc(40px / 3));
+            }
+    
+            .l:nth-child(2) {
+                opacity: 0;
+            }
+    
+            .l:nth-child(3) {
+                transform: rotate(-45deg) translate(0, calc(-40px / 3));
+            }
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .nav .menuContainer {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: auto;
+        background: var(--background);
+        flex-direction: column;
+        width: 100vw;
+    }
+    .menuToggle {
+        display: flex !important;
+    }
+}
+
+@media (min-width: 900px) {
+    .nav .menuContainer {
+        display: flex !important;
+    }
+}
