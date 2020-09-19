@@ -14,7 +14,7 @@ class Animation extends React.Component {
     get defaultOptions() {
         return {
             loop: false,
-            autoplay: false,
+            autoplay: true,
             animationData: animationData,
             rendererSettings: {
                 preserveAspectRatio: 'xMidYMid slice',

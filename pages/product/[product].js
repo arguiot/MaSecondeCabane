@@ -3,6 +3,7 @@ import Product from '../../lib/Product'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
 import { Page, Display, Text, Image, Grid, Button, Collapse, Col, Spacer, Row, Spinner } from '@geist-ui/react'
+import Manager from '../../lib/CartManager'
 
 export default function ProductPage({ product }) {
     const router = useRouter()
@@ -23,6 +24,10 @@ export default function ProductPage({ product }) {
         </>
     }
 
+    const addToCart = () => {
+        Manager.addItem(product)
+    }
+
     return (<>
         <Head>
             <title>{ product.name }</title>
@@ -39,7 +44,7 @@ export default function ProductPage({ product }) {
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Row justify="center">
-                        <Button size="large" type="secondary" style={{ width: "100%" }}>Add to card</Button>
+                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }}>Add to card</Button>
                     </Row>
                     <Spacer y={2} />
                     <Collapse.Group>
