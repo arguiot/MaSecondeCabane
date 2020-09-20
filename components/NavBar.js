@@ -16,7 +16,7 @@ function NavBar() {
     const forceUpdate = React.useCallback(() => updateState({}), []);
     NotificationCenter.default.addObserver("newItem", data => {
         forceUpdate()
-    })
+    }, "NavBar")
     return <div className={ styles.nav }>
                 <Link href="/"><a className={ styles.logo }></a></Link>
                 <div className={ styles.menuContainer } style={{ display: state ? "flex" : "none" }}>

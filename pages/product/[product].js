@@ -83,6 +83,7 @@ export async function getStaticProps({ params }) {
             quantity
             description
             price
+            _id
         }
     }
     `
@@ -93,7 +94,8 @@ export async function getStaticProps({ params }) {
     const {
         name,
         description,
-        price
+        price,
+        _id
     } = result.findProductByID
     return {
         props: {
@@ -101,7 +103,8 @@ export async function getStaticProps({ params }) {
                 name: name,
                 image: "https://source.unsplash.com/random",
                 description: description,
-                price: price
+                price: price, 
+                id: _id
             }).json
         },
         revalidate: 300
