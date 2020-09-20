@@ -4,6 +4,8 @@ import Head from 'next/head'
 import NavBar from '../../components/NavBar'
 import { Page, Display, Text, Image, Grid, Button, Collapse, Col, Spacer, Row, Spinner } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
+import { graphQLClient } from '../../utils/fauna'
+import { gql } from 'graphql-request'
 
 export default function ProductPage({ product }) {
     const router = useRouter()
@@ -70,33 +72,46 @@ export default function ProductPage({ product }) {
     )
 }
 
+
+
 export async function getStaticProps({ params }) {
     const { product } = params
+    const query = gql`
+    query ProductByID($id: ID!) {
+        findProductByID(id: $id) {
+            name
+            quantity
+            description
+            price
+        }
+    }
+    `
+    const result = await graphQLClient.request(query, {
+        id: product
+    })
 
+    const {
+        name,
+        description,
+        price
+    } = result.findProductByID
     return {
         props: {
             product: new Product({
-                name: "Name",
+                name: name,
                 image: "https://source.unsplash.com/random",
-                description: "A great product",
-                price: 12
+                description: description,
+                price: price
             }).json
-        }
+        },
+        revalidate: 15,
     }
 }
 
 export async function getStaticPaths() {
     return {
       // Only `/posts/1` and `/posts/2` are generated at build time
-      paths: [{
-          params: {
-              product: '1'
-          }
-      }, {
-          params: {
-              product: '2'
-          }
-      }],
+      paths: [],
       // Enable statically generating additional pages
       // For example: `/posts/3`
       fallback: true,
