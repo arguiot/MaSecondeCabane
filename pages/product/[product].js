@@ -104,14 +104,33 @@ export async function getStaticProps({ params }) {
                 price: price
             }).json
         },
-        revalidate: 15,
+        revalidate: 300
     }
 }
 
 export async function getStaticPaths() {
+    const query = gql`
+    query AllProducts {
+        allProducts {
+            data {
+            _id
+            }
+        }
+    }
+    `
+    const result = await graphQLClient.request(query)
+
+    const { data } = result.allProducts
+
     return {
       // Only `/posts/1` and `/posts/2` are generated at build time
-      paths: [],
+      paths: data.map(entry => {
+          return {
+              params: {
+                  product: entry._id
+              }
+          }
+      }),
       // Enable statically generating additional pages
       // For example: `/posts/3`
       fallback: true,
