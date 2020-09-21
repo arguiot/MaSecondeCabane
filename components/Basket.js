@@ -29,7 +29,7 @@ export default function Basket({
             <Grid.Container gap={2} justify="flex-start">
             {
                 Manager.cart.map(product => {
-                    return <Grid xs={9}>
+                    return <Grid xs={24} md={11}>
                     <Fieldset>
                         <Fieldset.Content>
                             <div className={ pStyles.container }>

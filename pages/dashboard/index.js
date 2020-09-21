@@ -89,9 +89,10 @@ export default function Dashboard() {
                             const products = categories[key]
                             return <>
                             <Divider align="start">{ key }</Divider>
+                            <Grid.Container gap={2} justify="flex-start">
                             {
                                 products.map(product => {
-                                return <Grid xs={24} md={12}>
+                                return <Grid xs={24} md={11}>
                                 <Fieldset>
                                     <Fieldset.Content>
                                         <div className={ pStyles.container }>
@@ -122,7 +123,8 @@ export default function Dashboard() {
                                 <Spacer y={.8} />
                                 </Grid>
                             })
-                        }
+                            }
+                            </Grid.Container>
                         </>
                     })
                 }
