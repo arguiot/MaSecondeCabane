@@ -42,21 +42,21 @@ export default function ProductPage({ product }) {
                 <Grid xs={24} md={12}>
                     <Text h1>{ product.name }</Text>
                     <Display shadow caption={ product.description }>
-                        <Image width={ 500 } src={ product.image } />
+                        <Image width={ 500 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-500/${product.image}` } />
                     </Display>
                 </Grid>
                 <Grid xs={24} md={12}>
+                    <Row justify="space-between">
+                        <Text h3>Price</Text>
+                        <Text h2 type="warning">{ product.price }$</Text>
+                    </Row>
                     <Row justify="center">
-                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }}>Add to card</Button>
+                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow>Add to card</Button>
                     </Row>
                     <Spacer y={2} />
                     <Collapse.Group>
-                        <Collapse title="Question A">
-                            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat.</Text>
+                        <Collapse title="Description" initialVisible >
+                            <Text>{ product.description }</Text>
                         </Collapse>
                         <Collapse title="Question B">
                             <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -81,22 +81,9 @@ export async function getStaticProps({ params }) {
     const result = await graphQLClient.request(query, {
         id: product
     })
-
-    const {
-        name,
-        description,
-        price,
-        _id
-    } = result.findProductByID
     return {
         props: {
-            product: new Product({
-                name: name,
-                image: "https://source.unsplash.com/random",
-                description: description,
-                price: price, 
-                id: _id
-            }).json
+            product: result.findProductByID
         },
         revalidate: 300
     }
@@ -107,7 +94,7 @@ export async function getStaticPaths() {
     query AllProducts {
         allProducts {
             data {
-            _id
+                _id
             }
         }
     }

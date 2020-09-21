@@ -1,4 +1,4 @@
-import { Button, Col, Image, Modal, Row, Text, Spacer, Fieldset, Grid } from "@geist-ui/react";
+import { Button, Col, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card } from "@geist-ui/react";
 
 import Manager from '../lib/CartManager'
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
@@ -25,6 +25,7 @@ export default function Basket({
     return <Modal width="80vw" {...bindings}>
         <Modal.Title>Panier</Modal.Title>
         <Modal.Content>
+            <Divider>Contenu</Divider>
             <Grid.Container gap={2} justify="flex-start">
             {
                 Manager.cart.map(product => {
@@ -32,7 +33,7 @@ export default function Basket({
                     <Fieldset>
                         <Fieldset.Content>
                             <div className={ pStyles.container }>
-                                <Image src={ product.image } height={100} className={ pStyles.img }/>
+                                <Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100} className={ pStyles.img }/>
                                 <Col className={ pStyles.desc }>
                                     <Text h5>{ product.name }</Text>
                                     <Text p className={ pStyles.truncate }>{ product.description }</Text>
@@ -59,6 +60,13 @@ export default function Basket({
                 })
             }
             </Grid.Container>
+            <Divider>Total</Divider>
+            <Card>
+                <Row justify="space-between">
+                    <Text b>Subtotal</Text>
+                    <Text b>{ Manager.subtotal }</Text>
+                </Row>
+            </Card>
         </Modal.Content>
     </Modal>
 }
