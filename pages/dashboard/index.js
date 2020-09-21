@@ -95,7 +95,7 @@ export default function Dashboard() {
                             <Fieldset>
                                 <Fieldset.Content>
                                     <div className={ pStyles.container }>
-                                        <Image src={ product.image } height={100} className={ pStyles.img }/>
+                                        <Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100} className={ pStyles.img }/>
                                         <Col className={ pStyles.desc }>
                                             <Text h5>{ product.name }</Text>
                                             <Text p className={ pStyles.truncate }>{ product.description }</Text>

@@ -41,6 +41,7 @@ p.magnify {
   --semi-white: #eee;
   --text-color: #000;
   --footer: #fafafa;
+  --secondary-text: rgb(102, 102, 102);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,5 +50,6 @@ p.magnify {
       --semi-white: #333;
       --text-color: #fff;
       --footer: #000;
+      --secondary-text: #eee;
   }
 }
