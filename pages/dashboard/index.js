@@ -1,14 +1,14 @@
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { signin, signIn, signout, signOut, useSession } from 'next-auth/client'
 import { Divider, Page, Tabs, Modal, Code, Button, Col, Image, Row, Text, Spacer, Fieldset, Grid } from '@geist-ui/react'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
 import useSWR from 'swr';
-import { gql } from 'graphql-request';
 import { graphQLClient } from '../../utils/fauna';
 import ProductForm from '../../components/ProductForm';
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js';
 import router from 'next/router'
 import pStyles from '../../styles/ProductCard.module.scss'
+import { AllProducts } from '../../lib/Requests';
 
 const fetcher = async (query) => await graphQLClient.request(query);
 
@@ -17,30 +17,26 @@ export default function Dashboard() {
 
     if (!session) {
         // signIn()
-        return <button onClick={signIn}>Sign in</button>
+        return <>
+        <Head>
+            <title>Dashboard</title>
+            <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <NavBar />
+        <Spacer y={5} />
+        <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column"
+        }}>
+            <Text h1>Administration</Text>
+            <Button auto type="success" onClick={ () => signin("google") }>Sign In With Google</Button>
+        </div>
+        </>
     }
 
-    const { data, error } = useSWR(
-    gql`
-    query AllProducts {
-        allProducts {
-            data {
-                name
-                image
-                quantity
-                description
-                price
-                _id
-                category {
-                    name
-                    _id
-                }
-            }
-        }
-    }
-    `,
-    fetcher
-    );
+    const { data, error } = useSWR(AllProducts, fetcher);
     if (error) {
     return <Modal open={true}>
             <Modal.Title>Error</Modal.Title>
@@ -81,53 +77,57 @@ export default function Dashboard() {
         </Head>
         <NavBar />
         <Page>
-        <Tabs initialValue="1">
-            <Tabs.Item label="overview" value="1">The Evil Rabbit Jumped over the Fence.</Tabs.Item>
-            <Tabs.Item label="products" value="2">
-                {
-                    Object.keys(categories).map(key => {
-                        const products = categories[key]
-                        return <>
-                        <Divider align="start">{ key }</Divider>
-                        {
-                            products.map(product => {
-                            return <Grid xs={24} md={12}>
-                            <Fieldset>
-                                <Fieldset.Content>
-                                    <div className={ pStyles.container }>
-                                        <Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100} className={ pStyles.img }/>
-                                        <Col className={ pStyles.desc }>
-                                            <Text h5>{ product.name }</Text>
-                                            <Text p className={ pStyles.truncate }>{ product.description }</Text>
-                                        </Col>
-                                        <Spacer x={2} />
-                                        <Col span={3}>
-                                            <Row align="middle" style={{ height: '100%' }}>
-                                                <Text h5>{ product.price }$</Text>
-                                            </Row>
-                                        </Col>
-                                    </div>
-                                </Fieldset.Content>
-                                <Fieldset.Footer>
-                                    <Fieldset.Footer.Status>
-                                        Remaining Quantity: { product.quantity }
-                                    </Fieldset.Footer.Status>
-                                    <Fieldset.Footer.Actions>
-                                        <Button auto size="mini" onClick={() => router.push("/product/[product]", `/product/${product._id}`) }>View</Button>
-                                        <Spacer x={.4} />
-                                        <Button auto size="mini" onClick={() => editProduct(product) }>Edit</Button>
-                                    </Fieldset.Footer.Actions>
-                                </Fieldset.Footer>
-                            </Fieldset>
-                            <Spacer y={.8} />
-                            </Grid>
-                        })
-                    }
-                    </>
-                })
-            }
-            </Tabs.Item>
-        </Tabs>
+            <Row justify="space-between" width="100%">
+                <Text h1>Dashboard</Text>
+                <Button auto type="secondary" onClick={ signout }>Sign Out</Button>
+            </Row>
+            <Tabs initialValue="1">
+                <Tabs.Item label="overview" value="1">The Evil Rabbit Jumped over the Fence.</Tabs.Item>
+                <Tabs.Item label="products" value="2">
+                    {
+                        Object.keys(categories).map(key => {
+                            const products = categories[key]
+                            return <>
+                            <Divider align="start">{ key }</Divider>
+                            {
+                                products.map(product => {
+                                return <Grid xs={24} md={12}>
+                                <Fieldset>
+                                    <Fieldset.Content>
+                                        <div className={ pStyles.container }>
+                                            <Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100} className={ pStyles.img }/>
+                                            <Col className={ pStyles.desc }>
+                                                <Text h5>{ product.name }</Text>
+                                                <Text p className={ pStyles.truncate }>{ product.description }</Text>
+                                            </Col>
+                                            <Spacer x={2} />
+                                            <Col span={3}>
+                                                <Row align="middle" style={{ height: '100%' }}>
+                                                    <Text h5>{ product.price }$</Text>
+                                                </Row>
+                                            </Col>
+                                        </div>
+                                    </Fieldset.Content>
+                                    <Fieldset.Footer>
+                                        <Fieldset.Footer.Status>
+                                            Remaining Quantity: { product.quantity }
+                                        </Fieldset.Footer.Status>
+                                        <Fieldset.Footer.Actions>
+                                            <Button auto size="mini" onClick={() => router.push("/product/[product]", `/product/${product._id}`) }>View</Button>
+                                            <Spacer x={.4} />
+                                            <Button auto size="mini" onClick={() => editProduct(product) }>Edit</Button>
+                                        </Fieldset.Footer.Actions>
+                                    </Fieldset.Footer>
+                                </Fieldset>
+                                <Spacer y={.8} />
+                                </Grid>
+                            })
+                        }
+                        </>
+                    })
+                }
+                </Tabs.Item>
+            </Tabs>
         </Page>
         <ProductForm />
     </>

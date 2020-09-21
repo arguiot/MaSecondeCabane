@@ -1,14 +1,12 @@
 import { Modal, useModal, Input, Description, Select, Spacer, Textarea, Image, Display, Row } from "@geist-ui/react";
 
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
-import useSWR from 'swr';
-import { gql } from 'graphql-request';
-import { graphQLClient } from '../utils/fauna';
 
 import { IKUpload, IKContext } from "imagekitio-react"
 import styles from "../styles/Dashboard.module.scss"
-
-const fetcher = async (query) => await graphQLClient.request(query);
+import { mutate } from "swr";
+import { AllProducts, UpdateProduct } from "../lib/Requests";
+import { graphQLClient } from "../utils/fauna";
 
 export default function ProductForm() {
     const { setVisible, bindings } = useModal()
@@ -43,30 +41,15 @@ export default function ProductForm() {
         setDesc(product.description)
         setImage(product.image)
     })
-    const { data, error } = useSWR(
-        gql`
-        query AllCategories {
-            allCategories {
-                data {
-                    name
-                    _id
-                }
-            }
-        }
-        `, fetcher);
         
     const onError = err => {
         alert(`Image Upload: ${err}`)
     };
 
+    const [submitDisable, updateSubmit] = React.useState(false)
     const submit = () => {
-        const query = gql`
-        mutation UpdateProduct($data: ProductInput!, $id: ID!) {
-            updateProduct(id: $id, data: $data) {
-                _id
-            }
-        }
-        `
+        updateSubmit(true)
+        const query = UpdateProduct
         const variables = {
             id,
             data: {
@@ -82,6 +65,7 @@ export default function ProductForm() {
         }
         graphQLClient.request(query, variables).then(data => {
             if (data.updateProduct._id == id) {
+                mutate(AllProducts)
                 setVisible(false)
             }
         })
@@ -112,6 +96,7 @@ export default function ProductForm() {
             onChange={descHandler}
             placeholder="Description" />} />
         </Modal.Content>
-        <Modal.Action onClick={ submit }>Submit</Modal.Action>
+        <Modal.Action passive onClick={() => setVisible(false)}>Cancel</Modal.Action>
+        <Modal.Action onClick={ submit } disabled={submitDisable}>Submit</Modal.Action>
     </Modal>
 }

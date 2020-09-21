@@ -6,6 +6,7 @@ import { Page, Display, Text, Image, Grid, Button, Collapse, Col, Spacer, Row, S
 import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
+import { ProductByID } from '../../lib/Requests'
 
 export default function ProductPage({ product }) {
     const router = useRouter()
@@ -76,17 +77,7 @@ export default function ProductPage({ product }) {
 
 export async function getStaticProps({ params }) {
     const { product } = params
-    const query = gql`
-    query ProductByID($id: ID!) {
-        findProductByID(id: $id) {
-            name
-            quantity
-            description
-            price
-            _id
-        }
-    }
-    `
+    const query = ProductByID
     const result = await graphQLClient.request(query, {
         id: product
     })
