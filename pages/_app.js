@@ -14,14 +14,14 @@ function MyApp({ Component, pageProps }) {
     })
   })
 
-  const { palette } = useTheme()
+  const theme = useTheme()
 
   return (
     <Provider session={pageProps.session}>
       <GeistProvider theme={{ type: themeType }}>
         <CssBaseline />
         <Component {...pageProps} />
-        <NextNProgress color={ palette.foreground } />
+        <NextNProgress color="var(--text-color)" />
       </GeistProvider>
     </Provider>
   )

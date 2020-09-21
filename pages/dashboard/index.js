@@ -8,6 +8,7 @@ import { graphQLClient } from '../../utils/fauna';
 import ProductForm from '../../components/ProductForm';
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js';
 import router from 'next/router'
+import pStyles from '../../styles/ProductCard.module.scss'
 
 const fetcher = async (query) => await graphQLClient.request(query);
 
@@ -93,18 +94,19 @@ export default function Dashboard() {
                             return <Grid xs={24} md={12}>
                             <Fieldset>
                                 <Fieldset.Content>
-                                    <Row gap={2} justify="space-around">
-                                        <Image src={ product.image } width={70} height={50} />
-                                        <Col>
+                                    <div className={ pStyles.container }>
+                                        <Image src={ product.image } height={100} className={ pStyles.img }/>
+                                        <Col className={ pStyles.desc }>
                                             <Text h5>{ product.name }</Text>
-                                            <Text p>{ product.description }</Text>
+                                            <Text p className={ pStyles.truncate }>{ product.description }</Text>
                                         </Col>
-                                        <Col span={5}>
+                                        <Spacer x={2} />
+                                        <Col span={3}>
                                             <Row align="middle" style={{ height: '100%' }}>
                                                 <Text h5>{ product.price }$</Text>
                                             </Row>
                                         </Col>
-                                    </Row>
+                                    </div>
                                 </Fieldset.Content>
                                 <Fieldset.Footer>
                                     <Fieldset.Footer.Status>

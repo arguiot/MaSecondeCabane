@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .img {
+        width: 70px !important;
+        img {
+            object-fit: cover;
+        }
+    }
+    .desc {
+        width: 50% !important;
+        .truncate {
+            width: 100%;
+            word-wrap: revert;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+

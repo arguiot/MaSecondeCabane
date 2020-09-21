@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/client'
 function NavBar() {
     const [state, setState] = React.useState(false)
     const toggle = () => setState(state => !state)
-    const close = () => this.setState(() => false)
+    const close = () => setState(false)
     const menuToggleClass = [styles.menuToggle, state ? styles.cross : ""].join(" ")
     const { setVisible, bindings } = useModal()
     // Next Auth

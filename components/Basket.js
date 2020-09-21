@@ -2,6 +2,7 @@ import { Button, Col, Image, Modal, Row, Text, Spacer, Fieldset, Grid } from "@g
 
 import Manager from '../lib/CartManager'
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
+import pStyles from '../styles/ProductCard.module.scss'
 
 export default function Basket({
     bindings
@@ -11,6 +12,7 @@ export default function Basket({
     NotificationCenter.default.addObserver("newItem", data => {
         forceUpdate()
     }, "Basket")
+    
     if (Manager.numberOfItems == 0) {
         return <Modal {...bindings}>
                     <Modal.Title>Panier</Modal.Title>
@@ -29,13 +31,19 @@ export default function Basket({
                     return <Grid xs={9}>
                     <Fieldset>
                         <Fieldset.Content>
-                            <Row gap={2}>
-                                <Image src={ product.image } width={50} height={50} />
-                                <Col>
-                                <Text h5>{ product.name }</Text>
-                                <Text p>{ product.description }</Text>
+                            <div className={ pStyles.container }>
+                                <Image src={ product.image } height={100} className={ pStyles.img }/>
+                                <Col className={ pStyles.desc }>
+                                    <Text h5>{ product.name }</Text>
+                                    <Text p className={ pStyles.truncate }>{ product.description }</Text>
                                 </Col>
-                            </Row>
+                                <Spacer x={2} />
+                                <Col span={3}>
+                                    <Row align="middle" style={{ height: '100%' }}>
+                                        <Text h5>{ product.price }$</Text>
+                                    </Row>
+                                </Col>
+                            </div>
                         </Fieldset.Content>
                         <Fieldset.Footer>
                             <Fieldset.Footer.Status>
