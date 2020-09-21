@@ -1,6 +1,7 @@
 import '../styles/globals.scss'
 import { GeistProvider, CssBaseline, useTheme } from '@geist-ui/react'
 import NextNProgress from 'nextjs-progressbar';
+import { Provider } from 'next-auth/client'
 
 function MyApp({ Component, pageProps }) {
   const [themeType, setThemeType] = React.useState('light')
@@ -16,11 +17,13 @@ function MyApp({ Component, pageProps }) {
   const { palette } = useTheme()
 
   return (
-    <GeistProvider theme={{ type: themeType }}>
-      <CssBaseline />
-      <Component {...pageProps} />
-      <NextNProgress color={ palette.foreground }/>
-    </GeistProvider>
+    <Provider session={pageProps.session}>
+      <GeistProvider theme={{ type: themeType }}>
+        <CssBaseline />
+        <Component {...pageProps} />
+        <NextNProgress color={ palette.foreground } />
+      </GeistProvider>
+    </Provider>
   )
 }
 export default MyApp

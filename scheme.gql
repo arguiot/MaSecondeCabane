@@ -3,6 +3,7 @@ type Product @collection(name: "products") {
   description: String!
   price: Float!
   quantity: Int!
+  image: String! # Image URL
   category: Category!
 }
 
@@ -21,9 +22,8 @@ type Order @collection(name: "orders") {
 }
 
 type Category @collection(name: "categories") {
-  id: ID!
   name: String!
-  products: [Product!]!
+  products: [Product!]
 }
 
 type Address @embedded {

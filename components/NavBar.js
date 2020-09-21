@@ -3,7 +3,8 @@ import { Link, Text, useModal } from '@geist-ui/react'
 import NextLink from 'next/link'
 import Cart from './Cart'
 import Basket from './Basket'
-import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
+import { NotificationCenter } from '@arguiot/broadcast.js'
+import { useSession } from 'next-auth/client'
 
 function NavBar() {
     const [state, setState] = React.useState(false)
@@ -11,6 +12,8 @@ function NavBar() {
     const close = () => this.setState(() => false)
     const menuToggleClass = [styles.menuToggle, state ? styles.cross : ""].join(" ")
     const { setVisible, bindings } = useModal()
+    // Next Auth
+    const [ session, loading ] = useSession()
 
     const [, updateState] = React.useState();
     const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -29,6 +32,9 @@ function NavBar() {
                     <NextLink href="/">
                         <Text b><Link underline onClick={ close }>Other</Link></Text>
                     </NextLink>
+                    {session && <NextLink href="/dashboard">
+                        <Text b><Link underline onClick={ close }>Dashboard</Link></Text>
+                    </NextLink>}
                 </div>
                 <div onClick={ e => { 
                     setVisible(true); 
