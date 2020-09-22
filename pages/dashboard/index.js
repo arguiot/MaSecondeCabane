@@ -77,7 +77,7 @@ export default function Dashboard() {
         </Head>
         <NavBar />
         <Page>
-            <Row justify="space-between" width="100%">
+            <Row justify="space-between" width="100%" style={{ flexWrap: "wrap-reverse" }}>
                 <Text h1>Dashboard</Text>
                 <Button auto type="secondary" onClick={ signout }>Sign Out</Button>
             </Row>
