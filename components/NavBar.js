@@ -21,7 +21,7 @@ function NavBar() {
         forceUpdate()
     }, "NavBar")
     return <div className={ styles.nav }>
-                <Link href="/"><a className={ styles.logo }></a></Link>
+                <NextLink href="/"><div className={ styles.logo }></div></NextLink>
                 <div className={ styles.menuContainer } style={{ display: state ? "flex" : "none" }}>
                     <NextLink href="/">
                         <Text b><Link underline onClick={ close }>About</Link></Text>

@@ -1,0 +1,27 @@
+.header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: calc(100vh - 100px);
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://source.unsplash.com/tvc5imO5pXk");
+	background-size: cover;
+	.heroDesc {
+		// font-family: New York Medium;
+		// font-style: normal;
+		// font-weight: bold;
+		color: white;
+		max-width: 750px;
+		text-align: center;
+	}
+
+	.searchbar {
+		width: 100% !important;
+		background: var(--background);
+		border-radius: 15px;
+		height: 60px !important;
+		div {
+			border-radius: 15px !important;
+		}
+	}
+}

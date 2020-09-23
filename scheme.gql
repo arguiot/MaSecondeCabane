@@ -4,7 +4,7 @@ type Product @collection(name: "products") {
   price: Float!
   quantity: Int!
   image: String! # Image URL
-  category: Category!
+  tags: [String!]!
 }
 
 type Customer @collection(name: "customers") {
@@ -19,11 +19,6 @@ type Order @collection(name: "orders") {
   line: [ProductLine!]!
   creationDate: Time!
   shipAddress: Address!
-}
-
-type Category @collection(name: "categories") {
-  name: String!
-  products: [Product!]
 }
 
 type Address @embedded {
@@ -48,7 +43,6 @@ type Query {
   allProducts: [Product!]! @index(name: "all_products")
   allCustomers: [Customer!]! @index(name: "all_customers")
   allOrders: [Order!]! @index(name: "all_orders")
-  allCategories: [Category!]! @index(name: "all_categories")
 }
 
 type Mutation {
