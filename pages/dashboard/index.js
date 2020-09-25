@@ -62,6 +62,11 @@ export default function Dashboard() {
         const msg = new Notification("editProduct", product)
         NotificationCenter.default.post(msg)
     }
+    function deleteProduct(product) {
+        const msg = new Notification("deleteProduct", product)
+        NotificationCenter.default.post(msg)
+    }
+
     return <>
         <Head>
             <title>Dashboard</title>
@@ -76,10 +81,15 @@ export default function Dashboard() {
             <Tabs initialValue="1">
                 <Tabs.Item label="overview" value="1">The Evil Rabbit Jumped over the Fence.</Tabs.Item>
                 <Tabs.Item label="produits" value="2">
+                    <Button onClick={() => {
+                        const msg = new Notification("newProduct")
+                        NotificationCenter.default.post(msg)
+                    }}>Nouveau produit</Button>
+                    <Divider>Produits</Divider>
                     <Grid.Container gap={2} justify="flex-start">
                         {
                             products.map(product => {
-                            return <Grid xs={24} md={11}>
+                            return <Grid xs={24} md={12}>
                             <Fieldset>
                                 <Fieldset.Content>
                                     <div className={ pStyles.container }>
@@ -102,6 +112,8 @@ export default function Dashboard() {
                                     </Fieldset.Footer.Status>
                                     <Fieldset.Footer.Actions>
                                         <Button auto size="mini" onClick={() => router.push("/product/[product]", `/product/${product._id}`) }>Afficher</Button>
+                                        <Spacer x={.4} />
+                                        <Button auto size="mini" type="error" ghost onClick={() => deleteProduct(product)}>Supprimer</Button>
                                         <Spacer x={.4} />
                                         <Button auto size="mini" onClick={() => editProduct(product) }>Modifier</Button>
                                     </Fieldset.Footer.Actions>

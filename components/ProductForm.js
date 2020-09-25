@@ -1,18 +1,18 @@
-import { Modal, useModal, Input, Description, Select, Spacer, Textarea, Image, Display, Row } from "@geist-ui/react";
+import { Modal, useModal, Input, Description, Select, Spacer, Textarea, Image, Display, Row, Text } from "@geist-ui/react";
 
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
 
 import { IKUpload, IKContext } from "imagekitio-react"
 import styles from "../styles/Dashboard.module.scss"
 import { mutate } from "swr";
-import { AllProducts, UpdateProduct } from "../lib/Requests";
+import { AllProducts, CreateProduct, UpdateProduct, DeleteProduct } from "../lib/Requests";
 import { graphQLClient } from "../utils/fauna";
 import TagsInput from "./TagsInput";
 
 export default function ProductForm() {
     const { setVisible, bindings } = useModal()
-
-    const [id, setID] = React.useState()
+    const [type, setType] = React.useState(0)
+    const [id, setID] = React.useState(null)
 
     const [name, setName] = React.useState()
     const nameHandler = e => {
@@ -47,8 +47,39 @@ export default function ProductForm() {
     const [brand, setBrand] = React.useState("Inconnue")
     const [etat, setEtat] = React.useState("Bon")
     const [tags, setTags] = React.useState([])
+
+    NotificationCenter.default.addObserver("newProduct", () => {
+        setVisible(true)
+        setType(0)
+        updateSubmit(false)
+
+        setID(null)
+
+        setName()
+        setDesc()
+        setImage()
+        setPrice()
+        setQuantity(1)
+        setCreation(+ new Date())
+        setSexe("Fille")
+        setSize("1 ans")
+        setBrand("Inconnue")
+        setEtat("Bon")
+        setTags([])
+    })
+
+    NotificationCenter.default.addObserver("deleteProduct", product => {
+        setVisible(true)
+        setType(1)
+        updateSubmit(false)
+
+        setID(product._id)
+    })
+
     NotificationCenter.default.addObserver("editProduct", product => {
         setVisible(true)
+        setType(0)
+        updateSubmit(false)
 
         setID(product._id)
 
@@ -66,38 +97,65 @@ export default function ProductForm() {
     })
         
     const onError = err => {
-        alert(`Image Upload: ${err}`)
+        alert(`Image Upload: ${JSON.stringify(err)}`)
     };
 
     const [submitDisable, updateSubmit] = React.useState(false)
     const submit = () => {
         updateSubmit(true)
-        const query = UpdateProduct
-        const variables = {
-            id,
-            data: {
-                name,
-                description,
-                price,
-                quantity,
-                image,
-                creation,
-                sexe,
-                size,
-                brand,
-                etat,
-                tags
-            }
+        const data = {
+            name,
+            description,
+            price,
+            quantity,
+            image,
+            creation,
+            sexe,
+            size,
+            brand,
+            etat,
+            tags
         }
-        graphQLClient.request(query, variables).then(data => {
-            if (data.updateProduct._id == id) {
+        if (id == null) {
+            const query = CreateProduct
+            graphQLClient.request(query, { data }).then(data => {
+                if (typeof data.createProduct._id != "undefined") {
+                    mutate(AllProducts)
+                    setVisible(false)
+                } else {
+                    alert(`Erreur\n${JSON.stringify(data)}`)
+                }
+            })
+        } else {
+            const query = UpdateProduct
+            const variables = {
+                id,
+                data
+            }
+            graphQLClient.request(query, variables).then(data => {
+                if (data.updateProduct._id == id) {
+                    mutate(AllProducts)
+                    setVisible(false)
+                } else {
+                    alert(`Erreur\n${JSON.stringify(data)}`)
+                }
+            })
+        }
+    }
+    const remove = () => {
+        updateSubmit(true)
+        const query = DeleteProduct
+        graphQLClient.request(query, { id }).then(data => {
+            if (typeof data.deleteProduct._id != "undefined") {
                 mutate(AllProducts)
                 setVisible(false)
+            } else {
+                alert(`Erreur\n${JSON.stringify(data)}`)
             }
         })
     }
 
-    return <Modal {...bindings}>
+    const edit = <Modal {...bindings}>
         <Modal.Title>Produit</Modal.Title>
         <Modal.Content className={styles.productForm}>
             <Display shadow caption="Image miniature">
@@ -109,7 +167,7 @@ export default function ProductForm() {
                         urlEndpoint="https://ik.imagekit.io/ittx2e0v7x"
                         transformationPosition="path"
                         authenticationEndpoint="/api/imagekit">
-                    <IKUpload fileName={ name } onError={onError} onSuccess={updatePicture} className={ styles.imageInput }/>
+                    <IKUpload fileName={ typeof name == "undefined" ? "newProd" : name } onError={onError} onSuccess={updatePicture} className={ styles.imageInput }/>
                 </IKContext>
             </Row>
 
@@ -153,7 +211,15 @@ export default function ProductForm() {
             <Spacer y={.8} />
             <Description title="Tags" content={<TagsInput value={tags} onChange={ setTags } />} />
         </Modal.Content>
-        <Modal.Action passive onClick={() => setVisible(false)}>Cancel</Modal.Action>
-        <Modal.Action onClick={ submit } disabled={submitDisable}>Submit</Modal.Action>
+        <Modal.Action passive onClick={() => setVisible(false)}>Annuler</Modal.Action>
+        <Modal.Action onClick={ submit } loading={submitDisable}>Enregistrer</Modal.Action>
     </Modal>
+
+    const _delete = <Modal {...bindings}>
+        <Modal.Title>Supprimer</Modal.Title>
+        <Modal.Subtitle>Voulez-vous vraiment supprimer le produit?</Modal.Subtitle>
+        <Modal.Action passive onClick={() => setVisible(false)}>Annuler</Modal.Action>
+        <Modal.Action onClick={ remove } loading={submitDisable}><Text type="error">Supprimer</Text></Modal.Action>
+    </Modal>
+    return type == 0 ? edit : _delete
 }

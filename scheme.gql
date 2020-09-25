@@ -9,7 +9,7 @@ type Product @collection(name: "products") {
   brand: String!
   etat: String!
   tags: [String!]!
-  creation: Int # Timestamp
+  creation: Long # Timestamp as Int but was too big to fit in Int
 }
 
 type Customer @collection(name: "customers") {

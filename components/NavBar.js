@@ -23,8 +23,8 @@ function NavBar() {
     return <div className={ styles.nav }>
                 <NextLink href="/"><div className={ styles.logo }></div></NextLink>
                 <div className={ styles.menuContainer } style={{ display: state ? "flex" : "none" }}>
-                    <NextLink href="/">
-                        <Text b><Link href="/about" underline onClick={ close }>À propos</Link></Text>
+                    <NextLink href="/about">
+                        <Text b><Link underline onClick={ close }>À propos</Link></Text>
                     </NextLink>
                     <NextLink href="/">
                         <Text b><Link underline onClick={ close }>Filles</Link></Text>
