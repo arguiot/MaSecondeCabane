@@ -1,4 +1,4 @@
-import { Text, AutoComplete, Row, Col, Spacer, Image } from '@geist-ui/react'
+import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid } from '@geist-ui/react'
 import { Search } from '@geist-ui/react-icons'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -9,6 +9,7 @@ import { AllProducts } from '../lib/Requests'
 import Fuse from 'fuse.js'
 import pStyles from '../styles/ProductCard.module.scss'
 import Link from 'next/link'
+import ProductCard from '../components/ProductCard'
 
 export default function Home({ products }) {
 	// Search logic
@@ -19,11 +20,15 @@ export default function Home({ products }) {
 		keys: [
 			"name",
 			"description",
-			"category.name"
+			"sexe",
+			"size",
+			"brand",
+			"etat",
+			"tags"
 		]
 	}
 
-	const fuse = new Fuse(products, fuseOption)
+	const fuse = new Fuse(products.filter(e => e.quantity >= 1), fuseOption)
 
 	const [options, setOptions] = useState()
 	const [searching, setSearching] = useState(false)
@@ -33,7 +38,7 @@ export default function Home({ products }) {
 		<AutoComplete.Option value={product.name}>
 			<Link href="/product/[product]" as={ `/product/${product._id}` }>
 				<div className={ pStyles.container } style={{ width: "70vw", padding: "10px 0" }}>
-					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100} className={ pStyles.img }/>
+					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}` } height={100} className={ pStyles.img }/>
 					<Col className={ pStyles.desc }>
 						<Text h5>{ product.name }</Text>
 						<Text p className={ pStyles.truncate }>{ product.description }</Text>
@@ -62,7 +67,7 @@ export default function Home({ products }) {
 	}
 	return (<>
 	<Head>
-		<title>La Cabane</title>
+		<title>La Seconde Cabane</title>
 		<link rel="icon" href="/favicon.ico" />
 	</Head>
 	<NavBar />
@@ -84,7 +89,18 @@ export default function Home({ products }) {
 			/>
 		</div>
 	</header>
-
+	<Page>
+		<Text h1>Nos derniers produits</Text>
+		<Grid.Container gap={2} justify="flex-start">
+			{
+				products.slice(0, 6).map(p => {
+					return <Grid xs={24} md={8}>
+						<ProductCard product={ p } />
+					</Grid>
+				})
+			}
+		</Grid.Container>
+	</Page>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nyfonts@1.0.0/stylesheet.min.css">
 	</link>
 	</>

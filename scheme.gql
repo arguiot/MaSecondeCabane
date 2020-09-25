@@ -4,7 +4,12 @@ type Product @collection(name: "products") {
   price: Float!
   quantity: Int!
   image: String! # Image URL
+  sexe: String!
+  size: String!
+  brand: String!
+  etat: String!
   tags: [String!]!
+  creation: Int # Timestamp
 }
 
 type Customer @collection(name: "customers") {

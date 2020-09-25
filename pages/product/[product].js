@@ -47,11 +47,11 @@ export default function ProductPage({ product }) {
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Row justify="space-between">
-                        <Text h3>Price</Text>
+                        <Text h3>Prix</Text>
                         <Text h2 type="warning">{ product.price }$</Text>
                     </Row>
                     <Row justify="center">
-                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow>Add to card</Button>
+                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow>Ajouter au panier</Button>
                     </Row>
                     <Spacer y={2} />
                     <Collapse.Group>

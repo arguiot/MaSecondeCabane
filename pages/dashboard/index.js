@@ -58,14 +58,6 @@ export default function Dashboard() {
     }
     
     const products = data.allProducts.data
-    let categories = {}
-    products.forEach(prod => {
-        if (typeof categories[prod.category.name] != "undefined") {
-            categories[prod.category.name].push(prod)
-        } else {
-            categories[prod.category.name] = [prod]
-        }
-    });
     function editProduct(product) {
         const msg = new Notification("editProduct", product)
         NotificationCenter.default.post(msg)
@@ -83,51 +75,43 @@ export default function Dashboard() {
             </Row>
             <Tabs initialValue="1">
                 <Tabs.Item label="overview" value="1">The Evil Rabbit Jumped over the Fence.</Tabs.Item>
-                <Tabs.Item label="products" value="2">
-                    {
-                        Object.keys(categories).map(key => {
-                            const products = categories[key]
-                            return <>
-                            <Divider align="start">{ key }</Divider>
-                            <Grid.Container gap={2} justify="flex-start">
-                            {
-                                products.map(product => {
-                                return <Grid xs={24} md={11}>
-                                <Fieldset>
-                                    <Fieldset.Content>
-                                        <div className={ pStyles.container }>
-                                            <Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100} className={ pStyles.img }/>
-                                            <Col className={ pStyles.desc }>
-                                                <Text h5>{ product.name }</Text>
-                                                <Text p className={ pStyles.truncate }>{ product.description }</Text>
-                                            </Col>
-                                            <Spacer x={2} />
-                                            <Col span={3}>
-                                                <Row align="middle" style={{ height: '100%' }}>
-                                                    <Text h5>{ product.price }$</Text>
-                                                </Row>
-                                            </Col>
-                                        </div>
-                                    </Fieldset.Content>
-                                    <Fieldset.Footer>
-                                        <Fieldset.Footer.Status>
-                                            Remaining Quantity: { product.quantity }
-                                        </Fieldset.Footer.Status>
-                                        <Fieldset.Footer.Actions>
-                                            <Button auto size="mini" onClick={() => router.push("/product/[product]", `/product/${product._id}`) }>View</Button>
-                                            <Spacer x={.4} />
-                                            <Button auto size="mini" onClick={() => editProduct(product) }>Edit</Button>
-                                        </Fieldset.Footer.Actions>
-                                    </Fieldset.Footer>
-                                </Fieldset>
-                                <Spacer y={.8} />
-                                </Grid>
+                <Tabs.Item label="produits" value="2">
+                    <Grid.Container gap={2} justify="flex-start">
+                        {
+                            products.map(product => {
+                            return <Grid xs={24} md={11}>
+                            <Fieldset>
+                                <Fieldset.Content>
+                                    <div className={ pStyles.container }>
+                                        <Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100} className={ pStyles.img }/>
+                                        <Col className={ pStyles.desc }>
+                                            <Text h5>{ product.name }</Text>
+                                            <Text p className={ pStyles.truncate }>{ product.description }</Text>
+                                        </Col>
+                                        <Spacer x={2} />
+                                        <Col span={3}>
+                                            <Row align="middle" style={{ height: '100%' }}>
+                                                <Text h5>{ product.price }$</Text>
+                                            </Row>
+                                        </Col>
+                                    </div>
+                                </Fieldset.Content>
+                                <Fieldset.Footer>
+                                    <Fieldset.Footer.Status>
+                                        Remaining Quantity: { product.quantity }
+                                    </Fieldset.Footer.Status>
+                                    <Fieldset.Footer.Actions>
+                                        <Button auto size="mini" onClick={() => router.push("/product/[product]", `/product/${product._id}`) }>Afficher</Button>
+                                        <Spacer x={.4} />
+                                        <Button auto size="mini" onClick={() => editProduct(product) }>Modifier</Button>
+                                    </Fieldset.Footer.Actions>
+                                </Fieldset.Footer>
+                            </Fieldset>
+                            <Spacer y={.8} />
+                            </Grid>
                             })
-                            }
-                            </Grid.Container>
-                        </>
-                    })
-                }
+                        }
+                    </Grid.Container>
                 </Tabs.Item>
             </Tabs>
         </Page>

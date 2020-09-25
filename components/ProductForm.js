@@ -7,6 +7,7 @@ import styles from "../styles/Dashboard.module.scss"
 import { mutate } from "swr";
 import { AllProducts, UpdateProduct } from "../lib/Requests";
 import { graphQLClient } from "../utils/fauna";
+import TagsInput from "./TagsInput";
 
 export default function ProductForm() {
     const { setVisible, bindings } = useModal()
@@ -18,28 +19,50 @@ export default function ProductForm() {
         setName(e.target.value)
     }
 
-    const [category, setCategory] = React.useState()
-    const categoryHandler = e => {
-        setCategory(e)
-    }
-
     const [description, setDesc] = React.useState()
     const descHandler = (e) => {
         setDesc(e.target.value)
     }
+
+    const [price, setPrice] = React.useState(0)
+    const priceHandler = e => {
+        setPrice(parseFloat(e.target.value))
+    }
+    const [quantity, setQuantity] = React.useState(1)
+    const quantityHandler = e => {
+        setQuantity(parseInt(e.target.value))
+    }
+    const [creation, setCreation] = React.useState(+ new Date())
     const [image, setImage] = React.useState()
     const updatePicture = res => {
         setImage(res.filePath.substring(1)) // delete first /
     };
+
+    const [sexe, setSexe] = React.useState("Fille")
+    const [size, setSize] = React.useState("1 ans")
+    const sizeList = [
+        "0 mois", "1 mois", "3 mois", "6 mois", "9 mois", "12 mois", "18 mois",
+        "2 ans", "3 ans", "4 ans", "5 ans", "6 ans", "7 ans", "8 ans", "9 ans", "10 ans", "11 ans", "12 ans"
+    ]
+    const [brand, setBrand] = React.useState("Inconnue")
+    const [etat, setEtat] = React.useState("Bon")
+    const [tags, setTags] = React.useState([])
     NotificationCenter.default.addObserver("editProduct", product => {
         setVisible(true)
 
         setID(product._id)
 
         setName(product.name)
-        setCategory(product.category._id)
         setDesc(product.description)
         setImage(product.image)
+        setPrice(product.price)
+        setQuantity(product.quantity)
+        setCreation(product.creation)
+        setSexe(product.sexe)
+        setSize(product.size)
+        setBrand(product.brand)
+        setEtat(product.etat)
+        setTags(product.tags)
     })
         
     const onError = err => {
@@ -55,12 +78,15 @@ export default function ProductForm() {
             data: {
                 name,
                 description,
-                "price": 15.76,
-                "quantity": 4,
+                price,
+                quantity,
                 image,
-                "category": {
-                    "connect": "277227674743603712"
-                }
+                creation,
+                sexe,
+                size,
+                brand,
+                etat,
+                tags
             }
         }
         graphQLClient.request(query, variables).then(data => {
@@ -87,7 +113,7 @@ export default function ProductForm() {
                 </IKContext>
             </Row>
 
-            <Description title="Name" content={<Input value={name} width="100%" onChange={nameHandler} placeholder="Name" />} />
+            <Description title="Nom" content={<Input value={name} width="100%" onChange={nameHandler} placeholder="Name" />} />
             <Spacer y={.8} />
             {/* <Description title="Category" content={categorySelect} /> */}
             <Spacer y={.8} />
@@ -95,6 +121,37 @@ export default function ProductForm() {
             value={description}
             onChange={descHandler}
             placeholder="Description" />} />
+            <Spacer y={.8} />
+            <Description title="Prix" content={<Input value={price} width="100%" onChange={priceHandler} placeholder="Prix" type="number" />} />
+            <Spacer y={.8} />
+            <Description title="Quantité" content={<Input value={quantity} width="100%" onChange={quantityHandler} placeholder="Quantité" type="number" />} />
+            <Spacer y={.8} />
+            <Description title="Sexe" content={
+                <Select placeholder="Sexe" value={sexe} onChange={setSexe} width="100%">
+                    <Select.Option value="Fille">Fille</Select.Option>
+                    <Select.Option value="Garçon">Garçon</Select.Option>
+                </Select>
+            }/>
+            <Spacer y={.8} />
+            <Description title="Taille" content={
+                <Select placeholder="Taille" value={size} onChange={setSize} width="100%">
+                    {
+                        sizeList.map(s => <Select.Option value={s}>{s}</Select.Option>)
+                    }
+                </Select>
+            }/>
+            <Spacer y={.8} />
+            <Description title="Marque" content={<Input value={brand} width="100%" onChange={e => setBrand(e.target.value)} placeholder="Marque" />} />
+            <Spacer y={.8} />
+            <Description title="État" content={
+                <Select placeholder="État" value={etat} onChange={setEtat} width="100%">
+                    <Select.Option value="Bon">Très bon état</Select.Option>
+                    <Select.Option value="Excellent">Excellent état</Select.Option>
+                    <Select.Option value="Neuf">Neuf</Select.Option>
+                </Select>
+            }/>
+            <Spacer y={.8} />
+            <Description title="Tags" content={<TagsInput value={tags} onChange={ setTags } />} />
         </Modal.Content>
         <Modal.Action passive onClick={() => setVisible(false)}>Cancel</Modal.Action>
         <Modal.Action onClick={ submit } disabled={submitDisable}>Submit</Modal.Action>

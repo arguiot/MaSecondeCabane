@@ -24,13 +24,16 @@ function NavBar() {
                 <NextLink href="/"><div className={ styles.logo }></div></NextLink>
                 <div className={ styles.menuContainer } style={{ display: state ? "flex" : "none" }}>
                     <NextLink href="/">
-                        <Text b><Link underline onClick={ close }>About</Link></Text>
+                        <Text b><Link href="/about" underline onClick={ close }>À propos</Link></Text>
                     </NextLink>
                     <NextLink href="/">
-                        <Text b><Link underline onClick={ close }>Products</Link></Text>
+                        <Text b><Link underline onClick={ close }>Filles</Link></Text>
                     </NextLink>
                     <NextLink href="/">
-                        <Text b><Link underline onClick={ close }>Other</Link></Text>
+                        <Text b><Link underline onClick={ close }>Garçons</Link></Text>
+                    </NextLink>
+                    <NextLink href="/">
+                        <Text b type="success"><Link underline onClick={ close }>Vendre</Link></Text>
                     </NextLink>
                     {session && <NextLink href="/dashboard">
                         <Text b><Link underline onClick={ close }>Dashboard</Link></Text>

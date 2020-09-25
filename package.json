@@ -26,5 +26,9 @@
     "react-lottie": "^1.2.3",
     "sass": "^1.26.11",
     "swr": "^0.3.2"
+  },
+  "devDependencies": {
+    "globby": "^11.0.1",
+    "prettier": "^2.1.2"
   }
 }

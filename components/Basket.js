@@ -48,10 +48,10 @@ export default function Basket({
                         </Fieldset.Content>
                         <Fieldset.Footer>
                             <Fieldset.Footer.Status>
-                                Quantity: { product.quantity }
+                                Quantité: { product.quantity }
                             </Fieldset.Footer.Status>
                             <Fieldset.Footer.Actions>
-                                <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product.id) }>Remove</Button>
+                                <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product.id) }>Supprimer</Button>
                             </Fieldset.Footer.Actions>
                         </Fieldset.Footer>
                     </Fieldset>
@@ -67,6 +67,10 @@ export default function Basket({
                     <Text b>{ Manager.subtotal }</Text>
                 </Row>
             </Card>
+            <Spacer y={1} />
+            <Row justify="end" style={{ width: "100%" }}>
+                <Button shadow type="secondary">Checkout</Button>
+            </Row>
         </Modal.Content>
     </Modal>
 }
