@@ -60,7 +60,7 @@ function AllPage({ products, router }) {
                 return false
             }
             // Filtres
-            if (p.sexe != sexe && typeof sexe != "undefined") {
+            if (p.sexe != sexe && typeof sexe == "string") {
                 return false
             }
             if (!size.includes(p.size) && size.length > 0) {

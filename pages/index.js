@@ -10,8 +10,9 @@ import Fuse from 'fuse.js'
 import pStyles from '../styles/ProductCard.module.scss'
 import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
+import { withRouter } from "next/router"
 
-export default function Home({ products }) {
+function Home({ products, router }) {
 	// Search logic
 
 	const fuseOption = {
@@ -65,6 +66,14 @@ export default function Home({ products }) {
 		setOptions(relatedOptions)
 		setSearching(false)
 	}
+
+	const submit = e => {
+		e.preventDefault();
+		const params = new URLSearchParams()
+		params.set("search", document.getElementById("search").value)
+
+		router.push(`/product/all?${params.toString()}`)
+	}
 	return (<>
 	<Head>
 		<title>La Seconde Cabane</title>
@@ -75,7 +84,7 @@ export default function Home({ products }) {
 		<Text h1 className={ styles.heroDesc }>
 			Vide dressing de qualité pour les enfants
 		</Text>
-		<div style={{ width: "80%" }}>
+		<form style={{ width: "80%" }} onSubmit={ submit } method="get" action="/product/all">
 			<AutoComplete 
 			className={ styles.searchbar } 
 			size="large" 
@@ -86,8 +95,10 @@ export default function Home({ products }) {
 			searching={searching}
 			options={options}
 			onSearch={searchHandler}
+			name="search"
+			id="search"
 			/>
-		</div>
+		</form>
 	</header>
 	<Page>
 		<Text h1>Nos derniers produits</Text>
@@ -106,6 +117,8 @@ export default function Home({ products }) {
 	</>
 	)
 }
+
+export default withRouter(Home)
 
 export async function getStaticProps() {
 	const query = AllProducts
