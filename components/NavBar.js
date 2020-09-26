@@ -26,10 +26,10 @@ function NavBar() {
                     <NextLink href="/about">
                         <Text b><Link underline onClick={ close }>À propos</Link></Text>
                     </NextLink>
-                    <NextLink href="/">
+                    <NextLink href="/product/all?gender=Fille">
                         <Text b><Link underline onClick={ close }>Filles</Link></Text>
                     </NextLink>
-                    <NextLink href="/">
+                    <NextLink href="/product/all?gender=Garçon">
                         <Text b><Link underline onClick={ close }>Garçons</Link></Text>
                     </NextLink>
                     <NextLink href="/">

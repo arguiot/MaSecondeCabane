@@ -184,7 +184,7 @@ export default function ProductForm() {
             <Spacer y={.8} />
             <Description title="Quantité" content={<Input value={quantity} width="100%" onChange={quantityHandler} placeholder="Quantité" type="number" />} />
             <Spacer y={.8} />
-            <Description title="Sexe" content={
+            <Description title="Genre" content={
                 <Select placeholder="Sexe" value={sexe} onChange={setSexe} width="100%">
                     <Select.Option value="Fille">Fille</Select.Option>
                     <Select.Option value="Garçon">Garçon</Select.Option>

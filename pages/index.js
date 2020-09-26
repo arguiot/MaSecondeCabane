@@ -93,7 +93,7 @@ export default function Home({ products }) {
 		<Text h1>Nos derniers produits</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
-				products.slice(0, 6).map(p => {
+				products.filter(e => e.quantity >= 1).slice(0, 6).map(p => {
 					return <Grid xs={24} md={8}>
 						<ProductCard product={ p } />
 					</Grid>
