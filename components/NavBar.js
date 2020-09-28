@@ -33,7 +33,7 @@ function NavBar() {
                         <Text b><Link underline onClick={ close }>Garçons</Link></Text>
                     </NextLink>
                     <NextLink href="/">
-                        <Text b type="success"><Link underline onClick={ close }>Vendre</Link></Text>
+                        <Text b><Link underline block onClick={ close } className={ styles.sell }>Vendre</Link></Text>
                     </NextLink>
                     {session && <NextLink href="/dashboard">
                         <Text b><Link underline onClick={ close }>Dashboard</Link></Text>

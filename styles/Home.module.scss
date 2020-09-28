@@ -1,3 +1,4 @@
+
 .header {
 	display: flex;
 	justify-content: center;
@@ -7,9 +8,9 @@
 	background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://source.unsplash.com/collection/27372549");
 	background-size: cover;
 	.heroDesc {
-		// font-family: New York Medium;
-		// font-style: normal;
-		// font-weight: bold;
+		font-family: "New York";
+		font-style: normal;
+		font-weight: bold;
 		color: white;
 		max-width: 750px;
 		text-align: center;

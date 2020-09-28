@@ -4,8 +4,11 @@
     width: 100vw;
     height: 100px;
     border-bottom: 1px solid var(--text-color);
-    background: var(--background);
+    background: var(--transparentBack);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
     z-index: 100;
+    filter: saturate(250%);
 
     .logo {
         display: block;
@@ -14,7 +17,7 @@
         top: 0;
         width: 100px;
         height: 100px;
-        background: url("../public/vercel.svg");
+        background: url("../public/logo.svg");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -38,6 +41,12 @@
             /* identical to box height */
             text-align: center;
             letter-spacing: 0.3em;
+            &.sell {
+                color: #f5a623;
+                &:hover {
+                    background-color: rgb(242, 201, 76, 0.3);
+                }
+            }
         }
     }
     .cart {

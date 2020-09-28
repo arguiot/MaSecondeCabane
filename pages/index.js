@@ -96,8 +96,11 @@ function Home({ products, router }) {
 			options={options}
 			onSearch={searchHandler}
 			name="search"
-			id="search"
-			/>
+			id="search">
+				<AutoComplete.Empty>
+					<span>Oups! Essayez autre chose...</span>
+				</AutoComplete.Empty>
+			</AutoComplete>
 		</form>
 	</header>
 	<Page>
@@ -112,8 +115,6 @@ function Home({ products, router }) {
 			}
 		</Grid.Container>
 	</Page>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nyfonts@1.0.0/stylesheet.min.css">
-	</link>
 	</>
 	)
 }

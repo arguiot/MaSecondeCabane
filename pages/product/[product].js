@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import Product from '../../lib/Product'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
-import { Page, Display, Text, Image, Grid, Button, Collapse, Col, Spacer, Row, Spinner } from '@geist-ui/react'
+import { Page, Display, Text, Image, Grid, Button, Collapse, Tag, Spacer, Row, Spinner, Description, Table } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
@@ -30,6 +30,40 @@ export default function ProductPage({ product }) {
     const addToCart = () => {
         Manager.addItem(product)
     }
+    function etat(e) {
+        switch (e) {
+            case "Bon":
+                return "Très bon état"
+            case "Excellent":
+                return "Excellent état"
+            case "Neuf":
+                return "Neuf"
+            default:
+                return "-"
+        }
+    }
+    const table = [
+        {
+            property: "Genre",
+            detail: product.sexe
+        },
+        {
+            property: "Taille",
+            detail: product.size
+        },
+        {
+            property: "Marque",
+            detail: product.brand
+        },
+        {
+            property: "État",
+            detail: etat(product.etat)
+        },
+        {
+            property: "Stock",
+            detail: product.quantity
+        }
+    ]
 
     return (<>
         <Head>
@@ -41,7 +75,7 @@ export default function ProductPage({ product }) {
             <Grid.Container gap={8} justify="center">
                 <Grid xs={24} md={12}>
                     <Text h1>{ product.name }</Text>
-                    <Display shadow caption={ product.description }>
+                    <Display shadow caption={ `Taille: ${product.size}` }>
                         <Image width={ 500 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-500/${product.image}` } />
                     </Display>
                 </Grid>
@@ -51,23 +85,51 @@ export default function ProductPage({ product }) {
                         <Text h2 type="warning">{ product.price }$</Text>
                     </Row>
                     <Row justify="center">
-                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow>Ajouter au panier</Button>
+                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >Ajouter au panier</Button>
                     </Row>
                     <Spacer y={2} />
                     <Collapse.Group>
                         <Collapse title="Description" initialVisible >
-                            <Text>{ product.description }</Text>
+                            <Description title="Tags" content={
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    flexWrap: "wrap"
+                                }}>
+                                    {
+                                        product.tags.map((v, i) => <>
+                                            <Tag type="success" invert style={{ margin: "3px" }}>
+                                                { v }
+                                            </Tag>
+                                        </>)
+                                    }
+                                </div>
+                            } />
+                            <Spacer y={.8} />
+                            <Description title="Descriptif" content={
+                                <Text style={{ textAlign: "justify" }}>{ product.description }</Text>
+                            } />
                         </Collapse>
-                        <Collapse title="Question B">
-                            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat.</Text>
+                        <Collapse title="Détails">
+                            <Table data={table}>
+                                <Table.Column prop="property" label="Propriété" />
+                                <Table.Column prop="detail" label="Détail" />
+                            </Table>
                         </Collapse>
                     </Collapse.Group>
                 </Grid>
             </Grid.Container>
+            <Spacer y={2} />
+            <Text h2>FAQ</Text>
+            <Collapse.Group>
+                <Collapse title="Question A">
+                    <Text style={{ textAlign: "justify" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                        veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.</Text>
+                </Collapse>
+            </Collapse.Group>
         </Page>
         </>
     )
