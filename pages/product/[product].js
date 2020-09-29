@@ -7,6 +7,7 @@ import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
 import { ProductByID } from '../../lib/Requests'
+import Footer from '../../components/Footer'
 
 export default function ProductPage({ product }) {
     const router = useRouter()
@@ -131,6 +132,7 @@ export default function ProductPage({ product }) {
                 </Collapse>
             </Collapse.Group>
         </Page>
+        <Footer />
         </>
     )
 }

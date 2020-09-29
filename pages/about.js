@@ -1,5 +1,6 @@
 import { Page, Text } from "@geist-ui/react"
 import Head from "next/head"
+import Footer from "../components/Footer"
 import NavBar from "../components/NavBar"
 export default function About() {
     return <>
@@ -11,5 +12,6 @@ export default function About() {
     <Page>
         <Text h1>À propos de nous</Text>
     </Page>
+    <Footer />
     </>
 }

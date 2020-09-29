@@ -7,6 +7,7 @@ import { AllProducts } from '../../lib/Requests'
 import ProductCard from '../../components/ProductCard'
 import Fuse from 'fuse.js'
 import { withRouter } from 'next/router'
+import Footer from "../../components/Footer"
 
 function AllPage({ products, router }) {
     const [search, setSearch] = React.useState(router.query.search)
@@ -137,6 +138,7 @@ function AllPage({ products, router }) {
             </Grid>
         </Grid.Container>
     </Page>
+    <Footer />
     </>
 }
 

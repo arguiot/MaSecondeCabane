@@ -11,6 +11,7 @@ import pStyles from '../styles/ProductCard.module.scss'
 import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
+import Footer from '../components/Footer'
 
 function Home({ products, router }) {
 	// Search logic
@@ -115,6 +116,7 @@ function Home({ products, router }) {
 			}
 		</Grid.Container>
 	</Page>
+	<Footer />
 	</>
 	)
 }

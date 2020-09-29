@@ -9,6 +9,7 @@ import { Notification, NotificationCenter } from '@arguiot/broadcast.js';
 import router from 'next/router'
 import pStyles from '../../styles/ProductCard.module.scss'
 import { AllProducts } from '../../lib/Requests';
+import Footer from '../../components/Footer';
 
 const fetcher = async (query) => await graphQLClient.request(query);
 
@@ -127,6 +128,7 @@ export default function Dashboard() {
                 </Tabs.Item>
             </Tabs>
         </Page>
+        <Footer />
         <ProductForm />
     </>
 }

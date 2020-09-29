@@ -32,7 +32,7 @@ function NavBar() {
                     <NextLink href="/product/all?gender=Garçon">
                         <Text b><Link underline onClick={ close }>Garçons</Link></Text>
                     </NextLink>
-                    <NextLink href="/">
+                    <NextLink href="/product/sell">
                         <Text b><Link underline block onClick={ close } className={ styles.sell }>Vendre</Link></Text>
                     </NextLink>
                     {session && <NextLink href="/dashboard">

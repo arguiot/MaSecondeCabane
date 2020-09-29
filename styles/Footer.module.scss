@@ -1,0 +1,12 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    z-index: -10;
+    width: 100vw;
+    height: 500px;
+    background: var(--footer);
+    color: var(--text-color);
+    .container {
+        height: calc(100% - 50px);
+    }
+}
