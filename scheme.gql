@@ -12,11 +12,18 @@ type Product @collection(name: "products") {
   creation: Long # Timestamp as Int but was too big to fit in Int
 }
 
-type Customer @collection(name: "customers") {
+type Customer @embedded {
   firstName: String!
   lastName: String!
   address: Address!
   telephone: String!
+  email: String!
+}
+
+type Request @collection(name: "requests") {
+  customer: Customer!
+  address: Address!
+  description: String!
 }
 
 type Order @collection(name: "orders") {
@@ -39,17 +46,8 @@ type ProductLine @embedded {
   price: Float! # Total price
 }
 
-input SubmitOrderProductInput {
-  productId: ID!
-  quantity: Int!
-}
-
 type Query {
   allProducts: [Product!]! @index(name: "all_products")
-  allCustomers: [Customer!]! @index(name: "all_customers")
   allOrders: [Order!]! @index(name: "all_orders")
-}
-
-type Mutation {
-  submitOrder(customerId: ID!, products: [SubmitOrderProductInput]): Order! @resolver(name: "submit_order")
+  allRequest: [Request!]! @index(name: "all_requests")
 }

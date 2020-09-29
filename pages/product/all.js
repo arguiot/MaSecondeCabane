@@ -82,6 +82,12 @@ function AllPage({ products, router }) {
         return prdcts
     }
     
+    const all = results(search, sexe, size, etat).slice(0, 6).map(p => {
+        return <Grid xs={24} md={8}>
+            <ProductCard product={ p } />
+        </Grid>
+    })
+
     return <>
 	<Head>
 		<title>Produits</title>
@@ -128,11 +134,7 @@ function AllPage({ products, router }) {
             <Grid xs={24} md={18}>
                 <Grid.Container gap={2} justify="flex-start">
                     {
-                        results(search, sexe, size, etat).slice(0, 6).map(p => {
-                            return <Grid xs={24} md={8}>
-                                <ProductCard product={ p } />
-                            </Grid>
-                        })
+                        all.length == 0 ? <Text h4 type="secondary" align="center" style={{width: "100%"}}>Oups! Essayez autre chose...</Text> : all
                     }
                 </Grid.Container>
             </Grid>
