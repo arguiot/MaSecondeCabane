@@ -81,29 +81,53 @@ function Home({ products, router }) {
 		<link rel="icon" href="/favicon.ico" />
 	</Head>
 	<NavBar />
-	<header className={styles.header}>
-		<Text h1 className={ styles.heroDesc }>
-			Vide dressing de qualité pour les enfants
-		</Text>
-		<form style={{ width: "80%" }} onSubmit={ submit } method="get" action="/product/all">
-			<AutoComplete 
-			className={ styles.searchbar } 
-			size="large" 
-			icon={<Search />} 
-			placeholder="Essayez “manteau en 5 ans”" 
-			clearable 
-			width="100%" 
-			searching={searching}
-			options={options}
-			onSearch={searchHandler}
-			name="search"
-			id="search">
-				<AutoComplete.Empty>
-					<span>Oups! Essayez autre chose...</span>
-				</AutoComplete.Empty>
-			</AutoComplete>
-		</form>
-	</header>
+	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
+		<Grid xs={ 10 } md={ 9 } className={ styles.hero }/>
+		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
+			<Text h1 className={ styles.heroDesc }>
+				Vide dressing de qualité pour les enfants
+			</Text>
+			<form onSubmit={ submit } style={{ width: "calc(100% - 50px)" }} method="get" action="/product/all">
+				<AutoComplete 
+				className={ styles.searchbar } 
+				size="large" 
+				icon={<Search />} 
+				placeholder="Essayez “manteau en 5 ans”" 
+				clearable 
+				width="100%" 
+				searching={searching}
+				options={options}
+				onSearch={searchHandler}
+				name="search"
+				id="search">
+					<AutoComplete.Empty>
+						<span>Oups! Essayez autre chose...</span>
+					</AutoComplete.Empty>
+				</AutoComplete>
+			</form>
+		</Grid>
+	</Grid.Container>
+	<Grid.Container gap={4} justify="center" className={ styles.process }>
+		<Grid xs={ 24 } md={ 8 }>
+			<Image src="/img/you-sell.png" width={400} height={400}/>
+			<Text h2 align="center">
+				Vous vendez ce qui ne vous sert plus
+			</Text>
+		</Grid>
+		<Grid xs={ 24 } md={ 8 }>
+			<Image src="/img/we-put-online.png" width={400} height={400}/>
+			<Text h2 align="center">
+				On s’occupe de la mise en ligne
+			</Text>
+		</Grid>
+		<Grid xs={ 24 } md={ 8 }>
+			<Image src="/img/you-receive.png" width={400} height={400}/>
+			<Text h2 align="center">
+			Vous recevez l’argent.<br/>
+			That’s it!
+			</Text>
+		</Grid>
+	</Grid.Container>
 	<Page>
 		<Text h1>Nos derniers produits</Text>
 		<Grid.Container gap={2} justify="flex-start">

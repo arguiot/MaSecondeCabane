@@ -1,28 +1,48 @@
 
 .header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	height: calc(100vh - 100px);
-	background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://source.unsplash.com/collection/27372549");
+	height: calc(100vh - 50px);
+	background: url("../public/sprinkles.svg"), #0070f3;
 	background-size: cover;
-	.heroDesc {
-		font-family: "New York";
-		font-style: normal;
-		font-weight: bold;
-		color: white;
-		max-width: 750px;
-		text-align: center;
+	.hero {
+		background: url("https://source.unsplash.com/collection/27372549");
+		background-size: cover;
+		background-position: center;
+		height: calc(100% - 43px);
 	}
-
-	.searchbar {
-		width: 100% !important;
-		background: var(--background);
-		border-radius: 15px;
-		height: 60px !important;
-		div {
-			border-radius: 15px !important;
+	.search {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		.heroDesc {
+			font-family: 'MikadoBold';
+			font-style: normal;
+			font-weight: bold;
+			color: white;
+			max-width: 750px;
+			text-align: center;
 		}
+
+		.searchbar {
+			width: 100% !important;
+			background: var(--background);
+			border-radius: 15px;
+			height: 60px !important;
+			div {
+				border-radius: 15px !important;
+			}
+		}
+	}
+	
+}
+
+.process {
+	background: #F2C94C;
+	color: white;
+}
+
+@media (max-width: 950px) {
+	.header .hero {
+		display: none;
 	}
 }

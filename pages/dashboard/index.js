@@ -80,7 +80,7 @@ export default function Dashboard() {
                 <Button auto type="secondary" onClick={ signout }>Sign Out</Button>
             </Row>
             <Tabs initialValue="1">
-                <Tabs.Item label="overview" value="1">The Evil Rabbit Jumped over the Fence.</Tabs.Item>
+                <Tabs.Item label="overview" value="1">Vide.</Tabs.Item>
                 <Tabs.Item label="produits" value="2">
                     <Button onClick={() => {
                         const msg = new Notification("newProduct")

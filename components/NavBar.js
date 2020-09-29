@@ -23,9 +23,6 @@ function NavBar() {
     return <div className={ styles.nav }>
                 <NextLink href="/"><div className={ styles.logo }></div></NextLink>
                 <div className={ styles.menuContainer } style={{ display: state ? "flex" : "none" }}>
-                    <NextLink href="/about">
-                        <Text b><Link underline onClick={ close }>À propos</Link></Text>
-                    </NextLink>
                     <NextLink href="/product/all?gender=Fille">
                         <Text b><Link underline onClick={ close }>Filles</Link></Text>
                     </NextLink>
@@ -34,6 +31,9 @@ function NavBar() {
                     </NextLink>
                     <NextLink href="/product/sell">
                         <Text b><Link underline block onClick={ close } className={ styles.sell }>Vendre</Link></Text>
+                    </NextLink>
+                    <NextLink href="/about">
+                        <Text b><Link underline onClick={ close }>À propos</Link></Text>
                     </NextLink>
                     {session && <NextLink href="/dashboard">
                         <Text b><Link underline onClick={ close }>Dashboard</Link></Text>
