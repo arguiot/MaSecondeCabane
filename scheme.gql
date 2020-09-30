@@ -22,7 +22,6 @@ type Customer @embedded {
 
 type Request @collection(name: "requests") {
   customer: Customer!
-  address: Address!
   description: String!
 }
 

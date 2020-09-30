@@ -10,7 +10,7 @@ import router from 'next/router'
 import pStyles from '../../styles/ProductCard.module.scss'
 import { AllProducts } from '../../lib/Requests';
 import Footer from '../../components/Footer';
-
+import AllRequests from '../../components/AllRequests';
 const fetcher = async (query) => await graphQLClient.request(query);
 
 export default function Dashboard() {
@@ -80,7 +80,9 @@ export default function Dashboard() {
                 <Button auto type="secondary" onClick={ signout }>Sign Out</Button>
             </Row>
             <Tabs initialValue="1">
-                <Tabs.Item label="overview" value="1">Vide.</Tabs.Item>
+                <Tabs.Item label="overview" value="1">
+                    <AllRequests />
+                </Tabs.Item>
                 <Tabs.Item label="produits" value="2">
                     <Button onClick={() => {
                         const msg = new Notification("newProduct")
