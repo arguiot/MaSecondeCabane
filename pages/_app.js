@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
     md.addEventListener('change', event => {
       setThemeType(lastThemeType => (event.matches ? 'dark' : 'light'))
     })
-  })
+  }, [])
 
   const theme = useTheme()
 
