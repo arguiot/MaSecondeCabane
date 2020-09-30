@@ -82,8 +82,9 @@ function Home({ products, router }) {
 	</Head>
 	<NavBar />
 	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
-		<Grid xs={ 10 } md={ 9 } className={ styles.hero }/>
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
+			<div className={ styles.hero } />
+			<Image width={ 259.81 } height={ 105 } src="/img/hanger.svg" />
 			<Text h1 className={ styles.heroDesc }>
 				Vide dressing de qualité pour les enfants
 			</Text>
@@ -107,22 +108,22 @@ function Home({ products, router }) {
 			</form>
 		</Grid>
 	</Grid.Container>
-	<Grid.Container gap={4} justify="center" className={ styles.process }>
-		<Grid xs={ 24 } md={ 8 }>
-			<Image src="/img/you-sell.png" width={400} height={400}/>
-			<Text h2 align="center">
+	<Grid.Container gap={4} justify="space-evenly" className={ styles.process }>
+		<Grid xs={ 24 } md={ 6 }>
+			<Image src="/img/you-sell.svg" width={400} height={400} className={ styles.image } />
+			<Text h3 align="center">
 				Vous vendez ce qui ne vous sert plus
 			</Text>
 		</Grid>
-		<Grid xs={ 24 } md={ 8 }>
-			<Image src="/img/we-put-online.png" width={400} height={400}/>
-			<Text h2 align="center">
+		<Grid xs={ 24 } md={ 6 }>
+			<Image src="/img/we-put-online.svg" width={400} height={400} className={ styles.image } />
+			<Text h3 align="center">
 				On s’occupe de la mise en ligne
 			</Text>
 		</Grid>
-		<Grid xs={ 24 } md={ 8 }>
-			<Image src="/img/you-receive.png" width={400} height={400}/>
-			<Text h2 align="center">
+		<Grid xs={ 24 } md={ 6 }>
+			<Image src="/img/you-receive.svg" width={400} height={400} className={ styles.image } />
+			<Text h3 align="center">
 			Vous recevez l’argent.<br/>
 			That’s it!
 			</Text>
