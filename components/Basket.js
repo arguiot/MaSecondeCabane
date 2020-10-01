@@ -40,6 +40,12 @@ export default function Basket({
     const [checkout, setCheckout] = React.useState(false)
     const handleClick = async (event) => {
         setCheckout(true)
+
+        const available = await Manager.checkAvailability()
+        if (available == false) {
+            setCheckout("Un ou plusieurs produit(s) que vous avez demandé n'est plus en stock.")
+            return
+        }
         const stripe = await stripePromise;
 
         const response = await fetch("/api/create-session", {
@@ -48,7 +54,7 @@ export default function Basket({
         });
 
         const session = await response.json();
-        
+
         setCheckout(false)
         // When the customer clicks on the button, redirect them to Checkout.
         const result = await stripe.redirectToCheckout({
@@ -64,7 +70,7 @@ export default function Basket({
     };
 
     if (typeof checkout == "string") {
-        return <Modal {...bindings}>
+        return <Modal {...bindings} onClose={ () => { setCheckout(false); bindings.onClose() } }>
                     <Modal.Title>Erreur</Modal.Title>
                     <Modal.Subtitle>Un probleme est survenu</Modal.Subtitle>
                     <Modal.Content>
@@ -142,7 +148,7 @@ export default function Basket({
             </Row>
         </Modal.Content>
     </Modal>
-    const loading = <Modal width="80vw" {...bindings}>
+    const loading = <Modal width="80vw" {...bindings} onClose={ () => { setCheckout(false); bindings.onClose() } }>
         <Modal.Title>Panier</Modal.Title>
         <Modal.Content>
             <Lottie options={{

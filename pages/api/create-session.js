@@ -18,6 +18,16 @@ export default async (req, res) => {
             quantity: entry.quantity,
         }
     })
+
+    const metadata = {
+        "order": JSON.stringify(body.map(product => {
+            return {
+                id: product._id,
+                quantity: product.quantity
+            }
+        }))
+    }
+
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: items,
@@ -28,6 +38,7 @@ export default async (req, res) => {
             allowed_countries: ['CA'],
         },
         allow_promotion_codes: true,
+        payment_intent_data: { metadata }
     });
     res.statusCode = 200
     res.setHeader('Content-Type', 'application/json')
