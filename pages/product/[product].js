@@ -8,6 +8,8 @@ import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
 import { ProductByID } from '../../lib/Requests'
 import Footer from '../../components/Footer'
+import ReactImageZoom from 'react-image-zoom';
+import styles from "../../styles/Product.module.scss"
 
 export default function ProductPage({ product }) {
     const router = useRouter()
@@ -76,8 +78,9 @@ export default function ProductPage({ product }) {
             <Grid.Container gap={8} justify="center">
                 <Grid xs={24} md={12}>
                     <Text h1>{ product.name }</Text>
-                    <Display shadow caption={ `Taille: ${product.size}` }>
-                        <Image width={ 500 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-500/${product.image}` } />
+                    <Display shadow caption={ `Taille: ${product.size}` } className={ styles.display }>
+                        <ReactImageZoom width={ 500 } img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original"/>
+                        {/* <Image width={ 500 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-500/${product.image}` } /> */}
                     </Display>
                 </Grid>
                 <Grid xs={24} md={12}>
