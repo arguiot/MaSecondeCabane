@@ -3,13 +3,8 @@ import { Button, Col, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, 
 import Manager from '../lib/CartManager'
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
 import pStyles from '../styles/ProductCard.module.scss'
-import { loadStripe } from "@stripe/stripe-js";
 import Lottie from 'react-lottie';
 import animationData from '../lotties/checkout.json';
-
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-const stripePromise = loadStripe("pk_test_w5u3iYrl9ZVHPRHxmZQcUElC");
 
 export default function Basket({
     bindings
@@ -40,12 +35,15 @@ export default function Basket({
     const [checkout, setCheckout] = React.useState(false)
     const handleClick = async (event) => {
         setCheckout(true)
-
         const available = await Manager.checkAvailability()
         if (available == false) {
             setCheckout("Un ou plusieurs produit(s) que vous avez demandé n'est plus en stock.")
             return
         }
+
+        const Stripe = (await import("@stripe/stripe-js"))
+        const stripePromise = Stripe.loadStripe("pk_test_w5u3iYrl9ZVHPRHxmZQcUElC");
+
         const stripe = await stripePromise;
 
         const response = await fetch("/api/create-session", {
