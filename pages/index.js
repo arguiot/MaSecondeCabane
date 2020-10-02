@@ -6,7 +6,6 @@ import NavBar from '../components/NavBar'
 import styles from '../styles/Home.module.scss'
 import { graphQLClient } from '../utils/fauna'
 import { AllProducts } from '../lib/Requests'
-import Fuse from 'fuse.js'
 import pStyles from '../styles/ProductCard.module.scss'
 import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
@@ -29,8 +28,6 @@ function Home({ products, router }) {
 			"tags"
 		]
 	}
-
-	const fuse = new Fuse(products.filter(e => e.quantity >= 1), fuseOption)
 
 	const [options, setOptions] = useState()
 	const [searching, setSearching] = useState(false)
@@ -56,9 +53,11 @@ function Home({ products, router }) {
 		</AutoComplete.Option>
 	  )
 
-	const searchHandler = (currentValue) => {
+	const searchHandler = async (currentValue) => {
 		if (!currentValue) return setOptions([])
 		setSearching(true)
+		const Fuse = (await import('fuse.js')).default
+		const fuse = new Fuse(products.filter(e => e.quantity >= 1), fuseOption)
 		const relatedOptions = fuse.search(currentValue).map(entry => {
 			return makeOption(entry.item)
 		})
@@ -134,7 +133,7 @@ function Home({ products, router }) {
 		<Grid.Container gap={2} justify="flex-start">
 			{
 				products.filter(e => e.quantity >= 1).slice(0, 6).map(p => {
-					return <Grid xs={24} md={8}>
+					return <Grid key={ p._id } xs={24} md={8}>
 						<ProductCard product={ p } />
 					</Grid>
 				})

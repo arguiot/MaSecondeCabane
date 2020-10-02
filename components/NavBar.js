@@ -1,10 +1,13 @@
 import styles from '../styles/NavBar.module.scss'
 import { Link, Text, useModal } from '@geist-ui/react'
 import NextLink from 'next/link'
-import Cart from './Cart'
-import Basket from './Basket'
+
+import dynamic from 'next/dynamic'
 import { NotificationCenter } from '@arguiot/broadcast.js'
 import { useSession } from 'next-auth/client'
+
+const Basket = dynamic(() => import('./Basket'))
+const Cart = dynamic(() => import('./Cart'))
 
 function NavBar() {
     const [state, setState] = React.useState(false)
