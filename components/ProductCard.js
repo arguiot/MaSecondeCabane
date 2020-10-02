@@ -8,9 +8,9 @@ export default function ProductCard({ product }) {
             <Text h4 style={{ marginBottom: '0' }}>{ product.name }</Text>
             <Text type="secondary" small className={ styles.truncate }>{ product.description }</Text>
             <Card.Footer>
-                <Row justify="space-between" style={{ width: "100%" }}>
+                <Row justify="space-between" style={{ width: "100%", alignItems: "center" }}>
                     <Text h5>Prix</Text>
-                    <Text h5 type="warning">{ product.price }$</Text>
+                    <Text h4 type="warning">{ product.price }$</Text>
                 </Row>
             </Card.Footer>
         </Card>

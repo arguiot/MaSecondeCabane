@@ -1,5 +1,10 @@
 .display {
     div {
         overflow: unset !important;
+        div {
+            img {
+                object-fit: contain;
+            }
+        }
     }
 }

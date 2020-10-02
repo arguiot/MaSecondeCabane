@@ -1,15 +1,17 @@
 import { useRouter } from 'next/router'
-import Product from '../../lib/Product'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
-import { Page, Display, Text, Image, Grid, Button, Collapse, Tag, Spacer, Row, Spinner, Description, Table } from '@geist-ui/react'
+import { Page, Display, Text, Grid, Button, Collapse, Tag, Spacer, Row, Spinner, Description, Table } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
 import { ProductByID } from '../../lib/Requests'
 import Footer from '../../components/Footer'
-import ReactImageZoom from 'react-image-zoom';
 import styles from "../../styles/Product.module.scss"
+import dynamic from 'next/dynamic'
+
+const ReactImageZoom = dynamic(() => import('react-image-zoom'))
+
 
 export default function ProductPage({ product }) {
     const router = useRouter()
@@ -70,8 +72,27 @@ export default function ProductPage({ product }) {
 
     return (<>
         <Head>
-            <title>{ product.name }</title>
+            <title>Ma Seconde Cabane - { product.name }</title>
             <link rel="icon" href="/favicon.ico" />
+            <meta name="description" content={ product.description } />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                "@context" : "http://schema.org",
+                "@type" : "Product",
+                "name" : product.name,
+                "image" : `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}`,
+                "description" : product.description,
+                "brand" : {
+                    "@type" : "Brand",
+                    "name" : "Ma Seconde Cabane",
+                    "logo" : "https://store.arguiot.vercel.app/logo.svg"
+                },
+                "offers" : {
+                    "@type" : "Offer",
+                    "price" : `${product.price}`,
+                    "priceCurrency": "CAD",
+                    "availability": product.quantity > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+                }
+            })}} />
         </Head>
         <NavBar />
         <Page>
@@ -79,7 +100,7 @@ export default function ProductPage({ product }) {
                 <Grid xs={24} md={12}>
                     <Text h1>{ product.name }</Text>
                     <Display shadow caption={ `Taille: ${product.size}` } className={ styles.display }>
-                        <ReactImageZoom width={ 500 } img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original"/>
+                        <ReactImageZoom width={ 500 } img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original" />
                         {/* <Image width={ 500 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-500/${product.image}` } /> */}
                     </Display>
                 </Grid>

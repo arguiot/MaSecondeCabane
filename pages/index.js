@@ -37,7 +37,7 @@ function Home({ products, router }) {
 		<AutoComplete.Option value={product.name}>
 			<Link href="/product/[product]" as={ `/product/${product._id}` }>
 				<div className={ pStyles.container } style={{ width: "70vw", padding: "10px 0" }}>
-					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}` } height={100} className={ pStyles.img }/>
+					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}` } height={100} className={ pStyles.img } alt={ product.name }/>
 					<Col className={ pStyles.desc }>
 						<Text h5>{ product.name }</Text>
 						<Text p className={ pStyles.truncate }>{ product.description }</Text>
@@ -78,12 +78,13 @@ function Home({ products, router }) {
 	<Head>
 		<title>La Seconde Cabane</title>
 		<link rel="icon" href="/favicon.ico" />
+		<meta name="description" content="Ma Seconde Cabane est un vide dressing de qualité au Québec pour les enfants" />
 	</Head>
 	<NavBar />
 	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
 			<div className={ styles.hero } />
-			<Image width={ 259.81 } height={ 105 } src="/img/hanger.svg" />
+			<Image width={ 259.81 } height={ 105 } src="/img/hanger.svg" alt="Cintre" />
 			<Text h1 className={ styles.heroDesc }>
 				Vide dressing de qualité pour les enfants
 			</Text>
@@ -109,19 +110,19 @@ function Home({ products, router }) {
 	</Grid.Container>
 	<Grid.Container gap={4} justify="space-evenly" className={ styles.process }>
 		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/you-sell.svg" width={400} height={400} className={ styles.image } />
+			<Image src="/img/you-sell.svg" width={400} height={400} className={ styles.image } alt="T-Shirt" />
 			<Text h3 align="center">
 				Vous vendez ce qui ne vous sert plus
 			</Text>
 		</Grid>
 		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/we-put-online.svg" width={400} height={400} className={ styles.image } />
+			<Image src="/img/we-put-online.svg" width={400} height={400} className={ styles.image } alt="Internet"/>
 			<Text h3 align="center">
 				On s’occupe de la mise en ligne
 			</Text>
 		</Grid>
 		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/you-receive.svg" width={400} height={400} className={ styles.image } />
+			<Image src="/img/you-receive.svg" width={400} height={400} className={ styles.image } alt="Dollar" />
 			<Text h3 align="center">
 			Vous recevez l’argent.<br/>
 			That’s it!

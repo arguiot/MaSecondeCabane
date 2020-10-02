@@ -29,7 +29,7 @@ class Animation extends React.Component {
                         <Badge size="mini">{ Manager.numberOfItems }</Badge>
                     }
                     {
-                        Manager.numberOfItems == 0 ? <img src="/bag.svg" width={32} height={32} /> : <Lottie options={this.defaultOptions} height={32} width={32} isClickToPauseDisabled={true} />
+                        Manager.numberOfItems == 0 ? <img src="/bag.svg" width={32} height={32} alt="Panier" /> : <Lottie options={this.defaultOptions} height={32} width={32} isClickToPauseDisabled={true} />
                     }
                 </Badge.Anchor>
             </div>
