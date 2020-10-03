@@ -6923,6 +6923,11 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
+jsbarcode@^3.11.3:
+  version "3.11.3"
+  resolved "https://registry.yarnpkg.com/jsbarcode/-/jsbarcode-3.11.3.tgz#1c8fb9b5c7d4452e571930801b00e12094a7051e"
+  integrity sha512-TsoeHL/0ASvKE3+sbLuTkT2cGvDV/MsQAQVuGf/1EWKe7SXNYlyzW/3TFeAmqJg/Fhz6pPgrci8o5hR+Ej59Jw==
+
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -9440,6 +9445,11 @@ pretty-format@^3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
   integrity sha1-v77VbV6ad2ZF9LH/eqGjrE+jw4U=
+
+print-js@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/print-js/-/print-js-1.4.0.tgz#f272a5462e066c7739b4db8f363a354dba0b8779"
+  integrity sha512-YAoEcQOHNFMDeAy8bTlT7hNUiBNYQEuEuXE/kCl4OwIAnifsxWykNxENbnUDsPi8RXroRrAVzAJnh//HqlW/nA==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -12123,6 +12133,11 @@ xmlchars@^2.1.1:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
+
+xmldom@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.3.0.tgz#e625457f4300b5df9c2e1ecb776147ece47f3e5a"
+  integrity sha512-z9s6k3wxE+aZHgXYxSTpGDo7BYOUfJsIRyoZiX6HTjwpwfS2wpQBQKa2fD+ShLyPkqDYo5ud7KitmLZ2Cd6r0g==
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"

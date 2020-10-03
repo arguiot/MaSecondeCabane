@@ -100,8 +100,7 @@ export default function ProductPage({ product }) {
                 <Grid xs={24} md={12}>
                     <Text h1>{ product.name }</Text>
                     <Display shadow caption={ `Taille: ${product.size}` } className={ styles.display }>
-                        <ReactImageZoom width={ 500 } img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original" />
-                        {/* <Image width={ 500 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-500/${product.image}` } /> */}
+                        <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original" />
                     </Display>
                 </Grid>
                 <Grid xs={24} md={12}>

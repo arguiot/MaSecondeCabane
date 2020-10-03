@@ -96,19 +96,22 @@ export default function Basket({
                     return <Grid xs={24} md={12}>
                     <Fieldset>
                         <Fieldset.Content>
-                            <div className={ pStyles.container }>
-                                <Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100} className={ pStyles.img }/>
-                                <Col className={ pStyles.desc }>
+                            <Grid.Container gap={1} justify="center">
+                                <Grid xs={7}>
+                                    <Image src={
+                                        `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}`
+                                        } height={100} className={ pStyles.img } />
+                                </Grid>
+                                <Grid xs={13}>
                                     <Text h5>{ product.name }</Text>
                                     <Text p className={ pStyles.truncate }>{ product.description }</Text>
-                                </Col>
-                                <Spacer x={2} />
-                                <Col span={3}>
+                                </Grid>
+                                <Grid xs={4}>
                                     <Row align="middle" style={{ height: '100%' }}>
                                         <Text h5>{ product.price }$</Text>
                                     </Row>
-                                </Col>
-                            </div>
+                                </Grid>
+                            </Grid.Container>
                         </Fieldset.Content>
                         <Fieldset.Footer>
                             <Fieldset.Footer.Status>
