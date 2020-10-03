@@ -1,5 +1,6 @@
 const stripe = require('stripe')('sk_test_3nOsPQAD4eQ1WaBbh9H99gcf');
 
+// const YOUR_DOMAIN = 'https://store.arguiot.vercel.app/checkout';
 const YOUR_DOMAIN = 'http://localhost:3000/checkout';
 
 export default async (req, res) => {

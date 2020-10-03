@@ -90,8 +90,9 @@ function AllPage({ products, router }) {
 
     return <>
 	<Head>
-		<title>Produits</title>
+		<title>Ma Seconde Cabane - Produits</title>
 		<link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Catalogue des produits de Ma Seconde Cabane" />
 	</Head>
 	<NavBar />
     <Page>

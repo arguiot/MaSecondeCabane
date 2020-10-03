@@ -115,7 +115,7 @@ export default function Basket({
                                 Quantité: { product.quantity }
                             </Fieldset.Footer.Status>
                             <Fieldset.Footer.Actions>
-                                <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product.id) }>Supprimer</Button>
+                                <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product._id) }>Supprimer</Button>
                             </Fieldset.Footer.Actions>
                         </Fieldset.Footer>
                     </Fieldset>
@@ -128,7 +128,7 @@ export default function Basket({
             <Card>
                 <Row justify="space-between">
                     <Text b>Sous total</Text>
-                    <Text b>{ Manager.subtotal }</Text>
+                    <Text b>{ Math.round(Manager.subtotal * 100) / 100 }</Text>
                 </Row>
                 <Row justify="space-between">
                     <Text b>TVA</Text>
