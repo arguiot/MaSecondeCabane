@@ -7,6 +7,7 @@ import { CreateRequest } from "../../lib/Requests"
 import { graphQLClient } from "../../utils/fauna"
 export default function Sell() {
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
     const [fname, setFName] = useState()
     const [lname, setLName] = useState()
@@ -18,7 +19,23 @@ export default function Sell() {
     const [country, setCountry] = useState("Canada")
     const [description, setDescription] = useState()
 
+    const getType = (prop) => {
+        if (error == false) {
+            return "default"
+        }
+        if (typeof prop == "undefined" || prop == "") {
+            return "error"
+        }
+        return "default"
+    }
     const submit = () => {
+        for (let i in [fname, lname, email, phone, street, city, postal, country, description]) {
+            if (typeof prop == "undefined" || prop == "") {
+                setError(true)
+                return
+            }
+        }
+
         const query = CreateRequest
         const variables = {
             data: {
@@ -57,22 +74,22 @@ export default function Sell() {
         <Grid.Container justify="center" gap={2}>
             <Grid xs={12}>
                 <Description title="Prénom" content={
-                    <Input name="fristname" placeholder="Prénom" width="100%" value={ fname } onChange={e => setFName(e.target.value)} disabled={ loading } />
+                    <Input name="fristname" placeholder="Prénom" width="100%" value={ fname } status={ getType(fname) } onChange={e => setFName(e.target.value)} disabled={ loading } />
                 } />
             </Grid>
             <Grid xs={12}>
                 <Description title="Nom" content={
-                    <Input name="lastname" placeholder="Nom de famille" width="100%" value={ lname } onChange={e => setLName(e.target.value)} disabled={ loading }/>
+                    <Input name="lastname" placeholder="Nom de famille" width="100%" value={ lname } status={ getType(lname) } onChange={e => setLName(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
                 <Description title="Email" content={
-                    <Input placeholder="example@mail.com" width="100%" value={ email } onChange={e => setEmail(e.target.value)} disabled={ loading }/>
+                    <Input placeholder="example@mail.com" width="100%" value={ email } status={ getType(email) } onChange={e => setEmail(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
                 <Description title="Telephone" content={
-                    <Input placeholder="+1 ..." width="100%" type="tel" value={ phone } onChange={e => setPhone(e.target.value)} disabled={ loading }/>
+                    <Input placeholder="+1 ..." width="100%" status="tel" value={ phone } status={ getType(phone) } onChange={e => setPhone(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
         </Grid.Container>
@@ -82,28 +99,28 @@ export default function Sell() {
         <Grid.Container justify="center" gap={2}>
             <Grid xs={12}>
                 <Description title="Rue" content={
-                    <Input placeholder="Adresse ligne 1" width="100%" value={ street } onChange={e => setStreet(e.target.value)} disabled={ loading }/>
+                    <Input placeholder="Adresse ligne 1" width="100%" value={ street } status={ getType(street) } onChange={e => setStreet(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
                 <Description title="Ville" content={
-                    <Input placeholder="Ville" width="100%" value={ city } onChange={e => setCity(e.target.value)} disabled={ loading }/>
+                    <Input placeholder="Ville" width="100%" value={ city } status={ getType(city) } onChange={e => setCity(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
                 <Description title="Code postal" content={
-                    <Input placeholder="Code postal" width="100%" value={ postal } onChange={e => setPostal(e.target.value)} disabled={ loading }/>
+                    <Input placeholder="Code postal" width="100%" value={ postal } status={ getType(postal) } onChange={e => setPostal(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
                 <Description title="Pays" content={
-                    <Input placeholder="Pays" width="100%" value={ country } onChange={e => setCountry(e.target.value)} disabled={ loading } />
+                    <Input placeholder="Pays" width="100%" value={ country } status={ getType(country) } onChange={e => setCountry(e.target.value)} disabled={ loading } />
                 } />
             </Grid>
         </Grid.Container>
         <Spacer y={2} />
         <Text h4>Description</Text>
-        <Textarea width="100%" placeholder="Décrivez ce que vous voulez nous vendre. Veuillez noter que nous ne répondrons qu'aux demande répondant à nos critères." minHeight="500px" value={ description } onChange={e => setDescription(e.target.value)} disabled={ loading }/>
+        <Textarea width="100%" placeholder="Décrivez ce que vous voulez nous vendre. Veuillez noter que nous ne répondrons qu'aux demande répondant à nos critères." minHeight="500px" status={ getType(description) } value={ description } onChange={e => setDescription(e.target.value)} disabled={ loading }/>
         <Spacer y={1} />
         <Row>
             <Button shadow type="secondary" loading={ loading } onClick={ submit }>Envoyer</Button>
