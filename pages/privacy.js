@@ -4,7 +4,7 @@ import Footer from "../components/Footer"
 import NavBar from "../components/NavBar"
 import { User } from '@geist-ui/react-icons'
 
-export default function About() {
+export default function Privacy() {
     return <>
 	<Head>
 		<title>Confidentialité</title>
