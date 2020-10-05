@@ -1,6 +1,11 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 
+const authorized = [
+  "elodiepacault@hotmail.com", // CEO
+  "arguiot@gmail.com" // Admin
+]
+
 const options = {
   // Configure one or more authentication providers
   providers: [
@@ -13,7 +18,7 @@ const options = {
   callbacks: {
     signIn: async (user, account, profile) => {
       if (account.provider === 'google' &&
-          profile.email == "arguiot@gmail.com") {
+          authorized.includes(profile.email)) {
         return Promise.resolve(true)
       } else {
         return Promise.resolve(false)

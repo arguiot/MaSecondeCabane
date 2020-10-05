@@ -37,7 +37,7 @@ export default function About() {
         <Row>
             <Card width="auto">
                 <Row gap={2}>
-                    <Avatar src="https://s.gravatar.com/avatar/b8656595b327e0419fab6bb3d8c6250d?s=120&d=mp" size={ 60 } className={ styles.avatar } />
+                    <Avatar src="https://s.gravatar.com/avatar/0af70fdf7af284740a2b2d30354ac1df?s=120&d=mp" size={ 60 } className={ styles.avatar } />
                     <Col>
                         <Text h6>Élodie Iché</Text>
                         <Text small>CEO</Text>

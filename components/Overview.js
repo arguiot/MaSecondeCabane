@@ -178,7 +178,6 @@ export default function Requests() {
                     <Grid.Container gap={2} justify="flex-start">
                         {
                             selected.line.map(line => {
-                                debugger;
                             return <Grid xs={24} key={line.id}>
                                 <Fieldset>
                                     <Fieldset.Content>

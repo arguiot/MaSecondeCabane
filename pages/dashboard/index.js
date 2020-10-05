@@ -28,7 +28,9 @@ export default function Dashboard() {
         }}>
             <Text h1>Administration</Text>
             <Button auto type="success" onClick={ () => signin("google") }>Sign In With Google</Button>
+            <Spacer y={12} />
         </div>
+        <Footer />
         </>
     }
 
