@@ -76,7 +76,7 @@ function Home({ products, router }) {
 	}
 	return (<>
 	<Head>
-		<title>La Seconde Cabane</title>
+		<title>Ma Seconde Cabane</title>
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="description" content="Ma Seconde Cabane est un vide dressing de qualité au Québec pour les enfants" />
 	</Head>
