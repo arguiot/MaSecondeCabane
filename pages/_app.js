@@ -39,7 +39,12 @@ function MyApp({
 
   return (
     <Provider session={pageProps.session}>
-      <GeistProvider theme={{ type: themeType }}>
+      <GeistProvider theme={{
+		  type: themeType,
+		  palette: {
+			  foreground: "#007577"
+		  }
+		}}>
         <CssBaseline />
         <Component {...pageProps} />
         <NextNProgress color="var(--text-color)" />

@@ -2,7 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'New York', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Amatic SC', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
 }
 
@@ -57,134 +57,136 @@ p.magnify {
   }
 }
 // Fonts
-@font-face {
-  font-family: 'MikadoBold';
-  src: url('fonts/MikadoBold.eot');
-  src: url('fonts/MikadoBold.eot?#iefix') format('embedded-opentype'),
-      url('fonts/MikadoBold.woff2') format('woff2'),
-      url('fonts/MikadoBold.woff') format('woff'),
-      url('fonts/MikadoBold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
 
-@font-face {
-  font-family: 'MikadoMedium';
-  src: url('fonts/MikadoMedium.eot');
-  src: url('fonts/MikadoMedium.eot?#iefix') format('embedded-opentype'),
-      url('fonts/MikadoMedium.woff2') format('woff2'),
-      url('fonts/MikadoMedium.woff') format('woff'),
-      url('fonts/MikadoMedium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'MikadoBold';
+//   src: url('fonts/MikadoBold.eot');
+//   src: url('fonts/MikadoBold.eot?#iefix') format('embedded-opentype'),
+//       url('fonts/MikadoBold.woff2') format('woff2'),
+//       url('fonts/MikadoBold.woff') format('woff'),
+//       url('fonts/MikadoBold.ttf') format('truetype');
+//   font-weight: bold;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-Bold.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'MikadoMedium';
+//   src: url('fonts/MikadoMedium.eot');
+//   src: url('fonts/MikadoMedium.eot?#iefix') format('embedded-opentype'),
+//       url('fonts/MikadoMedium.woff2') format('woff2'),
+//       url('fonts/MikadoMedium.woff') format('woff'),
+//       url('fonts/MikadoMedium.ttf') format('truetype');
+//   font-weight: 500;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-BoldItalic.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-BoldItalic.woff') format('woff');
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-Bold.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-Bold.woff') format('woff');
+//   font-weight: bold;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-Black.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-Black.woff') format('woff');
-  font-weight: bolder;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-BoldItalic.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-BoldItalic.woff') format('woff');
+//   font-weight: bold;
+//   font-style: italic;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-BlackItalic.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-BlackItalic.woff') format('woff');
-  font-weight: bolder;
-  font-style: italic;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-Black.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-Black.woff') format('woff');
+//   font-weight: bolder;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-RegularItalic.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-RegularItalic.woff') format('woff');
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-BlackItalic.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-BlackItalic.woff') format('woff');
+//   font-weight: bolder;
+//   font-style: italic;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-HeavyItalic.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-HeavyItalic.woff') format('woff');
-  font-weight: bolder;
-  font-style: italic;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-RegularItalic.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-RegularItalic.woff') format('woff');
+//   font-weight: normal;
+//   font-style: italic;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-Regular.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-HeavyItalic.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-HeavyItalic.woff') format('woff');
+//   font-weight: bolder;
+//   font-style: italic;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-SemiboldItalic.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-SemiboldItalic.woff') format('woff');
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-Regular.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-Regular.woff') format('woff');
+//   font-weight: normal;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-Heavy.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-Heavy.woff') format('woff');
-  font-weight: bolder;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-SemiboldItalic.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-SemiboldItalic.woff') format('woff');
+//   font-weight: normal;
+//   font-style: italic;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-Semibold.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-Semibold.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-Heavy.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-Heavy.woff') format('woff');
+//   font-weight: bolder;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-MediumItalic.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-MediumItalic.woff') format('woff');
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-Semibold.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-Semibold.woff') format('woff');
+//   font-weight: normal;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'New York';
-  src: url('./fonts/NewYorkMedium-Medium.woff2') format('woff2'),
-      url('./fonts/NewYorkMedium-Medium.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-MediumItalic.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-MediumItalic.woff') format('woff');
+//   font-weight: normal;
+//   font-style: italic;
+//   font-display: swap;
+// }
+
+// @font-face {
+//   font-family: 'New York';
+//   src: url('./fonts/NewYorkMedium-Medium.woff2') format('woff2'),
+//       url('./fonts/NewYorkMedium-Medium.woff') format('woff');
+//   font-weight: normal;
+//   font-style: normal;
+//   font-display: swap;
+// }
