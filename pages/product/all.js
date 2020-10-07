@@ -117,7 +117,7 @@ function AllPage({ products, router }) {
                 }/>
                 <Spacer y={.8} />
                 <Description title="Taille" content={
-                    <Select placeholder="Size" multiple width="100%" value={size} onChange={setSize} style={{ maxWidth: "none" }}>
+                    <Select placeholder="Taille" multiple width="100%" value={size} onChange={setSize} style={{ maxWidth: "none" }}>
                         {
                             sizeList.map(s => <Select.Option value={s}>{s}</Select.Option>)
                         }

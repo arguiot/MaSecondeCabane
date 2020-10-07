@@ -8,5 +8,8 @@
     color: var(--text-color);
     .container {
         height: calc(100% - 50px);
+        .collapse {
+            width: 90vw;
+        }
     }
 }
