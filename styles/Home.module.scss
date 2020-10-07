@@ -3,28 +3,29 @@
 	height: calc(100vh - 50px);
 	background: #d3e5ff; // #0070f3; //#2F80ED;
 	background-size: cover;
+	.hero {
+		background: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)), url("https://source.unsplash.com/collection/27372549");
+		background-size: cover;
+		background-position: center;
+		position: absolute;
+		top: calc(100px + 5vh);
+		left: 5vw;
+		width: 90vw;
+		height: calc(90vh - 100px);
+	}
 	.search {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-
-		.hero {
-			background: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)), url("https://source.unsplash.com/collection/27372549");
-			background-size: cover;
-			background-position: center;
-			position: absolute;
-			top: calc(100px + 5vh);
-			left: 5vw;
-			width: 90vw;
-			height: calc(90vh - 100px);
-		}
+		width: 90vw;
 
 		.heroDesc {
 			font-style: normal;
 			font-weight: bold;
 			color: white;
 			max-width: 750px;
+			width: 90vw;
 			text-align: center;
 		}
 

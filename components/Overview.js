@@ -46,7 +46,9 @@ export default function Requests() {
 
     const requests = data.allRequest.data
     const orders = data.allOrders.data
-    let map = new mapkit.Map()
+    let map = {
+        destroy: () => {}
+    }
     const createMap = () => {
         const addr = `${selected.customer.address.street}, ${selected.customer.address.city}, ${selected.customer.address.zipCode}, ${selected.customer.address.country}`
         setTimeout(() => {

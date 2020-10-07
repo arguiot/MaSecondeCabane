@@ -1,4 +1,4 @@
-import { CreateOrder } from '../../lib/Requests';
+import { CreateOrder, ProductByID, UpdateProduct } from '../../lib/Requests';
 import { graphQLClient } from "../../utils/fauna"
 
 const stripe = require('stripe')('sk_test_3nOsPQAD4eQ1WaBbh9H99gcf');
@@ -49,6 +49,32 @@ export default async (req, res) => {
                 }
             }
             const { createOrder } = await graphQLClient.request(query, variables)
+            // Update Quantities
+            const array = JSON.parse(paymentIntent.metadata.order)
+            for (var i = 0; i < array.length; i++) {
+                const entry = array[i]
+                const query = ProductByID
+                const { findProductByID } = await graphQLClient.request(query, { id: entry.id })
+                const updateQuery = UpdateProduct
+                const variables = {
+                    id: entry.id,
+                    data: {
+                        name: findProductByID.name,
+                        description: findProductByID.description,
+                        price: findProductByID.price,
+                        quantity: findProductByID.quantity - entry.quantity,
+                        image: findProductByID.image,
+                        creation: findProductByID.creation,
+                        sexe: findProductByID.sexe,
+                        size: findProductByID.size,
+                        brand: findProductByID.brand,
+                        etat: findProductByID.etat,
+                        tags: findProductByID.tags
+                    }
+                }
+                const { updateProduct } = await graphQLClient.request(updateQuery, variables)
+                console.log(`Updated Porduct ${updateProduct._id}`)
+            }
             console.log(`Created order: ${createOrder._id}`)
             break;
         case 'payment_method.attached':
