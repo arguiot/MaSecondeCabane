@@ -69,7 +69,8 @@ export default async (req, res) => {
                         size: findProductByID.size,
                         brand: findProductByID.brand,
                         etat: findProductByID.etat,
-                        tags: findProductByID.tags
+                        tags: findProductByID.tags,
+                        favorite: findProductByID.favorite
                     }
                 }
                 const { updateProduct } = await graphQLClient.request(updateQuery, variables)

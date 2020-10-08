@@ -1,4 +1,4 @@
-import { Modal, useModal, Input, Description, Select, Spacer, Textarea, Image, Display, Row, Text } from "@geist-ui/react";
+import { Modal, useModal, Input, Description, Select, Spacer, Textarea, Image, Display, Row, Text, Toggle } from "@geist-ui/react";
 
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
 
@@ -47,6 +47,7 @@ export default function ProductForm() {
     const [brand, setBrand] = React.useState("Inconnue")
     const [etat, setEtat] = React.useState("Bon")
     const [tags, setTags] = React.useState([])
+    const [favorite, setFavorite] = React.useState(false)
 
     NotificationCenter.default.addObserver("newProduct", () => {
         setVisible(true)
@@ -66,6 +67,7 @@ export default function ProductForm() {
         setBrand("Inconnue")
         setEtat("Bon")
         setTags([])
+        setFavorite(false)
     })
 
     NotificationCenter.default.addObserver("deleteProduct", product => {
@@ -94,6 +96,7 @@ export default function ProductForm() {
         setBrand(product.brand)
         setEtat(product.etat)
         setTags(product.tags)
+        setFavorite(product.favorite)
     })
         
     const onError = err => {
@@ -114,7 +117,8 @@ export default function ProductForm() {
             size,
             brand,
             etat,
-            tags
+            tags,
+            favorite
         }
         if (id == null) {
             const query = CreateProduct
@@ -179,6 +183,13 @@ export default function ProductForm() {
             value={description}
             onChange={descHandler}
             placeholder="Description" />} />
+            <Spacer y={.8} />
+            <Description title="Favori" content={
+                <Row justify="space-between">
+                    <Text type="secondary">Afficher sur la page d'acceuil</Text>
+                    <Toggle checked={ favorite } onChange={ e => setFavorite(e.target.checked) } size="large" />
+                </Row>
+            } />
             <Spacer y={.8} />
             <Description title="Prix" content={<Input value={price} width="100%" onChange={priceHandler} placeholder="Prix" type="number" />} />
             <Spacer y={.8} />

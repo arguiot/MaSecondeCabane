@@ -112,7 +112,7 @@ function Home({ products, router }) {
 		<Text h1>Nos derniers produits</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
-				products.filter(e => e.quantity >= 1).slice(0, 6).map(p => {
+				products.filter(e => (e.quantity >= 1 && e.favorite == true)).slice(0, 6).map(p => {
 					return <Grid key={ p._id } xs={24} md={8}>
 						<ProductCard product={ p } />
 					</Grid>
