@@ -62,7 +62,7 @@ export default function Footer() {
                         </Row>
                         <Row>
                             <Button icon={<Instagram />} type="abort" auto size="large" onClick={() => window.location =
-                            "https://instagram.com"}>Instagram.</Button>
+                            "https://www.instagram.com/masecondecabane/"}>Instagram.</Button>
                         </Row>
                     </Col>
                     <Col style={{ width: "auto" }}>
