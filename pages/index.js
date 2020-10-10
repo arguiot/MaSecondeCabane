@@ -74,6 +74,15 @@ function Home({ products, router }) {
 
 		router.push(`/product/all?${params.toString()}`)
 	}
+
+	function shuffle(a) {
+		for (let i = a.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[a[i], a[j]] = [a[j], a[i]];
+		}
+		return a;
+	}
+
 	return (<>
 	<Head>
 		<title>Ma Seconde Cabane</title>
@@ -109,10 +118,10 @@ function Home({ products, router }) {
 		</Grid>
 	</Grid.Container>
 	<Page>
-		<Text h1>Nos derniers produits</Text>
+		<Text h1>Produits à ne pas manquer</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
-				products.filter(e => (e.quantity >= 1 && e.favorite == true)).slice(0, 6).map(p => {
+				shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).map(p => {
 					return <Grid key={ p._id } xs={24} md={8}>
 						<ProductCard product={ p } />
 					</Grid>
