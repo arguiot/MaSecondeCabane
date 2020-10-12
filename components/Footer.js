@@ -1,10 +1,9 @@
 import styles from '../styles/Footer.module.scss'
 import { Mail, Facebook, Instagram } from "@geist-ui/react-icons"
-import { Input, Grid, Button, Text, Col, Row, useMediaQuery, Collapse } from '@geist-ui/react'
+import { Input, Grid, Button, Text, Col, Row, Collapse } from '@geist-ui/react'
 import NextLink from 'next/link'
 export default function Footer() {
-    const isXS = useMediaQuery('xs')
-    const collapse = <Collapse.Group key="collapse">
+    const collapse = <Collapse.Group key="collapse" className={ styles.containerSmall }>
         <Collapse title="Tenez-vous au courant!" className={ styles.collapse }>
             <Input placeholder="example@mail.com">
                 S'inscrire à la newsletter
@@ -37,7 +36,7 @@ export default function Footer() {
         </Collapse>
     </Collapse.Group>
 
-    const grid = <Grid.Container justify="space-evenly" gap={2} alignItems="center" className={ styles.container } key="grid">
+    const grid = <Grid.Container justify="space-evenly" gap={2} alignItems="center" className={ styles.containerBig } key="grid">
             <Grid xs={24} md={12}>
                 <Row justify="center">
                     <Col style={{ width: "auto" }}>
@@ -83,7 +82,8 @@ export default function Footer() {
         </Grid.Container>
 
     return <Col className={ styles.footer }>
-    { isXS ? collapse : grid }
+    { collapse }
+    { grid }
     <Text p align="center" type="secondary">Copyright © { new Date().getFullYear() } La Seconde Cabane. Tous droits réservés.</Text>
     </Col>
 }

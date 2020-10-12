@@ -11,35 +11,21 @@ import ProductsDash from '../../components/ProductsDash';
 export default function Dashboard() {
     const [ session, loading ] = useSession()
 
-    if (!session) {
-        // signIn()
-        return <>
-        <Head>
-            <title>Dashboard</title>
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <NavBar />
-        <Spacer y={5} />
-        <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column"
-        }}>
-            <Text h1>Administration</Text>
-            <Button auto type="success" onClick={ () => signin("google") }>Sign In With Google</Button>
-            <Spacer y={12} />
-        </div>
-        <Footer />
-        </>
-    }
+    const sign = <>
+    <Spacer y={5} />
+    <div style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column"
+    }}>
+        <Text h1>Administration</Text>
+        <Button auto type="success" onClick={ () => signin("google") }>Sign In With Google</Button>
+        <Spacer y={12} />
+    </div>
+    </>
 
-    return <>
-        <Head>
-            <title>Dashboard</title>
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <NavBar />
+    const dash = <>
         <Page>
             <Row justify="space-between" width="100%" style={{ flexWrap: "wrap-reverse" }}>
                 <Text h1>Dashboard</Text>
@@ -54,7 +40,16 @@ export default function Dashboard() {
                 </Tabs.Item>
             </Tabs>
         </Page>
-        <Footer />
         <ProductForm />
+    </>
+    return <>
+    <Head>
+        <title>Dashboard</title>
+        <link rel="icon" href="/favicon.ico" />
+    </Head>
+    <NavBar />
+    {session && dash}
+    {!session && sign}
+    <Footer />
     </>
 }
