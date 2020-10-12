@@ -28,6 +28,6 @@ const options = {
 }
 
 export default (req, res) => {
-  console.log(req)
+  // console.log(req)
   NextAuth(req, res, options)
 }
