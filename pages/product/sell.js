@@ -69,6 +69,25 @@ export default function Sell() {
 	<NavBar />
     <Page>
         <Text h1>Vendre vos vêtements</Text>
+        <Grid.Container justify="center" gap={2}>
+            <Grid xs={ 24 } md={ 12 }>
+                <Text h3>NOUS RACHETONS</Text>
+                <Text p>
+                    • Les vêtements de 0 à 10 ans<br/>
+                    • Les articles dans un état impeccable<br/>
+                    • Essentiellement des articles de marques<br/>
+                    • Des lots de 10 articles minimum
+                </Text>
+            </Grid>
+            <Grid xs={ 24 } md={ 12 }>
+                <Text h3>NOUS NE RACHETONS PAS</Text>
+                <Text p>
+                    • Les vêtements fait maison, les sous-vêtements, chaussettes<br/>
+                    • Les vêtements sans étiquette de marque et d’âge<br/>
+                    • Les articles tâchés, décousus, boulochés, troués, recousus, abîmés ...
+                </Text>
+            </Grid>
+        </Grid.Container>
         <Text h4>Informations de base</Text>
         <Divider />
         <Grid.Container justify="center" gap={2}>

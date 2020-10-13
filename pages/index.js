@@ -74,6 +74,15 @@ function Home({ products, router }) {
 
 		router.push(`/product/all?${params.toString()}`)
 	}
+
+	function shuffle(a) {
+		for (let i = a.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[a[i], a[j]] = [a[j], a[i]];
+		}
+		return a;
+	}
+
 	return (<>
 	<Head>
 		<title>Ma Seconde Cabane</title>
@@ -82,11 +91,11 @@ function Home({ products, router }) {
 	</Head>
 	<NavBar />
 	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
+		<div className={ styles.hero } />
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
-			<div className={ styles.hero } />
 			<Image width={ 259.81 } height={ 105 } src="/img/hanger.svg" alt="Cintre" />
 			<Text h1 className={ styles.heroDesc }>
-				Vide dressing de qualité pour les enfants
+				<span style={{ fontSize: "1.3em" }}>Vide dressing de qualité pour les enfants</span>
 			</Text>
 			<form onSubmit={ submit } style={{ width: "calc(100% - 50px)" }} method="get" action="/product/all">
 				<AutoComplete 
@@ -108,6 +117,18 @@ function Home({ products, router }) {
 			</form>
 		</Grid>
 	</Grid.Container>
+	<Page>
+		<Text h1>Produits à ne pas manquer</Text>
+		<Grid.Container gap={2} justify="flex-start">
+			{
+				shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).map(p => {
+					return <Grid key={ p._id } xs={24} md={8}>
+						<ProductCard product={ p } />
+					</Grid>
+				})
+			}
+		</Grid.Container>
+	</Page>
 	<Grid.Container gap={4} justify="space-evenly" className={ styles.process }>
 		<Grid xs={ 24 } md={ 6 }>
 			<Image src="/img/you-sell.svg" width={400} height={400} className={ styles.image } alt="T-Shirt" />
@@ -129,18 +150,6 @@ function Home({ products, router }) {
 			</Text>
 		</Grid>
 	</Grid.Container>
-	<Page>
-		<Text h1>Nos derniers produits</Text>
-		<Grid.Container gap={2} justify="flex-start">
-			{
-				products.filter(e => e.quantity >= 1).slice(0, 6).map(p => {
-					return <Grid key={ p._id } xs={24} md={8}>
-						<ProductCard product={ p } />
-					</Grid>
-				})
-			}
-		</Grid.Container>
-	</Page>
 	<Footer />
 	</>
 	)

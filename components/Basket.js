@@ -93,7 +93,7 @@ export default function Basket({
             <Grid.Container gap={2} justify="flex-start">
             {
                 Manager.cart.map(product => {
-                    return <Grid xs={24} md={12}>
+                    return <Grid xs={24} md={12} key={ product._id }>
                     <Fieldset>
                         <Fieldset.Content>
                             <Grid.Container gap={1} justify="center">

@@ -105,8 +105,8 @@ export default function ProductPage({ product }) {
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Row justify="space-between">
-                        <Text h3>Prix</Text>
-                        <Text h2 type="warning">{ product.price }$</Text>
+                        <Text h3 style={{ fontFamily: "var(--normalFont) !important"}}>Prix</Text>
+                        <Text h2 type="warning" style={{ fontFamily: "var(--normalFont) !important"}}>{ product.price }$</Text>
                     </Row>
                     <Row justify="center">
                         <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >Ajouter au panier</Button>

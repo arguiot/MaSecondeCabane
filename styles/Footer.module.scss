@@ -6,7 +6,28 @@
     height: 500px;
     background: var(--footer);
     color: var(--text-color);
-    .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .containerBig {
         height: calc(100% - 50px);
+    }
+    .containerSmall {
+        display: none;
+        .collapse {
+            width: 90vw;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .footer {
+        .containerBig {
+            display: none;
+        }
+        .containerSmall {
+            display: block;
+        }
     }
 }

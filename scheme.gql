@@ -10,6 +10,7 @@ type Product @collection(name: "products") {
   etat: String!
   tags: [String!]!
   creation: Long # Timestamp as Int but was too big to fit in Int
+  favorite: Boolean!
 }
 
 type Customer @embedded {
