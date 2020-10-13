@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 100px;
+    height: 200px;
     border-bottom: 1px solid var(--text-color);
     background: var(--transparentBack);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -13,10 +13,11 @@
     .logo {
         display: block;
         position: relative;
-        left: 5vw;
+        left: 50%;
         top: 0;
-        width: 100px;
-        height: 100px;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 120px;
         background: url("../public/logo.svg");
         background-size: contain;
         background-repeat: no-repeat;
@@ -25,7 +26,7 @@
     }
     .menuContainer {
         position: fixed;
-        top: 0;
+        top: 100px;
         left: calc(5vw + 100px);
         right: calc(5vw + 100px);
         height: 100px;
