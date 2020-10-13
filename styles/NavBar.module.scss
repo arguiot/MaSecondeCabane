@@ -99,16 +99,26 @@
 }
 
 @media (max-width: 900px) {
-    .nav .menuContainer {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: auto;
-        background: var(--background);
-        flex-direction: column;
-        width: 100vw;
+    .nav {
+        height: 100px;
+        .logo {
+            left: 5vw;
+            height: 100px;
+            width: 100px;
+            transform: unset;
+        }
+        .menuContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: auto;
+            background: var(--background);
+            flex-direction: column;
+            width: 100vw;
+        }
     }
+    
     .menuToggle {
         display: flex !important;
     }

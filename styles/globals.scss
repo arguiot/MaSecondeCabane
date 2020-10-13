@@ -14,6 +14,12 @@ body {
   background: var(--background);
 }
 
+@media (max-width: 900px) {
+  body {
+    padding-top: 100px !important;
+  }
+}
+
 #__next {
   background: var(--background);
 }

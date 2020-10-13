@@ -69,8 +69,8 @@ export default function Footer() {
                         <NextLink href="/about">
                             <a><Text type="secondary">Qui sommes-nous?</Text></a>
                         </NextLink>
-                        <NextLink href="#">
-                            <a><Text type="secondary">Conditions générales</Text></a>
+                        <NextLink href="/faq">
+                            <a><Text type="secondary">FAQ</Text></a>
                         </NextLink>
                         <NextLink href="/privacy">
                             <a><Text type="secondary">Confidentialité</Text></a>
