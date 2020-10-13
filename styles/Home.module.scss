@@ -1,6 +1,6 @@
 
 .header {
-	height: calc(100vh - 50px);
+	height: calc(100vh - 150px);
 	background: #007577;//#d3e5ff; // #0070f3; //#2F80ED;
 	background-size: cover;
 	.hero {
@@ -8,10 +8,10 @@
 		background-size: cover;
 		background-position: center;
 		position: absolute;
-		top: calc(100px + 5vh);
+		top: calc(200px + 5vh);
 		left: 5vw;
 		width: 90vw;
-		height: calc(90vh - 100px);
+		height: calc(90vh - 200px);
 	}
 	.search {
 		display: flex;
