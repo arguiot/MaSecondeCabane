@@ -9,6 +9,10 @@
     backdrop-filter: saturate(180%) blur(20px);
     z-index: 100;
     filter: saturate(250%);
+    transition: height 200ms ease-in-out;
+    * {
+        transition: all 200ms ease-in-out;
+    }
 
     .logo {
         display: block;
@@ -24,6 +28,7 @@
         background-position: center;
         cursor: pointer;
     }
+
     .menuContainer {
         position: fixed;
         top: 100px;
@@ -42,14 +47,32 @@
             /* identical to box height */
             text-align: center;
             letter-spacing: 0.3em;
+
             &.sell {
                 color: #ea4335;
+
                 &:hover {
                     background-color: rgb(234, 67, 53, 0.3);
                 }
             }
         }
     }
+
+    &.small {
+        height: 100px;
+
+        .logo {
+            left: 5vw;
+            height: 100px;
+            width: 100px;
+            transform: unset;
+        }
+
+        .menuContainer {
+            top: 0;
+        }
+    }
+
     .cart {
         position: fixed;
         top: 35px;
@@ -70,21 +93,23 @@
         flex-direction: column;
         cursor: pointer;
         z-index: 100;
+
         .l {
             transition: all 250ms ease-in-out;
             width: 40px;
             height: 2px;
             background: var(--text-color);
         }
+
         &.cross {
             .l:nth-child(1) {
                 transform: rotate(45deg) translate(0, calc(40px / 3));
             }
-    
+
             .l:nth-child(2) {
                 opacity: 0;
             }
-    
+
             .l:nth-child(3) {
                 transform: rotate(-45deg) translate(0, calc(-40px / 3));
             }
@@ -101,12 +126,14 @@
 @media (max-width: 900px) {
     .nav {
         height: 100px;
+
         .logo {
             left: 5vw;
             height: 100px;
             width: 100px;
             transform: unset;
         }
+
         .menuContainer {
             display: none;
             position: fixed;
@@ -118,7 +145,7 @@
             width: 100vw;
         }
     }
-    
+
     .menuToggle {
         display: flex !important;
     }

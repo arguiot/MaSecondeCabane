@@ -15,12 +15,24 @@ function NavBar() {
     const menuToggleClass = [styles.menuToggle, state ? styles.cross : ""].join(" ")
     const { setVisible, bindings } = useModal()
 
+    const [small, setSmall] = React.useState(false)
+    React.useEffect(() => {
+        window.onscroll = () => {
+            const y = document.documentElement.scrollTop || document.body.scrollTop
+            if (y >= 100) {
+                setSmall(true)
+            } else if (y < 100) {
+                setSmall(false)
+            }
+        }
+    }, [])
+
     const [, updateState] = React.useState();
     const forceUpdate = React.useCallback(() => updateState({}), []);
     NotificationCenter.default.addObserver("newItem", data => {
         forceUpdate()
     }, "NavBar")
-    return <div className={ styles.nav }>
+    return <div className={ [styles.nav, small ? styles.small : ""].join(" ") }>
                 <NextLink href="/"><div className={ styles.logo }></div></NextLink>
                 <div className={ styles.menuContainer } style={{ display: state ? "flex" : "none" }}>
                     <NextLink href="/product/all?gender=Fille">

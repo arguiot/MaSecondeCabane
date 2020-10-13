@@ -5,9 +5,6 @@ import {
 	useTheme
 } from '@geist-ui/react'
 import NextNProgress from 'nextjs-progressbar';
-import {
-	Provider
-} from 'next-auth/client'
 
 function MyApp({
 	Component,
@@ -38,18 +35,16 @@ function MyApp({
 	const theme = useTheme()
 
   return (
-    <Provider session={pageProps.session}>
-      <GeistProvider theme={{
-		  type: themeType,
-		  palette: {
-			  foreground: "#007577"
-		  }
-		}}>
-        <CssBaseline />
-        <Component {...pageProps} />
-        <NextNProgress color="var(--text-color)" />
-      </GeistProvider>
-    </Provider>
+    <GeistProvider theme={{
+		type: themeType,
+		palette: {
+			foreground: "#007577"
+		}
+	  }}>
+	  <CssBaseline />
+	  <Component {...pageProps} />
+	  <NextNProgress color="var(--text-color)" />
+	</GeistProvider>
   )
 }
 export default MyApp
