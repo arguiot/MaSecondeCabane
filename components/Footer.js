@@ -1,6 +1,6 @@
 import styles from '../styles/Footer.module.scss'
 import { Mail, Facebook, Instagram } from "@geist-ui/react-icons"
-import { Input, Grid, Button, Text, Col, Row, Collapse } from '@geist-ui/react'
+import { Input, Grid, Button, Text, Col, Row, Collapse, Link } from '@geist-ui/react'
 import NextLink from 'next/link'
 export default function Footer() {
     const collapse = <Collapse.Group key="collapse" className={ styles.containerSmall }>
@@ -84,6 +84,6 @@ export default function Footer() {
     return <Col className={ styles.footer }>
     { collapse }
     { grid }
-    <Text p align="center" type="secondary">Copyright © { new Date().getFullYear() } La Seconde Cabane. Tous droits réservés.</Text>
+    <Text p align="center" type="secondary">Copyright © { new Date().getFullYear() } La Seconde Cabane. Tous droits réservés.<br/><Link href="https://dashboard.masecondecabane.com" icon target="_blank" rel="noopener noreferrer">Administration</Link></Text>
     </Col>
 }

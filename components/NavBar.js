@@ -4,7 +4,6 @@ import NextLink from 'next/link'
 
 import dynamic from 'next/dynamic'
 import { NotificationCenter } from '@arguiot/broadcast.js'
-import { useSession } from 'next-auth/client'
 
 const Basket = dynamic(() => import('./Basket'))
 const Cart = dynamic(() => import('./Cart'))
@@ -15,8 +14,6 @@ function NavBar() {
     const close = () => setState(false)
     const menuToggleClass = [styles.menuToggle, state ? styles.cross : ""].join(" ")
     const { setVisible, bindings } = useModal()
-    // Next Auth
-    const [ session, loading ] = useSession()
 
     const [, updateState] = React.useState();
     const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -38,9 +35,6 @@ function NavBar() {
                     <NextLink href="/about">
                         <Text b><Link underline onClick={ close }>À propos</Link></Text>
                     </NextLink>
-                    {session && <NextLink href="/dashboard">
-                        <Text b><Link underline onClick={ close }>Dashboard</Link></Text>
-                    </NextLink>}
                 </div>
                 <div onClick={ e => { 
                     setVisible(true); 
