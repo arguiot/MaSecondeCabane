@@ -84,6 +84,6 @@ export default function Footer() {
     return <Col className={ styles.footer }>
     { collapse }
     { grid }
-    <Text p align="center" type="secondary">Copyright © { new Date().getFullYear() } La Seconde Cabane. Tous droits réservés.<br/><Link href="https://dashboard.masecondecabane.com" icon target="_blank" rel="noopener noreferrer">Administration</Link></Text>
+    <Text p align="center" type="secondary">Copyright © { new Date().getFullYear() } Ma Seconde Cabane. Tous droits réservés.<br/><Link href="https://dashboard.masecondecabane.com" icon target="_blank" rel="noopener noreferrer">Administration</Link></Text>
     </Col>
 }

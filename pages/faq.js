@@ -23,7 +23,7 @@ export default function About() {
         <Text h2>Acheter sur Ma Seconde Cabane</Text>
         <Collapse.Group>
         <Collapse title="J’ai des questions à propos d’un article mis en vente, comment faire ?">
-            Pour toutes vos questions concernant un article, veuillez envoyer un mail à l'adresse suivante : <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>
+            Pour toutes vos questions concernant un article, veuillez envoyer un mail à l'adresse suivante : <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>.
             Nous nous ferons un plaisir de vous renseigner.
         </Collapse>
         <Collapse title="Quels sont les moyens de paiement acceptés ?">
