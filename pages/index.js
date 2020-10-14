@@ -130,23 +130,28 @@ function Home({ products, router }) {
 		</Grid.Container>
 	</Page>
 	<Grid.Container gap={4} justify="space-evenly" className={ styles.process }>
-		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/you-sell.svg" width={400} height={400} className={ styles.image } alt="T-Shirt" />
+		<Grid xs={ 24 } md={ 4 }>
+			<Image src="/img/selection.svg" width={400} height={400} className={ styles.image } alt="Selection" />
 			<Text h3 align="center">
-				Vous vendez ce qui ne vous sert plus
+				Nous sélectionnons les plus belles pièces pour vous
 			</Text>
 		</Grid>
-		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/we-put-online.svg" width={400} height={400} className={ styles.image } alt="Internet"/>
+		<Grid xs={ 24 } md={ 4 }>
+			<Image src="/img/fast.svg" width={400} height={400} className={ styles.image } alt="Rapidité"/>
 			<Text h3 align="center">
-				On s’occupe de la mise en ligne
+				Les articles vous sont envoyés sous 72h
 			</Text>
 		</Grid>
-		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/you-receive.svg" width={400} height={400} className={ styles.image } alt="Dollar" />
+		<Grid xs={ 24 } md={ 4 }>
+			<Image src="/img/safe.svg" width={400} height={400} className={ styles.image } alt="Securité" />
 			<Text h3 align="center">
-			Vous recevez l’argent.<br/>
-			That’s it!
+				Votre paiement est sécurisé
+			</Text>
+		</Grid>
+		<Grid xs={ 24 } md={ 4 }>
+			<Image src="/img/environment.svg" width={400} height={400} className={ styles.image } alt="Protection" />
+			<Text h3 align="center">
+				Faire de la seconde main le premier choix
 			</Text>
 		</Grid>
 	</Grid.Container>
