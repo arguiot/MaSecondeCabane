@@ -29,9 +29,11 @@ export default function Sell() {
         return "default"
     }
     const submit = () => {
-        for (let i in [fname, lname, email, phone, street, city, postal, country, description]) {
+        setLoading(true)
+        for (let prop in [fname, lname, email, phone, street, city, postal, country, description]) {
             if (typeof prop == "undefined" || prop == "") {
                 setError(true)
+                setLoading(false)
                 return
             }
         }
@@ -51,13 +53,14 @@ export default function Sell() {
                     telephone: phone,
                     email
                 },
-                description
+                description,
+                done: false
             }
         }
-        setLoading(true)
 
         graphQLClient.request(query, variables).then(data => {
-            alert(`Merci ${data.customer.firstName}`)
+            alert(`Merci ${data.createRequest.customer.firstName}!\nNous essayerons de vous répondre le plus tôt possible!` )
+            window.location = "/"
         })
     }
 
@@ -144,7 +147,6 @@ export default function Sell() {
         <Row>
             <Button shadow type="secondary" loading={ loading } onClick={ submit }>Envoyer</Button>
         </Row>
-        <Text small>Nous essayerons de vous répondre le plus tôt possible!</Text>
     </Page>
     <Footer />
     </>

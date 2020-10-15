@@ -25,6 +25,7 @@ type Customer @embedded {
 type Request @collection(name: "requests") {
   customer: Customer!
   description: String!
+  done: Boolean
 }
 
 type Order @collection(name: "orders") {
@@ -32,6 +33,7 @@ type Order @collection(name: "orders") {
   line: [ProductLine!]!
   stripeID: String!
   total: Float!
+  done: Boolean
 }
 
 type Address @embedded {

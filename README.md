@@ -12,6 +12,9 @@ yarn install
 yarn dev
 ```
 
+### Dashboard
+The dahsboard is located in a different git repository (as I started the development of this website prior to the monorepo support of Vercel). The configuration between the main and dashboard repo is roughfly the same.
+
 ## Stack
 Here is the stack I used.
 ![](./stack.jpg)

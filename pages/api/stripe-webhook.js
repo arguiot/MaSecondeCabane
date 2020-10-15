@@ -45,7 +45,8 @@ export default async (req, res) => {
                             product: entry.id,
                             quantity: entry.quantity
                         }
-                    })
+                    }),
+                    done: false
                 }
             }
             const { createOrder } = await graphQLClient.request(query, variables)
