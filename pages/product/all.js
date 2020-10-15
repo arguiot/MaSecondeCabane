@@ -35,6 +35,11 @@ function AllPage({ products, router }) {
         "2 ans", "3 ans", "4 ans", "5 ans", "6 ans", "7 ans", "8 ans", "9 ans", "10 ans", "11 ans", "12 ans"
     ]
     const [etat, setEtat] = React.useState([])
+    const [category, setCategory] = React.useState([])
+    const categoryList = [
+        "Chemises", "T-shirts & Blouses", "Vestes", "Manteaux & Doudounes", "Pantalons", "Jupes & Shorts", "Robes & Combinaisons", "Gilets", "Pulls & Sweat Shirts",
+        "Pyjamas & Bodies", "Accessoires"
+    ]
 
     // Search logic
 
@@ -48,7 +53,8 @@ function AllPage({ products, router }) {
 			"size",
 			"brand",
 			"etat",
-			"tags"
+            "tags",
+            "type"
 		]
 	}
 
@@ -65,6 +71,9 @@ function AllPage({ products, router }) {
                 return false
             }
             if (!size.includes(p.size) && size.length > 0) {
+                return false
+            }
+            if (!category.includes(p.type) && category.length > 0) {
                 return false
             }
             if (!etat.includes(p.etat) && etat.length > 0) {
@@ -129,6 +138,14 @@ function AllPage({ products, router }) {
                         <Select.Option value="Bon">Très bon état</Select.Option>
                         <Select.Option value="Excellent">Excellent état</Select.Option>
                         <Select.Option value="Neuf">Neuf</Select.Option>
+                    </Select>
+                }/>
+                <Spacer y={.8} />
+                <Description title="Catégorie" content={
+                    <Select placeholder="Type" multiple width="100%" value={category} onChange={setCategory} style={{ maxWidth: "none" }}>
+                        {
+                            categoryList.map(s => <Select.Option value={s}>{s}</Select.Option>)
+                        }
                     </Select>
                 }/>
             </Grid>

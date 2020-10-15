@@ -25,7 +25,8 @@ function Home({ products, router }) {
 			"size",
 			"brand",
 			"etat",
-			"tags"
+			"tags",
+			"type"
 		]
 	}
 

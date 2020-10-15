@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
-import { Page, Display, Text, Grid, Button, Collapse, Tag, Spacer, Row, Spinner, Description, Table } from '@geist-ui/react'
+import { Page, Display, Text, Grid, Button, Collapse, Tag, Spacer, Row, Spinner, Description, Table, Link } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
@@ -59,6 +59,10 @@ export default function ProductPage({ product }) {
         {
             property: "Marque",
             detail: product.brand
+        },
+        {
+            property: "Catégorie",
+            detail: product.type
         },
         {
             property: "État",
@@ -146,12 +150,20 @@ export default function ProductPage({ product }) {
             <Spacer y={2} />
             <Text h2>FAQ</Text>
             <Collapse.Group>
-                <Collapse title="Question A">
-                    <Text style={{ textAlign: "justify" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                        veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.</Text>
+                <Collapse title="J’ai des questions à propos de cet article, comment faire ?">
+                    Pour toutes vos questions concernant un article, veuillez envoyer un mail à l'adresse suivante : <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>.
+                    Nous nous ferons un plaisir de vous renseigner.
+                </Collapse>
+                <Collapse title="Quels sont les moyens de paiement acceptés ?">
+                    Notre système de paiement est Stripe. Toutes les cartes de crédit et débit sont acceptés (à conditions que votre banque accepte les achats en ligne). Vous pouvez également utiliser Apple Pay et Google Pay pour passer à la caisse encore plus vite!
+                </Collapse>
+                <Collapse title="Quand vais je recevoir ma commande ?">
+                    Votre commande est expédiée entre 24h et 72h selon le moment où vous passez votre commande. Les commandes enregistrées sur le site le vendredi après 12h, le samedi, le dimanche ou les jours fériés seront traitées le lundi suivant.
+                    Malheureusement, nous ne sommes pas responsables des délais des transporteurs.
+                    Les articles commandés seront livrés à l’adresse que vous avez indiqué.
+                </Collapse>
+                <Collapse title="Est-ce que les articles mis en ligne sont controlés avant d’etre envoyés ?">
+                    Tous les articles mis en ligne sont mignutieusement controlés par nos soins. En achetant sur le site, vous êtes certains de la grande qualité des produits à ce propos nous ne proposons que des articles neufs, excellents ou très bon état.
                 </Collapse>
             </Collapse.Group>
         </Page>

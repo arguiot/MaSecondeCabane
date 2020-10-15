@@ -8,6 +8,7 @@ type Product @collection(name: "products") {
   size: String!
   brand: String!
   etat: String!
+  type: String!
   tags: [String!]!
   creation: Long # Timestamp as Int but was too big to fit in Int
   favorite: Boolean!
