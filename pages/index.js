@@ -133,25 +133,25 @@ function Home({ products, router }) {
 	<Grid.Container gap={4} justify="space-evenly" className={ styles.process }>
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/selection.svg" width={400} height={400} className={ styles.image } alt="Selection" />
-			<Text h3 align="center">
+			<Text h5 align="center">
 				Nous sélectionnons les plus belles pièces pour vous
 			</Text>
 		</Grid>
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/fast.svg" width={400} height={400} className={ styles.image } alt="Rapidité"/>
-			<Text h3 align="center">
+			<Text h5 align="center">
 				Les articles vous sont envoyés sous 72h
 			</Text>
 		</Grid>
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/safe.svg" width={400} height={400} className={ styles.image } alt="Securité" />
-			<Text h3 align="center">
+			<Text h5 align="center">
 				Votre paiement est sécurisé
 			</Text>
 		</Grid>
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/environment.svg" width={400} height={400} className={ styles.image } alt="Protection" />
-			<Text h3 align="center">
+			<Text h5 align="center">
 				Faire de la seconde main le premier choix
 			</Text>
 		</Grid>
