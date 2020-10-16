@@ -5,8 +5,9 @@ body {
   font-family: var(--normalFont);
 }
 
-h1, h2, h3 {
-  font-family: var(--fancyFont);
+h1, h2, h3, h4 {
+  font-family: "Amatic SC", 'Quicksand', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 body {
   padding-top: 200px !important;
@@ -71,6 +72,7 @@ p.magnify {
 }
 // Fonts
 @import url('https://cdn.jsdelivr.net/npm/fontsource-quicksand@3.0.3/500-normal.min.css');
+@import url("https://cdn.jsdelivr.net/npm/fontsource-amatic-sc@3.0.10/700.min.css")
 
 // @font-face {
 //   font-family: 'MikadoBold';

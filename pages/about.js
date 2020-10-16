@@ -11,12 +11,12 @@ export default function About() {
 		<link rel="icon" href="/favicon.ico" />
 	</Head>
 	<NavBar />
-    <Page>
+    <Page style={{ fontFamily: "var(--fancyFont)" }}>
         <Row justify="center">
             {/* <Users size={96} /> */}
             <Image src="/logo.svg" height={96} style={{ width: "unset", objectFit: "unset" }}/>
         </Row>
-        <Text h1 align="center">À propos de nous</Text>
+        <Text h1 align="center" className={ styles.title }>À propos de nous</Text>
         <Divider />
         <Text h4>
             Chez la Seconde Cabane, nous proposons de donner une nouvelle vie aux articles de vos bambins!
