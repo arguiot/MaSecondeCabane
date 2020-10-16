@@ -1,5 +1,5 @@
 import { CreateOrder, ProductByID, UpdateProduct } from '../../lib/Requests';
-import { graphQLClient } from "../../utils/fauna"
+import { graphQLServer } from "../../utils/fauna"
 
 const stripe = require('stripe')('sk_test_3nOsPQAD4eQ1WaBbh9H99gcf');
 
@@ -49,13 +49,13 @@ export default async (req, res) => {
                     done: false
                 }
             }
-            const { createOrder } = await graphQLClient.request(query, variables)
+            const { createOrder } = await graphQLServer.request(query, variables)
             // Update Quantities
             const array = JSON.parse(paymentIntent.metadata.order)
             for (var i = 0; i < array.length; i++) {
                 const entry = array[i]
                 const query = ProductByID
-                const { findProductByID } = await graphQLClient.request(query, { id: entry.id })
+                const { findProductByID } = await graphQLServer.request(query, { id: entry.id })
                 const updateQuery = UpdateProduct
                 const variables = {
                     id: entry.id,
@@ -74,7 +74,7 @@ export default async (req, res) => {
                         favorite: findProductByID.favorite
                     }
                 }
-                const { updateProduct } = await graphQLClient.request(updateQuery, variables)
+                const { updateProduct } = await graphQLServer.request(updateQuery, variables)
                 console.log(`Updated Porduct ${updateProduct._id}`)
             }
             console.log(`Created order: ${createOrder._id}`)
