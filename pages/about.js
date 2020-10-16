@@ -32,29 +32,6 @@ export default function About() {
             Consultez notre site et découvrez nos nouveaux articles. N'hésitez pas à nous contacter si vous avez besoin d'aide.
         </Text>
         <Text h5>Bon magasinage !</Text>
-        <Divider />
-        <Text h4>Notre équipe</Text>
-        <Row>
-            <Card width="auto">
-                <Row gap={2}>
-                    <Avatar src="https://s.gravatar.com/avatar/0af70fdf7af284740a2b2d30354ac1df?s=120&d=mp" size={ 60 } className={ styles.avatar } />
-                    <Col>
-                        <Text h6>Élodie Iché</Text>
-                        <Text small>CEO</Text>
-                    </Col>
-                </Row>
-            </Card>
-            <Spacer x={1} />
-            <Card width="auto">
-                <Row gap={2}>
-                    <Avatar src="https://s.gravatar.com/avatar/55fa1b1cdc57993c94db4a49fdfed90c?s=120&d=mp" size={ 60 } className={ styles.avatar } />
-                    <Col>
-                        <Text h6>Arthur Guiot</Text>
-                        <Text small>Webmaster</Text>
-                    </Col>
-                </Row>
-            </Card>
-        </Row>
     </Page>
     <Footer />
     </>
