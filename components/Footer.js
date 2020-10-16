@@ -40,7 +40,7 @@ export default function Footer() {
             <Grid xs={24} md={12}>
                 <Row justify="center">
                     <Col style={{ width: "auto" }}>
-                    <Text h3>Tenez-vous au courant!</Text>
+                    <Text h3 style={{ opacity: ".7" }}>Tenez-vous au courant!</Text>
                     <Input placeholder="example@mail.com" type="email">
                     S'inscrire à la newsletter
                     </Input>
@@ -50,7 +50,7 @@ export default function Footer() {
             <Grid xs={24} md={12}>
                 <Row justify="center" gap={4}>
                     <Col style={{ width: "auto" }}>
-                        <Text h3 style={{ paddingLeft: "25px" }}>Aide & Contact</Text>
+                        <Text h3 style={{ paddingLeft: "25px", opacity: ".7" }}>Aide & Contact</Text>
                         <Row>
                             <Button icon={<Mail />} type="abort" auto size="large" onClick={() => window.location =
                             "mailto:arguiot@gmail.com"}>Mail.</Button>
@@ -65,7 +65,7 @@ export default function Footer() {
                         </Row>
                     </Col>
                     <Col style={{ width: "auto" }}>
-                        <Text h3>À propos</Text>
+                        <Text h3 style={{ opacity: ".7" }}>À propos</Text>
                         <NextLink href="/about">
                             <a><Text type="secondary">Qui sommes-nous?</Text></a>
                         </NextLink>
