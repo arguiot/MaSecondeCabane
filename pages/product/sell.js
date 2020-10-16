@@ -30,7 +30,9 @@ export default function Sell() {
     }
     const submit = () => {
         setLoading(true)
-        for (let prop in [fname, lname, email, phone, street, city, postal, country, description]) {
+        const array = [fname, lname, email, street, city, postal, country, description]
+        for (let i = 0; i < array.length; i++) {
+            const prop = array[i];
             if (typeof prop == "undefined" || prop == "") {
                 setError(true)
                 setLoading(false)
@@ -111,7 +113,7 @@ export default function Sell() {
             </Grid>
             <Grid xs={12}>
                 <Description title="Telephone" content={
-                    <Input placeholder="+1 ..." width="100%" status="tel" value={ phone } status={ getType(phone) } onChange={e => setPhone(e.target.value)} disabled={ loading }/>
+                    <Input placeholder="+1 ... (Non obligatoire)" width="100%" status="tel" value={ phone } status={ getType(phone) } onChange={e => setPhone(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
         </Grid.Container>
