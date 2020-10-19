@@ -37,8 +37,13 @@ function AllPage({ products, router }) {
     const [etat, setEtat] = React.useState([])
     const [category, setCategory] = React.useState([])
     const categoryList = [
-        "Chemises", "T-shirts & Blouses", "Vestes", "Manteaux & Doudounes", "Pantalons", "Jupes & Shorts", "Robes & Combinaisons", "Gilets", "Pulls & Sweat Shirts",
-        "Pyjamas & Bodies", "Accessoires"
+        "Accessoires",
+        "Chemises, T-shirts & Blouses",
+        "Gilets, Pulls & Sweat Shirts",
+        "Pantalons, Jupes & Shorts",
+        "Pyjamas & Bodies",
+        "Robes & Combinaisons",
+        "Vestes, Manteaux & Doudounes"
     ]
 
     // Search logic
