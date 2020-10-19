@@ -20,8 +20,8 @@ export default function About() {
         </Row>
         <Text h1 align="center">Des questions?</Text>
         <Spacer y={3} />
-        <Text h2 style={{ fontFamily: "Quicksand" }}>ACHETER SUR MA SECONDE CABANE</Text>
-        <Collapse.Group>
+        <Text h3 style={{ fontFamily: "Quicksand" }}>ACHETER SUR MA SECONDE CABANE</Text>
+        <Collapse.Group className={ styles.collapse }>
         <Collapse title="J’ai des questions à propos d’un article mis en vente, comment faire ?">
             Pour toutes vos questions concernant un article, veuillez envoyer un mail à l'adresse suivante : <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>.
             Nous nous ferons un plaisir de vous renseigner.
@@ -39,8 +39,8 @@ export default function About() {
         </Collapse>
         </Collapse.Group>
         <Spacer y={3} />
-        <Text h2 style={{ fontFamily: "Quicksand" }}>VENDRE SUR MA SECONDE CABANE</Text>
-        <Collapse.Group>
+        <Text h3 style={{ fontFamily: "Quicksand" }}>VENDRE SUR MA SECONDE CABANE</Text>
+        <Collapse.Group className={ styles.collapse }>
         <Collapse title="Quels articles peut on vendre sur le site ?">
         Nous vendons des vêtements de marque pour bébés et enfants jusqu’à 10 ans. Tous les vêtements qui sont mis en vente sont neufs ou en parfait état. Tous les articles que vous nous confiez doivent être lavés et en excellent état : sans tâche, ni trou, ni bouloche. Si vous avez un doute sur les produits que vous souhaitez vendre, n’hésitez pas à nous envoyer un mail à <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>, nous nous ferons un plaisir de vous répondre. Pour avoir plus d’informations sur nos conditions de vente, nous vous invitons à consulter notre page <NextLink href="/product/sell"><Link color>Vendre</Link></NextLink>.
         </Collapse>

@@ -94,9 +94,9 @@ function Home({ products, router }) {
 	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
 		<div className={ styles.hero } />
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
-			<Image width={ 259.81 } height={ 105 } src="/img/hanger.svg" alt="Cintre" />
+			<Image width={ 150 } height={ 150 } src="/img/hanger.svg" alt="Cintre" />
 			<Text h1 className={ styles.heroDesc }>
-				<span style={{ fontSize: "1.3em" }}>Vide dressing de qualité pour les enfants</span>
+				Vide dressing de qualité pour les enfants au Canada
 			</Text>
 			<form onSubmit={ submit } style={{ width: "calc(100% - 50px)" }} method="get" action="/product/all">
 				<AutoComplete 
