@@ -109,8 +109,8 @@ export default function ProductPage({ product }) {
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Row justify="space-between">
-                        <Text h3 style={{ fontFamily: "var(--normalFont) !important"}}>Prix</Text>
-                        <Text h2 type="warning" style={{ fontFamily: "var(--normalFont) !important"}}>{ product.price }$</Text>
+                        <Text h3 className={ styles.normalFont }>Prix</Text>
+                        <Text h2 type="warning" className={ styles.normalFont }>{ product.price }$</Text>
                     </Row>
                     <Row justify="center">
                         <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >Ajouter au panier</Button>
@@ -149,7 +149,7 @@ export default function ProductPage({ product }) {
             </Grid.Container>
             <Spacer y={2} />
             <Text h2>FAQ</Text>
-            <Collapse.Group>
+            <Collapse.Group className={ styles.collapse }>
                 <Collapse title="J’ai des questions à propos de cet article, comment faire ?">
                     Pour toutes vos questions concernant un article, veuillez envoyer un mail à l'adresse suivante : <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>.
                     Nous nous ferons un plaisir de vous renseigner.

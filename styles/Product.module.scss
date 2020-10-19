@@ -8,3 +8,13 @@
         }
     }
 }
+
+.normalFont {
+    font-family: var(--normalFont) !important;
+}
+
+.collapse {
+    h3 {
+        font-size: 1rem !important;
+    }
+}
