@@ -8,7 +8,7 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
           .map(({ _id }) => {
             return `
                     <url>
-                        <loc>https://masecondecabane.com/product/${id}</loc>
+                        <loc>https://masecondecabane.com/product/${_id}</loc>
                     </url>
                 `;
           })
