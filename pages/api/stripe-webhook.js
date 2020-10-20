@@ -71,7 +71,9 @@ export default async (req, res) => {
                         brand: findProductByID.brand,
                         etat: findProductByID.etat,
                         tags: findProductByID.tags,
-                        favorite: findProductByID.favorite
+                        favorite: findProductByID.favorite,
+                        type: findProductByID.type,
+                        composition: findProductByID.composition
                     }
                 }
                 const { updateProduct } = await graphQLServer.request(updateQuery, variables)
