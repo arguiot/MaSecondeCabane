@@ -112,19 +112,15 @@ export default function ProductPage({ product }) {
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Text h1>{ product.name }</Text>
-                    <Row justify="space-between">
-                        <Description title="Descriptif" content={ product.description } />
-                        <Spacer x={1} />
-                        <Description title="Taille" content={ product.size }/>
-                    </Row>
-                    
-                    <Divider />
-                    <Row justify="space-between">
-                        <Text h3 className={ styles.normalFont }>Prix</Text>
-                        <Text h2 className={ styles.normalFont } style={{ color: "#ea4335" }}>{ product.price }$</Text>
-                    </Row>
-                    <Row justify="center">
+                    <Text p>{ product.description }</Text>
+                    <Description title="Taille" content={ product.size }/>
+                    <Spacer y={.8} />
+                    <Description title="État" content={ etat(product.etat) } />
+                    <Spacer y={1} />
+                    <Row justify="center" style={{ alignItems: "center" }}>
                         <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >Ajouter au panier</Button>
+                        <Spacer x={1} />
+                        <Text h2 className={ styles.normalFont } style={{ color: "#ea4335", margin: "0" }}>{ product.price }$</Text>
                     </Row>
                     <Spacer y={2} />
                     <Collapse.Group>
