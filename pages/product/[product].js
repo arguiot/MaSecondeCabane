@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
-import { Page, Display, Text, Grid, Button, Collapse, Tag, Spacer, Row, Spinner, Description, Table, Link } from '@geist-ui/react'
+import { Page, Display, Text, Grid, Button, Collapse, Divider, Spacer, Row, Spinner, Description, Table, Link } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
@@ -65,6 +65,10 @@ export default function ProductPage({ product }) {
             detail: product.type
         },
         {
+            property: "Composition",
+            detail: product.composition == null ? "N/A" : product.composition
+        },
+        {
             property: "État",
             detail: etat(product.etat)
         },
@@ -102,42 +106,28 @@ export default function ProductPage({ product }) {
         <Page>
             <Grid.Container gap={8} justify="center">
                 <Grid xs={24} md={12}>
-                    <Text h1>{ product.name }</Text>
-                    <Display shadow caption={ `Taille: ${product.size}` } className={ styles.display }>
+                    <Display shadow className={ styles.display }>
                         <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original" />
                     </Display>
                 </Grid>
                 <Grid xs={24} md={12}>
+                    <Text h1>{ product.name }</Text>
+                    <Row justify="space-between">
+                        <Description title="Descriptif" content={ product.description } />
+                        <Spacer x={1} />
+                        <Description title="Taille" content={ product.size }/>
+                    </Row>
+                    
+                    <Divider />
                     <Row justify="space-between">
                         <Text h3 className={ styles.normalFont }>Prix</Text>
-                        <Text h2 type="warning" className={ styles.normalFont }>{ product.price }$</Text>
+                        <Text h2 className={ styles.normalFont } style={{ color: "#ea4335" }}>{ product.price }$</Text>
                     </Row>
                     <Row justify="center">
                         <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >Ajouter au panier</Button>
                     </Row>
                     <Spacer y={2} />
                     <Collapse.Group>
-                        <Collapse title="Description" initialVisible >
-                            <Description title="Tags" content={
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    flexWrap: "wrap"
-                                }}>
-                                    {
-                                        product.tags.map((v, i) => <>
-                                            <Tag type="success" invert style={{ margin: "3px" }}>
-                                                { v }
-                                            </Tag>
-                                        </>)
-                                    }
-                                </div>
-                            } />
-                            <Spacer y={.8} />
-                            <Description title="Descriptif" content={
-                                <Text style={{ textAlign: "justify" }}>{ product.description }</Text>
-                            } />
-                        </Collapse>
                         <Collapse title="Détails">
                             <Table data={table}>
                                 <Table.Column prop="property" label="Propriété" />

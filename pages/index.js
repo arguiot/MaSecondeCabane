@@ -26,7 +26,8 @@ function Home({ products, router }) {
 			"brand",
 			"etat",
 			"tags",
-			"type"
+			"type",
+			"composition"
 		]
 	}
 
@@ -94,7 +95,7 @@ function Home({ products, router }) {
 	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
 		<div className={ styles.hero } />
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
-			<Image width={ 150 } height={ 150 } src="/img/hanger.svg" alt="Cintre" />
+			{/* <Image width={ 150 } height={ 150 } src="/img/hanger.svg" alt="Cintre" /> */}
 			<Text h1 className={ styles.heroDesc }>
 				Vide dressing de qualité pour les enfants au Canada
 			</Text>

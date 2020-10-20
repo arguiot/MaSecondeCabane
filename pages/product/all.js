@@ -38,6 +38,7 @@ function AllPage({ products, router }) {
     const [category, setCategory] = React.useState([])
     const categoryList = [
         "Accessoires",
+        "Chaussures",
         "Chemises, T-shirts & Blouses",
         "Gilets, Pulls & Sweat Shirts",
         "Pantalons, Jupes & Shorts",
@@ -59,7 +60,8 @@ function AllPage({ products, router }) {
 			"brand",
 			"etat",
             "tags",
-            "type"
+            "type",
+            "composition"
 		]
 	}
 
