@@ -106,12 +106,10 @@ export default function ProductPage({ product }) {
         <Page>
             <Grid.Container gap={8} justify="center">
                 <Grid xs={24} md={12}>
-                    <Display shadow className={ styles.display }>
-                        <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original" />
-                    </Display>
+                    <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original" />
                 </Grid>
                 <Grid xs={24} md={12}>
-                    <Text h1>{ product.name }</Text>
+                    <Text h2>{ product.name }</Text>
                     <Text p>{ product.description }</Text>
                     <Description title="Taille" content={ product.size }/>
                     <Spacer y={.8} />
@@ -122,6 +120,9 @@ export default function ProductPage({ product }) {
                         <Spacer x={1} />
                         <Text h2 className={ styles.normalFont } style={{ color: "#ea4335", margin: "0" }}>{ product.price }$</Text>
                     </Row>
+                    {
+                        product.quantity < 1 && <Text i align="center">Cet article n'est plus en stock.</Text>
+                    }
                     <Spacer y={2} />
                     <Collapse.Group>
                         <Collapse title="Détails">
