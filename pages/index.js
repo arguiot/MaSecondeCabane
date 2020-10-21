@@ -97,7 +97,7 @@ function Home({ products, router }) {
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
 			{/* <Image width={ 150 } height={ 150 } src="/img/hanger.svg" alt="Cintre" /> */}
 			<Text h1 className={ styles.heroDesc }>
-				Vêtement de seconde main de qualité pour les enfants au Canada
+				Vêtement de seconde main de qualité pour les enfants
 			</Text>
 			<form onSubmit={ submit } style={{ width: "calc(100% - 50px)" }} method="get" action="/product/all">
 				<AutoComplete 
