@@ -1,4 +1,4 @@
-import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid } from '@geist-ui/react'
+import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid, Divider } from '@geist-ui/react'
 import { Search } from '@geist-ui/react-icons'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -131,6 +131,8 @@ function Home({ products, router }) {
 			}
 		</Grid.Container>
 	</Page>
+	<Divider type="dark" />
+	<Spacer y={2} />
 	<Grid.Container gap={4} justify="space-evenly" className={ styles.process }>
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/selection.svg" width={400} height={400} className={ styles.image } alt="Selection" />
