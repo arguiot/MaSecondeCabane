@@ -134,13 +134,17 @@ export default function Basket({
                     <Text b>{ (Math.round(Manager.subtotal * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
                 <Row justify="space-between">
-                    <Text b>TVA</Text>
-                    <Text b>{ (Math.round(Manager.subtotal * 0.15 * 100) / 100).toFixed(2) } CAD$</Text>
+                    <Text b>TPS</Text>
+                    <Text b>{ (Math.round(Manager.subtotal * 0.05 * 100) / 100).toFixed(2) } CAD$</Text>
+                </Row>
+                <Row justify="space-between">
+                    <Text b>TVQ</Text>
+                    <Text b>{ (Math.round(Manager.subtotal * 0.09975 * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
                 <Divider />
                 <Row justify="space-between">
                     <Text b>Total</Text>
-                    <Text b>{ (Math.round(Manager.subtotal * 1.15 * 100) / 100).toFixed(2) } CAD$</Text>
+                    <Text b>{ (Math.round(Manager.subtotal * 1.14975 * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
             </Card>
             <Spacer y={1} />

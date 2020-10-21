@@ -42,7 +42,7 @@ export default function Footer() {
                     <Col style={{ width: "auto" }}>
                     <Text h3 style={{ opacity: ".7" }}>Tenez-vous au courant!</Text>
                     <Input placeholder="example@mail.com" type="email">
-                    S'inscrire à la newsletter
+                        S'inscrire à la newsletter
                     </Input>
                     </Col>
                 </Row>
@@ -54,10 +54,6 @@ export default function Footer() {
                         <Row>
                             <Button icon={<Mail />} type="abort" auto size="large" onClick={() => window.location =
                             "mailto:arguiot@gmail.com"}>Mail.</Button>
-                        </Row>
-                        <Row>
-                            <Button icon={<Facebook />} type="abort" auto size="large" onClick={() => window.location =
-                            "https://facebook.com"}>Facebook.</Button>
                         </Row>
                         <Row>
                             <Button icon={<Instagram />} type="abort" auto size="large" onClick={() => window.location =

@@ -14,7 +14,7 @@ export default async (req, res) => {
                     name: entry.name,
                     images: [`https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${entry.image}`],
                 },
-                unit_amount: Math.round(entry.price * 115), // VAT
+                unit_amount: Math.round(entry.price * (100 + 5 + 9.975)), // VAT
             },
             quantity: entry.quantity,
         }
