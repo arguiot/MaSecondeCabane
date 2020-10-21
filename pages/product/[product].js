@@ -149,8 +149,8 @@ export default function ProductPage({ product }) {
                     Malheureusement, nous ne sommes pas responsables des délais des transporteurs.
                     Les articles commandés seront livrés à l’adresse que vous avez indiqué.
                 </Collapse>
-                <Collapse title="Est-ce que les articles mis en ligne sont controlés avant d’etre envoyés ?">
-                    Tous les articles mis en ligne sont mignutieusement controlés par nos soins. En achetant sur le site, vous êtes certains de la grande qualité des produits à ce propos nous ne proposons que des articles neufs, excellents ou très bon état.
+                <Collapse title="Est-ce que les articles mis en ligne sont controlés avant d’etre envoyés ?">
+                    Tous les articles mis en ligne sont minutieusement controlés par nos soins. En achetant sur le site, vous êtes certains de la grande qualité des produits. A ce propos, nous ne proposons que des articles neufs, en excellent ou en très bon état.
                 </Collapse>
             </Collapse.Group>
         </Page>
