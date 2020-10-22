@@ -1,4 +1,4 @@
-const stripe = require('stripe')('sk_test_3nOsPQAD4eQ1WaBbh9H99gcf');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const YOUR_DOMAIN = 'https://masecondecabane.com/checkout';
 // const YOUR_DOMAIN = 'http://localhost:3000/checkout';

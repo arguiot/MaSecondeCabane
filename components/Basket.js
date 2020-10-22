@@ -42,7 +42,7 @@ export default function Basket({
         }
 
         const Stripe = (await import("@stripe/stripe-js"))
-        const stripePromise = Stripe.loadStripe("pk_test_w5u3iYrl9ZVHPRHxmZQcUElC");
+        const stripePromise = Stripe.loadStripe(process.env.STRIPE_PUBLIC);
 
         const stripe = await stripePromise;
 
