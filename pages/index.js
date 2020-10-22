@@ -125,7 +125,7 @@ function Home({ products, router }) {
 			{
 				shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).map(p => {
 					return <Grid key={ p._id } xs={24} md={8}>
-						<ProductCard product={ p } />
+						<ProductCard key={ p._id } product={ p } />
 					</Grid>
 				})
 			}
