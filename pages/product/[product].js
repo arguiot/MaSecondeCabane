@@ -105,8 +105,8 @@ export default function ProductPage({ product }) {
         <NavBar />
         <Page>
             <Grid.Container gap={8} justify="center">
-                <Grid xs={24} md={12}>
-                    <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:ar-5-4,w-1000/${product.image}` } zoomPosition="original" />
+                <Grid xs={24} md={12} className={ styles.image }>
+                    <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-1000/${product.image}` } zoomPosition="original" />
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Text h2>{ product.name }</Text>
