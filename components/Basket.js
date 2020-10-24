@@ -148,9 +148,14 @@ export default function Basket({
                 </Row>
             </Card>
             <Spacer y={1} />
-            <Row justify="end" style={{ width: "100%" }}>
-                <Button shadow type="secondary" onClick={ handleClick }>Checkout</Button>
-            </Row>
+            <Grid.Container gap={2} justify="flex-end">
+                <Grid xs={24} md={ 7 }>
+                    <Button onClick={ () => bindings.onClose() } style={{ textTransform: "none", width: "100%" }}>Continuer à magasiner</Button>
+                </Grid>
+                <Grid xs={ 24 } md={ 7 }>
+                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }}>Passer à la caisse</Button>
+                </Grid>
+            </Grid.Container>
         </Modal.Content>
     </Modal>
     const loading = <Modal width="80vw" {...bindings} onClose={ () => { setCheckout(false); bindings.onClose() } }>
