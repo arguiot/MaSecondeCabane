@@ -11,8 +11,15 @@ import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
 import Footer from '../components/Footer'
+// ES Modules syntax
+import Unsplash, { toJson } from 'unsplash-js';
 
-function Home({ products, router }) {
+function Home({ products, router, photos }) {
+	// Hero
+	const [ image, setImage ] = React.useState()
+	React.useEffect(() => {
+		setImage(photos[Math.floor(Math.random() * photos.length)])
+	}, [])
 	// Search logic
 
 	const fuseOption = {
@@ -93,7 +100,15 @@ function Home({ products, router }) {
 	</Head>
 	<NavBar />
 	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
-		<div className={ styles.hero } />
+		{ image && <>
+			<div className={ styles.hero } style={{
+				background: `linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .35)), url("${image.url}")`,
+				backgroundSize: "cover",
+				backgroundPosition: "center"
+			}}/>
+			<Text small className={ styles.heroPhoto }>Photo de <a href={ `${image.link}?utm_source=ma_seconde_cabane&utm_medium=referral` }>{ image.user }</a> sur <a href="https://unsplash.com/?utm_source=ma_seconde_cabane&utm_medium=referral">Unsplash</a></Text>
+			</>
+		}
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
 			{/* <Image width={ 150 } height={ 150 } src="/img/hanger.svg" alt="Cintre" /> */}
 			<Text h1 className={ styles.heroDesc }>
@@ -167,11 +182,22 @@ function Home({ products, router }) {
 export default withRouter(Home)
 
 export async function getStaticProps() {
+	const unsplash = new Unsplash({ accessKey: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS });
+	const collection = await unsplash.collections.getCollectionPhotos(27372549).then(toJson)
+	const photos = collection.map(photo => {
+		return {
+			url: `${photo.urls.raw}&auto=format&w=1024&q=70`,
+			link: photo.links.html,
+			user: photo.user.name
+		}
+	})
+
 	const query = AllProducts
     const result = await graphQLClient.request(query)
     return {
         props: {
-            products: result.allProducts.data
+			products: result.allProducts.data,
+			photos
         },
         revalidate: 300
     }

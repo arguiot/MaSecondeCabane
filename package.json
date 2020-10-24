@@ -39,6 +39,7 @@
     "sass": "^1.26.11",
     "stripe": "^8.106.0",
     "swr": "^0.3.2",
+    "unsplash-js": "^6.3.0",
     "xmldom": "^0.3.0"
   },
   "devDependencies": {
