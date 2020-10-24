@@ -9,12 +9,14 @@ import { ProductByID } from '../../lib/Requests'
 import Footer from '../../components/Footer'
 import styles from "../../styles/Product.module.scss"
 import dynamic from 'next/dynamic'
+import Skeleton from '../../components/Skeleton'
 
 const ReactImageZoom = dynamic(() => import('react-image-zoom'))
 
 
 export default function ProductPage({ product }) {
     const router = useRouter()
+    const [imageLoaded, setImageLoaded] = React.useState(false)
 
     // If the page is not yet generated, this will be displayed
     // initially until getStaticProps() finishes running
@@ -31,6 +33,19 @@ export default function ProductPage({ product }) {
         </Row>
         </>
     }
+
+    React.useEffect(() => {
+        window.imageInterval = setInterval(() => {
+            const query = `.${styles.image} img`
+            const element = document.querySelector(query)
+            if (element != null && typeof element != "undefined") {
+                setImageLoaded(element.complete)
+                if (element.complete === true) {
+                    clearInterval(window.imageInterval)
+                }
+            }
+        }, 100)
+    }, [])
 
     const addToCart = () => {
         Manager.addItem(product)
@@ -106,6 +121,7 @@ export default function ProductPage({ product }) {
         <Page>
             <Grid.Container gap={8} justify="center">
                 <Grid xs={24} md={12} className={ styles.image }>
+                    <Skeleton display={ !imageLoaded }/>
                     <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-1000/${product.image}` } zoomPosition="original" />
                 </Grid>
                 <Grid xs={24} md={12}>
