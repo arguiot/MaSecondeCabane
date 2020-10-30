@@ -10,7 +10,7 @@ export default function ProductCard({ product }) {
             document.body.focus()
         })
     }
-    return <a href={ `/product/${product._id}` } onClick={redirect}>
+    return <a href={ `/${router.locale}/product/${product._id}` } onClick={redirect}>
         <Card width="300" hoverable shadow style={{ cursor: "pointer", textAlign: "center" }}>
             <Image width={ 300 } height={ 300 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-300,h-300/${product.image}` } style={{ objectFit: 'cover' }} alt={ product.name } loading="lazy"/>
             <Text h4 style={{ marginBottom: '0' }}>{ product.name }</Text>
