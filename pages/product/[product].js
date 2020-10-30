@@ -178,6 +178,12 @@ export default function ProductPage({ product }) {
 
 
 export async function getStaticProps({ params }) {
+    if (typeof params.product != "string") {
+        return {
+            notFound: true
+        }
+    }
+
     const { product } = params
     const query = ProductByID
     const result = await graphQLClient.request(query, {
@@ -191,7 +197,7 @@ export async function getStaticProps({ params }) {
     }
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
     const query = gql`
     query AllProducts {
         allProducts {
@@ -205,15 +211,23 @@ export async function getStaticPaths() {
 
     const { data } = result.allProducts
 
+    const modifier = lang => {
+        return entry => {
+            return {
+                params: {
+                    product: entry._id
+                },
+                locale: lang
+            }
+        }
+    }
+    let paths = []
+    locales.forEach(lang => {
+        paths = paths.concat(data.map(modifier(lang)))
+    })
     return {
       // Only `/posts/1` and `/posts/2` are generated at build time
-      paths: data.map(entry => {
-          return {
-              params: {
-                  product: entry._id
-              }
-          }
-      }),
+      paths,
       // Enable statically generating additional pages
       // For example: `/posts/3`
       fallback: true,
