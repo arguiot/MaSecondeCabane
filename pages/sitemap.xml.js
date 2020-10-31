@@ -18,6 +18,10 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
                           rel="alternate"
                           hreflang="en-CA"
                           href="https://masecondecabane.com/en-CA/product/${_id}"/>
+                        <xhtml:link 
+                          rel="alternate"
+                          hreflang="x-default"
+                          href="https://masecondecabane.com/product/${_id}"/>
                     </url>
                 `;
           })
@@ -32,6 +36,10 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
             rel="alternate"
             hreflang="en-CA"
             href="https://masecondecabane.com/en-CA"/>
+            <xhtml:link 
+            rel="alternate"
+            hreflang="x-default"
+            href="https://masecondecabane.com/"/>
           </url>
           <url>
             <loc>https://masecondecabane.com/privacy</loc>
@@ -43,6 +51,10 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
             rel="alternate"
             hreflang="en-CA"
             href="https://masecondecabane.com/en-CA/privacy"/>
+            <xhtml:link 
+            rel="alternate"
+            hreflang="x-default"
+            href="https://masecondecabane.com/privacy"/>
           </url>
           <url>
             <loc>https://masecondecabane.com/about</loc>
@@ -54,6 +66,10 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
             rel="alternate"
             hreflang="en-CA"
             href="https://masecondecabane.com/en-CA/about"/>
+            <xhtml:link 
+            rel="alternate"
+            hreflang="x-default"
+            href="https://masecondecabane.com/about"/>
           </url>
           <url>
             <loc>https://masecondecabane.com/product/sell</loc>
@@ -65,6 +81,10 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
             rel="alternate"
             hreflang="en-CA"
             href="https://masecondecabane.com/en-CA/product/sell"/>
+            <xhtml:link 
+            rel="alternate"
+            hreflang="x-default"
+            href="https://masecondecabane.com/product/sell"/>
           </url>
     </urlset>
     `;
