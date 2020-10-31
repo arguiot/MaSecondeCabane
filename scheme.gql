@@ -1,6 +1,7 @@
 type Product @collection(name: "products") {
   name: String!
   description: String!
+  descriptionEn: String
   price: Float!
   quantity: Int!
   image: String! # Image URL

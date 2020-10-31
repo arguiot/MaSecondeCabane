@@ -93,17 +93,24 @@ export default function ProductPage({ product, t }) {
         }
     ]
 
+    function getDescription(product, lang) {
+        if (lang == "en" && product.descriptionEn != null) {
+            return product.descriptionEn
+        }
+        return product.description
+    }
+
     return (<>
         <Head>
             <title>Ma Seconde Cabane - { product.name }</title>
             <link rel="icon" href="/favicon.ico" />
-            <meta name="description" content={ product.description } />
+            <meta name="description" content={ getDescription(product, router.locale) } />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
                 "@context" : "http://schema.org",
                 "@type" : "Product",
                 "name" : product.name,
                 "image" : `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}`,
-                "description" : product.description,
+                "description" : getDescription(product, router.locale),
                 "brand" : {
                     "@type" : "Brand",
                     "name" : "Ma Seconde Cabane",
@@ -126,8 +133,8 @@ export default function ProductPage({ product, t }) {
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Text h2>{ product.name }</Text>
-                    <Text p>{ product.description }</Text>
-                    <Description title={ t.size } content={ product.size }/>
+                    <Text p>{ getDescription(product, router.locale) }</Text>
+                    <Description title={ t.size } content={ getSize(product.size, router.locale) }/>
                     <Spacer y={.8} />
                     <Description title={ t.condition } content={ etat(product.etat) } />
                     <Spacer y={1} />
@@ -173,6 +180,7 @@ export default function ProductPage({ product, t }) {
 }
 
 import Locales from "../../locales/[Product]"
+import { getSize } from '../../locales/Fuse'
 
 export async function getStaticProps({ params, locale }) {
     if (typeof params.product != "string") {
