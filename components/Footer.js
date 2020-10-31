@@ -94,13 +94,13 @@ export default function Footer() {
     { collapse }
     { grid }
     <Select initialValue={ router.locale } pure onChange={ changeLang }>
-        <Select.Option value="en">
+        <Select.Option value="en-CA">
             <Row align="middle">
                 <img src="/img/us.svg" width={ 24 } height={ 24 }/>
                 <Text style={{ marginLeft: "10px" }}>English</Text>
             </Row>
         </Select.Option>
-        <Select.Option value="fr">
+        <Select.Option value="fr-CA">
             <Row align="middle">
                 <img src="/img/fr.svg" width={ 24 } height={ 24 }/>
                 <Text style={{ marginLeft: "10px" }}>Français</Text>

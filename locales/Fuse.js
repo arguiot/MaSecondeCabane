@@ -16,9 +16,9 @@ export const fuseOption = {
 }
 
 export function getSize(size, lang) {
-    if (size == "1 mois" && lang == "en") {
+    if (size == "1 mois" && lang == "en-CA") {
         return "1 month"
-    } else if (lang == "en") {
+    } else if (lang == "en-CA") {
         return size
         .replace("mois", "months")
         .replace("ans", "years")
@@ -26,7 +26,7 @@ export function getSize(size, lang) {
     return size
 }
 export function getSex(sexe, lang) {
-    if (lang == "en") {
+    if (lang == "en-CA") {
         return sexe == "Fille" ? "Girl" : "Boy"
     }
     return sexe

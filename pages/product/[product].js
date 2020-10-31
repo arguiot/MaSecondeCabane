@@ -94,7 +94,7 @@ export default function ProductPage({ product, t }) {
     ]
 
     function getDescription(product, lang) {
-        if (lang == "en" && product.descriptionEn != null) {
+        if (lang == "en-CA" && product.descriptionEn != null) {
             return product.descriptionEn
         }
         return product.description
@@ -197,7 +197,7 @@ export async function getStaticProps({ params, locale }) {
     // Locales
 	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
 		line[0],
-		line[1][locale]
+		line[1][locale.split("-")[0]]
     ]))
     
     return {

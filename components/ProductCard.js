@@ -11,15 +11,15 @@ export default function ProductCard({ product }) {
         })
     }
     function getDescription(product, lang) {
-        if (lang == "en" && product.descriptionEn != null) {
+        if (lang == "en-CA" && product.descriptionEn != null) {
             return product.descriptionEn
         }
         return product.description
     }
     function getSize(size, lang) {
-        if (size == "1 mois" && lang == "en") {
+        if (size == "1 mois" && lang == "en-CA") {
             return "1 month"
-        } else if (lang == "en") {
+        } else if (lang == "en-CA") {
             return size
             .replace("mois", "months")
             .replace("ans", "years")

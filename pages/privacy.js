@@ -79,7 +79,7 @@ export async function getStaticProps({ locale }) {
     // Locales
 	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
 		line[0],
-		line[1][locale]
+		line[1][locale.split("-")[0]]
     ]))
     return {
         props: {

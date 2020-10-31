@@ -3,7 +3,7 @@ module.exports = {
         STRIPE_PUBLIC: process.env.STRIPE_PUBLIC,
     },
     i18n: {
-        locales: ['en', 'fr'],
-        defaultLocale: 'fr',
+        locales: ['en-CA', 'fr-CA'],
+        defaultLocale: 'fr-CA',
     }
 };
