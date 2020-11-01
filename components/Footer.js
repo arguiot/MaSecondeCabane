@@ -9,7 +9,7 @@ export default function Footer() {
     const router = useRouter()
     const t = Object.fromEntries(Object.entries(Locales).map(line => [
 		line[0],
-		line[1][router.locale]
+		line[1][router.locale.split("-")[0]]
     ]))
 
     const changeLang = locale => {

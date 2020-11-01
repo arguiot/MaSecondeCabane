@@ -21,7 +21,7 @@ export default function Basket({
     const router = useRouter()
     const t = Object.fromEntries(Object.entries(Locales).map(line => [
 		line[0],
-		line[1][router.locale]
+		line[1][router.locale.split("-")[0]]
     ]))
 
     const [checkout, setCheckout] = React.useState(false)
