@@ -11,6 +11,7 @@ import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
 import Footer from '../components/Footer'
+import { buildIndex, fuseOption, getDescription } from '../locales/Fuse'
 // ES Modules syntax
 import Unsplash, { toJson } from 'unsplash-js';
 
@@ -21,22 +22,6 @@ function Home({ products, router, photos, t }) {
 		setImage(photos[Math.floor(Math.random() * photos.length)])
 	}, [])
 	// Search logic
-
-	const fuseOption = {
-		includeScore: true,
-		// Search in `author` and in `tags` array
-		keys: [
-			"name",
-			"description",
-			"sexe",
-			"size",
-			"brand",
-			"etat",
-			"tags",
-			"type",
-			"composition"
-		]
-	}
 
 	const [options, setOptions] = useState()
 	const [searching, setSearching] = useState(false)
@@ -49,7 +34,7 @@ function Home({ products, router, photos, t }) {
 					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}` } height={100} className={ pStyles.img } alt={ product.name }/>
 					<Col className={ pStyles.desc }>
 						<Text h5>{ product.name }</Text>
-						<Text p className={ pStyles.truncate }>{ product.description }</Text>
+						<Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>
 					</Col>
 					<Spacer x={2} />
 					<Col span={3}>
@@ -66,7 +51,9 @@ function Home({ products, router, photos, t }) {
 		if (!currentValue) return setOptions([])
 		setSearching(true)
 		const Fuse = (await import('fuse.js')).default
-		const fuse = new Fuse(products.filter(e => e.quantity >= 1), fuseOption)
+
+		const index = buildIndex(products, router.locale)
+		const fuse = new Fuse(index, fuseOption)
 		const relatedOptions = fuse.search(currentValue).map(entry => {
 			return makeOption(entry.item)
 		})

@@ -3,8 +3,7 @@ export const fuseOption = {
     // Search in `author` and in `tags` array
     keys: [
         "name",
-        "description",
-        "descriptionEn",
+        "descriptionFuse",
         "sexeFuse",
         "sizeFuse",
         "brand",
@@ -49,6 +48,12 @@ export function getCondition(size, lang) {
 
     return conditions[size][lang]
 }
+export function getDescription(product, lang) {
+    if (lang == "en-CA" && product.descriptionEn != null) {
+        return product.descriptionEn
+    }
+    return product.description
+}
 
 export function buildIndex(products, lang) {
     return products.filter(e => e.quantity >= 1).map(p => {
@@ -56,6 +61,7 @@ export function buildIndex(products, lang) {
             sizeFuse: getSize(p.size, lang),
             sexeFuse: getSex(p.sexe, lang),
             etatFuse: getCondition(p.etat, lang),
+            descriptionFuse: getDescription(p, lang),
             ...p
         }
     })

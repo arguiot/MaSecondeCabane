@@ -8,6 +8,7 @@ import ProductCard from '../../components/ProductCard'
 import Fuse from 'fuse.js'
 import { withRouter } from 'next/router'
 import Footer from "../../components/Footer"
+import { buildIndex, fuseOption, getSize } from "../../locales/Fuse"
 
 function AllPage({ products, router, t }) {
     const [search, setSearch] = React.useState(router.query.search)
@@ -49,22 +50,6 @@ function AllPage({ products, router, t }) {
 
     // Search logic
 
-	const fuseOption = {
-		includeScore: true,
-		// Search in `author` and in `tags` array
-		keys: [
-			"name",
-			"description",
-			"sexe",
-			"size",
-			"brand",
-			"etat",
-            "tags",
-            "type",
-            "composition"
-		]
-	}
-
     const fuse = new Fuse([], fuseOption)
     
     function results(search, sexe, size, etat) {
@@ -89,7 +74,8 @@ function AllPage({ products, router, t }) {
             return true
         })
 
-        fuse.setCollection(prdcts)
+        const index = buildIndex(prdcts, router.locale)
+        fuse.setCollection(index)
         
         if (typeof search == "string" && search != "") {
             return fuse.search(search).map(e => e.item)
@@ -172,7 +158,6 @@ function AllPage({ products, router, t }) {
 export default withRouter(AllPage)
 
 import Locales from "../../locales/All"
-import { getSize } from "../../locales/Fuse"
 
 export async function getStaticProps({ locale }) {
 	const query = AllProducts
