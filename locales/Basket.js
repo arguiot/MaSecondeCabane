@@ -31,6 +31,10 @@ export default {
         fr: "Quantité",
         en: "Quantity"
     },
+    size: {
+        fr: "Taille",
+        en: "Size"
+    },
     remove: {
         fr: "Supprimer",
         en: "Remove"

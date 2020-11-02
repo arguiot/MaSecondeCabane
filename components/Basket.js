@@ -1,4 +1,4 @@
-import { Button, Col, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card } from "@geist-ui/react";
+import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card } from "@geist-ui/react";
 
 import Manager from '../lib/CartManager'
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
@@ -8,6 +8,8 @@ import animationData from '../lotties/checkout.json';
 
 import { useRouter } from "next/router"
 import Locales from "../locales/Basket"
+import { getDescription, getSize } from "../locales/Fuse";
+import { Minus, Plus } from "@geist-ui/react-icons";
 
 export default function Basket({
     bindings
@@ -96,7 +98,8 @@ export default function Basket({
                                 </Grid>
                                 <Grid xs={13}>
                                     <Text h5>{ product.name }</Text>
-                                    <Text p className={ pStyles.truncate }>{ product.description }</Text>
+                                    <Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>
+                                    <Description title={ t.size } content={ getSize(product.size, router.locale) }/>
                                 </Grid>
                                 <Grid xs={4}>
                                     <Row align="middle" style={{ height: '100%' }}>
@@ -107,7 +110,12 @@ export default function Basket({
                         </Fieldset.Content>
                         <Fieldset.Footer>
                             <Fieldset.Footer.Status>
-                                { t.quantity }: { product.quantity }
+                                <Row align="middle">
+                                    { t.quantity }: 
+                                    <Button auto type="abort" size="small" iconRight={ <Minus /> } onClick={() => Manager.decrement(product) } />
+                                    { product.quantity }
+                                    <Button auto type="abort" size="small" iconRight={ <Plus /> } onClick={() => Manager.increment(product) } />
+                                </Row>
                             </Fieldset.Footer.Status>
                             <Fieldset.Footer.Actions>
                                 <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product._id) }>{ t.remove }</Button>
