@@ -8,7 +8,7 @@ import ProductCard from '../../components/ProductCard'
 import Fuse from 'fuse.js'
 import { withRouter } from 'next/router'
 import Footer from "../../components/Footer"
-import { buildIndex, fuseOption, getSize } from "../../locales/Fuse"
+import { buildIndex, fuseOption, getCategory, getSize } from "../../locales/Fuse"
 
 function AllPage({ products, router, t }) {
     const [search, setSearch] = React.useState(router.query.search)
@@ -137,7 +137,7 @@ function AllPage({ products, router, t }) {
                 <Description title={ t.category } content={
                     <Select placeholder={ t.category } multiple width="100%" value={category} onChange={setCategory} style={{ maxWidth: "none" }}>
                         {
-                            categoryList.map(s => <Select.Option value={s}>{s}</Select.Option>)
+                            categoryList.map(s => <Select.Option value={s}>{ getCategory(s, router.locale) }</Select.Option>)
                         }
                     </Select>
                 }/>

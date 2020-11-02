@@ -48,6 +48,45 @@ export function getCondition(size, lang) {
 
     return conditions[size][lang]
 }
+
+export function getCategory(category, lang) {
+    const categoryList = {
+        "Accessoires": {
+            fr: "Accessoires",
+            en: "Accessories"
+        },
+        "Chaussures": {
+            fr: "Chaussures",
+            en: "Shoes"
+        },
+        "Chemises, T-shirts & Blouses": {
+            fr: "Chemises, T-shirts & Blouses",
+            en: "Shirts, T-shirts & Blouses"
+        },
+        "Gilets, Pulls & Sweat Shirts": {
+            fr: "Gilets, Pulls & Sweat Shirts",
+            en: "Vests, Sweatshirts & Sweat Shirts"
+        },
+        "Pantalons, Jupes & Shorts": {
+            fr: "Pantalons, Jupes & Shorts",
+            en: "Trousers, Skirts & Shorts"
+        },
+        "Pyjamas & Bodies": {
+            fr: "Pyjamas & Bodies",
+            en: "Pajamas & Bodies"
+        },
+        "Robes & Combinaisons": {
+            fr: "Robes & Combinaisons",
+            en: "Dresses & Overalls"
+        },
+        "Vestes, Manteaux & Doudounes": {
+            fr: "Vestes, Manteaux & Doudounes",
+            en: "Jackets, Coats & Jackets & Down jackets"
+        }
+    }
+    return categoryList[category][lang.split("-")[0]]
+}
+
 export function getDescription(product, lang) {
     if (lang == "en-CA" && product.descriptionEn != null) {
         return product.descriptionEn

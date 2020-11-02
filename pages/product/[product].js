@@ -65,11 +65,11 @@ export default function ProductPage({ product, t }) {
     const table = [
         {
             property: t.gender,
-            detail: product.sexe
+            detail: getSex(product.sexe, router.locale)
         },
         {
             property: t.size,
-            detail: product.size
+            detail: getSize(product.size, router.locale)
         },
         {
             property: t.brand,
@@ -77,7 +77,7 @@ export default function ProductPage({ product, t }) {
         },
         {
             property: t.category,
-            detail: product.type
+            detail: getCategory(product.type, router.locale)
         },
         {
             property: t.composition,
@@ -180,7 +180,7 @@ export default function ProductPage({ product, t }) {
 }
 
 import Locales from "../../locales/[Product]"
-import { getSize } from '../../locales/Fuse'
+import { getCategory, getSex, getSize } from '../../locales/Fuse'
 
 export async function getStaticProps({ params, locale }) {
     if (typeof params.product != "string") {
