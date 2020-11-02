@@ -18,7 +18,7 @@ export default function Faq({ t }) {
         <Row justify="center">
            <QuestionCircle size={96} />
         </Row>
-        <Text h1 align="center">Des questions?</Text>
+        <Text h1 align="center">{ t.questions }</Text>
         <Spacer y={3} />
         <Text h3 style={{ fontFamily: "Quicksand" }}>{ t.buy }</Text>
         <Collapse.Group className={ styles.collapse }>
