@@ -11,32 +11,17 @@ import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
 import Footer from '../components/Footer'
+import { buildIndex, fuseOption, getDescription } from '../locales/Fuse'
 // ES Modules syntax
 import Unsplash, { toJson } from 'unsplash-js';
 
-function Home({ products, router, photos }) {
+function Home({ products, router, photos, t }) {
 	// Hero
 	const [ image, setImage ] = React.useState()
 	React.useEffect(() => {
 		setImage(photos[Math.floor(Math.random() * photos.length)])
 	}, [])
 	// Search logic
-
-	const fuseOption = {
-		includeScore: true,
-		// Search in `author` and in `tags` array
-		keys: [
-			"name",
-			"description",
-			"sexe",
-			"size",
-			"brand",
-			"etat",
-			"tags",
-			"type",
-			"composition"
-		]
-	}
 
 	const [options, setOptions] = useState()
 	const [searching, setSearching] = useState(false)
@@ -49,7 +34,7 @@ function Home({ products, router, photos }) {
 					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}` } height={100} className={ pStyles.img } alt={ product.name }/>
 					<Col className={ pStyles.desc }>
 						<Text h5>{ product.name }</Text>
-						<Text p className={ pStyles.truncate }>{ product.description }</Text>
+						<Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>
 					</Col>
 					<Spacer x={2} />
 					<Col span={3}>
@@ -66,7 +51,9 @@ function Home({ products, router, photos }) {
 		if (!currentValue) return setOptions([])
 		setSearching(true)
 		const Fuse = (await import('fuse.js')).default
-		const fuse = new Fuse(products.filter(e => e.quantity >= 1), fuseOption)
+
+		const index = buildIndex(products, router.locale)
+		const fuse = new Fuse(index, fuseOption)
 		const relatedOptions = fuse.search(currentValue).map(entry => {
 			return makeOption(entry.item)
 		})
@@ -96,7 +83,7 @@ function Home({ products, router, photos }) {
 	<Head>
 		<title>Ma Seconde Cabane</title>
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="description" content="Ma Seconde Cabane est un vide dressing de qualité au Québec pour les enfants" />
+		<meta name="description" content={ t.metaDesc } />
 	</Head>
 	<NavBar />
 	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
@@ -112,14 +99,14 @@ function Home({ products, router, photos }) {
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
 			{/* <Image width={ 150 } height={ 150 } src="/img/hanger.svg" alt="Cintre" /> */}
 			<Text h1 className={ styles.heroDesc }>
-				Vêtement de seconde main de qualité pour les enfants
+				{ t.heroDesc }
 			</Text>
 			<form onSubmit={ submit } style={{ width: "calc(100% - 50px)" }} method="get" action="/product/all">
 				<AutoComplete 
 				className={ styles.searchbar } 
 				size="large" 
 				icon={<Search />} 
-				placeholder="Essayez “manteau en 5 ans”" 
+				placeholder={ t.searchPlaceholder } 
 				clearable 
 				width="100%" 
 				searching={searching}
@@ -128,14 +115,14 @@ function Home({ products, router, photos }) {
 				name="search"
 				id="search">
 					<AutoComplete.Empty>
-						<span>Oups! Essayez autre chose...</span>
+						<span>{ t.searchError }</span>
 					</AutoComplete.Empty>
 				</AutoComplete>
 			</form>
 		</Grid>
 	</Grid.Container>
 	<Page>
-		<Text h1>Produits à ne pas manquer</Text>
+		<Text h1>{ t.products }</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
 				shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).map(p => {
@@ -152,25 +139,25 @@ function Home({ products, router, photos }) {
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/selection.svg" width={400} height={400} className={ styles.image } alt="Selection" />
 			<Text h5 align="center">
-				Nous sélectionnons les plus belles pièces pour vous
+				{ t.selection }
 			</Text>
 		</Grid>
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/fast.svg" width={400} height={400} className={ styles.image } alt="Rapidité"/>
 			<Text h5 align="center">
-				Les articles vous sont envoyés sous 72h
+				{ t.fastShipping }
 			</Text>
 		</Grid>
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/safe.svg" width={400} height={400} className={ styles.image } alt="Securité" />
 			<Text h5 align="center">
-				Votre paiement est sécurisé
+				{ t.safePayment }
 			</Text>
 		</Grid>
 		<Grid xs={ 24 } md={ 4 }>
 			<Image src="/img/environment.svg" width={400} height={400} className={ styles.image } alt="Protection" />
 			<Text h5 align="center">
-				Faire de la seconde main le premier choix
+				{ t.firstChoice }
 			</Text>
 		</Grid>
 	</Grid.Container>
@@ -181,7 +168,9 @@ function Home({ products, router, photos }) {
 
 export default withRouter(Home)
 
-export async function getStaticProps() {
+import Locales from "../locales/index"
+
+export async function getStaticProps({ locale }) {
 	const unsplash = new Unsplash({ accessKey: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS });
 	const collection = await unsplash.collections.getCollectionPhotos(27372549).then(toJson)
 	const photos = collection.map(photo => {
@@ -193,11 +182,19 @@ export async function getStaticProps() {
 	})
 
 	const query = AllProducts
-    const result = await graphQLClient.request(query)
+	const result = await graphQLClient.request(query)
+	
+	// Locales
+	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+		line[0],
+		line[1][locale.split("-")[0]]
+	]))
+
     return {
         props: {
 			products: result.allProducts.data,
-			photos
+			photos,
+			t: locales
         },
         revalidate: 300
     }

@@ -6,6 +6,9 @@ import pStyles from '../styles/ProductCard.module.scss'
 import Lottie from 'react-lottie';
 import animationData from '../lotties/checkout.json';
 
+import { useRouter } from "next/router"
+import Locales from "../locales/Basket"
+
 export default function Basket({
     bindings
 }) {
@@ -15,29 +18,18 @@ export default function Basket({
         forceUpdate()
     }, "Basket")
     
-    const [message, setMessage] = React.useState("");
-
-    React.useEffect(() => {
-        // Check to see if this is a redirect back from Checkout
-        const query = new URLSearchParams(window.location.search);
-
-        if (query.get("success")) {
-            setMessage("Order placed! You will receive an email confirmation.");
-        }
-
-        if (query.get("canceled")) {
-            setMessage(
-                "Order canceled -- continue to shop around and checkout when you're ready."
-            );
-        }
-    }, []);
+    const router = useRouter()
+    const t = Object.fromEntries(Object.entries(Locales).map(line => [
+		line[0],
+		line[1][router.locale.split("-")[0]]
+    ]))
 
     const [checkout, setCheckout] = React.useState(false)
     const handleClick = async (event) => {
         setCheckout(true)
         const available = await Manager.checkAvailability()
         if (available == false) {
-            setCheckout("Un ou plusieurs produit(s) que vous avez demandé n'est plus en stock.")
+            setCheckout(t.checkoutErrorMessage)
             return
         }
 
@@ -69,8 +61,8 @@ export default function Basket({
 
     if (typeof checkout == "string") {
         return <Modal {...bindings} onClose={ () => { setCheckout(false); bindings.onClose() } }>
-                    <Modal.Title>Erreur</Modal.Title>
-                    <Modal.Subtitle>Un probleme est survenu</Modal.Subtitle>
+                    <Modal.Title>{ t.checkoutErrorTitle }</Modal.Title>
+                    <Modal.Subtitle>{ t.checkoutErrorSubTitle }</Modal.Subtitle>
                     <Modal.Content>
                         <Text align="center">{ checkout }</Text>
                     </Modal.Content>
@@ -79,17 +71,17 @@ export default function Basket({
 
     if (Manager.numberOfItems == 0) {
         return <Modal {...bindings}>
-                    <Modal.Title>Panier</Modal.Title>
-                    <Modal.Subtitle>Vide</Modal.Subtitle>
+                    <Modal.Title>{ t.basket }</Modal.Title>
+                    <Modal.Subtitle>{ t.empty }</Modal.Subtitle>
                     <Modal.Content>
-                        <Text align="center">Veuillez ajouter quelque chose à votre panier.</Text>
+                        <Text align="center">{ t.emptyMsg }</Text>
                     </Modal.Content>
                 </Modal>
     }
     const modal = <Modal width="80vw" {...bindings}>
-        <Modal.Title>Panier</Modal.Title>
+        <Modal.Title>{ t.basket }</Modal.Title>
         <Modal.Content>
-            <Divider>Contenu</Divider>
+            <Divider>{ t.content }</Divider>
             <Grid.Container gap={2} justify="flex-start">
             {
                 Manager.cart.map(product => {
@@ -115,10 +107,10 @@ export default function Basket({
                         </Fieldset.Content>
                         <Fieldset.Footer>
                             <Fieldset.Footer.Status>
-                                Quantité: { product.quantity }
+                                { t.quantity }: { product.quantity }
                             </Fieldset.Footer.Status>
                             <Fieldset.Footer.Actions>
-                                <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product._id) }>Supprimer</Button>
+                                <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product._id) }>{ t.remove }</Button>
                             </Fieldset.Footer.Actions>
                         </Fieldset.Footer>
                     </Fieldset>
@@ -127,39 +119,39 @@ export default function Basket({
                 })
             }
             </Grid.Container>
-            <Divider>Total</Divider>
+            <Divider>{ t.total }</Divider>
             <Card>
                 <Row justify="space-between">
-                    <Text b>Sous total</Text>
+                    <Text b>{ t.subtotal }</Text>
                     <Text b>{ (Math.round(Manager.subtotal * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
                 <Row justify="space-between">
-                    <Text b>TPS</Text>
+                    <Text b>{ t.gst }</Text>
                     <Text b>{ (Math.round(Manager.subtotal * 0.05 * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
                 <Row justify="space-between">
-                    <Text b>TVQ</Text>
+                    <Text b>{ t.qst }</Text>
                     <Text b>{ (Math.round(Manager.subtotal * 0.09975 * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
                 <Divider />
                 <Row justify="space-between">
-                    <Text b>Total</Text>
+                    <Text b>{ t.total }</Text>
                     <Text b>{ (Math.round(Manager.subtotal * 1.14975 * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
             </Card>
             <Spacer y={1} />
             <Grid.Container gap={2} justify="flex-end">
                 <Grid xs={24} md={ 7 }>
-                    <Button onClick={ () => bindings.onClose() } style={{ textTransform: "none", width: "100%" }}>Continuer à magasiner</Button>
+                    <Button onClick={ () => bindings.onClose() } style={{ textTransform: "none", width: "100%" }}>{ t.continue }</Button>
                 </Grid>
                 <Grid xs={ 24 } md={ 7 }>
-                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }}>Passer à la caisse</Button>
+                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }}>{ t.checkout }</Button>
                 </Grid>
             </Grid.Container>
         </Modal.Content>
     </Modal>
     const loading = <Modal width="80vw" {...bindings} onClose={ () => { setCheckout(false); bindings.onClose() } }>
-        <Modal.Title>Panier</Modal.Title>
+        <Modal.Title>{ t.basket }</Modal.Title>
         <Modal.Content>
             <Lottie options={{
                 loop: true,

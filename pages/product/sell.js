@@ -5,7 +5,7 @@ import Footer from "../../components/Footer"
 import NavBar from "../../components/NavBar"
 import { CreateRequest } from "../../lib/Requests"
 import { graphQLClient } from "../../utils/fauna"
-export default function Sell() {
+export default function Sell({ t }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
 
@@ -61,49 +61,49 @@ export default function Sell() {
         }
 
         graphQLClient.request(query, variables).then(data => {
-            alert(`Merci ${data.createRequest.customer.firstName}!\nNous essayerons de vous répondre le plus tôt possible!` )
+            alert(`${t.thanks} ${data.createRequest.customer.firstName}!\n${t.respond}` )
             window.location = "/"
         })
     }
 
     return <>
 	<Head>
-		<title>Vendre</title>
+        <title>Ma Seconde Cabane - { t.sell }</title>
 		<link rel="icon" href="/favicon.ico" />
 	</Head>
 	<NavBar />
     <Page>
-        <Text h1>Vendre vos vêtements</Text>
+        <Text h1>{ t.sellClothes }</Text>
         <Grid.Container justify="center" gap={2}>
             <Grid xs={ 24 } md={ 12 }>
-                <Text h3>NOUS RACHETONS</Text>
+                <Text h3>{ t.weBuy }</Text>
                 <Text p>
-                    • Les vêtements de 0 à 10 ans<br/>
-                    • Les articles dans un état impeccable<br/>
-                    • Essentiellement des articles de marques<br/>
-                    • Des lots de 10 articles minimum
+                    • { t.zeroTen }<br/>
+                    • { t.condition }<br/>
+                    • { t.brands }<br/>
+                    • { t.lots }
                 </Text>
             </Grid>
             <Grid xs={ 24 } md={ 12 }>
-                <Text h3>NOUS NE RACHETONS PAS</Text>
+                <Text h3>{ t.weDontBuy }</Text>
                 <Text p>
-                    • Les vêtements fait maison, les sous-vêtements, chaussettes<br/>
-                    • Les vêtements sans étiquette de marque et d’âge<br/>
-                    • Les articles tâchés, décousus, boulochés, troués, recousus, abîmés ...
+                    • { t.socks }<br/>
+                    • { t.noBrand }<br/>
+                    • { t.damaged }
                 </Text>
             </Grid>
         </Grid.Container>
-        <Text h4>Informations de base</Text>
+        <Text h4>{ t.basicInfo }</Text>
         <Divider />
         <Grid.Container justify="center" gap={2}>
             <Grid xs={12}>
-                <Description title="Prénom" content={
-                    <Input name="fristname" placeholder="Prénom" width="100%" value={ fname } status={ getType(fname) } onChange={e => setFName(e.target.value)} disabled={ loading } />
+                <Description title={ t.firstName } content={
+                    <Input name="fristname" placeholder={ t.firstName } width="100%" value={ fname } status={ getType(fname) } onChange={e => setFName(e.target.value)} disabled={ loading } />
                 } />
             </Grid>
             <Grid xs={12}>
-                <Description title="Nom" content={
-                    <Input name="lastname" placeholder="Nom de famille" width="100%" value={ lname } status={ getType(lname) } onChange={e => setLName(e.target.value)} disabled={ loading }/>
+                <Description title={ t.lastName } content={
+                    <Input name="lastname" placeholder={ t.lastName } width="100%" value={ lname } status={ getType(lname) } onChange={e => setLName(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
@@ -112,44 +112,58 @@ export default function Sell() {
                 } />
             </Grid>
             <Grid xs={12}>
-                <Description title="Telephone" content={
-                    <Input placeholder="+1 ... (Non obligatoire)" width="100%" status="tel" value={ phone } status={ getType(phone) } onChange={e => setPhone(e.target.value)} disabled={ loading }/>
+                <Description title={ t.phone } content={
+                    <Input placeholder={ `+1 ... (${t.notMandatory})`} width="100%" type="tel" value={ phone } onChange={e => setPhone(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
         </Grid.Container>
         <Spacer y={2} />
-        <Text h4>Adresse</Text>
+        <Text h4>{ t.address }</Text>
         <Divider />
         <Grid.Container justify="center" gap={2}>
             <Grid xs={12}>
-                <Description title="Rue" content={
-                    <Input placeholder="Adresse ligne 1" width="100%" value={ street } status={ getType(street) } onChange={e => setStreet(e.target.value)} disabled={ loading }/>
+                <Description title={ t.street } content={
+                    <Input placeholder={ t.line1 } width="100%" value={ street } status={ getType(street) } onChange={e => setStreet(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
-                <Description title="Ville" content={
-                    <Input placeholder="Ville" width="100%" value={ city } status={ getType(city) } onChange={e => setCity(e.target.value)} disabled={ loading }/>
+                <Description title={ t.city } content={
+                    <Input placeholder={ t.city } width="100%" value={ city } status={ getType(city) } onChange={e => setCity(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
-                <Description title="Code postal" content={
-                    <Input placeholder="Code postal" width="100%" value={ postal } status={ getType(postal) } onChange={e => setPostal(e.target.value)} disabled={ loading }/>
+                <Description title={ t.postal } content={
+                    <Input placeholder={ t.postal } width="100%" value={ postal } status={ getType(postal) } onChange={e => setPostal(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
             <Grid xs={12}>
-                <Description title="Pays" content={
-                    <Input placeholder="Pays" width="100%" value={ country } status={ getType(country) } onChange={e => setCountry(e.target.value)} disabled={ loading } />
+                <Description title={ t.country } content={
+                    <Input placeholder={ t.country } width="100%" value={ country } status={ getType(country) } onChange={e => setCountry(e.target.value)} disabled={ loading } />
                 } />
             </Grid>
         </Grid.Container>
         <Spacer y={2} />
-        <Text h4>Description</Text>
-        <Textarea width="100%" placeholder="Décrivez ce que vous voulez nous vendre. Veuillez noter que nous ne répondrons qu'aux demande répondant à nos critères." minHeight="500px" status={ getType(description) } value={ description } onChange={e => setDescription(e.target.value)} disabled={ loading }/>
+        <Text h4>{t.description}</Text>
+        <Textarea width="100%" placeholder={ t.describe } minHeight="500px" status={ getType(description) } value={ description } onChange={e => setDescription(e.target.value)} disabled={ loading }/>
         <Spacer y={1} />
         <Row>
-            <Button shadow type="secondary" loading={ loading } onClick={ submit }>Envoyer</Button>
+            <Button shadow type="secondary" loading={ loading } onClick={ submit }>{ t.submit }</Button>
         </Row>
     </Page>
     <Footer />
     </>
+}
+
+import Locales from "../../locales/sell"
+export async function getStaticProps({ locale }) {
+    // Locales
+	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+		line[0],
+		line[1][locale.split("-")[0]]
+    ]))
+    return {
+        props: {
+            t: locales
+        }
+    }
 }

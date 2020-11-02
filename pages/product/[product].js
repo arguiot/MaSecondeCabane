@@ -14,7 +14,7 @@ import Skeleton from '../../components/Skeleton'
 const ReactImageZoom = dynamic(() => import('react-image-zoom'))
 
 
-export default function ProductPage({ product }) {
+export default function ProductPage({ product, t }) {
     const router = useRouter()
     const [imageLoaded, setImageLoaded] = React.useState(false)
 
@@ -53,57 +53,64 @@ export default function ProductPage({ product }) {
     function etat(e) {
         switch (e) {
             case "Bon":
-                return "Très bon état"
+                return t.veryGood
             case "Excellent":
-                return "Excellent état"
+                return t.excellent
             case "Neuf":
-                return "Neuf"
+                return t.new
             default:
                 return "-"
         }
     }
     const table = [
         {
-            property: "Genre",
-            detail: product.sexe
+            property: t.gender,
+            detail: getSex(product.sexe, router.locale)
         },
         {
-            property: "Taille",
-            detail: product.size
+            property: t.size,
+            detail: getSize(product.size, router.locale)
         },
         {
-            property: "Marque",
+            property: t.brand,
             detail: product.brand
         },
         {
-            property: "Catégorie",
-            detail: product.type
+            property: t.category,
+            detail: getCategory(product.type, router.locale)
         },
         {
-            property: "Composition",
+            property: t.composition,
             detail: product.composition == null ? "N/A" : product.composition
         },
         {
-            property: "État",
+            property: t.condition,
             detail: etat(product.etat)
         },
         {
-            property: "Stock",
+            property: t.stock,
             detail: product.quantity
         }
     ]
+
+    function getDescription(product, lang) {
+        if (lang == "en-CA" && product.descriptionEn != null) {
+            return product.descriptionEn
+        }
+        return product.description
+    }
 
     return (<>
         <Head>
             <title>Ma Seconde Cabane - { product.name }</title>
             <link rel="icon" href="/favicon.ico" />
-            <meta name="description" content={ product.description } />
+            <meta name="description" content={ getDescription(product, router.locale) } />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
                 "@context" : "http://schema.org",
                 "@type" : "Product",
                 "name" : product.name,
                 "image" : `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}`,
-                "description" : product.description,
+                "description" : getDescription(product, router.locale),
                 "brand" : {
                     "@type" : "Brand",
                     "name" : "Ma Seconde Cabane",
@@ -126,47 +133,44 @@ export default function ProductPage({ product }) {
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Text h2>{ product.name }</Text>
-                    <Text p>{ product.description }</Text>
-                    <Description title="Taille" content={ product.size }/>
+                    <Text p>{ getDescription(product, router.locale) }</Text>
+                    <Description title={ t.size } content={ getSize(product.size, router.locale) }/>
                     <Spacer y={.8} />
-                    <Description title="État" content={ etat(product.etat) } />
+                    <Description title={ t.condition } content={ etat(product.etat) } />
                     <Spacer y={1} />
                     <Row justify="center" style={{ alignItems: "center" }}>
-                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >Ajouter au panier</Button>
+                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >{ t.addToBasket }</Button>
                         <Spacer x={1} />
                         <Text h2 className={ styles.normalFont } style={{ color: "#ea4335", margin: "0" }}>{ product.price }$</Text>
                     </Row>
                     {
-                        product.quantity < 1 && <Text i align="center">Cet article n'est plus en stock.</Text>
+                        product.quantity < 1 && <Text i align="center">{ t.noStock }</Text>
                     }
                     <Spacer y={2} />
                     <Collapse.Group>
-                        <Collapse title="Détails">
+                        <Collapse title={ t.details }>
                             <Table data={table}>
-                                <Table.Column prop="property" label="Propriété" />
-                                <Table.Column prop="detail" label="Détail" />
+                                <Table.Column prop="property" label={ t.property } />
+                                <Table.Column prop="detail" label={ t.detail } />
                             </Table>
                         </Collapse>
                     </Collapse.Group>
                 </Grid>
             </Grid.Container>
             <Spacer y={2} />
-            <Text h2>FAQ</Text>
+            <Text h2>{ t.faq }</Text>
             <Collapse.Group className={ styles.collapse }>
-                <Collapse title="J’ai des questions à propos de cet article, comment faire ?">
-                    Pour toutes vos questions concernant un article, veuillez envoyer un mail à l'adresse suivante : <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>.
-                    Nous nous ferons un plaisir de vous renseigner.
+                <Collapse title={ t.questionsTitle }>
+                    { t.questionsP1 } <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>. { t.questionsP2 }
                 </Collapse>
-                <Collapse title="Quels sont les moyens de paiement acceptés ?">
-                    Notre système de paiement est Stripe. Toutes les cartes de crédit et débit sont acceptés (à conditions que votre banque accepte les achats en ligne). Vous pouvez également utiliser Apple Pay et Google Pay pour passer à la caisse encore plus vite!
+                <Collapse title={ t.paymentTitle }>
+                    { t.paymentContent }
                 </Collapse>
-                <Collapse title="Quand vais je recevoir ma commande ?">
-                    Votre commande est expédiée entre 24h et 72h selon le moment où vous passez votre commande. Les commandes enregistrées sur le site le vendredi après 12h, le samedi, le dimanche ou les jours fériés seront traitées le lundi suivant.
-                    Malheureusement, nous ne sommes pas responsables des délais des transporteurs.
-                    Les articles commandés seront livrés à l’adresse que vous avez indiqué.
+                <Collapse title={ t.whenArrive }>
+                    { t.whenArriveContent }
                 </Collapse>
-                <Collapse title="Est-ce que les articles mis en ligne sont controlés avant d’etre envoyés ?">
-                    Tous les articles mis en ligne sont minutieusement controlés par nos soins. En achetant sur le site, vous êtes certains de la grande qualité des produits. A ce propos, nous ne proposons que des articles neufs, en excellent ou en très bon état.
+                <Collapse title={ t.controlledTitle }>
+                    { t.controlledContent }
                 </Collapse>
             </Collapse.Group>
         </Page>
@@ -175,23 +179,37 @@ export default function ProductPage({ product }) {
     )
 }
 
+import Locales from "../../locales/[Product]"
+import { getCategory, getSex, getSize } from '../../locales/Fuse'
 
+export async function getStaticProps({ params, locale }) {
+    if (typeof params.product != "string") {
+        return {
+            notFound: true
+        }
+    }
 
-export async function getStaticProps({ params }) {
     const { product } = params
     const query = ProductByID
     const result = await graphQLClient.request(query, {
         id: product
     })
+    // Locales
+	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+		line[0],
+		line[1][locale.split("-")[0]]
+    ]))
+    
     return {
         props: {
-            product: result.findProductByID
+            product: result.findProductByID,
+            t: locales
         },
         revalidate: 300
     }
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
     const query = gql`
     query AllProducts {
         allProducts {
@@ -205,15 +223,23 @@ export async function getStaticPaths() {
 
     const { data } = result.allProducts
 
+    const modifier = lang => {
+        return entry => {
+            return {
+                params: {
+                    product: entry._id
+                },
+                locale: lang
+            }
+        }
+    }
+    let paths = []
+    locales.forEach(lang => {
+        paths = paths.concat(data.map(modifier(lang)))
+    })
     return {
       // Only `/posts/1` and `/posts/2` are generated at build time
-      paths: data.map(entry => {
-          return {
-              params: {
-                  product: entry._id
-              }
-          }
-      }),
+      paths,
       // Enable statically generating additional pages
       // For example: `/posts/3`
       fallback: true,
