@@ -3,10 +3,10 @@ import Head from "next/head"
 import Footer from "../components/Footer"
 import NavBar from "../components/NavBar"
 
-export default function Custom404() {
+export default function Custom404({ t }) {
     return <>
 	<Head>
-		<title>Ma Seconde Cabane - Erreur</title>
+		<title>Ma Seconde Cabane - { t.error }</title>
 		<link rel="icon" href="/favicon.ico" />
 	</Head>
 	<NavBar />
@@ -15,11 +15,26 @@ export default function Custom404() {
             <Image width={540} height={246} src="/img/404.svg" />
         </Image.Browser>
         <Spacer y={.8} />
-        <Text h1 align="center">Oups! Vous vous êtes perdu!</Text>
-        <Text h2 align="center">Désolés, la page que vous recherchez est introuvable.</Text>
+        <Text h1 align="center">{ t.lost }</Text>
+        <Text h2 align="center">{ t.notFound }</Text>
         <Spacer y={.8} />
-        <Text p align="justify">Vous pouvez retourner à la page d'accueil ou nous écrire si vous ne trouvez pas ce que vous recherchez. Nous sommes désolés que vous n'ayez pas trouvé ce que vous cherchiez. Si la page n'existe pas, c'est soit que nous avons fait une faute de frappe (oui, nous sommes humains aussi!), soit que le produit n'est plus disponible. Mais ne vous inquiétez pas, vous trouverez quelque chose d'équivalent sinon de meilleur sur notre catalogue!</Text>
+        <Text p align="justify">{ t.goBack }</Text>
     </Page>
     <Footer />
     </>
+}
+
+import Locales from "../locales/404"
+
+export async function getStaticProps({ locale }) {
+    // Locales
+	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+		line[0],
+		line[1][locale.split("-")[0]]
+    ]))
+    return {
+        props: {
+            t: locales
+        }
+    }
 }
