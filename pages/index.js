@@ -125,7 +125,7 @@ function Home({ products, router, photos, t }) {
 		<Text h1>{ t.products }</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
-				shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).map(p => {
+				shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).slice(0, 6).map(p => {
 					return <Grid key={ p._id } xs={24} md={8}>
 						<ProductCard key={ p._id } product={ p } />
 					</Grid>

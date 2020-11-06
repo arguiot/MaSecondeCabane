@@ -1,5 +1,5 @@
-import { Page, Select, Grid, Text, Description, Spacer, Input } from "@geist-ui/react"
-import { Search } from "@geist-ui/react-icons"
+import { Page, Select, Grid, Text, Description, Spacer, Input, Pagination, Row } from "@geist-ui/react"
+import { ChevronLeft, ChevronRight, Search } from "@geist-ui/react-icons"
 import Head from "next/head"
 import NavBar from "../../components/NavBar"
 import { graphQLClient } from '../../utils/fauna'
@@ -13,7 +13,6 @@ import { buildIndex, fuseOption, getCategory, getSize } from "../../locales/Fuse
 function AllPage({ products, router, t }) {
     const [search, setSearch] = React.useState(router.query.search)
     const [sexe, setSexe] = React.useState(router.query.gender)
-
     React.useEffect(() => {
         const handleRoute = () => {
             const params = new URLSearchParams(window.location.search)
@@ -49,6 +48,7 @@ function AllPage({ products, router, t }) {
     ]
 
     // Search logic
+    const [page, setPage] = React.useState(0)
 
     const fuse = new Fuse([], fuseOption)
     
@@ -83,12 +83,16 @@ function AllPage({ products, router, t }) {
 
         return prdcts
     }
-    
-    const all = results(search, sexe, size, etat).slice(0, 6).map(p => {
+    const all = results(search, sexe, size, etat).map(p => {
         return <Grid xs={24} md={8}>
             <ProductCard product={ p } />
         </Grid>
     })
+    React.useEffect(() => {
+        if (Math.ceil(all.length  / 12) < page + 1) {
+            setPage(0)
+        }
+    }, [all])
 
     return <>
 	<Head>
@@ -145,7 +149,16 @@ function AllPage({ products, router, t }) {
             <Grid xs={24} md={18}>
                 <Grid.Container gap={2} justify="flex-start">
                     {
-                        all.length == 0 ? <Text h4 type="secondary" align="center" style={{width: "100%"}}>{ t.searchError }</Text> : all
+                        all.length == 0 ? <Text h4 type="secondary" align="center" style={{width: "100%"}}>{ t.searchError }</Text> : all.slice(page * 12, page * 12 + 12)
+                    }
+                    <Spacer y={2}/>
+                    {
+                        all.length > 0 && <Row justify="center" style={{ width: "100%" }}>
+                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ n => setPage(n - 1) } page={ page + 1 }>
+                            <Pagination.Next><ChevronRight /></Pagination.Next>
+                            <Pagination.Previous><ChevronLeft /></Pagination.Previous>
+                        </Pagination>
+                        </Row>
                     }
                 </Grid.Container>
             </Grid>
