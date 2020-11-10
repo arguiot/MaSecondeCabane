@@ -10,6 +10,7 @@ import { useRouter } from "next/router"
 import Locales from "../locales/Basket"
 import { getDescription, getSize } from "../locales/Fuse";
 import { Minus, Plus } from "@geist-ui/react-icons";
+import React from "react";
 
 export default function Basket({
     bindings

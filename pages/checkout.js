@@ -6,6 +6,7 @@ import { CheckCircle, AlertTriangle } from '@geist-ui/react-icons'
 import { withRouter } from "next/router"
 import Link from "next/link"
 import Locales from "../locales/Checkout"
+import React from "react";
 
 export async function getStaticProps({ locale }) {
     // Locales

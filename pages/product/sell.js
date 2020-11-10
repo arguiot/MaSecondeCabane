@@ -5,6 +5,7 @@ import Footer from "../../components/Footer"
 import NavBar from "../../components/NavBar"
 import { CreateRequest } from "../../lib/Requests"
 import { graphQLClient } from "../../utils/fauna"
+
 export default function Sell({ t }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)

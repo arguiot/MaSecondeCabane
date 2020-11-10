@@ -9,6 +9,7 @@ import Fuse from 'fuse.js'
 import { withRouter } from 'next/router'
 import Footer from "../../components/Footer"
 import { buildIndex, fuseOption, getCategory, getSize } from "../../locales/Fuse"
+import React from "react";
 
 function AllPage({ products, router, t }) {
     const [search, setSearch] = React.useState(router.query.search)

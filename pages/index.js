@@ -14,12 +14,23 @@ import Footer from '../components/Footer'
 import { buildIndex, fuseOption, getDescription } from '../locales/Fuse'
 // ES Modules syntax
 import Unsplash, { toJson } from 'unsplash-js';
+import React from "react";
+
+function shuffle(a) {
+	for (let i = a.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[a[i], a[j]] = [a[j], a[i]];
+	}
+	return a;
+}
 
 function Home({ products, router, photos, t }) {
 	// Hero
 	const [ image, setImage ] = React.useState()
+	const [PRODUCTS, setProducts] = React.useState([])
 	React.useEffect(() => {
 		setImage(photos[Math.floor(Math.random() * photos.length)])
+		setProducts(shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).slice(0, 6))
 	}, [])
 	// Search logic
 
@@ -71,14 +82,6 @@ function Home({ products, router, photos, t }) {
 		router.push(`/product/all?${params.toString()}`)
 	}
 
-	function shuffle(a) {
-		for (let i = a.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j], a[i]];
-		}
-		return a;
-	}
-
 	return (<>
 	<Head>
 		<title>Ma Seconde Cabane</title>
@@ -125,7 +128,7 @@ function Home({ products, router, photos, t }) {
 		<Text h1>{ t.products }</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
-				shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).slice(0, 6).map(p => {
+				PRODUCTS.map(p => {
 					return <Grid key={ p._id } xs={24} md={8}>
 						<ProductCard key={ p._id } product={ p } />
 					</Grid>

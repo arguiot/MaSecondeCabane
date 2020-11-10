@@ -1,15 +1,9 @@
 import { Card, Image, Text, Row } from "@geist-ui/react"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import styles from "../styles/ProductCard.module.scss"
 export default function ProductCard({ product }) {
     const router = useRouter()
-    const redirect = e => {
-        e.preventDefault()
-        router.push(e.currentTarget.href).then(() => {
-            window.scrollTo(0, 0)
-            document.body.focus()
-        })
-    }
     function getDescription(product, lang) {
         if (lang == "en-CA" && product.descriptionEn != null) {
             return product.descriptionEn
@@ -27,7 +21,8 @@ export default function ProductCard({ product }) {
         return size
     }
 
-    return <a href={ `/${router.locale}/product/${product._id}` } onClick={redirect}>
+    return <Link href={ `/${router.locale}/product/${product._id}` }>
+    <a>
         <Card width="300" hoverable shadow style={{ cursor: "pointer", textAlign: "center" }}>
             <Image width={ 300 } height={ 300 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-300,h-300/${product.image}` } style={{ objectFit: 'cover' }} alt={ product.name } loading="lazy"/>
             <Text h4 style={{ marginBottom: '0' }}>{ product.name }</Text>
@@ -35,5 +30,5 @@ export default function ProductCard({ product }) {
             <Text h4 style={{ color: "#ea4335" }}>{ product.price }$</Text>
         </Card>
     </a>
-    
+    </Link>
 }

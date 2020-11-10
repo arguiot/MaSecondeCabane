@@ -7,6 +7,7 @@ import {
 import NextNProgress from 'nextjs-progressbar';
 import { useRouter } from 'next/router'
 import * as gtag from '../lib/gtag'
+import React from "react";
 
 function MyApp({
 	Component,

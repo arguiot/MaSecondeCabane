@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import { NotificationCenter } from '@arguiot/broadcast.js'
 import { useRouter } from 'next/router'
 import Locales from "../locales/NavBar"
+import React from "react";
 
 const Basket = dynamic(() => import('./Basket'))
 const Cart = dynamic(() => import('./Cart'))

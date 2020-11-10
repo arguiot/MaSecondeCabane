@@ -10,6 +10,7 @@ import Footer from '../../components/Footer'
 import styles from "../../styles/Product.module.scss"
 import dynamic from 'next/dynamic'
 import Skeleton from '../../components/Skeleton'
+import React from "react";
 
 const ReactImageZoom = dynamic(() => import('react-image-zoom'))
 
