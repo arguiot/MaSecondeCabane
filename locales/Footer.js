@@ -27,6 +27,14 @@ export default {
         fr: "Confidentialité",
         en: "Privacy"
     },
+    made: {
+        fr: "Créé avec",
+        en: "Made with"
+    },
+    montreal: {
+        fr: "à Montreal",
+        en: "in Montreal"
+    },
     allRightReserved: {
         fr: "Tous droits réservés",
         en: "All rights reserved"

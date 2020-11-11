@@ -1,6 +1,6 @@
 import styles from '../styles/Footer.module.scss'
-import { Mail, Facebook, Instagram } from "@geist-ui/react-icons"
-import { Input, Grid, Button, Text, Col, Row, Collapse, Link, Select } from '@geist-ui/react'
+import { Mail, Facebook, Instagram, ArrowRight, Heart } from "@geist-ui/react-icons"
+import { Input, Grid, Button, Text, Col, Row, Collapse, Link, Select, Spacer } from '@geist-ui/react'
 import NextLink from 'next/link'
 import { useRouter } from "next/router"
 import Locales from "../locales/Footer"
@@ -18,9 +18,13 @@ export default function Footer() {
 
     const collapse = <Collapse.Group key="collapse" className={ styles.containerSmall }>
         <Collapse title={ t.stayUpdated } className={ styles.collapse }>
-            <Input placeholder="example@mail.com">
-                { t.subscribe }
-            </Input>
+            <Text type="secondary">{ t.subscribe }</Text>
+            <form action="https://masecondecabane.us2.list-manage.com/subscribe/post?u=3d03e13ba9d228fa2c7b947f1&amp;id=eb6f782737" method="post">
+                <Row align="middle">
+                    <Input placeholder="example@mail.com" type="email" name="EMAIL"/>
+                    <Button iconRight={<ArrowRight />} auto type="abort" htmlType="submit"/>
+                </Row>
+            </form>
         </Collapse>
         <Collapse title={ t.helpContact } className={ styles.collapse }>
             <Row>
@@ -54,9 +58,13 @@ export default function Footer() {
                 <Row justify="center">
                     <Col style={{ width: "auto" }}>
                     <Text h3 style={{ opacity: ".7" }}>{ t.stayUpdated }</Text>
-                    <Input placeholder="example@mail.com" type="email">
-                        { t.subscribe }
-                    </Input>
+                    <Text type="secondary">{ t.subscribe }</Text>
+                    <form action="https://masecondecabane.us2.list-manage.com/subscribe/post?u=3d03e13ba9d228fa2c7b947f1&amp;id=eb6f782737" method="post">
+                        <Row align="middle">
+                            <Input placeholder="example@mail.com" type="email" name="EMAIL"/>
+                            <Button iconRight={<ArrowRight />} auto type="abort" htmlType="submit"/>
+                        </Row>
+                    </form>
                     </Col>
                 </Row>
             </Grid>
@@ -96,17 +104,19 @@ export default function Footer() {
     <Select initialValue={ router.locale } pure onChange={ changeLang }>
         <Select.Option value="en-CA">
             <Row align="middle">
-                <img src="/img/us.svg" width={ 24 } height={ 24 }/>
+                {/* <img src="/img/us.svg" width={ 24 } height={ 24 }/> */}
                 <Text style={{ marginLeft: "10px" }}>English</Text>
             </Row>
         </Select.Option>
         <Select.Option value="fr-CA">
             <Row align="middle">
-                <img src="/img/fr.svg" width={ 24 } height={ 24 }/>
+                {/* <img src="/img/fr.svg" width={ 24 } height={ 24 }/> */}
                 <Text style={{ marginLeft: "10px" }}>Français</Text>
             </Row>
         </Select.Option>
     </Select>
+    <Spacer y={.5} />
+    <Text b align="center">{ t.made } <Heart size={ 14 } /> { t.montreal }</Text>
     <Text p align="center" type="secondary">
         Copyright © { new Date().getFullYear() } Ma Seconde Cabane. { t.allRightReserved }.<br />
         <Link href="https://dashboard.masecondecabane.com" icon target="_blank" rel="noopener noreferrer">
