@@ -190,23 +190,31 @@ export async function getStaticProps({ params, locale }) {
         }
     }
 
-    const { product } = params
-    const query = ProductByID
-    const result = await graphQLClient.request(query, {
-        id: product
-    })
-    // Locales
-	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
-		line[0],
-		line[1][locale.split("-")[0]]
-    ]))
-    
-    return {
-        props: {
-            product: result.findProductByID,
-            t: locales
-        },
-        revalidate: 300
+    try {
+        const { product } = params
+        const query = ProductByID
+        const result = await graphQLClient.request(query, {
+            id: product
+        })
+
+        // Locales
+        const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+            line[0],
+            line[1][locale.split("-")[0]]
+        ]))
+        
+        return {
+            props: {
+                product: result.findProductByID,
+                t: locales
+            },
+            revalidate: 300
+        }
+    } catch(e) {
+        console.log(e);
+        return {
+            notFound: true
+        }
     }
 }
 
