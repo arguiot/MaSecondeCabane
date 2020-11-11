@@ -1,5 +1,5 @@
 import styles from '../styles/Footer.module.scss'
-import { Mail, Facebook, Instagram, ArrowRight, Heart } from "@geist-ui/react-icons"
+import { Mail, Facebook, Instagram, ArrowRight, HeartFill } from "@geist-ui/react-icons"
 import { Input, Grid, Button, Text, Col, Row, Collapse, Link, Select, Spacer } from '@geist-ui/react'
 import NextLink from 'next/link'
 import { useRouter } from "next/router"
@@ -116,8 +116,8 @@ export default function Footer() {
         </Select.Option>
     </Select>
     <Spacer y={.5} />
-    <Text b align="center">{ t.made } <Heart size={ 14 } /> { t.montreal }</Text>
     <Text p align="center" type="secondary">
+        <Text b align="center">{ t.made } <HeartFill size={ 14 } /> { t.montreal }</Text><br/>
         Copyright © { new Date().getFullYear() } Ma Seconde Cabane. { t.allRightReserved }.<br />
         <Link href="https://dashboard.masecondecabane.com" icon target="_blank" rel="noopener noreferrer">
             Administration

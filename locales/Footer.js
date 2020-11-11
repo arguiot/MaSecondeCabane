@@ -32,7 +32,7 @@ export default {
         en: "Made with"
     },
     montreal: {
-        fr: "à Montreal",
+        fr: "à Montréal",
         en: "in Montreal"
     },
     allRightReserved: {
