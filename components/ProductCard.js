@@ -6,9 +6,9 @@ export default function ProductCard({ product }) {
     const router = useRouter()
     function getDescription(product, lang) {
         if (lang == "en-CA" && product.descriptionEn != null) {
-            return product.descriptionEn
+            return product.descriptionEn.split("\n")[0]
         }
-        return product.description
+        return product.description.split("\n")[0]
     }
     function getSize(size, lang) {
         if (size == "1 mois" && lang == "en-CA") {
