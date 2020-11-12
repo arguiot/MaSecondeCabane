@@ -11,6 +11,10 @@ export default {
         fr: "Un ou plusieurs produit(s) que vous avez demandé n'est plus en stock.",
         en: "One or more of the product(s) you requested is no longer in stock."
     },
+    noStock: {
+        fr: "Cet article n'est plus en stock ou en quantité limité.",
+        en: "This item is out of stock or in limited quantity."
+    },
     basket: {
         fr: "Panier",
         en: "Basket"

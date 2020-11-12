@@ -1,4 +1,4 @@
-import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card } from "@geist-ui/react";
+import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card, Tooltip } from "@geist-ui/react";
 
 import Manager from '../lib/CartManager'
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
@@ -28,11 +28,13 @@ export default function Basket({
     ]))
 
     const [checkout, setCheckout] = React.useState(false)
+    const [stock, setStock] = React.useState(false)
     const handleClick = async (event) => {
         setCheckout(true)
         const available = await Manager.checkAvailability()
-        if (available == false) {
-            setCheckout(t.checkoutErrorMessage)
+        if (available != true) {
+            setCheckout(false)
+            setStock(available)
             return
         }
 
@@ -81,48 +83,56 @@ export default function Basket({
                     </Modal.Content>
                 </Modal>
     }
+
+    const fieldset = product => <Fieldset>
+        <Fieldset.Content>
+            <Grid.Container gap={1} justify="center">
+                <Grid xs={7}>
+                    <Image src={
+                        `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}`
+                        } height={100} className={ pStyles.img } />
+                </Grid>
+                <Grid xs={13}>
+                    <Text h5>{ product.name }</Text>
+                    <Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>
+                    <Description title={ t.size } content={ getSize(product.size, router.locale) }/>
+                </Grid>
+                <Grid xs={4}>
+                    <Row align="middle" style={{ height: '100%' }}>
+                        <Text h5>{ product.price }$</Text>
+                    </Row>
+                </Grid>
+            </Grid.Container>
+        </Fieldset.Content>
+        <Fieldset.Footer>
+            <Fieldset.Footer.Status>
+                <Row align="middle">
+                    { t.quantity }: 
+                    <Button auto type="abort" size="small" iconRight={ <Minus /> } onClick={() => Manager.decrement(product) } />
+                    { product.quantity }
+                    <Button auto type="abort" size="small" iconRight={ <Plus /> } onClick={() => Manager.increment(product) } />
+                </Row>
+            </Fieldset.Footer.Status>
+            <Fieldset.Footer.Actions>
+                <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product._id) }>{ t.remove }</Button>
+            </Fieldset.Footer.Actions>
+        </Fieldset.Footer>
+    </Fieldset>
+
     const modal = <Modal width="80vw" {...bindings}>
         <Modal.Title>{ t.basket }</Modal.Title>
         <Modal.Content>
             <Divider>{ t.content }</Divider>
+            {
+                stock && <Text align="center" type="error">{ t.checkoutErrorMessage }</Text>
+            }
             <Grid.Container gap={2} justify="flex-start">
             {
                 Manager.cart.map(product => {
                     return <Grid xs={24} md={12} key={ product._id }>
-                    <Fieldset>
-                        <Fieldset.Content>
-                            <Grid.Container gap={1} justify="center">
-                                <Grid xs={7}>
-                                    <Image src={
-                                        `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}`
-                                        } height={100} className={ pStyles.img } />
-                                </Grid>
-                                <Grid xs={13}>
-                                    <Text h5>{ product.name }</Text>
-                                    <Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>
-                                    <Description title={ t.size } content={ getSize(product.size, router.locale) }/>
-                                </Grid>
-                                <Grid xs={4}>
-                                    <Row align="middle" style={{ height: '100%' }}>
-                                        <Text h5>{ product.price }$</Text>
-                                    </Row>
-                                </Grid>
-                            </Grid.Container>
-                        </Fieldset.Content>
-                        <Fieldset.Footer>
-                            <Fieldset.Footer.Status>
-                                <Row align="middle">
-                                    { t.quantity }: 
-                                    <Button auto type="abort" size="small" iconRight={ <Minus /> } onClick={() => Manager.decrement(product) } />
-                                    { product.quantity }
-                                    <Button auto type="abort" size="small" iconRight={ <Plus /> } onClick={() => Manager.increment(product) } />
-                                </Row>
-                            </Fieldset.Footer.Status>
-                            <Fieldset.Footer.Actions>
-                                <Button auto size="mini" type="error" ghost onClick={() => Manager.removeProduct(product._id) }>{ t.remove }</Button>
-                            </Fieldset.Footer.Actions>
-                        </Fieldset.Footer>
-                    </Fieldset>
+                    {
+                        stock && product._id == stock._id ? <Tooltip text={ t.noStock } visible type="error" style={{ width: "100%" }}>{ fieldset(product) }</Tooltip> : fieldset(product)
+                    }
                     <Spacer y={.8} />
                     </Grid>
                 })
