@@ -155,7 +155,7 @@ function AllPage({ products, router, t }) {
                     <Spacer y={2}/>
                     {
                         all.length > 0 && <Row justify="center" style={{ width: "100%" }}>
-                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ n => setPage(n - 1) } page={ page + 1 }>
+                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ n => { setPage(n - 1); window.scrollTo(0, 0) }} page={ page + 1 }>
                             <Pagination.Next><ChevronRight /></Pagination.Next>
                             <Pagination.Previous><ChevronLeft /></Pagination.Previous>
                         </Pagination>
