@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
-import { Page, Display, Text, Grid, Button, Collapse, Tag, Spacer, Row, Spinner, Description, Table } from '@geist-ui/react'
+import { Page, Display, Text, Grid, Button, Collapse, Divider, Spacer, Row, Spinner, Description, Table, Link } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
@@ -9,12 +9,15 @@ import { ProductByID } from '../../lib/Requests'
 import Footer from '../../components/Footer'
 import styles from "../../styles/Product.module.scss"
 import dynamic from 'next/dynamic'
+import Skeleton from '../../components/Skeleton'
+import React from "react";
 
 const ReactImageZoom = dynamic(() => import('react-image-zoom'))
 
 
-export default function ProductPage({ product }) {
+export default function ProductPage({ product, t }) {
     const router = useRouter()
+    const [imageLoaded, setImageLoaded] = React.useState(false)
 
     // If the page is not yet generated, this will be displayed
     // initially until getStaticProps() finishes running
@@ -32,55 +35,83 @@ export default function ProductPage({ product }) {
         </>
     }
 
+    React.useEffect(() => {
+        window.imageInterval = setInterval(() => {
+            const query = `.${styles.image} img`
+            const element = document.querySelector(query)
+            if (element != null && typeof element != "undefined") {
+                setImageLoaded(element.complete)
+                if (element.complete === true) {
+                    clearInterval(window.imageInterval)
+                }
+            }
+        }, 100)
+    }, [])
+
     const addToCart = () => {
         Manager.addItem(product)
     }
     function etat(e) {
         switch (e) {
             case "Bon":
-                return "Très bon état"
+                return t.veryGood
             case "Excellent":
-                return "Excellent état"
+                return t.excellent
             case "Neuf":
-                return "Neuf"
+                return t.new
             default:
                 return "-"
         }
     }
     const table = [
         {
-            property: "Genre",
-            detail: product.sexe
+            property: t.gender,
+            detail: getSex(product.sexe, router.locale)
         },
         {
-            property: "Taille",
-            detail: product.size
+            property: t.size,
+            detail: getSize(product.size, router.locale)
         },
         {
-            property: "Marque",
+            property: t.brand,
             detail: product.brand
         },
         {
-            property: "État",
+            property: t.category,
+            detail: getCategory(product.type, router.locale)
+        },
+        {
+            property: t.composition,
+            detail: product.composition == null ? "N/A" : product.composition
+        },
+        {
+            property: t.condition,
             detail: etat(product.etat)
         },
         {
-            property: "Stock",
+            property: t.stock,
             detail: product.quantity
         }
     ]
+
+    function getDescription(product, lang) {
+        if (lang == "en-CA" && product.descriptionEn != null) {
+            return product.descriptionEn
+        }
+        return product.description
+    }
 
     return (<>
         <Head>
             <title>Ma Seconde Cabane - { product.name }</title>
             <link rel="icon" href="/favicon.ico" />
-            <meta name="description" content={ product.description } />
+            <meta name="description" content={ getDescription(product, router.locale) } />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
                 "@context" : "http://schema.org",
                 "@type" : "Product",
                 "name" : product.name,
                 "image" : `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}`,
-                "description" : product.description,
+                "description" : getDescription(product, router.locale),
                 "brand" : {
                     "@type" : "Brand",
                     "name" : "Ma Seconde Cabane",
@@ -97,61 +128,50 @@ export default function ProductPage({ product }) {
         <NavBar />
         <Page>
             <Grid.Container gap={8} justify="center">
-                <Grid xs={24} md={12}>
-                    <Text h1>{ product.name }</Text>
-                    <Display shadow caption={ `Taille: ${product.size}` } className={ styles.display }>
-                        <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-750/${product.image}` } zoomPosition="original" />
-                    </Display>
+                <Grid xs={24} md={12} className={ styles.image }>
+                    <Skeleton display={ !imageLoaded }/>
+                    <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-1000/${product.image}` } zoomPosition="original" />
                 </Grid>
                 <Grid xs={24} md={12}>
-                    <Row justify="space-between">
-                        <Text h3 style={{ fontFamily: "var(--normalFont) !important"}}>Prix</Text>
-                        <Text h2 type="warning" style={{ fontFamily: "var(--normalFont) !important"}}>{ product.price }$</Text>
+                    <Text h2>{ product.name }</Text>
+                    <Text p>{ getDescription(product, router.locale) }</Text>
+                    <Description title={ t.size } content={ getSize(product.size, router.locale) }/>
+                    <Spacer y={.8} />
+                    <Description title={ t.condition } content={ etat(product.etat) } />
+                    <Spacer y={1} />
+                    <Row justify="center" style={{ alignItems: "center" }}>
+                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >{ t.addToBasket }</Button>
+                        <Spacer x={1} />
+                        <Text h2 className={ styles.normalFont } style={{ color: "#ea4335", margin: "0" }}>{ product.price }$</Text>
                     </Row>
-                    <Row justify="center">
-                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >Ajouter au panier</Button>
-                    </Row>
+                    {
+                        product.quantity < 1 && <Text i align="center">{ t.noStock }</Text>
+                    }
                     <Spacer y={2} />
                     <Collapse.Group>
-                        <Collapse title="Description" initialVisible >
-                            <Description title="Tags" content={
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    flexWrap: "wrap"
-                                }}>
-                                    {
-                                        product.tags.map((v, i) => <>
-                                            <Tag type="success" invert style={{ margin: "3px" }}>
-                                                { v }
-                                            </Tag>
-                                        </>)
-                                    }
-                                </div>
-                            } />
-                            <Spacer y={.8} />
-                            <Description title="Descriptif" content={
-                                <Text style={{ textAlign: "justify" }}>{ product.description }</Text>
-                            } />
-                        </Collapse>
-                        <Collapse title="Détails">
+                        <Collapse title={ t.details }>
                             <Table data={table}>
-                                <Table.Column prop="property" label="Propriété" />
-                                <Table.Column prop="detail" label="Détail" />
+                                <Table.Column prop="property" label={ t.property } />
+                                <Table.Column prop="detail" label={ t.detail } />
                             </Table>
                         </Collapse>
                     </Collapse.Group>
                 </Grid>
             </Grid.Container>
             <Spacer y={2} />
-            <Text h2>FAQ</Text>
-            <Collapse.Group>
-                <Collapse title="Question A">
-                    <Text style={{ textAlign: "justify" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                        veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.</Text>
+            <Text h2>{ t.faq }</Text>
+            <Collapse.Group className={ styles.collapse }>
+                <Collapse title={ t.questionsTitle }>
+                    { t.questionsP1 } <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>. { t.questionsP2 }
+                </Collapse>
+                <Collapse title={ t.paymentTitle }>
+                    { t.paymentContent }
+                </Collapse>
+                <Collapse title={ t.whenArrive }>
+                    { t.whenArriveContent }
+                </Collapse>
+                <Collapse title={ t.controlledTitle }>
+                    { t.controlledContent }
                 </Collapse>
             </Collapse.Group>
         </Page>
@@ -160,23 +180,45 @@ export default function ProductPage({ product }) {
     )
 }
 
+import Locales from "../../locales/[Product]"
+import { getCategory, getSex, getSize } from '../../locales/Fuse'
 
+export async function getStaticProps({ params, locale }) {
+    if (typeof params.product != "string") {
+        return {
+            notFound: true
+        }
+    }
 
-export async function getStaticProps({ params }) {
-    const { product } = params
-    const query = ProductByID
-    const result = await graphQLClient.request(query, {
-        id: product
-    })
-    return {
-        props: {
-            product: result.findProductByID
-        },
-        revalidate: 300
+    try {
+        const { product } = params
+        const query = ProductByID
+        const result = await graphQLClient.request(query, {
+            id: product
+        })
+
+        // Locales
+        const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+            line[0],
+            line[1][locale.split("-")[0]]
+        ]))
+        
+        return {
+            props: {
+                product: result.findProductByID,
+                t: locales
+            },
+            revalidate: 300
+        }
+    } catch(e) {
+        console.log(e);
+        return {
+            notFound: true
+        }
     }
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
     const query = gql`
     query AllProducts {
         allProducts {
@@ -190,15 +232,23 @@ export async function getStaticPaths() {
 
     const { data } = result.allProducts
 
+    const modifier = lang => {
+        return entry => {
+            return {
+                params: {
+                    product: entry._id
+                },
+                locale: lang
+            }
+        }
+    }
+    let paths = []
+    locales.forEach(lang => {
+        paths = paths.concat(data.map(modifier(lang)))
+    })
     return {
       // Only `/posts/1` and `/posts/2` are generated at build time
-      paths: data.map(entry => {
-          return {
-              params: {
-                  product: entry._id
-              }
-          }
-      }),
+      paths,
       // Enable statically generating additional pages
       // For example: `/posts/3`
       fallback: true,

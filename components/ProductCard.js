@@ -1,19 +1,34 @@
 import { Card, Image, Text, Row } from "@geist-ui/react"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import styles from "../styles/ProductCard.module.scss"
-import Link from 'next/link'
 export default function ProductCard({ product }) {
-    return <Link href="/product/[product]" as={ `/product/${product._id}` }>
-        <Card width="300" hoverable shadow style={{ cursor: "pointer" }}>
-            <Image width={ 300 } height={ 200 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-300,h-200,fo-auto/${product.image}` } style={{ objectFit: 'cover' }} alt={ product.name }/>
+    const router = useRouter()
+    function getDescription(product, lang) {
+        if (lang == "en-CA" && product.descriptionEn != null) {
+            return product.descriptionEn.split("\n")[0]
+        }
+        return product.description.split("\n")[0]
+    }
+    function getSize(size, lang) {
+        if (size == "1 mois" && lang == "en-CA") {
+            return "1 month"
+        } else if (lang == "en-CA") {
+            return size
+            .replace("mois", "months")
+            .replace("ans", "years")
+        }
+        return size
+    }
+
+    return <Link href={ `/${router.locale}/product/${product._id}` }>
+    <a>
+        <Card width="300" hoverable shadow style={{ cursor: "pointer", textAlign: "center" }}>
+            <Image width={ 300 } height={ 300 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-300,h-300/${product.image}` } style={{ objectFit: 'cover' }} alt={ product.name } loading="lazy"/>
             <Text h4 style={{ marginBottom: '0' }}>{ product.name }</Text>
-            <Text type="secondary" small className={ styles.truncate }>{ product.description }</Text>
-            <Card.Footer>
-                <Row justify="space-between" style={{ width: "100%", alignItems: "center" }}>
-                    <Text h5>Prix</Text>
-                    <Text h4 type="warning">{ product.price }$</Text>
-                </Row>
-            </Card.Footer>
+            <Text small className={ styles.truncate }>{ `${getDescription(product, router.locale)} - ${getSize(product.size, router.locale)}` }</Text>
+            <Text h4 style={{ color: "#ea4335" }}>{ product.price }$</Text>
         </Card>
+    </a>
     </Link>
-    
 }

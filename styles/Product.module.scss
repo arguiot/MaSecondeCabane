@@ -1,10 +1,16 @@
-.display {
-    div {
-        overflow: unset !important;
-        div {
-            img {
-                object-fit: contain;
-            }
-        }
+.image {
+    position: relative;
+    img {
+        object-fit: contain;
+    }
+}
+
+.normalFont {
+    font-family: var(--normalFont) !important;
+}
+
+.collapse {
+    h3 {
+        font-size: 1rem !important;
     }
 }

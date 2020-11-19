@@ -1,23 +1,59 @@
-import { CreateOrder, ProductByID, UpdateProduct } from '../../lib/Requests';
-import { graphQLClient } from "../../utils/fauna"
+import {
+    CreateOrder,
+    ProductByID,
+    UpdateProduct
+} from '../../lib/Requests';
+import {
+    graphQLServer
+} from "../../utils/fauna"
+import bodyParser from "body-parser"
 
-const stripe = require('stripe')('sk_test_3nOsPQAD4eQ1WaBbh9H99gcf');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
-const endpointSecret = "whsec_q7N1GHYU1oZzevlwYlcVj3N2MqsSVKAj"
+const endpointSecret = process.env.STRIPE_WEBHOOK
+
+// first we need to disable the default body parser
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+}
+
+function runMiddleware(req, res, fn) {
+    return new Promise((resolve, reject) => {
+        fn(req, res, (result) => {
+            if (result instanceof Error) {
+                return reject(result)
+            }
+
+            return resolve(result)
+        })
+    })
+}
+
 
 export default async (req, res) => {
-    const sig = req.headers['stripe-signature'];
-
+    // Run the middleware
+    await runMiddleware(req, res, bodyParser.raw({type: 'application/json'}))
+  
     let event;
 
-    try {
-        // event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret)
-        event = req.body
-    } catch (err) {
-        console.log(`Webhook Error: ${err.message}`)
-        return res.status(400).send(`Webhook Error: ${err.message}`);
+    // Only verify the event if you have an endpoint secret defined.
+    // Otherwise use the basic event deserialized with JSON.parse
+    if (endpointSecret) {
+        // Get the signature sent by Stripe
+        const signature = req.headers['stripe-signature'];
+        try {
+            event = stripe.webhooks.constructEvent(
+                req.body,
+                signature,
+                endpointSecret
+            );
+        } catch (err) {
+            console.log(`⚠️  Webhook signature verification failed.`, err.message);
+            return res.status(400).send(`Webhook Error: ${err.message}`);
+        }
     }
-
     // Handle the event
     switch (event.type) {
         case 'payment_intent.succeeded':
@@ -45,16 +81,23 @@ export default async (req, res) => {
                             product: entry.id,
                             quantity: entry.quantity
                         }
-                    })
+                    }),
+                    done: false
                 }
             }
-            const { createOrder } = await graphQLClient.request(query, variables)
+            const {
+                createOrder
+            } = await graphQLServer.request(query, variables)
             // Update Quantities
             const array = JSON.parse(paymentIntent.metadata.order)
             for (var i = 0; i < array.length; i++) {
                 const entry = array[i]
                 const query = ProductByID
-                const { findProductByID } = await graphQLClient.request(query, { id: entry.id })
+                const {
+                    findProductByID
+                } = await graphQLServer.request(query, {
+                    id: entry.id
+                })
                 const updateQuery = UpdateProduct
                 const variables = {
                     id: entry.id,
@@ -70,10 +113,14 @@ export default async (req, res) => {
                         brand: findProductByID.brand,
                         etat: findProductByID.etat,
                         tags: findProductByID.tags,
-                        favorite: findProductByID.favorite
+                        favorite: findProductByID.favorite,
+                        type: findProductByID.type,
+                        composition: findProductByID.composition
                     }
                 }
-                const { updateProduct } = await graphQLClient.request(updateQuery, variables)
+                const {
+                    updateProduct
+                } = await graphQLServer.request(updateQuery, variables)
                 console.log(`Updated Porduct ${updateProduct._id}`)
             }
             console.log(`Created order: ${createOrder._id}`)

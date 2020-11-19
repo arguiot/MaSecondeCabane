@@ -1,5 +1,5 @@
-import { Page, Select, Grid, Text, Description, Spacer, Input } from "@geist-ui/react"
-import { Search } from "@geist-ui/react-icons"
+import { Page, Select, Grid, Text, Description, Spacer, Input, Pagination, Row } from "@geist-ui/react"
+import { ChevronLeft, ChevronRight, Search } from "@geist-ui/react-icons"
 import Head from "next/head"
 import NavBar from "../../components/NavBar"
 import { graphQLClient } from '../../utils/fauna'
@@ -8,11 +8,12 @@ import ProductCard from '../../components/ProductCard'
 import Fuse from 'fuse.js'
 import { withRouter } from 'next/router'
 import Footer from "../../components/Footer"
+import { buildIndex, fuseOption, getCategory, getSize } from "../../locales/Fuse"
+import React from "react";
 
-function AllPage({ products, router }) {
+function AllPage({ products, router, t }) {
     const [search, setSearch] = React.useState(router.query.search)
     const [sexe, setSexe] = React.useState(router.query.gender)
-
     React.useEffect(() => {
         const handleRoute = () => {
             const params = new URLSearchParams(window.location.search)
@@ -35,22 +36,20 @@ function AllPage({ products, router }) {
         "2 ans", "3 ans", "4 ans", "5 ans", "6 ans", "7 ans", "8 ans", "9 ans", "10 ans", "11 ans", "12 ans"
     ]
     const [etat, setEtat] = React.useState([])
+    const [category, setCategory] = React.useState([])
+    const categoryList = [
+        "Accessoires",
+        "Chaussures",
+        "Chemises, T-shirts & Blouses",
+        "Gilets, Pulls & Sweat Shirts",
+        "Pantalons, Jupes & Shorts",
+        "Pyjamas & Bodies",
+        "Robes & Combinaisons",
+        "Vestes, Manteaux & Doudounes"
+    ]
 
     // Search logic
-
-	const fuseOption = {
-		includeScore: true,
-		// Search in `author` and in `tags` array
-		keys: [
-			"name",
-			"description",
-			"sexe",
-			"size",
-			"brand",
-			"etat",
-			"tags"
-		]
-	}
+    const [page, setPage] = React.useState(0)
 
     const fuse = new Fuse([], fuseOption)
     
@@ -61,10 +60,13 @@ function AllPage({ products, router }) {
                 return false
             }
             // Filtres
-            if (p.sexe != sexe && typeof sexe == "string") {
+            if (p.sexe != "Mixte" && p.sexe != sexe && typeof sexe == "string") {
                 return false
             }
             if (!size.includes(p.size) && size.length > 0) {
+                return false
+            }
+            if (!category.includes(p.type) && category.length > 0) {
                 return false
             }
             if (!etat.includes(p.etat) && etat.length > 0) {
@@ -73,7 +75,8 @@ function AllPage({ products, router }) {
             return true
         })
 
-        fuse.setCollection(prdcts)
+        const index = buildIndex(prdcts, router.locale)
+        fuse.setCollection(index)
         
         if (typeof search == "string" && search != "") {
             return fuse.search(search).map(e => e.item)
@@ -81,61 +84,82 @@ function AllPage({ products, router }) {
 
         return prdcts
     }
-    
-    const all = results(search, sexe, size, etat).slice(0, 6).map(p => {
+    const all = results(search, sexe, size, etat).map(p => {
         return <Grid xs={24} md={8}>
             <ProductCard product={ p } />
         </Grid>
     })
+    React.useEffect(() => {
+        if (Math.ceil(all.length  / 12) < page + 1) {
+            setPage(0)
+        }
+    }, [all])
 
     return <>
 	<Head>
-		<title>Ma Seconde Cabane - Produits</title>
+		<title>Ma Seconde Cabane - { t.products }</title>
 		<link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="Catalogue des produits de Ma Seconde Cabane" />
+        <meta name="description" content={ t.metaDescription } />
 	</Head>
 	<NavBar />
     <Page>
         <Grid.Container gap={2} justify="center">
             <Grid xs={24} md={6}>
                 <Text h4>Filtres</Text>
-                <Description title="Rechercher" content={
+                <Description title={ t.search } content={
                     <Input 
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     icon={<Search />} 
-                    placeholder="Marques, couleurs, ..." 
+                    placeholder={ t.brands } 
                     clearable 
                     width="100%" />
                 }/>
                 <Spacer y={.8}/>
-                <Description title="Genre" content={
-                    <Select placeholder="Sexe" value={sexe} onChange={setSexe} width="100%" style={{ maxWidth: "none" }}>
-                        <Select.Option value="Fille">Fille</Select.Option>
-                        <Select.Option value="Garçon">Garçon</Select.Option>
+                <Description title={ t.gender } content={
+                    <Select placeholder={ t.gender } value={sexe} onChange={setSexe} width="100%" style={{ maxWidth: "none" }}>
+                        <Select.Option value="Fille">{ t.girl }</Select.Option>
+                        <Select.Option value="Garçon">{ t.boy }</Select.Option>
                     </Select>
                 }/>
                 <Spacer y={.8} />
-                <Description title="Taille" content={
-                    <Select placeholder="Taille" multiple width="100%" value={size} onChange={setSize} style={{ maxWidth: "none" }}>
+                <Description title={ t.size } content={
+                    <Select placeholder={ t.size } multiple width="100%" value={size} onChange={setSize} style={{ maxWidth: "none" }}>
                         {
-                            sizeList.map(s => <Select.Option value={s}>{s}</Select.Option>)
+                            sizeList.map(s => <Select.Option value={s}>{ getSize(s, router.locale) }</Select.Option>)
                         }
                     </Select>
                 }/>
                 <Spacer y={.8} />
-                <Description title="État" content={
-                    <Select placeholder="État" multiple value={etat} onChange={setEtat} width="100%" style={{ maxWidth: "none" }}>
-                        <Select.Option value="Bon">Très bon état</Select.Option>
-                        <Select.Option value="Excellent">Excellent état</Select.Option>
-                        <Select.Option value="Neuf">Neuf</Select.Option>
+                <Description title={ t.condition } content={
+                    <Select placeholder={ t.condition } multiple value={etat} onChange={setEtat} width="100%" style={{ maxWidth: "none" }}>
+                        <Select.Option value="Bon">{ t.veryGood }</Select.Option>
+                        <Select.Option value="Excellent">{ t.excellent }</Select.Option>
+                        <Select.Option value="Neuf">{ t.new }</Select.Option>
+                    </Select>
+                }/>
+                <Spacer y={.8} />
+                <Description title={ t.category } content={
+                    <Select placeholder={ t.category } multiple width="100%" value={category} onChange={setCategory} style={{ maxWidth: "none" }}>
+                        {
+                            categoryList.map(s => <Select.Option value={s}>{ getCategory(s, router.locale) }</Select.Option>)
+                        }
                     </Select>
                 }/>
             </Grid>
             <Grid xs={24} md={18}>
                 <Grid.Container gap={2} justify="flex-start">
                     {
-                        all.length == 0 ? <Text h4 type="secondary" align="center" style={{width: "100%"}}>Oups! Essayez autre chose...</Text> : all
+                        all.length == 0 ? <Text h4 type="secondary" align="center" style={{width: "100%"}}>{ t.searchError }</Text> : all.slice(page * 12, page * 12 + 12)
+                    }
+                    <Spacer y={2}/>
+                    {
+                        all.length > 0 && <Row justify="center" style={{ width: "100%" }}>
+                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ n => { setPage(n - 1); window.scrollTo(0, 0) }} page={ page + 1 }>
+                            <Pagination.Next><ChevronRight /></Pagination.Next>
+                            <Pagination.Previous><ChevronLeft /></Pagination.Previous>
+                        </Pagination>
+                        </Row>
                     }
                 </Grid.Container>
             </Grid>
@@ -147,12 +171,20 @@ function AllPage({ products, router }) {
 
 export default withRouter(AllPage)
 
-export async function getStaticProps() {
+import Locales from "../../locales/All"
+
+export async function getStaticProps({ locale }) {
 	const query = AllProducts
     const result = await graphQLClient.request(query)
+    // Locales
+	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+		line[0],
+		line[1][locale.split("-")[0]]
+	]))
     return {
         props: {
-            products: result.allProducts.data
+            products: result.allProducts.data,
+            t: locales
         },
         revalidate: 300
     }

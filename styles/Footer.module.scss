@@ -6,6 +6,9 @@
     height: 500px;
     background: var(--footer);
     color: var(--text-color);
+    h2, h3, h4 {
+        font-family: var(--fancyFont);
+    }
     display: flex;
     justify-content: center;
     align-items: center;

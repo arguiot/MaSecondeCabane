@@ -5,8 +5,23 @@ import NavBar from "../components/NavBar"
 import { CheckCircle, AlertTriangle } from '@geist-ui/react-icons'
 import { withRouter } from "next/router"
 import Link from "next/link"
+import Locales from "../locales/Checkout"
+import React from "react";
 
-function Checkout({ router }) {
+export async function getStaticProps({ locale }) {
+    // Locales
+	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+		line[0],
+		line[1][locale.split("-")[0]]
+    ]))
+    return {
+        props: {
+            t: locales
+        }
+    }
+}
+
+function Checkout({ router, t }) {
     const [success, setSuccess] = React.useState(true)
     React.useEffect(() => {
         localStorage.clear("cart") // Delete all the cart items
@@ -29,19 +44,19 @@ function Checkout({ router }) {
         <Row justify="center">
             <CheckCircle size={96} />
         </Row>
-        <Text h1 align="center">Merci!</Text>
-        <Text h2 align="center">Vous recevrez votre commande d'ici peu.</Text>
+        <Text h1 align="center">{ t.thanks }</Text>
+        <Text h2 align="center">{ t.receive }</Text>
     </Page>
 
     const oups = <Page>
         <Row justify="center">
             <AlertTriangle size={96} />
         </Row>
-        <Text h1 align="center">Oups!</Text>
-        <Text h2 align="center">Un problème est survenu! Réessayez, vous aurez peut-être plus de chance.</Text>
+        <Text h1 align="center">{ t.oups }</Text>
+        <Text h2 align="center">{ t.problem }</Text>
         <Row justify="center">
             <Link href="/">
-                <Button type="secondary">Retour à la case départ</Button>
+                <Button type="secondary">{ t.back }</Button>
             </Link>
         </Row>
         

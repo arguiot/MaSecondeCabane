@@ -2,30 +2,36 @@
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 100px;
+    height: 200px;
     border-bottom: 1px solid var(--text-color);
     background: var(--transparentBack);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
     z-index: 100;
     filter: saturate(250%);
+    transition: height 200ms ease-in-out;
+    * {
+        transition: all 200ms ease-in-out;
+    }
 
     .logo {
         display: block;
         position: relative;
-        left: 5vw;
+        left: 50%;
         top: 0;
-        width: 100px;
-        height: 100px;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 120px;
         background: url("../public/logo.svg");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         cursor: pointer;
     }
+
     .menuContainer {
         position: fixed;
-        top: 0;
+        top: 100px;
         left: calc(5vw + 100px);
         right: calc(5vw + 100px);
         height: 100px;
@@ -36,19 +42,37 @@
         a {
             margin: 50px;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 16px;
             line-height: 16px;
             /* identical to box height */
             text-align: center;
             letter-spacing: 0.3em;
+            font-family: var(--fancyFont);
             &.sell {
-                color: #f5a623;
+                color: #ea4335;
+
                 &:hover {
-                    background-color: rgb(242, 201, 76, 0.3);
+                    background-color: rgb(234, 67, 53, 0.3);
                 }
             }
         }
     }
+
+    &.small {
+        height: 100px;
+
+        .logo {
+            left: 5vw;
+            height: 100px;
+            width: 100px;
+            transform: unset;
+        }
+
+        .menuContainer {
+            top: 0;
+        }
+    }
+
     .cart {
         position: fixed;
         top: 35px;
@@ -69,21 +93,23 @@
         flex-direction: column;
         cursor: pointer;
         z-index: 100;
+
         .l {
             transition: all 250ms ease-in-out;
             width: 40px;
             height: 2px;
             background: var(--text-color);
         }
+
         &.cross {
             .l:nth-child(1) {
                 transform: rotate(45deg) translate(0, calc(40px / 3));
             }
-    
+
             .l:nth-child(2) {
                 opacity: 0;
             }
-    
+
             .l:nth-child(3) {
                 transform: rotate(-45deg) translate(0, calc(-40px / 3));
             }
@@ -98,16 +124,28 @@
 }
 
 @media (max-width: 900px) {
-    .nav .menuContainer {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: auto;
-        background: var(--background);
-        flex-direction: column;
-        width: 100vw;
+    .nav {
+        height: 100px;
+
+        .logo {
+            left: 5vw;
+            height: 100px;
+            width: 100px;
+            transform: unset;
+        }
+
+        .menuContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: auto;
+            background: var(--background);
+            flex-direction: column;
+            width: 100vw;
+        }
     }
+
     .menuToggle {
         display: flex !important;
     }

@@ -2,6 +2,7 @@ import { Image, Row, Col, Text, Spacer, Spinner } from "@geist-ui/react"
 import { ProductByID } from "../lib/Requests";
 import pStyles from '../styles/ProductCard.module.scss'
 import { graphQLClient } from "../utils/fauna";
+import React from "react";
 
 export default function CardFromID({ id }) {
     const [data, setData] = React.useState()

@@ -1,4 +1,4 @@
-import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid } from '@geist-ui/react'
+import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid, Divider } from '@geist-ui/react'
 import { Search } from '@geist-ui/react-icons'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -11,23 +11,28 @@ import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
 import Footer from '../components/Footer'
+import { buildIndex, fuseOption, getDescription } from '../locales/Fuse'
+// ES Modules syntax
+import Unsplash, { toJson } from 'unsplash-js';
+import React from "react";
 
-function Home({ products, router }) {
-	// Search logic
-
-	const fuseOption = {
-		includeScore: true,
-		// Search in `author` and in `tags` array
-		keys: [
-			"name",
-			"description",
-			"sexe",
-			"size",
-			"brand",
-			"etat",
-			"tags"
-		]
+function shuffle(a) {
+	for (let i = a.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[a[i], a[j]] = [a[j], a[i]];
 	}
+	return a;
+}
+
+function Home({ products, router, photos, t }) {
+	// Hero
+	const [ image, setImage ] = React.useState()
+	const [PRODUCTS, setProducts] = React.useState([])
+	React.useEffect(() => {
+		setImage(photos[Math.floor(Math.random() * photos.length)])
+		setProducts(shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).slice(0, 6))
+	}, [])
+	// Search logic
 
 	const [options, setOptions] = useState()
 	const [searching, setSearching] = useState(false)
@@ -40,7 +45,7 @@ function Home({ products, router }) {
 					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}` } height={100} className={ pStyles.img } alt={ product.name }/>
 					<Col className={ pStyles.desc }>
 						<Text h5>{ product.name }</Text>
-						<Text p className={ pStyles.truncate }>{ product.description }</Text>
+						<Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>
 					</Col>
 					<Spacer x={2} />
 					<Col span={3}>
@@ -57,7 +62,9 @@ function Home({ products, router }) {
 		if (!currentValue) return setOptions([])
 		setSearching(true)
 		const Fuse = (await import('fuse.js')).default
-		const fuse = new Fuse(products.filter(e => e.quantity >= 1), fuseOption)
+
+		const index = buildIndex(products, router.locale)
+		const fuse = new Fuse(index, fuseOption)
 		const relatedOptions = fuse.search(currentValue).map(entry => {
 			return makeOption(entry.item)
 		})
@@ -75,34 +82,34 @@ function Home({ products, router }) {
 		router.push(`/product/all?${params.toString()}`)
 	}
 
-	function shuffle(a) {
-		for (let i = a.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j], a[i]];
-		}
-		return a;
-	}
-
 	return (<>
 	<Head>
 		<title>Ma Seconde Cabane</title>
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="description" content="Ma Seconde Cabane est un vide dressing de qualité au Québec pour les enfants" />
+		<meta name="description" content={ t.metaDesc } />
 	</Head>
 	<NavBar />
 	<Grid.Container gap={ 4 } justify="center" alignItems="center" className={styles.header}>
-		<div className={ styles.hero } />
+		{ image && <>
+			<div className={ styles.hero } style={{
+				background: `linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .35)), url("${image.url}")`,
+				backgroundSize: "cover",
+				backgroundPosition: "center"
+			}}/>
+			<Text small className={ styles.heroPhoto }>Photo de <a href={ `${image.link}?utm_source=ma_seconde_cabane&utm_medium=referral` }>{ image.user }</a> sur <a href="https://unsplash.com/?utm_source=ma_seconde_cabane&utm_medium=referral">Unsplash</a></Text>
+			</>
+		}
 		<Grid xs={ 24 } md={ 15 } className={ styles.search }>
-			<Image width={ 259.81 } height={ 105 } src="/img/hanger.svg" alt="Cintre" />
+			{/* <Image width={ 150 } height={ 150 } src="/img/hanger.svg" alt="Cintre" /> */}
 			<Text h1 className={ styles.heroDesc }>
-				<span style={{ fontSize: "1.3em" }}>Vide dressing de qualité pour les enfants</span>
+				{ t.heroDesc }
 			</Text>
 			<form onSubmit={ submit } style={{ width: "calc(100% - 50px)" }} method="get" action="/product/all">
 				<AutoComplete 
 				className={ styles.searchbar } 
 				size="large" 
 				icon={<Search />} 
-				placeholder="Essayez “manteau en 5 ans”" 
+				placeholder={ t.searchPlaceholder } 
 				clearable 
 				width="100%" 
 				searching={searching}
@@ -111,42 +118,49 @@ function Home({ products, router }) {
 				name="search"
 				id="search">
 					<AutoComplete.Empty>
-						<span>Oups! Essayez autre chose...</span>
+						<span>{ t.searchError }</span>
 					</AutoComplete.Empty>
 				</AutoComplete>
 			</form>
 		</Grid>
 	</Grid.Container>
 	<Page>
-		<Text h1>Produits à ne pas manquer</Text>
+		<Text h1>{ t.products }</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
-				shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).map(p => {
+				PRODUCTS.map(p => {
 					return <Grid key={ p._id } xs={24} md={8}>
-						<ProductCard product={ p } />
+						<ProductCard key={ p._id } product={ p } />
 					</Grid>
 				})
 			}
 		</Grid.Container>
 	</Page>
+	<Divider type="dark" />
+	<Spacer y={2} />
 	<Grid.Container gap={4} justify="space-evenly" className={ styles.process }>
-		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/you-sell.svg" width={400} height={400} className={ styles.image } alt="T-Shirt" />
-			<Text h3 align="center">
-				Vous vendez ce qui ne vous sert plus
+		<Grid xs={ 24 } md={ 4 }>
+			<Image src="/img/selection.svg" width={400} height={400} className={ styles.image } alt="Selection" />
+			<Text h5 align="center">
+				{ t.selection }
 			</Text>
 		</Grid>
-		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/we-put-online.svg" width={400} height={400} className={ styles.image } alt="Internet"/>
-			<Text h3 align="center">
-				On s’occupe de la mise en ligne
+		<Grid xs={ 24 } md={ 4 }>
+			<Image src="/img/fast.svg" width={400} height={400} className={ styles.image } alt="Rapidité"/>
+			<Text h5 align="center">
+				{ t.fastShipping }
 			</Text>
 		</Grid>
-		<Grid xs={ 24 } md={ 6 }>
-			<Image src="/img/you-receive.svg" width={400} height={400} className={ styles.image } alt="Dollar" />
-			<Text h3 align="center">
-			Vous recevez l’argent.<br/>
-			That’s it!
+		<Grid xs={ 24 } md={ 4 }>
+			<Image src="/img/safe.svg" width={400} height={400} className={ styles.image } alt="Securité" />
+			<Text h5 align="center">
+				{ t.safePayment }
+			</Text>
+		</Grid>
+		<Grid xs={ 24 } md={ 4 }>
+			<Image src="/img/environment.svg" width={400} height={400} className={ styles.image } alt="Protection" />
+			<Text h5 align="center">
+				{ t.firstChoice }
 			</Text>
 		</Grid>
 	</Grid.Container>
@@ -157,12 +171,33 @@ function Home({ products, router }) {
 
 export default withRouter(Home)
 
-export async function getStaticProps() {
+import Locales from "../locales/index"
+
+export async function getStaticProps({ locale }) {
+	const unsplash = new Unsplash({ accessKey: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS });
+	const collection = await unsplash.collections.getCollectionPhotos(27372549).then(toJson)
+	const photos = collection.map(photo => {
+		return {
+			url: `${photo.urls.raw}&auto=format&w=1024&q=70`,
+			link: photo.links.html,
+			user: photo.user.name
+		}
+	})
+
 	const query = AllProducts
-    const result = await graphQLClient.request(query)
+	const result = await graphQLClient.request(query)
+	
+	// Locales
+	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+		line[0],
+		line[1][locale.split("-")[0]]
+	]))
+
     return {
         props: {
-            products: result.allProducts.data
+			products: result.allProducts.data,
+			photos,
+			t: locales
         },
         revalidate: 300
     }

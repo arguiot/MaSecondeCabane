@@ -1,6 +1,7 @@
 type Product @collection(name: "products") {
   name: String!
   description: String!
+  descriptionEn: String
   price: Float!
   quantity: Int!
   image: String! # Image URL
@@ -8,9 +9,11 @@ type Product @collection(name: "products") {
   size: String!
   brand: String!
   etat: String!
+  type: String!
   tags: [String!]!
   creation: Long # Timestamp as Int but was too big to fit in Int
   favorite: Boolean!
+  composition: String
 }
 
 type Customer @embedded {
@@ -24,6 +27,7 @@ type Customer @embedded {
 type Request @collection(name: "requests") {
   customer: Customer!
   description: String!
+  done: Boolean
 }
 
 type Order @collection(name: "orders") {
@@ -31,6 +35,7 @@ type Order @collection(name: "orders") {
   line: [ProductLine!]!
   stripeID: String!
   total: Float!
+  done: Boolean
 }
 
 type Address @embedded {
