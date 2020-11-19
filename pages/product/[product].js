@@ -110,7 +110,7 @@ export default function ProductPage({ product, t }) {
                 "@context" : "http://schema.org",
                 "@type" : "Product",
                 "name" : product.name,
-                "image" : `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}`,
+                "image" : `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop`,
                 "description" : getDescription(product, router.locale),
                 "brand" : {
                     "@type" : "Brand",
@@ -130,7 +130,7 @@ export default function ProductPage({ product, t }) {
             <Grid.Container gap={8} justify="center">
                 <Grid xs={24} md={12} className={ styles.image }>
                     <Skeleton display={ !imageLoaded }/>
-                    <ReactImageZoom width={ 500 } height={400} img={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-1000/${product.image}` } zoomPosition="original" />
+                    <ReactImageZoom width={ 500 } height={400} img={ `https://images.masecondecabane.com/${product.image}?auto=format&w=1000&q=75` } zoomPosition="original" />
                 </Grid>
                 <Grid xs={24} md={12}>
                     <Text h2>{ product.name }</Text>

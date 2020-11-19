@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
     return <Link href={ `/${router.locale}/product/${product._id}` }>
     <a>
         <Card width="300" hoverable shadow style={{ cursor: "pointer", textAlign: "center" }}>
-            <Image width={ 300 } height={ 300 } src={ `https://ik.imagekit.io/ittx2e0v7x/tr:w-300,h-300/${product.image}` } style={{ objectFit: 'cover' }} alt={ product.name } loading="lazy"/>
+            <Image width={ 300 } height={ 300 } src={ `https://images.masecondecabane.com/${product.image}?auto=compress&w=300&h=300&fit=crop` } style={{ objectFit: 'cover' }} alt={ product.name } loading="lazy"/>
             <Text h4 style={{ marginBottom: '0' }}>{ product.name }</Text>
             <Text small className={ styles.truncate }>{ `${getDescription(product, router.locale)} - ${getSize(product.size, router.locale)}` }</Text>
             <Text h4 style={{ color: "#ea4335" }}>{ product.price }$</Text>

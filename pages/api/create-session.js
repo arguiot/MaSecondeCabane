@@ -12,7 +12,7 @@ export default async (req, res) => {
                 currency: 'cad',
                 product_data: {
                     name: entry.name,
-                    images: [`https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${entry.image}`],
+                    images: [`https://images.masecondecabane.com/${entry.image}?auto=compress&w=150&h=150&fit=crop`],
                 },
                 unit_amount: Math.round(entry.price * (100 + 5 + 9.975)), // VAT
             },

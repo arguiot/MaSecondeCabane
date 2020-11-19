@@ -42,7 +42,7 @@ function Home({ products, router, photos, t }) {
 		<AutoComplete.Option value={product.name}>
 			<Link href="/product/[product]" as={ `/product/${product._id}` }>
 				<div className={ pStyles.container } style={{ width: "70vw", padding: "10px 0" }}>
-					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}` } height={100} className={ pStyles.img } alt={ product.name }/>
+					<Image src={ `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop` } height={100} className={ pStyles.img } alt={ product.name }/>
 					<Col className={ pStyles.desc }>
 						<Text h5>{ product.name }</Text>
 						<Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>

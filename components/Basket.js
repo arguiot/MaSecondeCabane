@@ -89,7 +89,7 @@ export default function Basket({
             <Grid.Container gap={1} justify="center">
                 <Grid xs={7}>
                     <Image src={
-                        `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}`
+                        `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop`
                         } height={100} className={ pStyles.img } />
                 </Grid>
                 <Grid xs={13}>
