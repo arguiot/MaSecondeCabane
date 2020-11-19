@@ -10,7 +10,7 @@ export const fuseOption = {
         "etatFuse",
         "tags",
         "type",
-        "composition"
+        "compositionFuse"
     ]
 }
 
@@ -94,6 +94,48 @@ export function getDescription(product, lang) {
     return product.description
 }
 
+export function getComposition(product, lang) {
+    const compositionList = {
+        "N/A": {
+            fr: "N/A",
+            en: "N/A"
+        },
+        "Coton": {
+            fr: "Coton",
+            en: "Cotton"
+        },
+        "Lin": {
+            fr: "Lin",
+            en: "Linen"
+        },
+        "Synthétique": {
+            fr: "Synthétique",
+            en: "Synthetic"
+        },
+        "Laine": {
+            fr: "Laine",
+            en: "Wool"
+        },
+        "Cashmere": {
+            fr: "Cashmere",
+            en: "Cashmere"
+        },
+        "Polyamide": {
+            fr: "Polyamide",
+            en: " Polyamid"
+        },
+        "Polaire": {
+            fr: "Polaire",
+            en: "Fleece"
+        },
+        "Polyester": {
+            fr: "Polyester",
+            en: "Polyester"
+        }
+    }
+    return product.composition.map(comp => compositionList[comp][lang.split("-")[0]]).join(", ")
+}
+
 export function buildIndex(products, lang) {
     return products.filter(e => e.quantity >= 1).map(p => {
         return {
@@ -101,6 +143,7 @@ export function buildIndex(products, lang) {
             sexeFuse: getSex(p.sexe, lang),
             etatFuse: getCondition(p.etat, lang),
             descriptionFuse: getDescription(p, lang),
+            compositionFuse: getComposition(p, lang),
             ...p
         }
     })

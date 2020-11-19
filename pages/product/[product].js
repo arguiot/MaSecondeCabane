@@ -82,7 +82,7 @@ export default function ProductPage({ product, t }) {
         },
         {
             property: t.composition,
-            detail: product.composition == null ? "N/A" : product.composition
+            detail: product.composition == null ? "N/A" : getComposition(product, router.locale)
         },
         {
             property: t.condition,
@@ -181,7 +181,7 @@ export default function ProductPage({ product, t }) {
 }
 
 import Locales from "../../locales/[Product]"
-import { getCategory, getSex, getSize } from '../../locales/Fuse'
+import { getCategory, getComposition, getSex, getSize } from '../../locales/Fuse'
 
 export async function getStaticProps({ params, locale }) {
     if (typeof params.product != "string") {
