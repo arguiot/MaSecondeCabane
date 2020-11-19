@@ -2,7 +2,7 @@ type Product @collection(name: "products") {
   name: String!
   description: String!
   descriptionEn: String
-  price: Float!
+  price: Int!
   quantity: Int!
   image: String! # Image URL
   sexe: String!
@@ -13,7 +13,7 @@ type Product @collection(name: "products") {
   tags: [String!]!
   creation: Long # Timestamp as Int but was too big to fit in Int
   favorite: Boolean!
-  composition: String
+  composition: [String!]
 }
 
 type Customer @embedded {
