@@ -15,6 +15,10 @@ export default {
         fr: "Vendre vos vêtements",
         en: "Sell your clothes"
     },
+    select: {
+        fr: "Ma Seconde Cabane trie, sélectionne et rachète les vêtements de vos enfants, neufs ou d’occasion, dont vous souhaitez vous débarrasser. Une solution simple et rapide !",
+        en: "Ma Seconde Cabane sorts, selects and buys your children's clothes, new or used, that you wish to get rid of. An easy and quick solution!"
+    },
     weBuy: {
         fr: "NOUS RACHETONS",
         en: "WE BUY BACK"
@@ -40,8 +44,8 @@ export default {
         en: "WE DON'T BUY BACK"
     },
     socks: {
-        fr: "Les vêtements fait maison, les sous-vêtements, chaussettes",
-        en: "Homemade clothing, underwear, socks"
+        fr: "Les vêtements « fait maison », les sous-vêtements et les chaussettes",
+        en: "\"Homemade\" clothing, underwear and socks"
     },
     noBrand: {
         fr: "Les vêtements sans étiquette de marque et d’âge",
@@ -50,6 +54,34 @@ export default {
     damaged: {
         fr: "Les articles tâchés, décousus, boulochés, troués, recousus, abîmés ...",
         en: "Stained, unstitched, pilled, perforated, sewn, damaged ..."
+    },
+    donating: {
+        fr: "Si vous le souhaitez, Ma Seconde Cabane se chargera de donner les vêtements non sélectionnés au Centre de don Renaissance d'Outremont.",
+        en: "If you wish, Ma Seconde Cabane will take care of donating the non-selected clothing to the Centre de don Renaissance in Outremont."
+    },
+    howEvaluate: {
+        fr: "Comment évaluer le prix de vos articles ? Le prix varie en fonction de la marque, de l’état et de la taille de l’article. Voici quelques exemples de tarifs de reprise :",
+        en: "How to evaluate the price of your items? The price varies according to the brand, the condition and the size of the article. Here are a few examples of buy back prices:"
+    },
+    jacadi: {
+        fr: "Une chemise Jacadi entre 3,50 et 6$ CAD",
+        en: "A Jacadi shirt between 3,50 and 6$ CAD"
+    },
+    bonpoint: {
+        fr: "Un gilet Bonpoint entre 5 et 10$ CAD",
+        en: "A Bonpoint cardigan between 5 and 10$ CAD"
+    },
+    petitBateau: {
+        fr: "Un pyjama Petit Bateau entre 2 et 4$ CAD",
+        en: "A Petit Bateau pyjamas between 2 and 4$ CAD"
+    },
+    zara: {
+        fr: "Une robe Zara entre 2 et 4$ CAD",
+        en: "A Zara dress between 2 and 4$ CAD"
+    },
+    organize: {
+        fr: "Vous souhaitez organiser une collecte, prenez contact avec nous via le formulaire ci-dessous.",
+        en: "If you wish to organize a collect, please contact us using the form below."
     },
     basicInfo: {
         fr: "Informations de base",
@@ -68,8 +100,8 @@ export default {
         en: "Phone"
     },
     notMandatory: {
-        fr: "Non obligatoire",
-        en: "Not mandatory"
+        fr: "Optionnel",
+        en: "Optional"
     },
     address: {
         fr: "Adresse",
@@ -100,8 +132,8 @@ export default {
         en: "Description"
     },
     describe: {
-        fr: "Décrivez ce que vous voulez nous vendre. Veuillez noter que nous ne répondrons qu'aux demande répondant à nos critères.",
-        en: "Describe what you want to sell us. Please note that we will only respond to requests that meet our criteria."
+        fr: "Décrivez ce que vous voulez nous vendre.",
+        en: "Describe what you want to sell us."
     },
     submit: {
         fr: "Envoyer",

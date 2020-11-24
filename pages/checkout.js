@@ -24,11 +24,13 @@ export async function getStaticProps({ locale }) {
 function Checkout({ router, t }) {
     const [success, setSuccess] = React.useState(true)
     React.useEffect(() => {
-        localStorage.clear("cart") // Delete all the cart items
-
         const handleRoute = () => {
             const params = new URLSearchParams(window.location.search)
-            setSuccess(params.get("success") == "true")
+            const s = params.get("success") == "true"
+            setSuccess(s)
+            if (s == true) {
+                localStorage.clear("cart") // Delete all the cart items
+            }
         }
 
         router.events.on('routeChangeComplete', handleRoute)

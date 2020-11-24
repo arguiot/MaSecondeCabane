@@ -1,7 +1,7 @@
 export default {
     metaDesc: {
-        fr: "Ma Seconde Cabane est un vide dressing de qualité au Québec pour les enfants",
-        en: "Ma Seconde Cabane is a quality walk-in closet for children in Quebec."
+        fr: "Vide dressing de qualité de vêtements pour bébés et enfants. Nous achetons et revendons des articles d'occasion et nous livrons au Canada.",
+        en: "Quality baby and children's clothing. We buy and resell second-hand items and we deliver in Canada."
     },
     heroDesc: {
         fr: "Vêtement de seconde main de qualité pour les enfants",

@@ -1,10 +1,11 @@
-import { Description, Grid, Page, Text, Input, Divider, Spacer, Textarea, Button, Row } from "@geist-ui/react"
+import { Description, Grid, Page, Text, Input, Divider, Spacer, Textarea, Button, Row, Note } from "@geist-ui/react"
 import Head from "next/head"
 import { useState } from "react"
 import Footer from "../../components/Footer"
 import NavBar from "../../components/NavBar"
 import { CreateRequest } from "../../lib/Requests"
 import { graphQLClient } from "../../utils/fauna"
+import styles from "../../styles/Sell.module.scss"
 
 export default function Sell({ t }) {
     const [loading, setLoading] = useState(false)
@@ -75,25 +76,42 @@ export default function Sell({ t }) {
 	<NavBar />
     <Page>
         <Text h1>{ t.sellClothes }</Text>
+        <Text>
+            { t.select }
+        </Text>
         <Grid.Container justify="center" gap={2}>
             <Grid xs={ 24 } md={ 12 }>
                 <Text h3>{ t.weBuy }</Text>
-                <Text p>
-                    • { t.zeroTen }<br/>
-                    • { t.condition }<br/>
-                    • { t.brands }<br/>
-                    • { t.lots }
-                </Text>
+                <ul className={ styles.list }>
+                    <li>{ t.zeroTen }</li>
+                    <li>{ t.condition }</li>
+                    <li>{ t.brands }</li>
+                </ul>
             </Grid>
             <Grid xs={ 24 } md={ 12 }>
                 <Text h3>{ t.weDontBuy }</Text>
-                <Text p>
-                    • { t.socks }<br/>
-                    • { t.noBrand }<br/>
-                    • { t.damaged }
-                </Text>
+                <ul className={ styles.list }>
+                    <li>{ t.socks }</li>
+                    <li>{ t.noBrand }</li>
+                    <li>{ t.damaged }</li>
+                </ul>
+                <Note>
+                    { t.donating }
+                </Note>
             </Grid>
         </Grid.Container>
+        <Text>
+            { t.howEvaluate }
+        </Text>
+        <ul className={ styles.list }>
+            <li>{ t.jacadi }</li>
+            <li>{ t.bonpoint }</li>
+            <li>{ t.petitBateau }</li>
+            <li>{ t.zara }</li>
+        </ul>
+        <Text>
+            { t.organize }
+        </Text>
         <Text h4>{ t.basicInfo }</Text>
         <Divider />
         <Grid.Container justify="center" gap={2}>
@@ -117,11 +135,11 @@ export default function Sell({ t }) {
                     <Input placeholder={ `+1 ... (${t.notMandatory})`} width="100%" type="tel" value={ phone } onChange={e => setPhone(e.target.value)} disabled={ loading }/>
                 } />
             </Grid>
-        </Grid.Container>
+        {/* </Grid.Container>
         <Spacer y={2} />
         <Text h4>{ t.address }</Text>
         <Divider />
-        <Grid.Container justify="center" gap={2}>
+        <Grid.Container justify="center" gap={2}> */}
             <Grid xs={12}>
                 <Description title={ t.street } content={
                     <Input placeholder={ t.line1 } width="100%" value={ street } status={ getType(street) } onChange={e => setStreet(e.target.value)} disabled={ loading }/>
