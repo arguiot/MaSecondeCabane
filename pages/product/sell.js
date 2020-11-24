@@ -80,7 +80,7 @@ export default function Sell({ t }) {
             { t.select }
         </Text>
         <Grid.Container justify="center" gap={2}>
-            <Grid xs={ 24 } md={ 12 }>
+            <Grid xs={ 24 } md={ 24 }>
                 <Text h3>{ t.weBuy }</Text>
                 <ul className={ styles.list }>
                     <li>{ t.zeroTen }</li>
@@ -88,16 +88,13 @@ export default function Sell({ t }) {
                     <li>{ t.brands }</li>
                 </ul>
             </Grid>
-            <Grid xs={ 24 } md={ 12 }>
+            <Grid xs={ 24 } md={ 24 }>
                 <Text h3>{ t.weDontBuy }</Text>
                 <ul className={ styles.list }>
                     <li>{ t.socks }</li>
                     <li>{ t.noBrand }</li>
                     <li>{ t.damaged }</li>
                 </ul>
-                <Note>
-                    { t.donating }
-                </Note>
             </Grid>
         </Grid.Container>
         <Text>
@@ -109,6 +106,9 @@ export default function Sell({ t }) {
             <li>{ t.petitBateau }</li>
             <li>{ t.zara }</li>
         </ul>
+        <Note>
+            { t.donating }
+        </Note>
         <Text>
             { t.organize }
         </Text>

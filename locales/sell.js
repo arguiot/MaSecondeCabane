@@ -16,7 +16,7 @@ export default {
         en: "Sell your clothes"
     },
     select: {
-        fr: "Ma Seconde Cabane trie, sélectionne et rachète les vêtements de vos enfants, neufs ou d’occasion, dont vous souhaitez vous débarrasser. Une solution simple et rapide !",
+        fr: "Ma Seconde Cabane trie, sélectionne et rachète les vêtements de vos enfants, neufs ou d’occasion, dont vous souhaitez vous séparer. Une solution simple et rapide !",
         en: "Ma Seconde Cabane sorts, selects and buys your children's clothes, new or used, that you wish to get rid of. An easy and quick solution!"
     },
     weBuy: {
@@ -132,7 +132,7 @@ export default {
         en: "Description"
     },
     describe: {
-        fr: "Décrivez ce que vous voulez nous vendre.",
+        fr: "Décrivez ce que vous souhaitez nous vendre.",
         en: "Describe what you want to sell us."
     },
     submit: {

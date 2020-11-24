@@ -5,3 +5,47 @@
 .title {
     font-family: "Amatic SC"
 }
+
+.list {
+    li {
+        list-style: none;
+        &::before {
+            content: '';
+            display: inline-block;
+            height: 16px;
+            width: 16px;
+            background-image: url("../public/favicon.svg");
+            background-position: center;
+            background-size: contain;
+            margin-left: -1.2rem;
+            margin-top: 6px;
+        }
+    }
+}
+
+.tagline {
+    &::before, &::after {
+        content: '';
+        display: inline-block;
+        height: 26px;
+        width: 26px;
+        background-image: url("../public/favicon.svg");
+        background-position: center;
+        background-size: contain;
+        transform: translateY(6px);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .list li::before {
+        background-image: url("../public/favicon-white.svg");
+        background-position: center;
+        background-size: contain;
+    }
+
+    .tagline::before, .tagline::after {
+        background-image: url("../public/favicon-white.svg");
+        background-position: center;
+        background-size: contain;
+    }
+}

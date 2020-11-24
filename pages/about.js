@@ -18,20 +18,31 @@ export default function About({ t }) {
         </Row>
         <Text h1 align="center" className={ styles.title }>{ t.about }</Text>
         <Divider />
-        <Text h4>
-            { t.secondeLife }
+        <Text h4>{ t.highQuality }</Text>
+        <Text p align="justify">
+            { t.highlightDesc }
+        </Text>
+        <Text h4>{ t.howItWorksTitle }</Text>
+        <Text p align="justify">
+            { t.howItWorksDesc }
+        </Text>
+        <Text h4>{ t.whyMaSecondeCabane }</Text>
+        <ul className={ styles.list }>
+            <li>{ t.secondeLife }</li>
+            <li>{ t.reasonable }</li>
+            <li>{ t.wayOfLife }</li>
+            <li>{ t.ecological }</li>
+        </ul>
+        <Text h4>{ t.you }</Text>
+        <Text p align="justify">
+            { t.community }
         </Text>
         <Text p align="justify">
-            { t.highQuality }
+            { t.visit }
         </Text>
-        <Text h4>{ t.howItWorks }</Text>
-        <Text p align="justify">
-            { t.selection }
+        <Text h4 align="center" className={ styles.tagline }>
+            { t.tagline }
         </Text>
-        <Text p>
-            { t.discover }
-        </Text>
-        <Text h5>{ t.shopping }</Text>
     </Page>
     <Footer />
     </>
