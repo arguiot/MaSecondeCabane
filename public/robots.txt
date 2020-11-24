@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /
+Disallow: 
 Disallow: /cgi-bin/
-Sitemap: https://dev.masecondecabane.com/sitemap.xml
+Sitemap: https://masecondecabane.com/sitemap.xml
