@@ -32,8 +32,8 @@ export default {
         en: "Buy reasonable"
     },
     wayOfLife: {
-        fr: "Make second hand a way of life",
-        en: "Faire de la seconde main un art de vivre"
+        fr: "Faire de la seconde main un art de vivre",
+        en: "Make second hand a way of life"
     },
     ecological: {
         fr: "Adhérer à une mode plus éthique, à moins de gaspillage",
