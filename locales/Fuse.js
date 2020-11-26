@@ -104,6 +104,10 @@ export function getComposition(product, lang) {
             fr: "Coton",
             en: "Cotton"
         },
+        "Élasthanne": {
+            fr: "Élasthanne/Lycra",
+            en: "Spandex/Lycra"
+        },
         "Lin": {
             fr: "Lin",
             en: "Linen"
