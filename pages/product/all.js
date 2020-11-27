@@ -63,7 +63,7 @@ function AllPage({ products, router, t }) {
             if (p.sexe != "Mixte" && p.sexe != sexe && typeof sexe == "string") {
                 return false
             }
-            if (!size.includes(p.size) && size.length > 0) {
+            if (p.size != "N/A" && !size.includes(p.size) && size.length > 0) {
                 return false
             }
             if (!category.includes(p.type) && category.length > 0) {

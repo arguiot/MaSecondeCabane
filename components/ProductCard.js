@@ -10,8 +10,14 @@ export default function ProductCard({ product }) {
         }
         return product.description.split("\n")[0]
     }
-    function getSize(size, lang) {
-        if (size == "1 mois" && lang == "en-CA") {
+    function getSize(product, lang) {
+        const size = product.size
+        if (size == "N/A") {
+            if (lang == "en-CA" && product.descriptionEn != null) {
+                return product.descriptionEn.split("\n")[1]
+            }
+            return product.description.split("\n")[1]
+        } else if (size == "1 mois" && lang == "en-CA") {
             return "1 month"
         } else if (lang == "en-CA") {
             return size
@@ -26,7 +32,7 @@ export default function ProductCard({ product }) {
         <Card width="300" hoverable shadow style={{ cursor: "pointer", textAlign: "center" }}>
             <Image width={ 300 } height={ 300 } src={ `https://images.masecondecabane.com/${product.image}?auto=compress&w=300&h=300&fit=crop` } style={{ objectFit: 'cover' }} alt={ product.name } loading="lazy"/>
             <Text h4 style={{ marginBottom: '0' }}>{ product.name }</Text>
-            <Text small className={ styles.truncate }>{ `${getDescription(product, router.locale)} - ${getSize(product.size, router.locale)}` }</Text>
+            <Text small className={ styles.truncate }>{ `${getDescription(product, router.locale)} - ${getSize(product, router.locale)}` }</Text>
             <Text h4 style={{ color: "#ea4335" }}>{ product.price }$</Text>
         </Card>
     </a>
