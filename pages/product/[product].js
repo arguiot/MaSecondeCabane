@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
-import { Page, Display, Text, Grid, Button, Collapse, Divider, Spacer, Row, Spinner, Description, Table, Link } from '@geist-ui/react'
+import { Page, Display, Text, Grid, Button, Collapse, Divider, Spacer, Row, Spinner, Description, Table, Link, Tooltip } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
@@ -11,6 +11,7 @@ import styles from "../../styles/Product.module.scss"
 import dynamic from 'next/dynamic'
 import Skeleton from '../../components/Skeleton'
 import React from "react";
+import { Info } from '@geist-ui/react-icons'
 
 const ReactImageZoom = dynamic(() => import('react-image-zoom'))
 
@@ -86,7 +87,12 @@ export default function ProductPage({ product, t }) {
         },
         {
             property: t.condition,
-            detail: etat(product.etat)
+            detail: <Row align="middle">
+            <Text>{ etat(product.etat) }</Text>
+            <Tooltip text={ t.conditionHelp } type="dark" className={ styles.infoHelp }>
+                <Info size={16}/>
+            </Tooltip>
+            </Row>
         },
         {
             property: t.stock,
@@ -150,7 +156,7 @@ export default function ProductPage({ product, t }) {
                     <Spacer y={2} />
                     <Collapse.Group>
                         <Collapse title={ t.details }>
-                            <Table data={table}>
+                            <Table data={table} className={ styles.table }>
                                 <Table.Column prop="property" label={ t.property } />
                                 <Table.Column prop="detail" label={ t.detail } />
                             </Table>

@@ -37,6 +37,10 @@ export default {
         fr: "État",
         en: "Condition"
     },
+    conditionHelp: {
+        fr: "La condition est déterminé par nos soins",
+        en: "The condition is determined by us"
+    },
     stock: {
         fr: "Stock",
         en: "Stock"

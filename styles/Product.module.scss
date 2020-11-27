@@ -14,3 +14,13 @@
         font-size: 1rem !important;
     }
 }
+
+.table {
+    thead {
+        display: none;
+    }
+    .infoHelp {
+        margin-top: 8px;
+        margin-left: 10px;
+    }
+}
