@@ -7,9 +7,10 @@ import {
     graphQLServer
 } from "../../utils/fauna"
 import bodyParser from "body-parser"
+import sendgrid, { send } from "@sendgrid/mail"
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
-
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 const endpointSecret = process.env.STRIPE_WEBHOOK
 
 // first we need to disable the default body parser
@@ -121,7 +122,42 @@ export default async (req, res) => {
                 const {
                     updateProduct
                 } = await graphQLServer.request(updateQuery, variables)
-                console.log(`Updated Porduct ${updateProduct._id}`)
+                console.log(`Updated Product ${updateProduct._id}`)
+            }
+
+            const msg = {
+                to: "contact@masecondecabane.com",
+                from: "commandes@masecondecabane.com",
+                replyTo: paymentIntent.receipt_email,
+                subject: `Nouvelle Commande pour ${paymentIntent.shipping.name}`,
+                html: `
+                <h1>Transaction</h1>
+                <ul>
+                <li>Montant: ${paymentIntent.amount / 100}</li>
+                <li>Identifiant: <a href="https://dashboard.stripe.com/payments/${paymentIntent.id}">${paymentIntent.id}</a></li>
+                </ul>
+                <h1>Informations sur le client</h1>
+                <ul>
+                <li>Prénom, Nom: ${paymentIntent.shipping.name}</li>
+                <li>Addresse: ${[paymentIntent.shipping.address.line1, paymentIntent.shipping.address.city, paymentIntent.shipping.address.postal_code, paymentIntent.shipping.address.country, paymentIntent.shipping.address.state].join(", ")}</li>
+                </ul>
+                <h1>Contenu</h1>
+                <ol>
+                ${array.map(article => (`
+                <li>
+                <ul>
+                <li>Identifiant: <a href="https://masecondecabane.com/product/${article.id}">${article.id}</a></li>
+                <li>Quantité: ${articly.quantity}</li>
+                </ul>
+                </li>
+                `))}
+                </ol>`
+            }
+        
+            try {
+                await sendgrid.send(msg);
+            } catch (error) {
+                console.error(error);
             }
             console.log(`Created order: ${createOrder._id}`)
             break;

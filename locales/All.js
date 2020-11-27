@@ -12,8 +12,8 @@ export default {
         en: "Search"
     },
     brands: {
-        fr: "Marques, couleurs, ...",
-        en: "Brands, colors, ..."
+        fr: "Marques, couleurs...",
+        en: "Brands, colors..."
     },
     gender: {
         fr: "Genre",
