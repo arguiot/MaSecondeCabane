@@ -1,5 +1,5 @@
 import { Page, Select, Grid, Text, Description, Spacer, Input, Pagination, Row } from "@geist-ui/react"
-import { ChevronLeft, ChevronRight, Search } from "@geist-ui/react-icons"
+import { ChevronLeft, ChevronRight, Search, X } from "@geist-ui/react-icons"
 import Head from "next/head"
 import NavBar from "../../components/NavBar"
 import { graphQLClient } from '../../utils/fauna'
@@ -10,6 +10,7 @@ import { withRouter } from 'next/router'
 import Footer from "../../components/Footer"
 import { buildIndex, fuseOption, getCategory, getSize } from "../../locales/Fuse"
 import React from "react";
+import styles from "../../styles/All.module.scss"
 
 function AllPage({ products, router, t }) {
     const [search, setSearch] = React.useState(router.query.search)
@@ -84,6 +85,17 @@ function AllPage({ products, router, t }) {
 
         return prdcts
     }
+
+    function selectOption(label, value, hidden) {
+        if (value.includes(label) || value.includes(hidden)) {
+            return <Row justify="space-between" align="middle">
+                <Text>{label}</Text>
+                <X size={16} className={ styles.icon }/>
+            </Row>
+        }
+        return label
+    }
+
     const all = results(search, sexe, size, etat).map(p => {
         return <Grid xs={24} md={8}>
             <ProductCard product={ p } />
@@ -124,25 +136,25 @@ function AllPage({ products, router, t }) {
                 }/>
                 <Spacer y={.8} />
                 <Description title={ t.size } content={
-                    <Select placeholder={ t.size } multiple width="100%" value={size} onChange={setSize} style={{ maxWidth: "none" }}>
+                    <Select placeholder={ t.size } multiple width="100%" value={size} onChange={setSize} className={ styles.select }>
                         {
-                            sizeList.map(s => <Select.Option value={s}>{ getSize(s, router.locale) }</Select.Option>)
+                            sizeList.map(s => <Select.Option value={s} className={ styles.selectOption }>{ selectOption(getSize(s, router.locale), size, s) }</Select.Option>)
                         }
                     </Select>
                 }/>
                 <Spacer y={.8} />
                 <Description title={ t.condition } content={
-                    <Select placeholder={ t.condition } multiple value={etat} onChange={setEtat} width="100%" style={{ maxWidth: "none" }}>
-                        <Select.Option value="Bon">{ t.veryGood }</Select.Option>
-                        <Select.Option value="Excellent">{ t.excellent }</Select.Option>
-                        <Select.Option value="Neuf">{ t.new }</Select.Option>
+                    <Select placeholder={ t.condition } multiple value={etat} onChange={setEtat} width="100%" className={ styles.select }>
+                        <Select.Option value="Bon" className={ styles.selectOption }>{ selectOption(t.veryGood, etat, "Bon") }</Select.Option>
+                        <Select.Option value="Excellent" className={ styles.selectOption }>{ selectOption(t.excellent, etat, "Excellent") }</Select.Option>
+                        <Select.Option value="Neuf" className={ styles.selectOption }>{ selectOption(t.new, etat, "Neuf") }</Select.Option>
                     </Select>
                 }/>
                 <Spacer y={.8} />
                 <Description title={ t.category } content={
-                    <Select placeholder={ t.category } multiple width="100%" value={category} onChange={setCategory} style={{ maxWidth: "none" }}>
+                    <Select placeholder={ t.category } multiple width="100%" value={category} onChange={setCategory} className={ styles.select }>
                         {
-                            categoryList.map(s => <Select.Option value={s}>{ getCategory(s, router.locale) }</Select.Option>)
+                            categoryList.map(s => <Select.Option value={s} className={ styles.selectOption }>{ selectOption(getCategory(s, router.locale), category, s) }</Select.Option>)
                         }
                     </Select>
                 }/>
