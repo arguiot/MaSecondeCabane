@@ -125,7 +125,7 @@ function Home({ products, router, photos, t }) {
 		</Grid>
 	</Grid.Container>
 	<Page>
-		<Text h1>{ t.products }</Text>
+		<Text h2>{ t.products }</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
 				PRODUCTS.map(p => {
