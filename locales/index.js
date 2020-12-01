@@ -16,7 +16,7 @@ export default {
         en: "Oops! Try something else..."
     },
     products: {
-        fr: "Produits à ne pas manquer",
+        fr: "Nos coups de cœur",
         en: "Products not to miss"
     },
     selection: {

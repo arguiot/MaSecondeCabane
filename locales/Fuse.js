@@ -41,8 +41,8 @@ export function getCondition(size, lang) {
             en: "Excellent condition"
         },
         "Neuf": {
-            fr: "Neuf",
-            en: "New"
+            fr: "Neuf avec étiquette",
+            en: "Brand new and labeled"
         },
     }
 
@@ -123,6 +123,10 @@ export function getComposition(product, lang) {
         "Cashmere": {
             fr: "Cashmere",
             en: "Cashmere"
+        },
+        "Cuir": {
+            fr: "Cuir",
+            en: "Leather"
         },
         "Polyamide": {
             fr: "Polyamide",

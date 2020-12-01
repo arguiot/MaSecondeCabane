@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import NavBar from '../../components/NavBar'
-import { Page, Display, Text, Grid, Button, Collapse, Divider, Spacer, Row, Spinner, Description, Table, Link, Tooltip } from '@geist-ui/react'
+import { Page, Display, Text, Grid, Button, Collapse, Divider, Spacer, Row, Spinner, Description, Table, Link, Tooltip, useToasts } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
 import { graphQLClient } from '../../utils/fauna'
 import { gql } from 'graphql-request'
@@ -19,6 +19,13 @@ const ReactImageZoom = dynamic(() => import('react-image-zoom'))
 export default function ProductPage({ product, t }) {
     const router = useRouter()
     const [imageLoaded, setImageLoaded] = React.useState(false)
+    const [toasts, setToast] = useToasts()
+
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
+    NotificationCenter.default.addObserver("newItem", data => {
+        forceUpdate()
+    }, "Product")
 
     // If the page is not yet generated, this will be displayed
     // initially until getStaticProps() finishes running
@@ -51,6 +58,27 @@ export default function ProductPage({ product, t }) {
 
     const addToCart = () => {
         Manager.addItem(product)
+
+        setToast({
+            text: t.added,
+            type: "success",
+            actions: [{
+                name: t.cancel,
+                passive: true,
+                handler: () => {
+                    Manager.removeProduct(product._id)
+                    setToast({
+                        text: t.removed,
+                        type: "error",
+                        actions: [{
+                            name: t.cancel,
+                            handler: addToCart,
+                            passive: true
+                        }]
+                    })
+                }
+            }]
+        })
     }
     function etat(e) {
         switch (e) {
@@ -62,6 +90,18 @@ export default function ProductPage({ product, t }) {
                 return t.new
             default:
                 return "-"
+        }
+    }
+    function etatHelp(e) {
+        switch (e) {
+            case "Bon":
+                return t.veryGoodHelp
+            case "Excellent":
+                return t.excellentHelp
+            case "Neuf":
+                return t.newHelp
+            default:
+                return t.conditionHelp
         }
     }
     const table = [
@@ -89,7 +129,7 @@ export default function ProductPage({ product, t }) {
             property: t.condition,
             detail: <Row align="middle">
             <Text>{ etat(product.etat) }</Text>
-            <Tooltip text={ t.conditionHelp } type="dark" className={ styles.infoHelp }>
+            <Tooltip text={ etatHelp(product.etat) } type="dark" className={ styles.infoHelp }>
                 <Info size={16}/>
             </Tooltip>
             </Row>
@@ -139,14 +179,16 @@ export default function ProductPage({ product, t }) {
                     <ReactImageZoom width={ 500 } height={400} img={ `https://images.masecondecabane.com/${product.image}?auto=format&w=1000&q=75` } zoomPosition="original" />
                 </Grid>
                 <Grid xs={24} md={12}>
-                    <Text h2>{ product.name }</Text>
+                    <Text h3>{ product.name }</Text>
                     <Text p>{ getDescription(product, router.locale) }</Text>
                     <Description title={ t.size } content={ getSize(product.size, router.locale) }/>
                     <Spacer y={.8} />
                     <Description title={ t.condition } content={ etat(product.etat) } />
                     <Spacer y={1} />
                     <Row justify="center" style={{ alignItems: "center" }}>
-                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ product.quantity < 1 } >{ t.addToBasket }</Button>
+                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ 
+                            (product.quantity < 1) || (!Manager.checkStock(product._id, product.quantity))
+                         } >{ t.addToBasket }</Button>
                         <Spacer x={1} />
                         <Text h2 className={ styles.normalFont } style={{ color: "#ea4335", margin: "0" }}>{ product.price }$</Text>
                     </Row>
@@ -165,7 +207,7 @@ export default function ProductPage({ product, t }) {
                 </Grid>
             </Grid.Container>
             <Spacer y={2} />
-            <Text h2>{ t.faq }</Text>
+            <Text h3>{ t.faq }</Text>
             <Collapse.Group className={ styles.collapse }>
                 <Collapse title={ t.questionsTitle }>
                     { t.questionsP1 } <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>. { t.questionsP2 }
@@ -188,6 +230,7 @@ export default function ProductPage({ product, t }) {
 
 import Locales from "../../locales/[Product]"
 import { getCategory, getComposition, getSex, getSize } from '../../locales/Fuse'
+import { NotificationCenter } from '@arguiot/broadcast.js'
 
 export async function getStaticProps({ params, locale }) {
     if (typeof params.product != "string") {

@@ -32,12 +32,7 @@ export default function Footer() {
                 "mailto:arguiot@gmail.com"}>Mail.</Button>
             </Row>
             <Row>
-                <Button icon={<Facebook />} type="abort" auto size="large" onClick={() => window.location =
-                "https://facebook.com"}>Facebook.</Button>
-            </Row>
-            <Row>
-                <Button icon={<Instagram />} type="abort" auto size="large" onClick={() => window.location =
-                "https://instagram.com"}>Instagram.</Button>
+                <a href="https://www.instagram.com/masecondecabane/" target="_blank"><Button icon={<Instagram />} type="abort" auto size="large">Instagram.</Button></a>
             </Row>
         </Collapse>
         <Collapse title={ t.about } className={ styles.collapse }>
@@ -77,8 +72,7 @@ export default function Footer() {
                             "mailto:arguiot@gmail.com"}>Mail.</Button>
                         </Row>
                         <Row>
-                            <Button icon={<Instagram />} type="abort" auto size="large" onClick={() => window.location =
-                            "https://www.instagram.com/masecondecabane/"}>Instagram.</Button>
+                            <a href="https://www.instagram.com/masecondecabane/" target="_blank"><Button icon={<Instagram />} type="abort" auto size="large">Instagram.</Button></a>
                         </Row>
                     </Col>
                     <Col style={{ width: "auto" }}>

@@ -16,7 +16,7 @@ export default {
         en: "By personal data, we mean any information that can be used to identify or contact a specific person."
     },
     collectContentP2: {
-        fr: "Bien que nous essayons a tout prix de limiter la quantité d'informations que nous disposons sur nos utilisateurs, certaines données personnelles sont indispensables au bon fonctionnement du site internet.",
+        fr: "Bien que nous essayons à tout prix de limiter la quantité d'informations dont nous disposons sur nos utilisateurs, certaines données personnelles sont indispensables au bon fonctionnement du site internet.",
         en: "Although we try at all costs to limit the amount of information we have about our users, some personal data is essential for the proper functioning of the website."
     },
     collectContentP3: {
