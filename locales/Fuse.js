@@ -71,6 +71,10 @@ export function getCategory(category, lang) {
             fr: "Pantalons, Jupes & Shorts",
             en: "Trousers, Skirts & Shorts"
         },
+        "Plage": {
+            fr: "Plage",
+            en: "Beach"
+        },
         "Pyjamas & Bodies": {
             fr: "Pyjamas & Bodies",
             en: "Pajamas & Bodies"

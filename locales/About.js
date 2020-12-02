@@ -44,8 +44,16 @@ export default {
         en: "Let's talk about you!"
     },
     community: {
-        fr: "Ma Seconde Cabane ne peut exister sans une belle communauté. C’est grâce à vous que nous allons pouvoir développer une large offre de vêtements de seconde main où tous les parents pourront trouver leur bonheur. Nous allons tisser dans le temps de solides relations de confiance afin de faire grandir ce projet qui nous tient tant à cœur. Alors, n’hésitez pas à en parler autour de vous, à nous recommander, à nous encourager sur les réseaux sociaux. Nous avons besoin de vous !",
-        en: "Ma Seconde Cabane cannot exist without its community. Thanks to you we will develop a large selection of second hand clothing where all parents will be able to find their happiness. Over time, we are going to weave solid and trusting relationships in order to make this so great project grow. So, do not hesitate to talk about it to your friends, to recommend us, to encourage us on social networks. We need your help!"
+        fr: "Ma Seconde Cabane ne peut exister sans une belle communauté. C’est grâce à vous que nous allons pouvoir développer une large offre de vêtements de seconde main où tous les parents pourront trouver leur bonheur. Nous allons tisser dans le temps de solides relations de confiance afin de faire grandir ce projet qui nous tient tant à cœur. Alors, n’hésitez pas à en parler autour de vous, à nous recommander, à nous encourager sur les",
+        en: "Ma Seconde Cabane cannot exist without its community. Thanks to you we will develop a large selection of second hand clothing where all parents will be able to find their happiness. Over time, we are going to weave solid and trusting relationships in order to make this so great project grow. So, do not hesitate to talk about it to your friends, to recommend us, to encourage us on "
+    },
+    socialNetwork: {
+        fr: "réseaux sociaux",
+        en: "social networks"
+    },
+    weNeedYou: {
+        fr: "Nous avons besoin de vous !",
+        en: "We need your help!"
     },
     visit: {
         fr: "Consultez régulièrement notre site et découvrez les nouveaux articles mis en ligne chaque jour sur Ma Seconde Cabane. N'hésitez pas à nous contacter si vous avez besoin d'aide.",

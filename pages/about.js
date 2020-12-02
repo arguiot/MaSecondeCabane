@@ -35,7 +35,7 @@ export default function About({ t }) {
         </ul>
         <Text h4>{ t.you }</Text>
         <Text p align="justify">
-            { t.community }
+            { t.community } <a href="https://www.instagram.com/masecondecabane/" target="_blank">{ t.socialNetwork }</a>. { t.weNeedYou }
         </Text>
         <Text p align="justify">
             { t.visit }

@@ -15,11 +15,15 @@ import styles from "../../styles/All.module.scss"
 function AllPage({ products, router, t }) {
     const [search, setSearch] = React.useState(router.query.search)
     const [sexe, setSexe] = React.useState(router.query.gender)
+
+    const [page, setPage] = React.useState(0)
     React.useEffect(() => {
         const handleRoute = () => {
             const params = new URLSearchParams(window.location.search)
             setSexe(params.get("gender"))
             setSearch(params.get("search"))
+            const page = parseInt(params.get("page"))
+            setPage(isNaN(page) ? 0 : page - 1)
         }
 
         router.events.on('routeChangeComplete', handleRoute)
@@ -44,13 +48,13 @@ function AllPage({ products, router, t }) {
         "Chemises, T-shirts & Blouses",
         "Gilets, Pulls & Sweat Shirts",
         "Pantalons, Jupes & Shorts",
+        "Plage",
         "Pyjamas & Bodies",
         "Robes & Combinaisons",
         "Vestes, Manteaux & Doudounes"
     ]
 
     // Search logic
-    const [page, setPage] = React.useState(0)
 
     const fuse = new Fuse([], fuseOption)
     
@@ -167,7 +171,13 @@ function AllPage({ products, router, t }) {
                     <Spacer y={2}/>
                     {
                         all.length > 0 && <Row justify="center" style={{ width: "100%" }}>
-                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ n => { setPage(n - 1); window.scrollTo(0, 0) }} page={ page + 1 }>
+                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ n => { 
+                            setPage(n - 1)
+                            window.scrollTo(0, 0)
+                            const url = new URL(router.asPath, `${window.location.protocol}//${window.location.host}`)
+                            url.searchParams.set('page', n);
+                            router.push(url.pathname + url.search, undefined, { shallow: true })
+                        }} page={ page + 1 }>
                             <Pagination.Next><ChevronRight /></Pagination.Next>
                             <Pagination.Previous><ChevronLeft /></Pagination.Previous>
                         </Pagination>
