@@ -108,6 +108,10 @@ function AllPage({ products, router, t }) {
     React.useEffect(() => {
         if (Math.ceil(all.length  / 12) < page + 1) {
             setPage(0)
+            const url = new URL(router.asPath, `${window.location.protocol}//${window.location.host}`)
+            url.searchParams.set('page', 1);
+            url.searchParams.set('gender', sexe)
+            router.push(url.pathname + url.search, undefined, { shallow: true })
         }
     }, [all])
 
