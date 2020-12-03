@@ -158,6 +158,8 @@ export default function ProductPage({ product, t }) {
                 "name" : product.name,
                 "image" : `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop`,
                 "description" : getDescription(product, router.locale),
+                "url": `https://masecondecabane.com/product/${product._id}`,
+                "sku": `${product._id}`,
                 "brand" : {
                     "@type" : "Brand",
                     "name" : "Ma Seconde Cabane",
@@ -167,7 +169,13 @@ export default function ProductPage({ product, t }) {
                     "@type" : "Offer",
                     "price" : `${product.price}`,
                     "priceCurrency": "CAD",
-                    "availability": product.quantity > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+                    "availability": product.quantity > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                    "priceValidUntil": new Date(new Date().getTime() + 5 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10), // In 5 days
+                },
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "5",
+                    "reviewCount": "0"
                 }
             })}} />
         </Head>
