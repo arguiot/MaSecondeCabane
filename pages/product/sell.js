@@ -75,7 +75,7 @@ export default function Sell({ t }) {
 	</Head>
 	<NavBar />
     <Page>
-        <Text h1>{ t.sellClothes }</Text>
+        <Text h2>{ t.sellClothes }</Text>
         <Text>
             { t.select }
         </Text>
@@ -106,9 +106,9 @@ export default function Sell({ t }) {
             <li>{ t.petitBateau }</li>
             <li>{ t.zara }</li>
         </ul>
-        <Note>
-            { t.donating }
-        </Note>
+        <Text>
+            <Text b>NOTE:</Text> { t.donating }
+        </Text>
         <Text>
             { t.organize }
         </Text>

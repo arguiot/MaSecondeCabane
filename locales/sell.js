@@ -132,8 +132,8 @@ export default {
         en: "Description"
     },
     describe: {
-        fr: "Décrivez ce que vous souhaitez nous vendre.",
-        en: "Describe what you want to sell us."
+        fr: "Vous souhaitez organiser une collecte, prenez contact avec nous via le formulaire ci-dessous.",
+        en: "If you wish to organize a meeting, please contact us using the form below."
     },
     submit: {
         fr: "Envoyer",
