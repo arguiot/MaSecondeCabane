@@ -180,7 +180,7 @@ function AllPage({ products, router, t }) {
                             window.scrollTo(0, 0)
                             const url = new URL(router.asPath, `${window.location.protocol}//${window.location.host}`)
                             url.searchParams.set('page', n);
-                            router.push(url.pathname + url.search, undefined, { shallow: true })
+                            router.push(url.pathname + url.search)
                         }} page={ page + 1 }>
                             <Pagination.Next><ChevronRight /></Pagination.Next>
                             <Pagination.Previous><ChevronLeft /></Pagination.Previous>
