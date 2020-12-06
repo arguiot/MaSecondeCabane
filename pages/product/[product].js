@@ -61,7 +61,7 @@ export default function ProductPage({ product, t }) {
 
         setToast({
             text: t.added,
-            type: "success",
+            type: "secondary",
             actions: [{
                 name: t.cancel,
                 passive: true,
