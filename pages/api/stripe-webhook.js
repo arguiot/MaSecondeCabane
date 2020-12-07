@@ -60,6 +60,7 @@ export default async (req, res) => {
         case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
             // Create Order
+            const names = paymentIntent.shipping.name.split(" ")
             const query = CreateOrder
             const variables = {
                 data: {
@@ -67,8 +68,8 @@ export default async (req, res) => {
                     total: paymentIntent.amount / 100,
                     customer: {
                         email: paymentIntent.receipt_email,
-                        firstName: paymentIntent.shipping.name.split(" ")[0],
-                        lastName: paymentIntent.shipping.name.split(" ")[1],
+                        firstName: names[0],
+                        lastName: names.slice(1).join(" "),
                         telephone: "None", //paymentIntent.shipping.phone,
                         address: {
                             street: paymentIntent.shipping.address.line1,
