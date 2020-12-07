@@ -1,4 +1,4 @@
-import { Description, Grid, Page, Text, Input, Divider, Spacer, Textarea, Button, Row, Note } from "@geist-ui/react"
+import { Description, Grid, Page, Text, Input, Divider, Spacer, Textarea, Button, Row, Image } from "@geist-ui/react"
 import Head from "next/head"
 import { useState } from "react"
 import Footer from "../../components/Footer"
