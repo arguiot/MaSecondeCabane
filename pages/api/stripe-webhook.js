@@ -148,7 +148,7 @@ export default async (req, res) => {
                 <li>
                 <ul>
                 <li>Identifiant: <a href="https://masecondecabane.com/product/${article.id}">${article.id}</a></li>
-                <li>Quantité: ${articly.quantity}</li>
+                <li>Quantité: ${article.quantity}</li>
                 </ul>
                 </li>
                 `))}
