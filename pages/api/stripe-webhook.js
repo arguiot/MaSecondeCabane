@@ -1,4 +1,5 @@
 import {
+    AllOrders,
     CreateOrder,
     ProductByID,
     UpdateProduct
@@ -59,6 +60,11 @@ export default async (req, res) => {
     switch (event.type) {
         case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
+            // Check that the order isn't already in DB
+            const { allOrders } = await graphQLServer.request(AllOrders)
+            if (allOrders.data.map(entry => entry.stripeID).includes(paymentIntent.id)) {
+                return res.status(202).send(`Webhook Error: Stripe order already exists in DB`);
+            }
             // Create Order
             const names = paymentIntent.shipping.name.split(" ")
             const query = CreateOrder
