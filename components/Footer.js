@@ -29,7 +29,7 @@ export default function Footer() {
         <Collapse title={ t.helpContact } className={ styles.collapse }>
             <Row>
                 <Button icon={<Mail />} type="abort" auto size="large" onClick={() => window.location =
-                "mailto:arguiot@gmail.com"}>Mail.</Button>
+                "mailto:contact@masecondecabane.com"}>Mail.</Button>
             </Row>
             <Row>
                 <a href="https://www.instagram.com/masecondecabane/" target="_blank"><Button icon={<Instagram />} type="abort" auto size="large">Instagram.</Button></a>
@@ -69,7 +69,7 @@ export default function Footer() {
                         <Text h3 style={{ paddingLeft: "25px", opacity: ".7" }}>{ t.helpContact }</Text>
                         <Row>
                             <Button icon={<Mail />} type="abort" auto size="large" onClick={() => window.location =
-                            "mailto:arguiot@gmail.com"}>Mail.</Button>
+                            "mailto:contact@masecondecabane.com"}>Mail.</Button>
                         </Row>
                         <Row>
                             <a href="https://www.instagram.com/masecondecabane/" target="_blank"><Button icon={<Instagram />} type="abort" auto size="large">Instagram.</Button></a>
