@@ -29,7 +29,7 @@ export default function ProductCard({ product }) {
 
     return <Link href={ `/${router.locale}/product/${product._id}` }>
     <a>
-        <Card width="300" hoverable shadow style={{ cursor: "pointer", textAlign: "center" }}>
+        <Card width="300" hoverable style={{ cursor: "pointer", textAlign: "center" }}>
             <Image width={ 300 } height={ 300 } src={ `https://images.masecondecabane.com/${product.image}?auto=compress&w=300&h=300&fit=crop` } style={{ objectFit: 'cover' }} alt={ product.name } loading="lazy"/>
             <Text h4 className={ styles.name }>{ product.name }</Text>
             <Text small className={ styles.truncate }>{ `${getDescription(product, router.locale)} - ${getSize(product, router.locale)}` }</Text>
