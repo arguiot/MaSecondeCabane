@@ -30,7 +30,7 @@ function Home({ products, router, photos, t }) {
 	const [PRODUCTS, setProducts] = React.useState([])
 	React.useEffect(() => {
 		setImage(photos[Math.floor(Math.random() * photos.length)])
-		setProducts(shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).slice(0, 6))
+		setProducts(shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).slice(0, 12))
 	}, [])
 	// Search logic
 
