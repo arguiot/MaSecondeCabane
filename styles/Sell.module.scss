@@ -15,6 +15,11 @@
     }
 }
 
+.title {
+    font-family: "Amatic SC"
+}
+
+
 @media (prefers-color-scheme: dark) {
     .list li::before {
         background-image: url("../public/favicon-white.svg");

@@ -75,7 +75,12 @@ export default function Sell({ t }) {
 	</Head>
 	<NavBar />
     <Page>
-        <Text h2>{ t.sellClothes }</Text>
+        <Row justify="center">
+            {/* <Users size={96} /> */}
+            <Image src="/logo.svg" height={96} style={{ width: "unset", objectFit: "unset" }}/>
+        </Row>
+        <Text h1 align="center" className={ styles.title }>{ t.sellClothes }</Text>
+        <Divider />
         <Text>
             { t.select }
         </Text>
