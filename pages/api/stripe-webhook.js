@@ -67,7 +67,7 @@ export default async (req, res) => {
                     stripeID: paymentIntent.id,
                     total: paymentIntent.amount / 100,
                     customer: {
-                        email: paymentIntent.receipt_email,
+                        email: paymentIntent.receipt_email || paymentIntent.charges.data[0].billing_details.email || "Inconnue",
                         firstName: names[0],
                         lastName: names.slice(1).join(" "),
                         telephone: "None", //paymentIntent.shipping.phone,
@@ -129,7 +129,7 @@ export default async (req, res) => {
             const msg = {
                 to: "contact@masecondecabane.com",
                 from: "commandes@masecondecabane.com",
-                replyTo: paymentIntent.receipt_email,
+                replyTo: paymentIntent.receipt_email || paymentIntent.charges.data[0].billing_details.email,
                 subject: `Nouvelle Commande pour ${paymentIntent.shipping.name}`,
                 html: `
                 <h1>Transaction</h1>
