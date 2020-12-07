@@ -4,7 +4,7 @@ export default {
         en: "Q&A"
     },
     questions: {
-        fr: "Des questions?",
+        fr: "Des questions ?",
         en: "Questions?"
     },
     // Buy

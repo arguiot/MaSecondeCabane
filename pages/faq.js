@@ -16,9 +16,11 @@ export default function Faq({ t }) {
 	<NavBar />
     <Page className={ styles.noTitleFancy }>
         <Row justify="center">
-           <QuestionCircle size={96} />
+            {/* <Users size={96} /> */}
+            <Image src="/logo.svg" height={96} style={{ width: "unset", objectFit: "unset" }}/>
         </Row>
-        <Text h1 align="center">{ t.questions }</Text>
+        <Text h1 align="center" className={ styles.title }>{ t.questions }</Text>
+        <Divider />
         <Spacer y={3} />
         <Text h3 style={{ fontFamily: "Quicksand" }}>{ t.buy }</Text>
         <Collapse.Group className={ styles.collapse }>
