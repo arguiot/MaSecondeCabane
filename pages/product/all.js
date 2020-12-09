@@ -201,7 +201,7 @@ import Locales from "../../locales/All"
 
 export async function getStaticProps({ locale }) {
 	const query = AllProducts
-    const result = await graphQLClient.request(query)
+    const result = await graphQLClient.request(query, { size: 1000 })
     // Locales
 	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
 		line[0],

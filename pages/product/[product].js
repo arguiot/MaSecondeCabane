@@ -277,15 +277,15 @@ export async function getStaticProps({ params, locale }) {
 
 export async function getStaticPaths({ locales }) {
     const query = gql`
-    query AllProducts {
-        allProducts {
+    query AllProducts($size: Int) {
+        allProducts(_size: $size) {
             data {
                 _id
             }
         }
     }
     `
-    const result = await graphQLClient.request(query)
+    const result = await graphQLClient.request(query, { size: 1000 })
 
     const { data } = result.allProducts
 
