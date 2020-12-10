@@ -36,17 +36,6 @@ function MyApp({
 	}, [])
 
 	const theme = useTheme()
-
-	const router = useRouter()
-	React.useEffect(() => {
-		const handleRouteChange = (url) => {
-			gtag.pageview(url)
-		}
-		router.events.on('routeChangeComplete', handleRouteChange)
-		return () => {
-			router.events.off('routeChangeComplete', handleRouteChange)
-		}
-	}, [router.events])
   return (
     <GeistProvider theme={{
 		type: themeType,
