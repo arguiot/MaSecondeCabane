@@ -100,11 +100,12 @@ function AllPage({ products, router, t }) {
         return label
     }
 
-    const all = results(search, sexe, size, etat).map(p => {
+    const res = results(search, sexe, size, etat).map(p => {
         return <Grid xs={24} md={8}>
             <ProductCard product={ p } />
         </Grid>
     })
+    const all = [].concat(res).reverse()
     React.useEffect(() => {
         if (Math.ceil(all.length  / 12) < page + 1) {
             setPage(0)
