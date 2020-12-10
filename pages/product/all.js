@@ -59,7 +59,8 @@ function AllPage({ products, router, t }) {
     const fuse = new Fuse([], fuseOption)
     
     function results(search, sexe, size, etat) {
-        const prdcts = products.filter(p => {
+        const pr = [].concat(products).reverse()
+        const prdcts = pr.filter(p => {
             // Quantite
             if (p.quantity < 1) {
                 return false
@@ -100,12 +101,11 @@ function AllPage({ products, router, t }) {
         return label
     }
 
-    const res = results(search, sexe, size, etat).map(p => {
+    const all = results(search, sexe, size, etat).map(p => {
         return <Grid xs={24} md={8}>
             <ProductCard product={ p } />
         </Grid>
     })
-    const all = [].concat(res).reverse()
     React.useEffect(() => {
         if (Math.ceil(all.length  / 12) < page + 1) {
             setPage(0)
