@@ -47,6 +47,10 @@ export default {
         fr: "Total",
         en: "Total"
     },
+    delivery: {
+        fr: "Frais de livraison (taxes incluses)",
+        en: "Delivery fees (taxes included)"
+    },
     subtotal: {
         fr: "Sous total",
         en: "Subtotal"
@@ -58,6 +62,10 @@ export default {
     qst: {
         fr: "TVQ",
         en: "QST"
+    },
+    delay: {
+        fr: "Toutes les commandes passées après le 16 décembre 2020 seront expédiées à partir du 4 janvier 2020.",
+        en: "All orders placed after December 16, 2020 will be shipped as of January 4, 2020."
     },
     continue: {
         fr: "Continuer à magasiner",

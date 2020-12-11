@@ -1,4 +1,4 @@
-import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card, Tooltip } from "@geist-ui/react";
+import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card, Tooltip, Note } from "@geist-ui/react";
 
 import Manager from '../lib/CartManager'
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
@@ -141,6 +141,10 @@ export default function Basket({
             <Divider>{ t.total }</Divider>
             <Card>
                 <Row justify="space-between">
+                    <Text b>{ t.delivery }</Text>
+                    <Text b>{ (9).toFixed(2) } CAD$</Text>
+                </Row>
+                <Row justify="space-between">
                     <Text b>{ t.subtotal }</Text>
                     <Text b>{ (Math.round(Manager.subtotal * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
@@ -155,9 +159,11 @@ export default function Basket({
                 <Divider />
                 <Row justify="space-between">
                     <Text b>{ t.total }</Text>
-                    <Text b>{ (Math.round(Manager.subtotal * 1.14975 * 100) / 100).toFixed(2) } CAD$</Text>
+                    <Text b>{ (Math.round((Manager.subtotal * 1.14975 + 9) * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
             </Card>
+            <Spacer y={1} />
+            <Note>{ t.delay }</Note>
             <Spacer y={1} />
             <Grid.Container gap={2} justify="flex-end">
                 <Grid xs={24} md={ 7 }>

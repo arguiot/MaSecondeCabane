@@ -24,3 +24,20 @@
         margin-left: 10px;
     }
 }
+
+.list {
+    li {
+        list-style: none;
+        &::before {
+            content: '';
+            display: inline-block;
+            height: 16px;
+            width: 16px;
+            background-image: url("../public/favicon.svg");
+            background-position: center;
+            background-size: contain;
+            margin-left: -1.2rem;
+            margin-top: 6px;
+        }
+    }
+}

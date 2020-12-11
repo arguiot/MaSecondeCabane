@@ -14,7 +14,7 @@ export default async (req, res) => {
                     name: entry.name,
                     images: [`https://images.masecondecabane.com/${entry.image}?auto=compress&w=150&h=150&fit=crop`],
                 },
-                unit_amount: Math.round(entry.price * (100 + 5 + 9.975)), // VAT
+                unit_amount: Math.round(entry.price * (100 + 5 + 9.975)) + 900, // VAT + Delivery
             },
             quantity: entry.quantity,
         }
