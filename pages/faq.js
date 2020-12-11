@@ -30,7 +30,8 @@ export default function Faq({ t }) {
                 { t.questionsP2 }
             </Collapse>
             <Collapse title={ t.controlledTitle }>
-                { t.controlledContent }
+                { t.controlledContent }<br/>
+                { t.weDefine }
                 <ul className={ styles.list }>
                     <li>{ t.goodConditions }</li>
                     <li>{ t.excellentConditions }</li>

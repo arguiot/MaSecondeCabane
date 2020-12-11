@@ -90,6 +90,7 @@ export default async (req, res) => {
                             quantity: entry.quantity
                         }
                     }),
+                    delivery: paymentIntent.metadata.delivery == "true",
                     done: false
                 }
             }
@@ -98,6 +99,7 @@ export default async (req, res) => {
             } = await graphQLServer.request(query, variables)
             // Update Quantities
             const array = JSON.parse(paymentIntent.metadata.order)
+            let articles = []
             for (var i = 0; i < array.length; i++) {
                 const entry = array[i]
                 const query = ProductByID
@@ -106,6 +108,7 @@ export default async (req, res) => {
                 } = await graphQLServer.request(query, {
                     id: entry.id
                 })
+                articles.push(findProductByID)
                 const updateQuery = UpdateProduct
                 const variables = {
                     id: entry.id,
@@ -147,12 +150,15 @@ export default async (req, res) => {
                 <ul>
                 <li>Prénom, Nom: ${paymentIntent.shipping.name}</li>
                 <li>Addresse: ${[paymentIntent.shipping.address.line1, paymentIntent.shipping.address.city, paymentIntent.shipping.address.postal_code, paymentIntent.shipping.address.country, paymentIntent.shipping.address.state].join(", ")}</li>
+                <li>Livraison: ${paymentIntent.metadata.delivery == "true" ? "Oui" : "Click & Collect"}</li>
                 </ul>
                 <h1>Contenu</h1>
                 <ol>
-                ${array.map(article => (`
-                <li>
+                ${articles.map(article => (`
+                <li> ${article.name}
                 <ul>
+                <li>Description: ${article.description}</li>
+                <li>Prix: ${article.price}$</li>
                 <li>Identifiant: <a href="https://masecondecabane.com/product/${article.id}">${article.id}</a></li>
                 <li>Quantité: ${article.quantity}</li>
                 </ul>

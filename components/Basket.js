@@ -1,4 +1,4 @@
-import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card, Tooltip, Note } from "@geist-ui/react";
+import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card, Tooltip, Note, Radio } from "@geist-ui/react";
 
 import Manager from '../lib/CartManager'
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
@@ -26,7 +26,7 @@ export default function Basket({
 		line[0],
 		line[1][router.locale.split("-")[0]]
     ]))
-
+    const [delivery, setDelivery] = React.useState(true)
     const [checkout, setCheckout] = React.useState(false)
     const [stock, setStock] = React.useState(false)
     const handleClick = async (event) => {
@@ -45,7 +45,10 @@ export default function Basket({
 
         const response = await fetch("/api/create-session", {
             method: "POST",
-            body: localStorage.getItem("cart")
+            body: JSON.stringify({
+                cart: Manager.cart,
+                delivery
+            })
         });
 
         const session = await response.json();
@@ -141,10 +144,6 @@ export default function Basket({
             <Divider>{ t.total }</Divider>
             <Card>
                 <Row justify="space-between">
-                    <Text b>{ t.delivery }</Text>
-                    <Text b>{ (9).toFixed(2) } CAD$</Text>
-                </Row>
-                <Row justify="space-between">
                     <Text b>{ t.subtotal }</Text>
                     <Text b>{ (Math.round(Manager.subtotal * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
@@ -157,9 +156,20 @@ export default function Basket({
                     <Text b>{ (Math.round(Manager.subtotal * 0.09975 * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
                 <Divider />
+                <Radio.Group value={ delivery } onChange={setDelivery}>
+                    <Radio value={ true }>
+                        { t.delivery } ({ (9).toFixed(2) } CAD$)
+                        <Radio.Description>{ t.deliveryDesc }</Radio.Description>
+                    </Radio>
+                    <Radio value={ false }>
+                            { t.clickAndCollect }
+                        <Radio.Description>{ t.clickDesc }</Radio.Description>
+                    </Radio>
+                </Radio.Group>
+                <Divider />
                 <Row justify="space-between">
                     <Text b>{ t.total }</Text>
-                    <Text b>{ (Math.round((Manager.subtotal * 1.14975 + 9) * 100) / 100).toFixed(2) } CAD$</Text>
+                    <Text b>{ (Math.round((Manager.subtotal * 1.14975 + (delivery ? 9 : 0)) * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
             </Card>
             <Spacer y={1} />

@@ -36,6 +36,7 @@ type Order @collection(name: "orders") {
   stripeID: String!
   total: Float!
   done: Boolean
+  delivery: Boolean!
 }
 
 type Address @embedded {

@@ -48,8 +48,20 @@ export default {
         en: "Total"
     },
     delivery: {
-        fr: "Frais de livraison (taxes incluses)",
-        en: "Delivery fees (taxes included)"
+        fr: "Livraison",
+        en: "Delivery"
+    },
+    deliveryDesc: {
+        fr: "Les frais de livraisons incluent déjà les taxes.",
+        en: "Shipping costs already include taxes."
+    },
+    clickAndCollect: {
+        fr: "Ramassage",
+        en: "Click and collect"
+    },
+    clickDesc: {
+        fr: "Venez ramassez votre achat sans passer par la livraison et économiser!",
+        en: "Come pick up your purchase without delivery and save!"
     },
     subtotal: {
         fr: "Sous total",

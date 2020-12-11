@@ -13,8 +13,8 @@ export default {
         en: "BUY ON MA SECONDE CABANE"
     },
     questionsTitle: {
-        fr: "J’ai des questions à propos de cet article, comment faire ?",
-        en: "I have questions about this article, what can I do?"
+        fr: "J’ai des questions à propos d'un article, comment faire ?",
+        en: "I have questions about an article, what can I do?"
     },
     questionsP1: {
         fr: "Pour toutes vos questions concernant un vêtement, n’hésitez pas à nous contacter à",
@@ -41,12 +41,16 @@ export default {
         en: "Your order is shipped within 24 and 72 hours depending on when you place your order on MASECONDECABANE.COM. Orders placed on Friday after 12pm, Saturday, Sunday will be processed the following Monday. Unfortunately, we are not responsible for delivery times of transportation companies. Your order will be delivered to the address you have provided."
     },
     controlledTitle: {
-        fr: "Est-ce que les articles mis en ligne sont controlés avant d’etre envoyés ?",
-        en: "Are the submitted items checked before being sent?"
+        fr: "Est-ce que les vêtements mis en ligne sont contrôlés avant d’être envoyés ?",
+        en: "Do you check the quality of the clothes sold on MASECONDECABANE.COM?"
     },
     controlledContent: {
-        fr: "Tous les vêtements mis en ligne sont minutieusement contrôlés par nos soins. En achetant sur le site MASECONDECABANE.COM, vous êtes certains de la grande qualité des produits et de ne recevoir que des vêtements propres et repassés. Nous avons défini trois catégories d’articles d’occasions que nous proposons :",
-        en: "All the articles put online are meticulously checked by us. By buying on the site, you are sure of the high quality of the products. By the way, we propose only new items, in excellent or very good condition."
+        fr: "Tous les vêtements mis en ligne sont minutieusement contrôlés par nos soins. En achetant sur le site MASECONDECABANE.COM, vous êtes certains de la grande qualité des produits et de ne recevoir que des vêtements propres et repassés.",
+        en: "All clothes sold online are carefully controlled by us. When you buy on MASECONDECABANE.COM, you can be sure of the high quality of the products (also cleaned and ironed)."
+    },
+    weDefine: {
+        fr: "Nous avons défini trois catégories d’articles d’occasions que nous proposons :",
+        en: "We have defined three categories of the second-hand items:"
     },
     goodConditions: {
         fr: "En très bon état : signifie que les vêtements ont été portés mais ne présentent pas de défauts",

@@ -6,7 +6,7 @@ const YOUR_DOMAIN = 'https://masecondecabane.com/checkout';
 export default async (req, res) => {
     const body = JSON.parse(req.body)
     
-    const items = body.map(entry => {
+    const items = body.cart.map(entry => {
         return {
             price_data: {
                 currency: 'cad',
@@ -14,19 +14,20 @@ export default async (req, res) => {
                     name: entry.name,
                     images: [`https://images.masecondecabane.com/${entry.image}?auto=compress&w=150&h=150&fit=crop`],
                 },
-                unit_amount: Math.round(entry.price * (100 + 5 + 9.975)) + 900, // VAT + Delivery
+                unit_amount: Math.round(entry.price * (100 + 5 + 9.975)) + (body.delivery ? 900 : 0), // VAT + Delivery
             },
             quantity: entry.quantity,
         }
     })
 
     const metadata = {
-        "order": JSON.stringify(body.map(product => {
+        order: JSON.stringify(body.cart.map(product => {
             return {
                 id: product._id,
                 quantity: product.quantity
             }
-        }))
+        })),
+        delivery: String(body.delivery)
     }
 
     const session = await stripe.checkout.sessions.create({
