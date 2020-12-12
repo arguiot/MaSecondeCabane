@@ -218,16 +218,24 @@ export default function ProductPage({ product, t }) {
             <Text h3>{ t.faq }</Text>
             <Collapse.Group className={ styles.collapse }>
                 <Collapse title={ t.questionsTitle }>
-                    { t.questionsP1 } <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>. { t.questionsP2 }
+                    { t.questionsP1 } <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>. 
+                    <br/>
+                    { t.questionsP2 }
+                </Collapse>
+                <Collapse title={ t.controlledTitle }>
+                    { t.controlledContent }<br/>
+                    { t.weDefine }
+                    <ul className={ styles.list }>
+                        <li>{ t.goodConditions }</li>
+                        <li>{ t.excellentConditions }</li>
+                        <li>{ t.newWithLabel }</li>
+                    </ul>
                 </Collapse>
                 <Collapse title={ t.paymentTitle }>
                     { t.paymentContent }
                 </Collapse>
                 <Collapse title={ t.whenArrive }>
                     { t.whenArriveContent }
-                </Collapse>
-                <Collapse title={ t.controlledTitle }>
-                    { t.controlledContent }
                 </Collapse>
             </Collapse.Group>
         </Page>
