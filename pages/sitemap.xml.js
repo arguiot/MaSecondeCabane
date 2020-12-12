@@ -94,7 +94,7 @@ class Sitemap extends React.Component {
         res
     }) {
         const query = AllProducts
-        const result = await graphQLClient.request(query)
+        const result = await graphQLClient.request(query, { size: 1000 })
 
         res.setHeader('Content-Type', 'text/xml');
         res.write(createSitemap(result.allProducts.data));
