@@ -54,5 +54,13 @@ export default {
     searchError: {
         fr: "Oups! Essayez autre chose...",
         en: "Oops! Try something else..."
+    },
+    shoes: {
+        fr: "Chaussures",
+        en: "Shoes"
+    },
+    cloths: {
+        fr: "Vêtements",
+        en: "Clothing"
     }
 }

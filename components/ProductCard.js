@@ -12,7 +12,14 @@ export default function ProductCard({ product }) {
     }
     function getSize(product, lang) {
         const size = product.size
-        if (size == "N/A") {
+        const shoeSizes = [
+            "16-20 EU",
+            "21-24 EU",
+            "25-29 EU",
+            "30-34 EU",
+            "34-36 EU"
+        ]
+        if (shoeSizes.includes(size)) {
             if (lang == "en-CA" && product.descriptionEn != null) {
                 return product.descriptionEn.split("\n")[1]
             }

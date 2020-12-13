@@ -1,4 +1,4 @@
-import { Page, Select, Grid, Text, Description, Spacer, Input, Pagination, Row } from "@geist-ui/react"
+import { Page, Select, Grid, Text, Description, Spacer, Input, Pagination, Row, Divider } from "@geist-ui/react"
 import { ChevronLeft, ChevronRight, Search, X } from "@geist-ui/react-icons"
 import Head from "next/head"
 import NavBar from "../../components/NavBar"
@@ -40,6 +40,13 @@ function AllPage({ products, router, t }) {
         "0 mois", "1 mois", "3 mois", "6 mois", "9 mois", "12 mois", "18 mois",
         "2 ans", "3 ans", "4 ans", "5 ans", "6 ans", "7 ans", "8 ans", "9 ans", "10 ans", "11 ans", "12 ans"
     ]
+    const shoeSizes = [
+        "16-20 EU",
+        "21-24 EU",
+        "25-29 EU",
+        "30-34 EU",
+        "34-36 EU"
+    ]
     const [etat, setEtat] = React.useState([])
     const [category, setCategory] = React.useState([])
     const categoryList = [
@@ -69,7 +76,7 @@ function AllPage({ products, router, t }) {
             if (p.sexe != "Mixte" && p.sexe != sexe && typeof sexe == "string") {
                 return false
             }
-            if (p.size != "N/A" && !size.includes(p.size) && size.length > 0) {
+            if (!size.includes(p.size) && size.length > 0) {
                 return false
             }
             if (!category.includes(p.type) && category.length > 0) {
@@ -146,8 +153,13 @@ function AllPage({ products, router, t }) {
                 <Spacer y={.8} />
                 <Description title={ t.size } content={
                     <Select placeholder={ t.size } multiple width="100%" value={size} onChange={setSize} className={ styles.select }>
+                        <Divider>{ t.cloths }</Divider>
                         {
                             sizeList.map(s => <Select.Option value={s} className={ styles.selectOption }>{ selectOption(getSize(s, router.locale), size, s) }</Select.Option>)
+                        }
+                        <Divider>{ t.shoes }</Divider>
+                        {
+                            shoeSizes.map(s => <Select.Option value={s} className={ styles.selectOption }>{ selectOption(s, size, s) }</Select.Option>)
                         }
                     </Select>
                 }/>
