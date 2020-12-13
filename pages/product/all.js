@@ -119,7 +119,9 @@ function AllPage({ products, router, t }) {
             const url = new URL(router.asPath, `${window.location.protocol}//${window.location.host}`)
             url.searchParams.set('page', 1);
             url.searchParams.set('gender', sexe)
-            router.push(url.pathname + url.search, undefined, { shallow: true })
+            if (window.location.search != url.search) {
+                router.push(url.pathname + url.search, undefined, { shallow: true })
+            }
         }
     }, [all])
 
