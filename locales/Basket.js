@@ -60,8 +60,8 @@ export default {
         en: "Click and collect"
     },
     clickDesc: {
-        fr: "Venez ramassez votre achat sans passer par la livraison et économiser!",
-        en: "Come pick up your purchase without delivery and save!"
+        fr: "Venez ramassez votre achat à Montréal, Outremont sur rendez-vous, nous vous contacterons par email.",
+        en: "Come pick up your purchase in Montreal, Outremont by appointment, we will contact you by email."
     },
     subtotal: {
         fr: "Sous total",
