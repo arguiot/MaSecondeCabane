@@ -199,6 +199,6 @@ export async function getStaticProps({ locale }) {
 			photos,
 			t: locales
         },
-        revalidate: 300
+        revalidate: 1800
     }
 }

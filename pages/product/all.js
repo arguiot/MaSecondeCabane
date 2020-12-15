@@ -227,6 +227,6 @@ export async function getStaticProps({ locale }) {
             products: result.allProducts.data,
             t: locales
         },
-        revalidate: 300
+        revalidate: 600
     }
 }

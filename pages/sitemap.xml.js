@@ -1,6 +1,10 @@
 import React from 'react';
-import { AllProducts } from '../lib/Requests';
-import { graphQLClient } from '../utils/fauna';
+import {
+  AllProducts
+} from '../lib/Requests';
+import {
+  graphQLClient
+} from '../utils/fauna';
 
 const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -89,17 +93,22 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
     </urlset>
     `;
 
-class Sitemap extends React.Component {
-    static async getInitialProps({
-        res
-    }) {
-        const query = AllProducts
-        const result = await graphQLClient.request(query, { size: 1000 })
+const query = AllProducts
 
-        res.setHeader('Content-Type', 'text/xml');
-        res.write(createSitemap(result.allProducts.data));
-        res.end();
+let result;
+
+class Sitemap extends React.Component {
+  static async getInitialProps({
+    res
+  }) {
+    if (typeof result == "undefined") {
+      result = await graphQLClient.request(query, { size: 1000 })
+      console.log("GraphQL query")
     }
+    res.setHeader('Content-Type', 'text/xml');
+    res.write(createSitemap(result.allProducts.data));
+    res.end();
+  }
 }
 
 export default Sitemap;

@@ -273,7 +273,7 @@ export async function getStaticProps({ params, locale }) {
                 product: result.findProductByID,
                 t: locales
             },
-            revalidate: 300
+            revalidate: 3600
         }
     } catch(e) {
         console.log(e);
