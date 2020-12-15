@@ -8,8 +8,8 @@ export default {
         en: "Subscribe to our newsletter"
     },
     helpContact: {
-        fr: "Aide & Contact",
-        en: "Help & Contact"
+        fr: "Contact",
+        en: "Contact"
     },
     about: {
         fr: "À propos",
@@ -38,5 +38,9 @@ export default {
     allRightReserved: {
         fr: "Tous droits réservés",
         en: "All rights reserved"
+    },
+    mail: {
+        fr: "Courriel",
+        en: "Mail"
     }
 }

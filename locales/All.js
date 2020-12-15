@@ -28,8 +28,8 @@ export default {
         en: "Boy"
     },
     size: {
-        fr: "Taille",
-        en: "Size"
+        fr: "Taille (âge et pointures)",
+        en: "Size (age and shoes)"
     },
     condition: {
         fr: "État",

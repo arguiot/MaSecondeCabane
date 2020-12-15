@@ -29,7 +29,7 @@ export default function Footer() {
         <Collapse title={ t.helpContact } className={ styles.collapse }>
             <Row>
                 <Button icon={<Mail />} type="abort" auto size="large" onClick={() => window.location =
-                "mailto:contact@masecondecabane.com"}>Mail.</Button>
+                "mailto:contact@masecondecabane.com"}>{ t.mail }.</Button>
             </Row>
             <Row>
                 <a href="https://www.instagram.com/masecondecabane/" target="_blank"><Button icon={<Instagram />} type="abort" auto size="large">Instagram.</Button></a>
