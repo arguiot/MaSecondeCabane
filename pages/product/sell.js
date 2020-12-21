@@ -41,31 +41,37 @@ export default function Sell({ t }) {
                 return
             }
         }
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
-        const query = CreateRequest
-        const variables = {
-            data: {
-                customer: {
-                    firstName: fname,
-                    lastName: lname,
-                    address: {
-                        street,
-                        city,
-                        zipCode: postal,
-                        country
-                    },
-                    telephone: phone,
-                    email
-                },
-                description,
-                done: false
-            }
-        }
+        const raw = JSON.stringify({
+            fname,
+            lname,
+            email,
+            street,
+            city,
+            postal,
+            country,
+            phone: typeof phone != "undefined" ? phone : "Aucun téléphone",
+            description
+        });
 
-        graphQLClient.request(query, variables).then(data => {
-            alert(`${t.thanks} ${data.createRequest.customer.firstName}!\n${t.respond}` )
-            window.location = "/"
-        })
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("/api/contact", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result.success == true) {
+                    alert(`${t.thanks} ${fname}!\n${t.respond}` )
+		            window.location = "/"
+                }
+            })
+            .catch(error => console.log('error', error));
     }
 
     return <>
