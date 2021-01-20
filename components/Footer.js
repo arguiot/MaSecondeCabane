@@ -34,6 +34,9 @@ export default function Footer() {
             <Row>
                 <a href="https://www.instagram.com/masecondecabane/" target="_blank"><Button icon={<Instagram />} type="abort" auto size="large">Instagram.</Button></a>
             </Row>
+            <Row>
+                <a href="https://www.facebook.com/masecondecabane" target="_blank"><Button icon={<Facebook />} type="abort" auto size="large">Facebook.</Button></a>
+            </Row>
         </Collapse>
         <Collapse title={ t.about } className={ styles.collapse }>
             <NextLink href="/about">
@@ -73,6 +76,9 @@ export default function Footer() {
                         </Row>
                         <Row>
                             <a href="https://www.instagram.com/masecondecabane/" target="_blank"><Button icon={<Instagram />} type="abort" auto size="large">Instagram.</Button></a>
+                        </Row>
+                        <Row>
+                            <a href="https://www.facebook.com/masecondecabane" target="_blank"><Button icon={<Facebook />} type="abort" auto size="large">Facebook.</Button></a>
                         </Row>
                     </Col>
                     <Col style={{ width: "auto" }}>
