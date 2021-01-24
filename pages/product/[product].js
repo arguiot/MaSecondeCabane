@@ -92,6 +92,19 @@ export default function ProductPage({ product, t }) {
                 return "-"
         }
     }
+
+    function starsEtat(e) {
+        switch (e) {
+            case "Bon":
+                return "4"
+            case "Excellent":
+                return "4.5"
+            case "Neuf":
+                return "5"
+            default:
+                return "5"
+        }
+    }
     function etatHelp(e) {
         switch (e) {
             case "Bon":
@@ -174,8 +187,8 @@ export default function ProductPage({ product, t }) {
                 },
                 "aggregateRating": {
                     "@type": "AggregateRating",
-                    "ratingValue": "5",
-                    "reviewCount": "0"
+                    "ratingValue": starsEtat(product.etat),
+                    "reviewCount": "1"
                 }
             })}} />
         </Head>
