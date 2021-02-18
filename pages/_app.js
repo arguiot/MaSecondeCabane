@@ -5,9 +5,8 @@ import {
 	useTheme
 } from '@geist-ui/react'
 import NextNProgress from 'nextjs-progressbar';
-import { useRouter } from 'next/router'
-import * as gtag from '../lib/gtag'
 import React from "react";
+import { FilterContextProvider } from '../components/FilterContext';
 
 function MyApp({
 	Component,
@@ -36,6 +35,7 @@ function MyApp({
 	}, [])
 
 	const theme = useTheme()
+
   return (
     <GeistProvider theme={{
 		type: themeType,
@@ -43,9 +43,11 @@ function MyApp({
 			foreground: "#007577"
 		}
 	  }}>
-	  <CssBaseline />
-	  <Component {...pageProps} />
-	  <NextNProgress color="var(--text-color)" />
+		<FilterContextProvider>
+		  	<CssBaseline />
+			<Component {...pageProps} />
+			<NextNProgress color="var(--text-color)" />
+		</FilterContextProvider>
 	</GeistProvider>
   )
 }

@@ -9,33 +9,27 @@ import Fuse from 'fuse.js'
 import { withRouter } from 'next/router'
 import Footer from "../../components/Footer"
 import { buildIndex, fuseOption, getCategory, getSize } from "../../locales/Fuse"
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../../styles/All.module.scss"
 
 function AllPage({ products, router, t }) {
-    const [search, setSearch] = React.useState(router.query.search)
-    const [sexe, setSexe] = React.useState(router.query.gender)
-
-    const [page, setPage] = React.useState(0)
-    React.useEffect(() => {
-        const handleRoute = () => {
-            const params = new URLSearchParams(window.location.search)
-            setSexe(params.get("gender"))
-            setSearch(params.get("search"))
-            const page = parseInt(params.get("page"))
-            setPage(isNaN(page) ? 0 : page - 1)
-        }
-
-        router.events.on('routeChangeComplete', handleRoute)
-
-        handleRoute()
-
-        return () => {
-            router.events.off('routeChangeComplete', handleRoute)
-        }
-    }, [])
-
-    const [size, setSize] = React.useState([])
+    const [sexe, setGender] = React.useState(router.query.gender)
+    // Get values from context
+    const { state, setState } = useContext(FilterContext)
+    const { size, category, etat, page, search } = state
+    const setFilterState = obj => {
+        setState({ ...state, ...obj, page: 0 })
+    }
+    const setSize = size => setFilterState({ size })
+    const setCategory = category => setFilterState({ category })
+    const setEtat = etat => setFilterState({ etat })
+    const setSearch = search => setFilterState({ search })
+    const setPage = n => {
+        debugger;
+        setState({ ...state, page: n - 1 })
+        window.scrollTo(0, 0)
+    }
+    
     const sizeList = [
         "0 mois", "1 mois", "3 mois", "6 mois", "9 mois", "12 mois", "18 mois",
         "2 ans", "3 ans", "4 ans", "5 ans", "6 ans", "7 ans", "8 ans", "9 ans", "10 ans", "11 ans", "12 ans"
@@ -47,8 +41,7 @@ function AllPage({ products, router, t }) {
         "30-34 EU",
         "34-36 EU"
     ]
-    const [etat, setEtat] = React.useState([])
-    const [category, setCategory] = React.useState([])
+
     const categoryList = [
         "Accessoires",
         "Chaussures",
@@ -113,17 +106,32 @@ function AllPage({ products, router, t }) {
             <ProductCard product={ p } />
         </Grid>
     })
-    React.useEffect(() => {
-        if (Math.ceil(all.length  / 12) < page + 1) {
-            setPage(0)
-            const url = new URL(router.asPath, `${window.location.protocol}//${window.location.host}`)
-            url.searchParams.set('page', 1);
-            url.searchParams.set('gender', sexe)
-            if (window.location.search != url.search) {
-                router.push(url.pathname + url.search, undefined, { shallow: true })
-            }
+
+    const setSexe = sexe => {
+        const s = sexe == "Fille" ? "Fille" : "Garçon"
+        setGender(s)
+        const url = new URL(router.asPath, `${window.location.protocol}//${window.location.host}`)
+        url.searchParams.set('gender', s)
+        if (window.location.search != url.search) {
+            router.push(url.pathname + url.search, undefined, { shallow: true })
+            setPage(1)
         }
-    }, [all])
+    }
+
+    React.useEffect(() => {
+        const handleRoute = () => {
+            const params = new URLSearchParams(window.location.search)
+            setSexe(params.get("gender"))
+        }
+
+        router.events.on('routeChangeComplete', handleRoute)
+
+        handleRoute()
+
+        return () => {
+            router.events.off('routeChangeComplete', handleRoute)
+        }
+    }, [])
 
     return <>
 	<Head>
@@ -190,13 +198,7 @@ function AllPage({ products, router, t }) {
                     <Spacer y={2}/>
                     {
                         all.length > 0 && <Row justify="center" style={{ width: "100%" }}>
-                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ n => { 
-                            setPage(n - 1)
-                            window.scrollTo(0, 0)
-                            const url = new URL(router.asPath, `${window.location.protocol}//${window.location.host}`)
-                            url.searchParams.set('page', n);
-                            router.push(url.pathname + url.search)
-                        }} page={ page + 1 }>
+                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ setPage } initialPage={ page + 1 }>
                             <Pagination.Next><ChevronRight /></Pagination.Next>
                             <Pagination.Previous><ChevronLeft /></Pagination.Previous>
                         </Pagination>
@@ -213,6 +215,7 @@ function AllPage({ products, router, t }) {
 export default withRouter(AllPage)
 
 import Locales from "../../locales/All"
+import { FilterContext } from "../../components/FilterContext"
 
 export async function getStaticProps({ locale }) {
 	const query = AllProducts

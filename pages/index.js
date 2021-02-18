@@ -1,7 +1,7 @@
 import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid, Divider } from '@geist-ui/react'
 import { Search } from '@geist-ui/react-icons'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import NavBar from '../components/NavBar'
 import styles from '../styles/Home.module.scss'
 import { graphQLClient } from '../utils/fauna'
@@ -12,6 +12,7 @@ import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
 import Footer from '../components/Footer'
 import { buildIndex, fuseOption, getDescription } from '../locales/Fuse'
+import { FilterContext } from '../components/FilterContext'
 // ES Modules syntax
 import Unsplash, { toJson } from 'unsplash-js';
 import React from "react";
@@ -36,6 +37,8 @@ function Home({ products, router, photos, t }) {
 
 	const [options, setOptions] = useState()
 	const [searching, setSearching] = useState(false)
+	const { state, setState } = useContext(FilterContext)
+
 	// triggered every time input
 
 	const makeOption = (product) => (
@@ -76,10 +79,10 @@ function Home({ products, router, photos, t }) {
 
 	const submit = e => {
 		e.preventDefault();
-		const params = new URLSearchParams()
-		params.set("search", document.getElementById("search").value)
+		
+		setState({ ...state, search: document.getElementById("search").value })
 
-		router.push(`/product/all?${params.toString()}`)
+		router.push(`/product/all`)
 	}
 
 	return (<>
