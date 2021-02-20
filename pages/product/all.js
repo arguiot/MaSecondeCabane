@@ -85,7 +85,7 @@ function AllPage({ products, router, t }) {
         fuse.setCollection(index)
         
         if (typeof search == "string" && search != "") {
-            return fuse.search(search).map(e => e.item)
+            return fuse.search(search).filter(entry => entry.score < 0.15).map(e => e.item)
         }
 
         return prdcts

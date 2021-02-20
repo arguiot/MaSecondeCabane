@@ -28,6 +28,7 @@
     "imagekitio-react": "^1.0.6",
     "jsbarcode": "^3.11.3",
     "jsonwebtoken": "^8.5.1",
+    "lunr": "^2.3.9",
     "next": "^10.0.5",
     "next-auth": "^3.1.0",
     "nextjs-progressbar": "^0.0.7",

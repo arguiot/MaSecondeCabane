@@ -2,15 +2,22 @@ export const fuseOption = {
     includeScore: true,
     // Search in `author` and in `tags` array
     keys: [
-        "name",
-        "descriptionFuse",
-        "sexeFuse",
-        "sizeFuse",
-        "brand",
-        "etatFuse",
-        "tags",
-        "type",
-        "compositionFuse"
+        {
+            name: "name",
+            weight: 0.5
+        },
+        {
+            name: "descriptionFuse",
+            weight: 2.5
+        },
+        {
+            name: "tags",
+            weight: 1.5
+        },
+        {
+            name: "type",
+            weight: 1.2
+        }
     ]
 }
 
