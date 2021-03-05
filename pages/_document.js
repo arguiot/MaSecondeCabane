@@ -22,8 +22,8 @@ class MyDocument extends Document {
       <Html>
         <Head>
           {/* Cloudflare Analytics */}
-          {/* <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bba464b62c9b4d8a812bf178cfc276c3", "spa": true}'></script> */}
-          <script
+          <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bba464b62c9b4d8a812bf178cfc276c3", "spa": true}'></script>
+          {/* <script
             async
             defer
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
@@ -39,7 +39,7 @@ class MyDocument extends Document {
             });
           `,
             }}
-          />
+          /> */}
         </Head>
         <body>
           <Main />
