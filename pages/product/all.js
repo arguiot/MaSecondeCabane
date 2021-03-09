@@ -9,7 +9,7 @@ import Fuse from 'fuse.js'
 import { withRouter } from 'next/router'
 import Footer from "../../components/Footer"
 import { buildIndex, fuseOption, getCategory, getSize } from "../../locales/Fuse"
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import styles from "../../styles/All.module.scss"
 
 function AllPage({ products, router, t }) {
@@ -25,7 +25,6 @@ function AllPage({ products, router, t }) {
     const setEtat = etat => setFilterState({ etat })
     const setSearch = search => setFilterState({ search })
     const setPage = n => {
-        debugger;
         setState({ ...state, page: n - 1 })
         window.scrollTo(0, 0)
     }
@@ -101,11 +100,17 @@ function AllPage({ products, router, t }) {
         return label
     }
 
-    const all = results(search, sexe, size, etat).map(p => {
-        return <Grid xs={24} md={8}>
-            <ProductCard product={ p } />
-        </Grid>
-    })
+    const r = useMemo(() => results(search, sexe, size, etat), [search, sexe, size, etat, category])
+
+    const all = useMemo(() => {
+        debugger;
+        if (r.length == 0) { return <Text h4 type="secondary" align="center" style={{width: "100%"}}>{ t.searchError }</Text> }
+        return r.slice(page * 12, page * 12 + 12).map(p => {
+            return <Grid xs={24} md={8} key={p._id}>
+                <ProductCard product={ p } />
+            </Grid>
+        })
+    }, [page, r])
 
     const setSexe = sexe => {
         const s = sexe == "Fille" ? "Fille" : "Garçon"
@@ -192,13 +197,11 @@ function AllPage({ products, router, t }) {
             </Grid>
             <Grid xs={24} md={18}>
                 <Grid.Container gap={2} justify="flex-start">
-                    {
-                        all.length == 0 ? <Text h4 type="secondary" align="center" style={{width: "100%"}}>{ t.searchError }</Text> : all.slice(page * 12, page * 12 + 12)
-                    }
+                    { all }
                     <Spacer y={2}/>
                     {
-                        all.length > 0 && <Row justify="center" style={{ width: "100%" }}>
-                        <Pagination count={ Math.ceil(all.length  / 12) } onChange={ setPage } initialPage={ page + 1 }>
+                        r.length > 0 && <Row justify="center" style={{ width: "100%" }}>
+                        <Pagination count={ Math.ceil(r.length  / 12) } onChange={ setPage } initialPage={ page + 1 }>
                             <Pagination.Next><ChevronRight /></Pagination.Next>
                             <Pagination.Previous><ChevronLeft /></Pagination.Previous>
                         </Pagination>
