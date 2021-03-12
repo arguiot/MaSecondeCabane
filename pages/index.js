@@ -87,7 +87,7 @@ function Home({ products, router, photos, t }) {
 
 	return (<>
 	<Head>
-		<title>Ma Seconde Cabane</title>
+		<title>Ma Seconde Cabane - { t.titleD }</title>
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="description" content={ t.metaDesc } />
 	</Head>
