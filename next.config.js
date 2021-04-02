@@ -5,5 +5,8 @@ module.exports = {
     i18n: {
         locales: ['en-CA', 'fr-CA'],
         defaultLocale: 'fr-CA',
-    }
+    },
+    future: {
+        webpack5: true,
+    },
 };
