@@ -42,7 +42,7 @@
     "stripe": "^8.106.0",
     "swr": "^0.3.8",
     "unsplash-js": "^6.3.0",
-    "xmldom": "^0.3.0"
+    "xmldom": "^0.5.0"
   },
   "devDependencies": {
     "globby": "^11.0.1",
