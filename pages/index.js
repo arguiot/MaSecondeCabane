@@ -11,7 +11,7 @@ import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
 import Footer from '../components/Footer'
-import { buildIndex, fuseOption, getDescription } from '../locales/Fuse'
+import { buildIndex, fuseOption, getDescription, getSize } from '../locales/Fuse'
 import { FilterContext } from '../components/FilterContext'
 // ES Modules syntax
 import Unsplash, { toJson } from 'unsplash-js';
@@ -52,7 +52,7 @@ function Home({ products, router, photos, t }) {
 					<Image src={ `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop` } height={100} className={ pStyles.img } alt={ product.name }/>
 					<Col className={ pStyles.desc }>
 						<Text h5>{ product.name }</Text>
-						<Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>
+						<Text p className={ pStyles.truncate }>{ `${getDescription(product, router.locale)} - ${getSize(product.size, router.locale)}` }</Text>
 					</Col>
 					<Spacer x={2} />
 					<Col span={3}>

@@ -103,7 +103,6 @@ function AllPage({ products, router, t }) {
     const r = useMemo(() => results(search, sexe, size, etat), [search, sexe, size, etat, category])
 
     const all = useMemo(() => {
-        debugger;
         if (r.length == 0) { return <Text h4 type="secondary" align="center" style={{width: "100%"}}>{ t.searchError }</Text> }
         return r.slice(page * 12, page * 12 + 12).map(p => {
             return <Grid xs={24} md={8} key={p._id}>
