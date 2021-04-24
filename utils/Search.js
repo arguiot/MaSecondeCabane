@@ -30,8 +30,8 @@ export default class Search {
                     en: ["accessorie"]
                 },
                 "Chaussures": {
-                    fr: ["chaussures"],
-                    en: ["shoes"]
+                    fr: ["chaussure"],
+                    en: ["shoe"]
                 },
                 "Chemises, T-shirts & Blouses": {
                     fr: ["chemise", "shirt", "blouse"],
@@ -117,24 +117,17 @@ export default class Search {
 
             if (typeof types == "function") {
                 const out = types(lang, query)
-                query = out.query
                 if (out.value != null) {
                     filter[key] = out.value
                 }
             } else if (key == "type") {
                 filter[key] = tokens.map(token => {
                     const f = findFilter(lang, token, types)
-                    if (f != null) {
-                        query = query.replace(token, "")
-                    }
                     return f
                 }).filter(x => x)
             } else if (typeof types == "object") {
                 const f = tokens.map(token => {
                     const f = findFilter(lang, token, types)
-                    if (f != null) {
-                        query = query.replace(token, "")
-                    }
                     return f
                 }).filter(x => x)
                 if (f.length == 0) { continue }
