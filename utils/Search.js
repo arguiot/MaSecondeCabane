@@ -197,12 +197,11 @@ export default class Search {
     }
 
     search(query, lang) {
-        const q = this.clean(query, lang)
+        const q = this.clean(query.toLowerCase(), lang)
         if (lang == "fr-CA") {
             if (q == "") {
                 return this.dataFr.map(e => ({ item: e }))
             }
-            console.log({ filter: this.filter, data: this.filterData(this.dataFr) })
             const fuse = new Fuse(this.filterData(this.dataFr), this.fuseOption)
             return fuse.search(q)
         } else {
