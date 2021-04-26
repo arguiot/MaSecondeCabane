@@ -5,10 +5,10 @@ import NavBar from "../../components/NavBar"
 import { graphQLClient } from '../../utils/fauna'
 import { AllProducts } from '../../lib/Requests'
 import ProductCard from '../../components/ProductCard'
-import Fuse from 'fuse.js'
+import SearchKit from "../../utils/Search"
 import { withRouter } from 'next/router'
 import Footer from "../../components/Footer"
-import { buildIndex, fuseOption, getCategory, getSize } from "../../locales/Fuse"
+import { getCategory, getSize } from "../../locales/Fuse"
 import React, { useContext, useMemo } from "react";
 import styles from "../../styles/All.module.scss"
 
@@ -54,9 +54,6 @@ function AllPage({ products, router, t }) {
     ]
 
     // Search logic
-
-    const fuse = new Fuse([], fuseOption)
-    
     function results(search, sexe, size, etat) {
         const pr = [].concat(products).reverse()
         const prdcts = pr.filter(p => {
@@ -80,11 +77,11 @@ function AllPage({ products, router, t }) {
             return true
         })
 
-        const index = buildIndex(prdcts, router.locale)
-        fuse.setCollection(index)
+        const searchKit = new SearchKit(prdcts)
         
         if (typeof search == "string" && search != "") {
-            return fuse.search(search).filter(entry => entry.score < 0.15).map(e => e.item)
+            debugger;
+            return searchKit.search(search, router.locale).map(e => e.item)
         }
 
         return prdcts

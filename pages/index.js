@@ -1,7 +1,7 @@
 import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid, Divider } from '@geist-ui/react'
 import { Search } from '@geist-ui/react-icons'
 import Head from 'next/head'
-import { useContext, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import NavBar from '../components/NavBar'
 import styles from '../styles/Home.module.scss'
 import { graphQLClient } from '../utils/fauna'
@@ -11,8 +11,9 @@ import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
 import Footer from '../components/Footer'
-import { buildIndex, fuseOption, getDescription, getSize } from '../locales/Fuse'
+import { getDescription, getSize } from '../locales/Fuse'
 import { FilterContext } from '../components/FilterContext'
+
 // ES Modules syntax
 import Unsplash, { toJson } from 'unsplash-js';
 import React from "react";
@@ -23,6 +24,24 @@ function shuffle(a) {
 		[a[i], a[j]] = [a[j], a[i]];
 	}
 	return a;
+}
+
+function useAsyncMemo(factory, deps, initial = undefined) {
+	const [val, setVal] = React.useState(initial);
+	React.useEffect(() => {
+		let cancel = false;
+		const promise = factory();
+		if (promise === undefined || promise === null) return;
+		promise.then(val => {
+			if (!cancel) {
+				setVal(val);
+			}
+		});
+		return () => {
+			cancel = true;
+		};
+	}, deps);
+	return val;
 }
 
 function Home({ products, router, photos, t }) {
@@ -63,16 +82,19 @@ function Home({ products, router, photos, t }) {
 				</div>
 			</Link>
 		</AutoComplete.Option>
-	  )
+	)
+	
+	const search = useAsyncMemo(async () => {
+		const SearchKit = (await import('../utils/Search')).default
+		return new SearchKit(products)
+	}, [products], null)
 
 	const searchHandler = async (currentValue) => {
 		if (!currentValue) return setOptions([])
 		setSearching(true)
-		const Fuse = (await import('fuse.js')).default
+		if (search == null) return setOptions([])
 
-		const index = buildIndex(products, router.locale)
-		const fuse = new Fuse(index, fuseOption)
-		const relatedOptions = fuse.search(currentValue).map(entry => {
+		const relatedOptions = search.search(currentValue, router.locale).map(entry => {
 			return makeOption(entry.item)
 		})
 		// this is mock async request
