@@ -24,8 +24,8 @@ export default {
         en: "WE BUY BACK"
     },
     zeroTen: {
-        fr: "Les vêtements de 0 à 10 ans (taille)",
-        en: "Clothes from 0 to 10 years old (size)"
+        fr: "Les vêtements de 0 à 12 ans (taille)",
+        en: "Clothes from 0 to 12 years old (size)"
     },
     condition: {
         fr: "Les articles dans un état impeccable",
