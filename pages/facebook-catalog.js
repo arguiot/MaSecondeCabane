@@ -13,7 +13,7 @@ const createCatalog = (products) => {
             id: p._id,
             name: p.name,
             description: p.description,
-            available: p.quantity >= 1,
+            available: p.quantity >= 1 ? "in stock" : "out of stock",
             condition: p.etat == "Neuf" ? "new" : "used",
             price: `${p.price}.00 CAD`,
             link: `https://masecondecabane.com/product/${p._id}`,
