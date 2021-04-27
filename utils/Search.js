@@ -117,17 +117,24 @@ export default class Search {
 
             if (typeof types == "function") {
                 const out = types(lang, query)
+                query = out.query
                 if (out.value != null) {
                     filter[key] = out.value
                 }
             } else if (key == "type") {
                 filter[key] = tokens.map(token => {
                     const f = findFilter(lang, token, types)
+                    if (f != null) {
+                        query = query.replace(token, "")
+                    }
                     return f
                 }).filter(x => x)
             } else if (typeof types == "object") {
                 const f = tokens.map(token => {
                     const f = findFilter(lang, token, types)
+                    if (f != null) {
+                        query = query.replace(token, "")
+                    }
                     return f
                 }).filter(x => x)
                 if (f.length == 0) { continue }
@@ -199,14 +206,20 @@ export default class Search {
     search(query, lang) {
         const q = this.clean(query.toLowerCase(), lang)
         if (lang == "fr-CA") {
-            if (q == "") {
+            if (query == "") {
                 return this.dataFr.map(e => ({ item: e }))
+            }
+            if (q.replace(" ", "") == "") {
+                return this.filterData(this.dataFr).map(e => ({ item: e }))
             }
             const fuse = new Fuse(this.filterData(this.dataFr), this.fuseOption)
             return fuse.search(q)
         } else {
-            if (q == "") {
+            if (query == "") {
                 return this.dataEn.map(e => ({ item: e }))
+            }
+            if (q.replace(" ", "") == "") {
+                return this.filterData(this.dataEn).map(e => ({ item: e }))
             }
             const fuse = new Fuse(this.filterData(this.dataEn), this.fuseOption)
             return fuse.search(q)
