@@ -29,7 +29,8 @@ const createCatalog = (products, lang) => {
 						category: p.size.includes("moi") ? 182 : 1604,
 						age: ageGroup(p.size),
 						gender: p.sexe == "Mixte" ? "unisex" : (p.sexe == "Fille" ? "female" : "male"),
-						size: getSize(p.size, lang)
+						size: getSize(p.size, lang),
+						override: lang.replace("-", "_")
 				}
 		})
 
@@ -37,6 +38,7 @@ const createCatalog = (products, lang) => {
 				header: true,
 				columns: [
 						{ key: 'id', header: 'id' }, 
+						{ key: 'override', header: 'override' },
 						{ key: 'name', header: 'title' },
 						{ key: 'description', header: 'description' },
 						{ key: 'available', header: "availability" },
