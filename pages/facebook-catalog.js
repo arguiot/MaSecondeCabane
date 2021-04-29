@@ -7,16 +7,16 @@ import {
 } from '../utils/fauna';
 import stringify from "csv-stringify/lib/sync"
 
-const createCatalog = (products) => {
+const createCatalog = (products, lang) => {
     const processed = products.map(p => {
         return {
             id: p._id,
             name: p.name,
-            description: p.description,
+            description: lang == "fr-CA" ? p.description : p.descriptionEn,
             available: p.quantity >= 1 ? "in stock" : "out of stock",
             condition: p.etat == "Neuf" ? "new" : "used",
             price: `${p.price}.00 CAD`,
-            link: `https://masecondecabane.com/product/${p._id}`,
+            link: `https://masecondecabane.com/${lang}/product/${p._id}`,
             image: `https://images.masecondecabane.com/${p.image}?auto=format&w=750&q=75`,
             category: p.size.includes("moi") ? 182 : 1604
         }
@@ -43,18 +43,17 @@ const query = AllProducts
 
 let result;
 
-class FacebookCatalog extends React.Component {
-  static async getInitialProps({
-    res
-  }) {
-    if (typeof result == "undefined") {
-      result = await graphQLClient.request(query, { size: 1000 })
-      console.log("GraphQL query")
-    }
-    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-    res.write(createCatalog(result.allProducts.data));
-    res.end();
+export default class FacebookCatalog extends React.Component {}
+
+export async function getServerSideProps({ res, locale }) {
+  if (typeof result == "undefined") {
+    result = await graphQLClient.request(query, { size: 1000 })
+    console.log("GraphQL query")
+  }
+  res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+  res.write(createCatalog(result.allProducts.data, locale));
+  res.end();
+  return {
+    props: {}, // will be passed to the page component as props
   }
 }
-
-export default FacebookCatalog;
