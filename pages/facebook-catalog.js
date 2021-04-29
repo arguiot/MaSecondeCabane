@@ -17,7 +17,8 @@ const createCatalog = (products) => {
             condition: p.etat == "Neuf" ? "new" : "used",
             price: `${p.price}.00 CAD`,
             link: `https://masecondecabane.com/product/${p._id}`,
-            image: `https://images.masecondecabane.com/${p.image}?auto=format&w=750&q=75`
+            image: `https://images.masecondecabane.com/${p.image}?auto=format&w=750&q=75`,
+            category: p.size.includes("moi") ? 182 : 1604
         }
     })
 
@@ -32,7 +33,8 @@ const createCatalog = (products) => {
             { key: 'price', header: 'price' },
             { key: 'link', header: 'link' },
             { key: 'image', header: 'image_link' },
-            { key: 'name', header: 'brand' }
+            { key: 'name', header: 'brand' },
+            { key: 'category', header: 'google_product_category'}
         ]
     })
 }
