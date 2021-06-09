@@ -40,6 +40,7 @@ class MyDocument extends Document {
           `,
             }}
           /> */}
+          <meta name="theme-color" content="#007577" />
         </Head>
         <body>
           <Main />
