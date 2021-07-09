@@ -76,8 +76,8 @@ export default {
         en: "QST"
     },
     delay: {
-        fr: "Toutes les commandes passées après le 16 décembre 2020 seront expédiées à partir du 4 janvier 2020.",
-        en: "All orders placed after December 16, 2020 will be shipped as of January 4, 2020."
+        fr: "Toutes les commandes passées après le 11 juillet 2021 seront expédiées à partir du 12 août 2021.",
+        en: "All orders placed after July 11, 2021 will be shipped as of August 12, 2021."
     },
     continue: {
         fr: "Continuer à magasiner",
