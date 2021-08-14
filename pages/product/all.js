@@ -166,11 +166,11 @@ function AllPage({ products, router, t }) {
                     <Select placeholder={ t.size } multiple width="100%" value={size} onChange={setSize} className={ styles.select }>
                         <Divider>{ t.cloths }</Divider>
                         {
-                            sizeList.map(s => <Select.Option value={s} className={ styles.selectOption }>{ selectOption(getSize(s, router.locale), size, s) }</Select.Option>)
+                            sizeList.map(s => <Select.Option value={s} className={ styles.selectOption } key={s}>{ selectOption(getSize(s, router.locale), size, s) }</Select.Option>)
                         }
                         <Divider>{ t.shoes }</Divider>
                         {
-                            shoeSizes.map(s => <Select.Option value={s} className={ styles.selectOption }>{ selectOption(s, size, s) }</Select.Option>)
+                            shoeSizes.map(s => <Select.Option value={s} className={ styles.selectOption } key={s}>{ selectOption(s, size, s) }</Select.Option>)
                         }
                     </Select>
                 }/>
