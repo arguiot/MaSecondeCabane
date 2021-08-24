@@ -3,6 +3,7 @@ type Product @collection(name: "products") {
   description: String!
   descriptionEn: String
   price: Int!
+  boughtPrice: Int # Price at which the item was bought
   quantity: Int!
   image: String! # Image URL
   sexe: String!
