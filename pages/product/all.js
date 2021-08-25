@@ -124,13 +124,21 @@ function AllPage({ products, router, t }) {
             const params = new URLSearchParams(window.location.search)
             setSexe(params.get("gender"))
         }
-
+        const handleRouteChange = (url, { shallow }) => {
+            if (!url.match("\/product\/all")) {
+                router.events.off('routeChangeComplete', handleRoute)
+                router.events.off('routeChangeStart', handleRouteChange)
+            }
+        }
+      
+        router.events.on('routeChangeStart', handleRouteChange)
         router.events.on('routeChangeComplete', handleRoute)
 
         handleRoute()
 
         return () => {
             router.events.off('routeChangeComplete', handleRoute)
+            router.events.off('routeChangeStart', handleRouteChange)
         }
     }, [])
 

@@ -4,6 +4,7 @@ type Product @collection(name: "products") {
   descriptionEn: String
   price: Int!
   boughtPrice: Int # Price at which the item was bought
+  waitingForCollect: Boolean
   quantity: Int!
   image: String! # Image URL
   sexe: String!
