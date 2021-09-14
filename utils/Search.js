@@ -166,7 +166,7 @@ export default class Search {
             ]
         }
         function compileData(lang) {
-            return data.filter(e => e.quantity >= 1).map(p => {
+            return data.filter(e => (e.quantity >= 1 && e.waitingForCollect != true)).map(p => {
                 return {
                     sizeFuse: getSize(p.size, lang),
                     sexeFuse: getSex(p.sexe, lang),

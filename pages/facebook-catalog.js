@@ -21,7 +21,7 @@ const createCatalog = (products, lang) => {
 						id: p._id,
 						name: p.name,
 						description: lang == "fr-CA" ? p.description : p.descriptionEn,
-						available: p.quantity >= 1 ? "in stock" : "out of stock",
+						available: (p.quantity >= 1 && p.waitingForCollect != true) ? "in stock" : "out of stock",
 						condition: p.etat == "Neuf" ? "new" : "used",
 						price: `${p.price}.00 CAD`,
 						link: `https://masecondecabane.com/${lang}/product/${p._id}`,
@@ -63,7 +63,7 @@ export default class FacebookCatalog extends React.Component {}
 
 export async function getServerSideProps({ res, locale }) {
 	if (typeof result == "undefined") {
-		result = await graphQLClient.request(query, { size: 1000 })
+		result = await graphQLClient.request(query, { size: 5000 })
 		console.log("GraphQL query")
 	}
 	res.setHeader('Content-Type', 'text/csv; charset=utf-8');

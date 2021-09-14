@@ -182,7 +182,7 @@ export default function ProductPage({ product, t }) {
                     "@type" : "Offer",
                     "price" : `${product.price}`,
                     "priceCurrency": "CAD",
-                    "availability": product.quantity > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                    "availability": (product.quantity > 0 && product.waitingForCollect != true) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
                     "priceValidUntil": new Date(new Date().getTime() + 5 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10), // In 5 days
                 },
                 "aggregateRating": {
@@ -306,7 +306,7 @@ export async function getStaticPaths({ locales }) {
         }
     }
     `
-    const result = await graphQLClient.request(query, { size: 1000 })
+    const result = await graphQLClient.request(query, { size: 5000 })
 
     const { data } = result.allProducts
 

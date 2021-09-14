@@ -51,8 +51,8 @@ function Home({ products, router, photos, t }) {
 	React.useEffect(() => {
 		setImage(photos[Math.floor(Math.random() * photos.length)])
 		const array = [
-			...shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true && e.sexe != "Garçon"))).slice(0, 6), // Girls + Mixte
-			...shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true && e.sexe != "Fille"))).slice(0, 6) // Boys + Mixte
+			...shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true && e.sexe != "Garçon"))).slice(0, 6), // Girls + Mixte
+			...shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true && e.sexe != "Fille"))).slice(0, 6) // Boys + Mixte
 		]
 		setProducts(shuffle(array))
 	}, [])
