@@ -58,7 +58,7 @@ function AllPage({ products, router, t }) {
         const pr = [].concat(products).reverse()
         const prdcts = pr.filter(p => {
             // Quantite
-            if (p.quantity < 1) {
+            if (p.quantity < 1 || p.waitingForCollect == true) {
                 return false
             }
             // Filtres
