@@ -16,8 +16,8 @@ export default {
         en: "How does Ma Seconde Cabane work?"
     },
     howItWorksDesc: {
-        fr: "Ma Seconde Cabane est une plateforme dédiée à la mode d’occasion pour les enfants de 0 à 10 ans. Afin de faciliter la vie des parents, nous sélectionnons et vous rachetons comptant les plus belles pièces de votre penderie. Des vêtements d’occasion de marque méticuleusement choisis et en parfait état. Et pour le reste Ma Seconde Cabane s’occupe de tout !",
-        en: "Ma Seconde Cabane is a platform dedicated to second hand fashion for children from 0 to 10 years old. In order to make life easier for parents, we select and buy back from you in cash the most beautiful pieces of your closet. Meticulously selected second-hand branded clothing in perfect condition. And for the rest, Ma Seconde Cabane takes care of everything!"
+        fr: "Ma Seconde Cabane est une plateforme dédiée à la mode d’occasion pour les enfants de 0 à 12 ans. Afin de faciliter la vie des parents, nous sélectionnons et vous rachetons comptant les plus belles pièces de votre penderie. Des vêtements d’occasion de marque méticuleusement choisis et en parfait état. Et pour le reste Ma Seconde Cabane s’occupe de tout !",
+        en: "Ma Seconde Cabane is a platform dedicated to second hand fashion for children from 0 to 12 years old. In order to make life easier for parents, we select and buy back from you in cash the most beautiful pieces of your closet. Meticulously selected second-hand branded clothing in perfect condition. And for the rest, Ma Seconde Cabane takes care of everything!"
     },
     whyMaSecondeCabane: {
         fr: "Quels sont les avantages de vendre et d’acheter sur Ma Seconde Cabane ?",
