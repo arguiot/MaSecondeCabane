@@ -11,7 +11,12 @@ export default function ProductCard({ product }) {
         return product.description.split("\n")[0]
     }
     function getSize(product, lang) {
-        const size = product.size
+        let size = product.size
+
+        if (size == "1 ans") {
+            size = "12 mois"
+        }
+
         const shoeSizes = [
             "16-20 EU",
             "21-24 EU",
