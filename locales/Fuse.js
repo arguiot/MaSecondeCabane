@@ -1,4 +1,9 @@
 export function getSize(size, lang) {
+
+    if (size == "1 ans") {
+        size = "12 mois"
+    }
+    
     if (size == "1 mois" && lang == "en-CA") {
         return "1 month"
     } else if (lang == "en-CA") {
