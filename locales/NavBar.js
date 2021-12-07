@@ -14,5 +14,9 @@ export default {
     about: {
         fr: "À propos",
         en: "About"
+    },
+    promo: {
+        fr: "Livraison gratuite pour les commandes de plus de 40$ pendant encore",
+        en: "Free shipping for orders over $40 until",
     }
 }

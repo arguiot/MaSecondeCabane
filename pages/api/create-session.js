@@ -6,6 +6,10 @@ const YOUR_DOMAIN = 'https://masecondecabane.com/checkout';
 export default async (req, res) => {
     const body = JSON.parse(req.body)
     
+    const deliveryPrice = price => {
+        return (price >= 40 && new Date(2022, 1, 1) > new Date()) ? 0 : 900
+    }
+
     const items = body.cart.map(entry => {
         return {
             price_data: {
@@ -14,11 +18,29 @@ export default async (req, res) => {
                     name: entry.name,
                     images: [`https://images.masecondecabane.com/${entry.image}?auto=compress&w=150&h=150&fit=crop`],
                 },
-                unit_amount: Math.round(entry.price * (100 + 5 + 9.975)) + (body.delivery ? 900 : 0), // VAT + Delivery
+                unit_amount: Math.round(entry.price * (100 + 5 + 9.975)), // VAT
             },
             quantity: entry.quantity,
         }
     })
+
+    if (body.delivery) {
+        const price = deliveryPrice(body.cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0))
+        if (price > 0) {
+            items.push({
+                price_data: {
+                    currency: 'cad',
+                    product_data: {
+                        name: 'Delivery',
+                        images: [`https://images.masecondecabane.com/delivery.jpg?auto=compress&w=150&h=150&fit=crop`],
+                    },
+                    // Calculate sum of all articles
+                    unit_amount: price,
+                },
+                quantity: 1,
+            })
+        }
+    }
 
     const metadata = {
         order: JSON.stringify(body.cart.map(product => {

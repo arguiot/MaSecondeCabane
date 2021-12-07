@@ -86,6 +86,8 @@ export default function Basket({
                     </Modal.Content>
                 </Modal>
     }
+    // 9 dollars if after January 1st 2022
+    const deliveryPrice = (Manager.subtotal >= 40 && new Date(2022, 1, 1) > new Date()) ? 0 : 9
 
     const fieldset = product => <Fieldset>
         <Fieldset.Content>
@@ -158,7 +160,7 @@ export default function Basket({
                 <Divider />
                 <Radio.Group value={ delivery } onChange={setDelivery}>
                     <Radio value={ true }>
-                        { t.delivery } ({ (9).toFixed(2) } CAD$)
+                        { t.delivery } ({ deliveryPrice.toFixed(2) } CAD$)
                         <Radio.Description>{ t.deliveryDesc }</Radio.Description>
                     </Radio>
                     <Radio value={ false }>
@@ -169,7 +171,7 @@ export default function Basket({
                 <Divider />
                 <Row justify="space-between">
                     <Text b>{ t.total }</Text>
-                    <Text b>{ (Math.round((Manager.subtotal * 1.14975 + (delivery ? 9 : 0)) * 100) / 100).toFixed(2) } CAD$</Text>
+                    <Text b>{ (Math.round((Manager.subtotal * 1.14975 + (delivery ? deliveryPrice : 0)) * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
             </Card>
             <Spacer y={1} />

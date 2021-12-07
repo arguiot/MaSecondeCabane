@@ -7,6 +7,7 @@ import {
 import NextNProgress from 'nextjs-progressbar';
 import React from "react";
 import { FilterContextProvider } from '../components/FilterContext';
+import Promo from '../components/Promo'
 
 function MyApp({
 	Component,
@@ -47,6 +48,7 @@ function MyApp({
 		  	<CssBaseline />
 			<Component {...pageProps} />
 			<NextNProgress color="var(--text-color)" />
+			<Promo />
 		</FilterContextProvider>
 	</GeistProvider>
   )
