@@ -40,7 +40,7 @@ export default function Promo() {
     { show && <div className="promo">
         <style jsx>{`
             .promo {
-                background-color: red;
+                background-color: #007577;
                 height: 40px;
                 width: 100vw;
                 position: absolute;
