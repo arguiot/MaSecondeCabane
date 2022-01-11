@@ -87,7 +87,7 @@ export default function Basket({
                 </Modal>
     }
     // 9 dollars if after January 1st 2022
-    const deliveryPrice = (Manager.subtotal >= 40 && new Date(2022, 1, 1) > new Date()) ? 0 : 9
+    const deliveryPrice = (Manager.subtotal >= 40 && new Date(2022, 2, 1) > new Date()) ? 0 : 9
 
     const fieldset = product => <Fieldset>
         <Fieldset.Content>
