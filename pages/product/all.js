@@ -226,7 +226,7 @@ import { FilterContext } from "../../components/FilterContext"
 
 export async function getStaticProps({ locale }) {
 	const query = AllProducts
-    const result = await graphQLClient.request(query, { size: 1000 })
+    const result = await graphQLClient.request(query, { size: 10000 })
     // Locales
 	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
 		line[0],
@@ -234,7 +234,7 @@ export async function getStaticProps({ locale }) {
 	]))
     return {
         props: {
-            products: result.allProducts.data,
+            products: result.allProducts.data.sort((a, b) => a.creation - b.creation),
             t: locales
         },
         revalidate: 600
