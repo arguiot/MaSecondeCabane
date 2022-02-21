@@ -16,7 +16,12 @@ const createCatalog = (products, lang) => {
 
 			return "kids"
 		}
-		const processed = products.map(p => {
+		const processed = products
+		.filter(p => {
+			if (p.waitingForCollect == true) return false
+			return true
+		})
+		.map(p => {
 				return {
 						id: p._id,
 						name: p.name,
