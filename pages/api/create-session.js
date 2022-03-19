@@ -52,6 +52,11 @@ export default async (req, res) => {
         delivery: String(body.delivery)
     }
 
+    if (metadata.length >= 500) {
+        res.status(400).send('Metadata too long, try to reduce the number of items in your cart');
+        return
+    }
+
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: items,

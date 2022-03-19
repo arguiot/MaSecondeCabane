@@ -11,6 +11,10 @@ export default {
         fr: "Un ou plusieurs produit(s) que vous avez demandé n'est plus en stock.",
         en: "One or more of the product(s) you requested is no longer in stock."
     },
+    tooManyItems: {
+        fr: "Vous avez trop d'articles dans votre panier. Notre systeme limite le nombre d'articles dans votre panier, vous pouvez passer votre commande en plusieurs fois. Nous vous remercions pour votre compréhension.",
+        en: "You have too many items in your basket. Our system limits the number of items in your basket, you can order your items in multiple times. We thank you for your understanding."
+    },
     noStock: {
         fr: "Cet article n'est plus en stock ou en quantité limité.",
         en: "This item is out of stock or in limited quantity."

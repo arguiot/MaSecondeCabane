@@ -86,8 +86,18 @@ export default function Basket({
                     </Modal.Content>
                 </Modal>
     }
-    // 9 dollars if after January 1st 2022
+
     const deliveryPrice = (Manager.subtotal >= 40) ? 0 : 9
+
+    const checkoutImpossible = () => {
+        const metadata = JSON.stringify(Manager.cart.map(product => {
+            return {
+                id: product._id,
+                quantity: product.quantity
+            }
+        }))
+        return metadata >= 500;
+    }
 
     const fieldset = product => <Fieldset>
         <Fieldset.Content>
@@ -130,6 +140,9 @@ export default function Basket({
             <Divider>{ t.content }</Divider>
             {
                 stock && <Text align="center" type="error">{ t.checkoutErrorMessage }</Text>
+            }
+            {
+                checkoutImpossible() && <Text align="center" type="error">{ t.tooManyItems }</Text>
             }
             <Grid.Container gap={2} justify="flex-start">
             {
@@ -182,7 +195,7 @@ export default function Basket({
                     <Button onClick={ () => bindings.onClose() } style={{ textTransform: "none", width: "100%" }}>{ t.continue }</Button>
                 </Grid>
                 <Grid xs={ 24 } md={ 7 }>
-                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }}>{ t.checkout }</Button>
+                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }} disabled={ checkoutImpossible() }>{ t.checkout }</Button>
                 </Grid>
             </Grid.Container>
         </Modal.Content>
