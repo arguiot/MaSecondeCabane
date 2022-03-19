@@ -7,7 +7,7 @@ export default async (req, res) => {
     const body = JSON.parse(req.body)
     
     const deliveryPrice = price => {
-        return (price >= 40 && new Date(2022, 2, 1) > new Date()) ? 0 : 900
+        return (price >= 40) ? 0 : 900
     }
 
     const items = body.cart.map(entry => {

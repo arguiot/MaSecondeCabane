@@ -4,30 +4,30 @@ import { useRouter } from 'next/router'
 import Locales from "../locales/NavBar";
 export default function Promo() {
     const [show, setShow] = useState(true);
-    const [counter, setCounter] = useState("00d 00h 00m 00s");
+    // const [counter, setCounter] = useState("00d 00h 00m 00s");
     
-    function remainingTime() {
-        const now = new Date();
-        const end = new Date(2022, 1, 1);
-        const diff = end.getTime() - now.getTime();
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        // Make sure we have two digits for each
-        const d = days.toString().padStart(2, "0");
-        const h = hours.toString().padStart(2, "0");
-        const m = minutes.toString().padStart(2, "0");
-        const s = seconds.toString().padStart(2, "0");
-        setCounter(`${d}d ${h}h ${m}m ${s}s`);
-    }
+    // function remainingTime() {
+    //     const now = new Date();
+    //     const end = new Date(2022, 1, 1);
+    //     const diff = end.getTime() - now.getTime();
+    //     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    //     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    //     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    //     // Make sure we have two digits for each
+    //     const d = days.toString().padStart(2, "0");
+    //     const h = hours.toString().padStart(2, "0");
+    //     const m = minutes.toString().padStart(2, "0");
+    //     const s = seconds.toString().padStart(2, "0");
+    //     setCounter(`${d}d ${h}h ${m}m ${s}s`);
+    // }
     
     useEffect(() => {
         NotificationCenter.default.post(new Notification("promo", show))
-        const interval = setInterval(() => {
-            remainingTime();
-        }, 100);
-        return () => clearInterval(interval);
+        // const interval = setInterval(() => {
+        //     remainingTime();
+        // }, 100);
+        // return () => clearInterval(interval);
     }, []);
 
     const router = useRouter()
@@ -66,7 +66,7 @@ export default function Promo() {
                 }
             }
         `}</style>
-        <span>{`${t.promo} ${counter}`}</span>
+        <span>{`${t.promo}`}</span>
         <button className="x-button" onClick={() => { setShow(false); NotificationCenter.default.post(new Notification("promo", false)) }}>&times;</button>
     </div>}
     </>
