@@ -52,8 +52,8 @@ export default async (req, res) => {
         delivery: String(body.delivery)
     }
 
-    if (metadata.length >= 500) {
-        res.status(400).send('Metadata too long, try to reduce the number of items in your cart');
+    if (metadata.order.length >= 500) {
+        res.status(400).send('{ "error": "Metadata too long, try to reduce the number of items in your cart" }');
         return
     }
 

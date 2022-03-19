@@ -53,6 +53,11 @@ export default function Basket({
 
         const session = await response.json();
 
+        if (session.error) {
+            setCheckout(session.error)
+            return
+        }
+
         setCheckout(false)
         // When the customer clicks on the button, redirect them to Checkout.
         const result = await stripe.redirectToCheckout({
@@ -96,7 +101,7 @@ export default function Basket({
                 quantity: product.quantity
             }
         }))
-        return metadata >= 500;
+        return metadata.length >= 500;
     }
 
     const fieldset = product => <Fieldset>
@@ -140,9 +145,6 @@ export default function Basket({
             <Divider>{ t.content }</Divider>
             {
                 stock && <Text align="center" type="error">{ t.checkoutErrorMessage }</Text>
-            }
-            {
-                checkoutImpossible() && <Text align="center" type="error">{ t.tooManyItems }</Text>
             }
             <Grid.Container gap={2} justify="flex-start">
             {
@@ -189,6 +191,9 @@ export default function Basket({
             </Card>
             <Spacer y={1} />
             {/* <Note>{ t.delay }</Note> */}
+            {
+                checkoutImpossible() && <Text align="center" type="error">{ t.tooManyItems }</Text>
+            }
             <Spacer y={1} />
             <Grid.Container gap={2} justify="flex-end">
                 <Grid xs={24} md={ 7 }>
