@@ -17,6 +17,10 @@ export default async (req, res) => {
                 product_data: {
                     name: entry.name,
                     images: [`https://images.masecondecabane.com/${entry.image}?auto=compress&w=150&h=150&fit=crop`],
+                    metadata: {
+                        id: entry._id,
+                        quantity: entry.quantity
+                    }
                 },
                 unit_amount: Math.round(entry.price * (100 + 5 + 9.975)), // VAT
             },
@@ -43,18 +47,7 @@ export default async (req, res) => {
     }
 
     const metadata = {
-        order: JSON.stringify(body.cart.map(product => {
-            return {
-                id: product._id,
-                quantity: product.quantity
-            }
-        })),
         delivery: String(body.delivery)
-    }
-
-    if (metadata.order.length >= 500) {
-        res.status(400).send('{ "error": "Metadata too long, try to reduce the number of items in your cart" }');
-        return
     }
 
     const session = await stripe.checkout.sessions.create({

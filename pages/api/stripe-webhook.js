@@ -58,8 +58,12 @@ export default async (req, res) => {
     }
     // Handle the event
     switch (event.type) {
-        case 'payment_intent.succeeded':
-            const paymentIntent = event.data.object;
+        case 'checkout.session.completed':
+            const session = await stripe.checkout.sessions.retrieve(event.data.object.id, {
+                expand: ["line_items.data.price.product", "payment_intent"],
+            });
+
+            const paymentIntent = session.payment_intent;
             // Check that the order isn't already in DB
             const { allOrders } = await graphQLServer.request(AllOrders)
             if (allOrders.data.map(entry => entry.stripeID).includes(paymentIntent.id)) {
@@ -68,6 +72,27 @@ export default async (req, res) => {
             // Create Order
             const names = paymentIntent.shipping.name.split(" ")
             const query = CreateOrder
+
+            let items = {}
+
+            if (paymentIntent.metadata.order) {
+                items = JSON.parse(paymentIntent.metadata.order).map(entry => {
+                    return {
+                        product: entry.id,
+                        quantity: entry.quantity
+                    }
+                })
+            } else {
+                items = session.line_items.data.map(entry => {
+                    return {
+                        product: entry.price.product.metadata.id,
+                        quantity: entry.quantity
+                    }
+                })
+            }
+
+
+
             const variables = {
                 data: {
                     stripeID: paymentIntent.id,
@@ -84,12 +109,7 @@ export default async (req, res) => {
                             country: `${paymentIntent.shipping.address.country}, ${paymentIntent.shipping.address.state}`
                         }
                     },
-                    line: JSON.parse(paymentIntent.metadata.order).map(entry => {
-                        return {
-                            product: entry.id,
-                            quantity: entry.quantity
-                        }
-                    }),
+                    line: items,
                     delivery: paymentIntent.metadata.delivery == "true",
                     done: false
                 }
@@ -98,20 +118,19 @@ export default async (req, res) => {
                 createOrder
             } = await graphQLServer.request(query, variables)
             // Update Quantities
-            const array = JSON.parse(paymentIntent.metadata.order)
             let articles = []
-            for (var i = 0; i < array.length; i++) {
-                const entry = array[i]
+            for (var i = 0; i < items.length; i++) {
+                const entry = items[i]
                 const query = ProductByID
                 const {
                     findProductByID
                 } = await graphQLServer.request(query, {
-                    id: entry.id
+                    id: entry.product
                 })
                 articles.push(findProductByID)
                 const updateQuery = UpdateProduct
                 const variables = {
-                    id: entry.id,
+                    id: entry.product,
                     data: {
                         name: findProductByID.name,
                         description: findProductByID.description,

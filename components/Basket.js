@@ -94,16 +94,6 @@ export default function Basket({
 
     const deliveryPrice = (Manager.subtotal >= 40) ? 0 : 9
 
-    const checkoutImpossible = () => {
-        const metadata = JSON.stringify(Manager.cart.map(product => {
-            return {
-                id: product._id,
-                quantity: product.quantity
-            }
-        }))
-        return metadata.length >= 500;
-    }
-
     const fieldset = product => <Fieldset>
         <Fieldset.Content>
             <Grid.Container gap={1} justify="center">
@@ -191,16 +181,13 @@ export default function Basket({
             </Card>
             <Spacer y={1} />
             {/* <Note>{ t.delay }</Note> */}
-            {
-                checkoutImpossible() && <Text align="center" type="error">{ t.tooManyItems }</Text>
-            }
             <Spacer y={1} />
             <Grid.Container gap={2} justify="flex-end">
                 <Grid xs={24} md={ 7 }>
                     <Button onClick={ () => bindings.onClose() } style={{ textTransform: "none", width: "100%" }}>{ t.continue }</Button>
                 </Grid>
                 <Grid xs={ 24 } md={ 7 }>
-                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }} disabled={ checkoutImpossible() }>{ t.checkout }</Button>
+                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }} >{ t.checkout }</Button>
                 </Grid>
             </Grid.Container>
         </Modal.Content>
