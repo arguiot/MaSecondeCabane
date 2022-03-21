@@ -58,8 +58,12 @@ export default async (req, res) => {
     }
     // Handle the event
     switch (event.type) {
-        case 'payment_intent.succeeded':
-            const paymentIntent = event.data.object;
+        case 'checkout.session.completed':
+            const session = await stripe.checkout.sessions.retrieve(event.data.object.id, {
+                expand: ["line_items", "payment_intent"],
+            });
+
+            const paymentIntent = session.payment_intent;
             // Check that the order isn't already in DB
             const { allOrders } = await graphQLServer.request(AllOrders)
             if (allOrders.data.map(entry => entry.stripeID).includes(paymentIntent.id)) {
@@ -79,10 +83,7 @@ export default async (req, res) => {
                     }
                 })
             } else {
-                // Get the payment intent
-                const intent = await stripe.paymentIntents.retrieve(paymentIntent.id);
-                
-                items = intent.line_items.data.map(entry => {
+                items = session.line_items.data.map(entry => {
                     return {
                         product: entry.price_data.product_data.metadata.id,
                         quantity: entry.quantity
