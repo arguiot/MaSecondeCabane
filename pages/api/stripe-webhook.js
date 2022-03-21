@@ -60,7 +60,7 @@ export default async (req, res) => {
     switch (event.type) {
         case 'checkout.session.completed':
             const session = await stripe.checkout.sessions.retrieve(event.data.object.id, {
-                expand: ["line_items", "payment_intent", "line_items.data.price.product"],
+                expand: ["line_items.data.price.product", "payment_intent"],
             });
 
             const paymentIntent = session.payment_intent;
@@ -125,7 +125,7 @@ export default async (req, res) => {
                 const {
                     findProductByID
                 } = await graphQLServer.request(query, {
-                    id: entry.id
+                    id: entry.product
                 })
                 articles.push(findProductByID)
                 const updateQuery = UpdateProduct
