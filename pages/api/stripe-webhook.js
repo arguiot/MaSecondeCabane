@@ -68,6 +68,27 @@ export default async (req, res) => {
             // Create Order
             const names = paymentIntent.shipping.name.split(" ")
             const query = CreateOrder
+
+            let items = {}
+
+            if (paymentIntent.metadata.order) {
+                items = JSON.parse(paymentIntent.metadata.order).map(entry => {
+                    return {
+                        product: entry.id,
+                        quantity: entry.quantity
+                    }
+                })
+            } else {
+                items = paymentIntent.line_items.data.map(entry => {
+                    return {
+                        product: entry.price_data.product_data.metadata.id,
+                        quantity: entry.quantity
+                    }
+                })
+            }
+
+
+
             const variables = {
                 data: {
                     stripeID: paymentIntent.id,
@@ -84,12 +105,7 @@ export default async (req, res) => {
                             country: `${paymentIntent.shipping.address.country}, ${paymentIntent.shipping.address.state}`
                         }
                     },
-                    line: JSON.parse(paymentIntent.metadata.order).map(entry => {
-                        return {
-                            product: entry.id,
-                            quantity: entry.quantity
-                        }
-                    }),
+                    line: items,
                     delivery: paymentIntent.metadata.delivery == "true",
                     done: false
                 }
@@ -98,10 +114,9 @@ export default async (req, res) => {
                 createOrder
             } = await graphQLServer.request(query, variables)
             // Update Quantities
-            const array = JSON.parse(paymentIntent.metadata.order)
             let articles = []
-            for (var i = 0; i < array.length; i++) {
-                const entry = array[i]
+            for (var i = 0; i < items.length; i++) {
+                const entry = items[i]
                 const query = ProductByID
                 const {
                     findProductByID
