@@ -83,9 +83,10 @@ export default async (req, res) => {
                     }
                 })
             } else {
+                console.log(session.line_items.data)
                 items = session.line_items.data.map(entry => {
                     return {
-                        product: entry.price_data.product_data.metadata.id,
+                        product: entry.price.metadata.id,
                         quantity: entry.quantity
                     }
                 })
