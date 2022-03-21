@@ -130,7 +130,7 @@ export default async (req, res) => {
                 articles.push(findProductByID)
                 const updateQuery = UpdateProduct
                 const variables = {
-                    id: entry.id,
+                    id: entry.product,
                     data: {
                         name: findProductByID.name,
                         description: findProductByID.description,
