@@ -1,4 +1,4 @@
-import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card, Tooltip } from "@geist-ui/react";
+import { Button, Description, Image, Modal, Row, Text, Spacer, Fieldset, Grid, Divider, Card, Tooltip, Note, Radio } from "@geist-ui/react";
 
 import Manager from '../lib/CartManager'
 import { Notification, NotificationCenter } from '@arguiot/broadcast.js'
@@ -26,7 +26,7 @@ export default function Basket({
 		line[0],
 		line[1][router.locale.split("-")[0]]
     ]))
-
+    const [delivery, setDelivery] = React.useState(true)
     const [checkout, setCheckout] = React.useState(false)
     const [stock, setStock] = React.useState(false)
     const handleClick = async (event) => {
@@ -45,10 +45,18 @@ export default function Basket({
 
         const response = await fetch("/api/create-session", {
             method: "POST",
-            body: localStorage.getItem("cart")
+            body: JSON.stringify({
+                cart: Manager.cart,
+                delivery
+            })
         });
 
         const session = await response.json();
+
+        if (session.error) {
+            setCheckout(session.error)
+            return
+        }
 
         setCheckout(false)
         // When the customer clicks on the button, redirect them to Checkout.
@@ -84,12 +92,24 @@ export default function Basket({
                 </Modal>
     }
 
+    const deliveryPrice = (Manager.subtotal >= 40) ? 0 : 9
+
+    const checkoutImpossible = () => {
+        const metadata = JSON.stringify(Manager.cart.map(product => {
+            return {
+                id: product._id,
+                quantity: product.quantity
+            }
+        }))
+        return metadata.length >= 500;
+    }
+
     const fieldset = product => <Fieldset>
         <Fieldset.Content>
             <Grid.Container gap={1} justify="center">
                 <Grid xs={7}>
                     <Image src={
-                        `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}`
+                        `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop`
                         } height={100} className={ pStyles.img } />
                 </Grid>
                 <Grid xs={13}>
@@ -153,18 +173,34 @@ export default function Basket({
                     <Text b>{ (Math.round(Manager.subtotal * 0.09975 * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
                 <Divider />
+                <Radio.Group value={ delivery } onChange={setDelivery}>
+                    <Radio value={ true }>
+                        { t.delivery } ({ deliveryPrice.toFixed(2) } CAD$)
+                        <Radio.Description>{ t.deliveryDesc }</Radio.Description>
+                    </Radio>
+                    <Radio value={ false }>
+                            { t.clickAndCollect }
+                        <Radio.Description>{ t.clickDesc }</Radio.Description>
+                    </Radio>
+                </Radio.Group>
+                <Divider />
                 <Row justify="space-between">
                     <Text b>{ t.total }</Text>
-                    <Text b>{ (Math.round(Manager.subtotal * 1.14975 * 100) / 100).toFixed(2) } CAD$</Text>
+                    <Text b>{ (Math.round((Manager.subtotal * 1.14975 + (delivery ? deliveryPrice : 0)) * 100) / 100).toFixed(2) } CAD$</Text>
                 </Row>
             </Card>
+            <Spacer y={1} />
+            {/* <Note>{ t.delay }</Note> */}
+            {
+                checkoutImpossible() && <Text align="center" type="error">{ t.tooManyItems }</Text>
+            }
             <Spacer y={1} />
             <Grid.Container gap={2} justify="flex-end">
                 <Grid xs={24} md={ 7 }>
                     <Button onClick={ () => bindings.onClose() } style={{ textTransform: "none", width: "100%" }}>{ t.continue }</Button>
                 </Grid>
                 <Grid xs={ 24 } md={ 7 }>
-                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }}>{ t.checkout }</Button>
+                    <Button shadow type="secondary" onClick={ handleClick } style={{ textTransform: "none", width: "100%" }} disabled={ checkoutImpossible() }>{ t.checkout }</Button>
                 </Grid>
             </Grid.Container>
         </Modal.Content>

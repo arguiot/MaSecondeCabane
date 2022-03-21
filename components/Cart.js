@@ -3,7 +3,7 @@ import {
 } from '@geist-ui/react';
 import Lottie from 'react-lottie';
 import animationData from '../lotties/add-to-cart.json';
-
+import React from 'react';
 import Manager from '../lib/CartManager'
 
 class Animation extends React.Component {

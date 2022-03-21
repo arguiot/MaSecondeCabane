@@ -4,7 +4,7 @@ export default {
         en: "Q&A"
     },
     questions: {
-        fr: "Des questions?",
+        fr: "Des questions ?",
         en: "Questions?"
     },
     // Buy
@@ -13,11 +13,11 @@ export default {
         en: "BUY ON MA SECONDE CABANE"
     },
     questionsTitle: {
-        fr: "J’ai des questions à propos de cet article, comment faire ?",
-        en: "I have questions about this article, what can I do?"
+        fr: "J’ai des questions à propos d'un article, comment faire ?",
+        en: "I have questions about an article, what can I do?"
     },
     questionsP1: {
-        fr: "Pour toutes vos questions concernant un article, veuillez envoyer un mail à l'adresse suivante :",
+        fr: "Pour toutes vos questions concernant un vêtement, n’hésitez pas à nous contacter à",
         en: "For all your questions concerning an article, please send an email to the following address:"
     },
     questionsP2: {
@@ -29,24 +29,40 @@ export default {
         en: "What payment methods are accepted?"
     },
     paymentContent: {
-        fr: "Notre système de paiement est Stripe. Toutes les cartes de crédit et débit sont acceptés (à conditions que votre banque accepte les achats en ligne). Vous pouvez également utiliser Apple Pay et Google Pay pour passer à la caisse encore plus vite!",
-        en: "Our payment system is Stripe. All credit and debit cards are accepted (provided your bank accepts online purchases). You can also use Apple Pay and Google Pay to checkout even faster!"
+        fr: "MASECONDECABANE.COM utilise le système de paiement Stripe. Toutes les cartes de crédit sont acceptées. Vous pouvez également payer avec Apple Pay et Google Pay.",
+        en: "MASECONDECABANE.COM uses Stripe online payment system. Major credit cards are accepted. You can also pay with Apple Pay and Google Pay."
     },
     whenArrive: {
         fr: "Quand vais je recevoir ma commande ?",
         en: "When will I receive my order?"
     },
     whenArriveContent: {
-        fr: "Votre commande est expédiée entre 24h et 72h selon le moment où vous passez votre commande. Les commandes enregistrées sur le site le vendredi après 12h, le samedi, le dimanche ou les jours fériés seront traitées le lundi suivant.Malheureusement, nous ne sommes pas responsables des délais des transporteurs.Les articles commandés seront livrés à l’adresse que vous avez indiqué.",
-        en: "Your order is shipped between 24h and 72h depending on when you place your order. Orders placed on the site on Friday after 12 noon, Saturday, Sunday or holidays will be processed on the following Monday. Unfortunately, we are not responsible for carrier delays. The items ordered will be delivered to the address you have indicated."
+        fr: "Votre commande est expédiée entre 24h et 72h selon le moment où vous la passez sur le site MASECONDECABANE.COM. Les commandes enregistrées le vendredi après 12h, le samedi, le dimanche seront traitées le lundi suivant. Nous ne sommes pas responsables des délais de livraison. Les articles commandés sont livrés à l’adresse indiquée par vos soins.",
+        en: "Your order is shipped within 24 and 72 hours depending on when you place your order on MASECONDECABANE.COM. Orders placed on Friday after 12pm, Saturday, Sunday will be processed the following Monday. Unfortunately, we are not responsible for delivery times of transportation companies. Your order will be delivered to the address you have provided."
     },
     controlledTitle: {
-        fr: "Est-ce que les articles mis en ligne sont controlés avant d’etre envoyés ?",
-        en: "Are the submitted items checked before being sent?"
+        fr: "Est-ce que les vêtements mis en ligne sont contrôlés avant d’être envoyés ?",
+        en: "Do you check the quality of the clothes sold on MASECONDECABANE.COM?"
     },
     controlledContent: {
-        fr: "Tous les articles mis en ligne sont minutieusement controlés par nos soins. En achetant sur le site, vous êtes certains de la grande qualité des produits. A ce propos, nous ne proposons que des articles neufs, en excellent ou en très bon état.",
-        en: "All the articles put online are meticulously checked by us. By buying on the site, you are sure of the high quality of the products. By the way, we propose only new items, in excellent or very good condition."
+        fr: "Tous les vêtements mis en ligne sont minutieusement contrôlés par nos soins. En achetant sur le site MASECONDECABANE.COM, vous êtes certains de la grande qualité des produits et de ne recevoir que des vêtements propres et repassés.",
+        en: "All clothes sold online are carefully controlled by us. When you buy on MASECONDECABANE.COM, you can be sure of the high quality of the products (also cleaned and ironed)."
+    },
+    weDefine: {
+        fr: "Nous avons défini trois catégories d’articles d’occasions que nous proposons :",
+        en: "We have defined three categories of the second-hand items:"
+    },
+    goodConditions: {
+        fr: "En très bon état : signifie que les vêtements ont été portés mais ne présentent pas de défauts",
+        en: "In very good condition: means that clothes have been worn but have no defects"
+    },
+    excellentConditions: {
+        fr: "En excellent état : signifie que les vêtements ont été très peu portés",
+        en: "In excellent condition: means that clothes have been worn only a few times"
+    },
+    newWithLabel: {
+        fr: "Neufs avec étiquette : signifie que les vêtements n’ont jamais été portés",
+        en: "New with label: means that clothes have never been worn"
     },
     // Sell
     sell: {
@@ -54,51 +70,67 @@ export default {
         en: "SELL ON MA SECONDE CABANE"
     },
     whichItems: {
-        fr: "Quels articles peut on vendre sur le site ?",
-        en: "Which products can be sold on the site?"
+        fr: "Comment vendre des vêtements sur MASECONDECABANE.COM ?",
+        en: "How to sell clothes on MASECONDECABANE.COM?"
     },
     weSellP1: {
-        fr: "Nous vendons des vêtements de marque pour bébés et enfants jusqu’à 10 ans. Tous les vêtements qui sont mis en vente sont neufs ou en parfait état. Tous les articles que vous nous confiez doivent être lavés et en excellent état : sans tâche, ni trou, ni bouloche. Si vous avez un doute sur les produits que vous souhaitez vendre, n’hésitez pas à nous envoyer un mail à",
-        en: "We sell branded clothing for babies and children up to 10 years old. All the clothes on sale are new or in perfect condition. All the items you entrust to us must be washed and in excellent condition: no stains, holes or pilling. If you have any doubt about the products you wish to sell, do not hesitate to send us an email at"
-    },
-    weSellP2: {
-        fr: ", nous nous ferons un plaisir de vous répondre. Pour avoir plus d’informations sur nos conditions de vente, nous vous invitons à consulter notre page",
-        en: ", we will be pleased to answer you. For more information on our terms and conditions of sale, please consult this page: "
+        fr: "MASECONDECABANE.COM rachète des vêtements d’occasion de marque pour bébés et enfants de 0 à 10 ans en parfait état. Pour avoir plus d’informations sur comment vendre, nous vous invitons à consulter notre page",
+        en: "MASECONDECABANE.COM buys second-hand branded clothes for babies and children from 0 to 10 years old in excellent condition. For more information on how to sell, we invite you to visit our"
     },
     sellPage: {
         fr: "Vendre",
-        en: "Sell"
+        en: "Sell page"
     },
-    howToSell: {
-        fr: "Comment faire pour vendre mes articles ?",
-        en: "How do I sell my items?"
+    howToSend: {
+        fr: "Comment faire pour nous envoyer vos vêtements ?",
+        en: "How do I send my clothes?"
     },
     howToSellP1: {
-        fr: "Rien de plus simple ! Il vous suffit de cliquer",
-        en: "Nothing could be simpler! You just have to click"
+        fr: "Rien de plus simple ! Avant d’effectuer un envoi, remplissez le",
+        en: "Very easy! First, fill out"
     },
     here: {
-        fr: "ici",
-        en: "here"
+        fr: "formulaire",
+        en: "the form"
     },
     howToSellP2: {
-        fr: "Pour les habitants de la région du grand Montréal: nous nous déplaçons directement chez vous. Prenez RDV via le formulaire et nous trouverons le moment qui convient pour venir chez vous. Pour le reste du Québec, nous travaillons à un système de collecte mais vous pouvez d'ores et déjà remplir le formulaire pour nous faire part de votre demande.",
-        en: "For residents of the Greater Montreal area: we come directly to your home. Make an appointment via the form and we will find the right time to come to your home. For the rest of Quebec, we are working on a collection system but you can already fill out the form to let us know about your request."
+        fr: "et nous prendrons contact avec vous dans les plus brefs délais afin d’organiser la collecte en fonction de votre lieu de résidence.",
+        en: "and we will quickly contact you to organize a pick-up according to your location."
+    },
+    nonSelected: {
+        fr: "Que fait MASECONDECABANE.COM des vêtements non-retenus ?",
+        en: "What does MASECONDECABANE.COM do with the non-selected clothes?"
+    },
+    twoOptions: {
+        fr: "Pour les vêtements non-retenus, MASECONDECABANE.COM vous propose deux options :",
+        en: "MASECONDECABANE.COM offers you two options for the non-selected clothes:"
+    },
+    option1: {
+        fr: "Nous pouvons vous renvoyer les vêtements non sélectionnés, les frais de port étant à votre charge.",
+        en: "We can send you back the clothes that have not been selected (shipping costs at your expense)."
+    },
+    option2: {
+        fr: "Nous pouvons les déposer et les donner directement au centre de dons Renaissance d'Outremont.",
+        en: "We can drop them off and donate them directly to the Centre de don Renaissance in Outremont."
     },
     whenWillIBePayed: {
-        fr: "Quand serais-je payé ?",
-        en: "When will I get paid?"
+        fr: "Quand et comment serais-je payé ?",
+        en: "When and how will I be paid?"
     },
     whenWillIBePayedContent: {
-        fr: "Dans les jours suivant la réception de votre collecte, nous vous enverrons un mail avec la fiche récapitulative des vêtements que vous nous avez confiés, ainsi que la somme que nous devons vous régler.",
-        en: "In the days following the reception of your collection, we will send you an email with the summary sheet of the clothes you have entrusted to us, as well as the amount we have to pay you."
+        fr: "Dans les jours suivants la réception de votre collecte, nous vous enverrons une fiche de collecte récapitulative des vêtements que nous avons sélectionnés et le prix auquel nous vous proposons de les racheter. Dès réception de votre accord, un virement par Interac sera effectué sur votre compte bancaire.",
+        en: "In the days following the collect of your clothes, we will send you a form summarizing the list of clothes that have been selected and the price at which we offer to buy them back. As soon as you agree, an Interac transfer will be made directly to your bank account."
     },
-    howWillIBePayed: {
-        fr: "Comment serais-je payé ?",
+    questionsLeft: {
+        fr: "J’ai encore des questions…",
         en: "How will I be paid?"
     },
-    howWillIBePayedContent: {
-        fr: "Dès réception de vos coordonnées bancaires, un virement par Interac sera effectué sur votre compte bancaire.",
-        en: "Upon receipt of your banking information, an Interac transfer will be made to your bank account."
+    qLeftP1: {
+        fr: "Contactez-nous à",
+        en: "Contact us at"
+    },
+    qLeftP2: {
+        fr: "Nous vous renseignerons avec plaisir !",
+        en: "We will be happy to assist you!"
     }
 }

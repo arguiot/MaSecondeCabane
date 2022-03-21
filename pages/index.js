@@ -1,7 +1,7 @@
 import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid, Divider } from '@geist-ui/react'
 import { Search } from '@geist-ui/react-icons'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import NavBar from '../components/NavBar'
 import styles from '../styles/Home.module.scss'
 import { graphQLClient } from '../utils/fauna'
@@ -11,7 +11,9 @@ import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
 import { withRouter } from "next/router"
 import Footer from '../components/Footer'
-import { buildIndex, fuseOption, getDescription } from '../locales/Fuse'
+import { getDescription, getSize } from '../locales/Fuse'
+import { FilterContext } from '../components/FilterContext'
+
 // ES Modules syntax
 import Unsplash, { toJson } from 'unsplash-js';
 import React from "react";
@@ -24,28 +26,52 @@ function shuffle(a) {
 	return a;
 }
 
+function useAsyncMemo(factory, deps, initial = undefined) {
+	const [val, setVal] = React.useState(initial);
+	React.useEffect(() => {
+		let cancel = false;
+		const promise = factory();
+		if (promise === undefined || promise === null) return;
+		promise.then(val => {
+			if (!cancel) {
+				setVal(val);
+			}
+		});
+		return () => {
+			cancel = true;
+		};
+	}, deps);
+	return val;
+}
+
 function Home({ products, router, photos, t }) {
 	// Hero
 	const [ image, setImage ] = React.useState()
 	const [PRODUCTS, setProducts] = React.useState([])
 	React.useEffect(() => {
 		setImage(photos[Math.floor(Math.random() * photos.length)])
-		setProducts(shuffle(products.filter(e => (e.quantity >= 1 && e.favorite == true))).slice(0, 6))
+		const array = [
+			...shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true && e.sexe != "Garçon"))).slice(0, 6), // Girls + Mixte
+			...shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true && e.sexe != "Fille"))).slice(0, 6) // Boys + Mixte
+		]
+		setProducts(shuffle(array))
 	}, [])
 	// Search logic
 
 	const [options, setOptions] = useState()
 	const [searching, setSearching] = useState(false)
+	const { state, setState } = useContext(FilterContext)
+
 	// triggered every time input
 
 	const makeOption = (product) => (
 		<AutoComplete.Option value={product.name}>
 			<Link href="/product/[product]" as={ `/product/${product._id}` }>
 				<div className={ pStyles.container } style={{ width: "70vw", padding: "10px 0" }}>
-					<Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail,fo-auto/${product.image}` } height={100} className={ pStyles.img } alt={ product.name }/>
+					<Image src={ `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop` } height={100} className={ pStyles.img } alt={ product.name }/>
 					<Col className={ pStyles.desc }>
 						<Text h5>{ product.name }</Text>
-						<Text p className={ pStyles.truncate }>{ getDescription(product, router.locale) }</Text>
+						<Text p className={ pStyles.truncate }>{ `${getDescription(product, router.locale)} - ${getSize(product.size, router.locale)}` }</Text>
 					</Col>
 					<Spacer x={2} />
 					<Col span={3}>
@@ -56,16 +82,19 @@ function Home({ products, router, photos, t }) {
 				</div>
 			</Link>
 		</AutoComplete.Option>
-	  )
+	)
+	
+	const search = useAsyncMemo(async () => {
+		const SearchKit = (await import('../utils/Search')).default
+		return new SearchKit(products)
+	}, [products], null)
 
 	const searchHandler = async (currentValue) => {
 		if (!currentValue) return setOptions([])
 		setSearching(true)
-		const Fuse = (await import('fuse.js')).default
+		if (search == null) return setOptions([])
 
-		const index = buildIndex(products, router.locale)
-		const fuse = new Fuse(index, fuseOption)
-		const relatedOptions = fuse.search(currentValue).map(entry => {
+		const relatedOptions = search.search(currentValue, router.locale).map(entry => {
 			return makeOption(entry.item)
 		})
 		// this is mock async request
@@ -76,15 +105,15 @@ function Home({ products, router, photos, t }) {
 
 	const submit = e => {
 		e.preventDefault();
-		const params = new URLSearchParams()
-		params.set("search", document.getElementById("search").value)
+		
+		setState({ ...state, search: document.getElementById("search").value })
 
-		router.push(`/product/all?${params.toString()}`)
+		router.push(`/product/all`)
 	}
 
 	return (<>
 	<Head>
-		<title>Ma Seconde Cabane</title>
+		<title>Ma Seconde Cabane - { t.titleD }</title>
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="description" content={ t.metaDesc } />
 	</Head>
@@ -125,7 +154,7 @@ function Home({ products, router, photos, t }) {
 		</Grid>
 	</Grid.Container>
 	<Page>
-		<Text h1>{ t.products }</Text>
+		<Text h2>{ t.products }</Text>
 		<Grid.Container gap={2} justify="flex-start">
 			{
 				PRODUCTS.map(p => {
@@ -185,7 +214,7 @@ export async function getStaticProps({ locale }) {
 	})
 
 	const query = AllProducts
-	const result = await graphQLClient.request(query)
+	const result = await graphQLClient.request(query, { size: 1000 })
 	
 	// Locales
 	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
@@ -199,6 +228,6 @@ export async function getStaticProps({ locale }) {
 			photos,
 			t: locales
         },
-        revalidate: 300
+        revalidate: 1800
     }
 }

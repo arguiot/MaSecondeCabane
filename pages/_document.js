@@ -21,9 +21,11 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script
+          {/* Cloudflare Analytics */}
+          <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bba464b62c9b4d8a812bf178cfc276c3", "spa": true}'></script>
+          {/* <script
             async
+            defer
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
           />
           <script
@@ -37,7 +39,8 @@ class MyDocument extends Document {
             });
           `,
             }}
-          />
+          /> */}
+          <meta name="theme-color" content="#007577" />
         </Head>
         <body>
           <Main />

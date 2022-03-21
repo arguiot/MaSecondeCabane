@@ -1,20 +1,9 @@
-export const fuseOption = {
-    includeScore: true,
-    // Search in `author` and in `tags` array
-    keys: [
-        "name",
-        "descriptionFuse",
-        "sexeFuse",
-        "sizeFuse",
-        "brand",
-        "etatFuse",
-        "tags",
-        "type",
-        "composition"
-    ]
-}
-
 export function getSize(size, lang) {
+
+    if (size == "1 ans") {
+        size = "12 mois"
+    }
+    
     if (size == "1 mois" && lang == "en-CA") {
         return "1 month"
     } else if (lang == "en-CA") {
@@ -41,8 +30,8 @@ export function getCondition(size, lang) {
             en: "Excellent condition"
         },
         "Neuf": {
-            fr: "Neuf",
-            en: "New"
+            fr: "Neuf avec étiquette",
+            en: "Brand new and labeled"
         },
     }
 
@@ -65,11 +54,15 @@ export function getCategory(category, lang) {
         },
         "Gilets, Pulls & Sweat Shirts": {
             fr: "Gilets, Pulls & Sweat Shirts",
-            en: "Vests, Sweatshirts & Sweat Shirts"
+            en: "Vests & Sweatshirts"
         },
         "Pantalons, Jupes & Shorts": {
             fr: "Pantalons, Jupes & Shorts",
             en: "Trousers, Skirts & Shorts"
+        },
+        "Plage": {
+            fr: "Plage",
+            en: "Beach"
         },
         "Pyjamas & Bodies": {
             fr: "Pyjamas & Bodies",
@@ -81,7 +74,7 @@ export function getCategory(category, lang) {
         },
         "Vestes, Manteaux & Doudounes": {
             fr: "Vestes, Manteaux & Doudounes",
-            en: "Jackets, Coats & Jackets & Down jackets"
+            en: "Jackets, Coats & Down jackets"
         }
     }
     return categoryList[category][lang.split("-")[0]]
@@ -94,14 +87,52 @@ export function getDescription(product, lang) {
     return product.description
 }
 
-export function buildIndex(products, lang) {
-    return products.filter(e => e.quantity >= 1).map(p => {
-        return {
-            sizeFuse: getSize(p.size, lang),
-            sexeFuse: getSex(p.sexe, lang),
-            etatFuse: getCondition(p.etat, lang),
-            descriptionFuse: getDescription(p, lang),
-            ...p
+export function getComposition(product, lang) {
+    const compositionList = {
+        "N/A": {
+            fr: "N/A",
+            en: "N/A"
+        },
+        "Coton": {
+            fr: "Coton",
+            en: "Cotton"
+        },
+        "Élasthanne": {
+            fr: "Élasthanne/Lycra",
+            en: "Spandex/Lycra"
+        },
+        "Lin": {
+            fr: "Lin",
+            en: "Linen"
+        },
+        "Synthétique": {
+            fr: "Synthétique",
+            en: "Synthetic"
+        },
+        "Laine": {
+            fr: "Laine",
+            en: "Wool"
+        },
+        "Cashmere": {
+            fr: "Cashmere",
+            en: "Cashmere"
+        },
+        "Cuir": {
+            fr: "Cuir",
+            en: "Leather"
+        },
+        "Polyamide": {
+            fr: "Polyamide",
+            en: " Polyamid"
+        },
+        "Polaire": {
+            fr: "Polaire",
+            en: "Fleece"
+        },
+        "Polyester": {
+            fr: "Polyester",
+            en: "Polyester"
         }
-    })
+    }
+    return product.composition.map(comp => compositionList[comp][lang.split("-")[0]]).join(", ")
 }

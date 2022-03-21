@@ -13,6 +13,7 @@ const Cart = dynamic(() => import('./Cart'))
 
 function NavBar() {
     const [state, setState] = React.useState(false)
+    const [promo, setPromo] = React.useState(false)
     const toggle = () => setState(state => !state)
     const close = () => setState(false)
     const menuToggleClass = [styles.menuToggle, state ? styles.cross : ""].join(" ")
@@ -35,13 +36,16 @@ function NavBar() {
     NotificationCenter.default.addObserver("newItem", data => {
         forceUpdate()
     }, "NavBar")
+    NotificationCenter.default.addObserver("promo", data => {
+        setPromo(data)
+    }, "NavBar")
     const router = useRouter()
     const t = Object.fromEntries(Object.entries(Locales).map(line => [
 		line[0],
 		line[1][router.locale.split("-")[0]]
     ]))
     
-    return <div className={ [styles.nav, small ? styles.small : ""].join(" ") }>
+    return <div className={ [styles.nav, small ? styles.small : ""].join(" ") } style={{ transform: (promo && !small) ? "translateY(40px)" : "" }}>
                 <NextLink href="/"><div className={ styles.logo }></div></NextLink>
                 <div className={ styles.menuContainer } style={{ display: state ? "flex" : "none" }}>
                     <NextLink href="/product/all?gender=Fille">

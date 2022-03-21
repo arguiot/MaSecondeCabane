@@ -12,8 +12,8 @@ export default {
         en: "Search"
     },
     brands: {
-        fr: "Marques, couleurs, ...",
-        en: "Brands, colors, ..."
+        fr: "Marques, couleurs...",
+        en: "Brands, colors..."
     },
     gender: {
         fr: "Genre",
@@ -28,8 +28,8 @@ export default {
         en: "Boy"
     },
     size: {
-        fr: "Taille",
-        en: "Size"
+        fr: "Taille (âge et pointures)",
+        en: "Size (age and shoes)"
     },
     condition: {
         fr: "État",
@@ -54,5 +54,13 @@ export default {
     searchError: {
         fr: "Oups! Essayez autre chose...",
         en: "Oops! Try something else..."
+    },
+    shoes: {
+        fr: "Chaussures",
+        en: "Shoes"
+    },
+    cloths: {
+        fr: "Vêtements",
+        en: "Clothing"
     }
 }

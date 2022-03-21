@@ -1,8 +1,3 @@
-// .noTitleFancy {
-//     h2, h3 {
-//         font-family: var(--normalFont);
-//     }
-// }
 .list {
     li {
         list-style: none;
@@ -19,12 +14,16 @@
         }
     }
 }
-.collapse {
-    h3 {
-        font-size: 1rem;
-    }
-}
 
 .title {
     font-family: "Amatic SC"
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .list li::before {
+        background-image: url("../public/favicon-white.svg");
+        background-position: center;
+        background-size: contain;
+    }
 }

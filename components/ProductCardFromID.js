@@ -16,7 +16,7 @@ export default function CardFromID({ id }) {
     }
     const product = data.findProductByID
     return <div className={ pStyles.container }>
-        <Image src={ `https://ik.imagekit.io/ittx2e0v7x/tr:n-media_library_thumbnail/${product.image}` } height={100}
+        <Image src={ `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop` } height={100}
             className={ pStyles.img } />
         <Col className={ pStyles.desc }>
         <Text h5>{ product.name }</Text>

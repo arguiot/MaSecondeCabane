@@ -1,4 +1,5 @@
 import {
+    AllOrders,
     CreateOrder,
     ProductByID,
     UpdateProduct
@@ -7,9 +8,10 @@ import {
     graphQLServer
 } from "../../utils/fauna"
 import bodyParser from "body-parser"
+import sendgrid, { send } from "@sendgrid/mail"
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
-
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 const endpointSecret = process.env.STRIPE_WEBHOOK
 
 // first we need to disable the default body parser
@@ -58,16 +60,22 @@ export default async (req, res) => {
     switch (event.type) {
         case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
+            // Check that the order isn't already in DB
+            const { allOrders } = await graphQLServer.request(AllOrders)
+            if (allOrders.data.map(entry => entry.stripeID).includes(paymentIntent.id)) {
+                return res.status(202).send(`Webhook Error: Stripe order already exists in DB`);
+            }
             // Create Order
+            const names = paymentIntent.shipping.name.split(" ")
             const query = CreateOrder
             const variables = {
                 data: {
                     stripeID: paymentIntent.id,
                     total: paymentIntent.amount / 100,
                     customer: {
-                        email: paymentIntent.receipt_email,
-                        firstName: paymentIntent.shipping.name.split(" ")[0],
-                        lastName: paymentIntent.shipping.name.split(" ")[1],
+                        email: paymentIntent.receipt_email || paymentIntent.charges.data[0].billing_details.email || "Inconnue",
+                        firstName: names[0],
+                        lastName: names.slice(1).join(" "),
                         telephone: "None", //paymentIntent.shipping.phone,
                         address: {
                             street: paymentIntent.shipping.address.line1,
@@ -82,6 +90,7 @@ export default async (req, res) => {
                             quantity: entry.quantity
                         }
                     }),
+                    delivery: paymentIntent.metadata.delivery == "true",
                     done: false
                 }
             }
@@ -90,6 +99,7 @@ export default async (req, res) => {
             } = await graphQLServer.request(query, variables)
             // Update Quantities
             const array = JSON.parse(paymentIntent.metadata.order)
+            let articles = []
             for (var i = 0; i < array.length; i++) {
                 const entry = array[i]
                 const query = ProductByID
@@ -98,6 +108,7 @@ export default async (req, res) => {
                 } = await graphQLServer.request(query, {
                     id: entry.id
                 })
+                articles.push(findProductByID)
                 const updateQuery = UpdateProduct
                 const variables = {
                     id: entry.id,
@@ -121,7 +132,45 @@ export default async (req, res) => {
                 const {
                     updateProduct
                 } = await graphQLServer.request(updateQuery, variables)
-                console.log(`Updated Porduct ${updateProduct._id}`)
+                console.log(`Updated Product ${updateProduct._id}`)
+            }
+
+            const msg = {
+                to: "contact@masecondecabane.com",
+                from: "commandes@masecondecabane.com",
+                replyTo: paymentIntent.receipt_email || paymentIntent.charges.data[0].billing_details.email,
+                subject: `Nouvelle Commande pour ${paymentIntent.shipping.name}`,
+                html: `
+                <h1>Transaction</h1>
+                <ul>
+                <li>Montant: ${paymentIntent.amount / 100}</li>
+                <li>Identifiant: <a href="https://dashboard.stripe.com/payments/${paymentIntent.id}">${paymentIntent.id}</a></li>
+                </ul>
+                <h1>Informations sur le client</h1>
+                <ul>
+                <li>Prénom, Nom: ${paymentIntent.shipping.name}</li>
+                <li>Addresse: ${[paymentIntent.shipping.address.line1, paymentIntent.shipping.address.city, paymentIntent.shipping.address.postal_code, paymentIntent.shipping.address.country, paymentIntent.shipping.address.state].join(", ")}</li>
+                <li>Livraison: ${paymentIntent.metadata.delivery == "true" ? "Oui" : "Click & Collect"}</li>
+                </ul>
+                <h1>Contenu</h1>
+                <ol>
+                ${articles.map(article => (`
+                <li> ${article.name}
+                <ul>
+                <li>Description: ${article.description}</li>
+                <li>Prix: ${article.price}$</li>
+                <li>Identifiant: <a href="https://masecondecabane.com/product/${article.id}">${article.id}</a></li>
+                <li>Quantité: ${article.quantity}</li>
+                </ul>
+                </li>
+                `))}
+                </ol>`
+            }
+        
+            try {
+                await sendgrid.send(msg);
+            } catch (error) {
+                console.error(error);
             }
             console.log(`Created order: ${createOrder._id}`)
             break;

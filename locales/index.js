@@ -1,7 +1,11 @@
 export default {
+    titleD: {
+        fr: "Vêtements pour enfants de seconde main à Montréal",
+        en: "Second hand children's clothing in Montreal"
+    },
     metaDesc: {
-        fr: "Ma Seconde Cabane est un vide dressing de qualité au Québec pour les enfants",
-        en: "Ma Seconde Cabane is a quality walk-in closet for children in Quebec."
+        fr: "Boutique en ligne de vêtements de seconde main de qualité pour les enfants de 0 à 12 ans. Achetez et vendez vos articles d’occasion sur Ma Seconde Cabane à Montréal, au Québec et au Canada. Vêtements, chaussures, accessoires... votre premier choix !",
+        en: "Online store of quality second hand clothing for children from 0 to 12 years old. Buy and sell your used items on Ma Seconde Cabane in Montreal, Quebec and Canada. Clothing, shoes, accessories... your first choice!"
     },
     heroDesc: {
         fr: "Vêtement de seconde main de qualité pour les enfants",
@@ -16,7 +20,7 @@ export default {
         en: "Oops! Try something else..."
     },
     products: {
-        fr: "Produits à ne pas manquer",
+        fr: "Nos coups de cœur",
         en: "Products not to miss"
     },
     selection: {
