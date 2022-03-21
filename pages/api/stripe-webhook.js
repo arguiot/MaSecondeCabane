@@ -60,7 +60,7 @@ export default async (req, res) => {
     switch (event.type) {
         case 'checkout.session.completed':
             const session = await stripe.checkout.sessions.retrieve(event.data.object.id, {
-                expand: ["line_items", "payment_intent"],
+                expand: ["line_items", "payment_intent", "line_items.data.price.product"],
             });
 
             const paymentIntent = session.payment_intent;
@@ -83,10 +83,9 @@ export default async (req, res) => {
                     }
                 })
             } else {
-                console.log(session.line_items.data)
                 items = session.line_items.data.map(entry => {
                     return {
-                        product: entry.price.metadata.id,
+                        product: entry.price.product.metadata.id,
                         quantity: entry.quantity
                     }
                 })
