@@ -79,7 +79,10 @@ export default async (req, res) => {
                     }
                 })
             } else {
-                items = paymentIntent.line_items.data.map(entry => {
+                // Get the payment intent
+                const intent = await stripe.paymentIntents.retrieve(paymentIntent.id);
+                
+                items = intent.line_items.data.map(entry => {
                     return {
                         product: entry.price_data.product_data.metadata.id,
                         quantity: entry.quantity
