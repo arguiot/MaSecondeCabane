@@ -60,7 +60,7 @@ export default async (req, res) => {
     switch (event.type) {
         case 'checkout.session.completed':
             const session = await stripe.checkout.sessions.retrieve(event.data.object.id, {
-                expand: ["line_items.data.price.product", "payment_intent"],
+                expand: ["payment_intent"],
             });
 
             const paymentIntent = session.payment_intent;
@@ -83,14 +83,21 @@ export default async (req, res) => {
                     }
                 })
             } else {
-                items = session.line_items.data.map(entry => {
+                const tmp = await new Promise((resolve, reject) => {
+                    stripe.checkout.sessions.listLineItems(session.id, { limit: 100, expand: ['data.price.product'] }, (err, lineItems) => {
+                        if(err) {
+                            return reject(err);
+                        }
+                        resolve(lineItems)
+                    })
+                })
+                items = tmp.map(entry => {
                     return {
                         product: entry.price.product.metadata.id,
                         quantity: entry.quantity
                     }
                 })
             }
-
 
 
             const variables = {
