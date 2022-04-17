@@ -91,6 +91,7 @@ export default async (req, res) => {
                         resolve(lineItems)
                     })
                 })
+                console.error( { tmp } )
                 items = tmp.map(entry => {
                     return {
                         product: entry.price.product.metadata.id,
