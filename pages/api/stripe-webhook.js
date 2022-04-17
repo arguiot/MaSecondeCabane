@@ -97,7 +97,7 @@ export default async (req, res) => {
                         product: entry.price.product.metadata.id,
                         quantity: entry.quantity
                     }
-                })
+                }).filter(entry => entry.product) // Make sure we don't have any empty entries
             }
 
 
