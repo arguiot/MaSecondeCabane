@@ -54,7 +54,11 @@ function Home({ products, router, photos, t }) {
 			...shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true && e.sexe != "Garçon"))).slice(0, 6), // Girls + Mixte
 			...shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true && e.sexe != "Fille"))).slice(0, 6) // Boys + Mixte
 		]
-		setProducts(shuffle(array))
+
+		// Remove duplicates from array
+		const uniq = [...new Set(array)]
+
+		setProducts(shuffle(uniq))
 	}, [])
 	// Search logic
 
