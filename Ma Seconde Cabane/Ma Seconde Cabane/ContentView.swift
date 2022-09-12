@@ -17,8 +17,8 @@ struct ContentView: View {
                     productID = result.string
                 }
             }
-            if productID {
-                Text(productID!)
+            if let id = productID {
+                Text(id)
             }
         }
     }
