@@ -10,6 +10,8 @@
 		6878D9E328CFDD57007BF35A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9E228CFDD57007BF35A /* Product.swift */; };
 		6878D9EB28CFDE95007BF35A /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9EA28CFDE95007BF35A /* AppTests.swift */; };
 		6878D9F228CFDEAB007BF35A /* DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9F128CFDEAB007BF35A /* DataTests.swift */; };
+		689C9F2028D0DAB100DE95D0 /* StripeTerminal in Frameworks */ = {isa = PBXBuildFile; productRef = 689C9F1F28D0DAB100DE95D0 /* StripeTerminal */; };
+		689C9F2428D0DC9000DE95D0 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C9F2328D0DC9000DE95D0 /* APIClient.swift */; };
 		68D32C5628CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */; };
 		68D32C5828CFCF1E007E6EDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C5728CFCF1E007E6EDE /* ContentView.swift */; };
 		68D32C5A28CFCF1F007E6EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68D32C5928CFCF1F007E6EDE /* Assets.xcassets */; };
@@ -33,6 +35,8 @@
 		6878D9E828CFDE94007BF35A /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6878D9EA28CFDE95007BF35A /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		6878D9F128CFDEAB007BF35A /* DataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTests.swift; sourceTree = "<group>"; };
+		689C9F2128D0DB0000DE95D0 /* Ma-Seconde-Cabane-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Ma-Seconde-Cabane-Info.plist"; sourceTree = SOURCE_ROOT; };
+		689C9F2328D0DC9000DE95D0 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		68D32C5228CFCF1E007E6EDE /* Ma Seconde Cabane.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ma Seconde Cabane.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ma_Seconde_CabaneApp.swift; sourceTree = "<group>"; };
 		68D32C5728CFCF1E007E6EDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68D32C6528CFD0D5007E6EDE /* CodeScanner in Frameworks */,
+				689C9F2028D0DAB100DE95D0 /* StripeTerminal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +82,14 @@
 			path = AppTests;
 			sourceTree = "<group>";
 		};
+		689C9F2228D0DC5E00DE95D0 /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				689C9F2328D0DC9000DE95D0 /* APIClient.swift */,
+			);
+			path = Stripe;
+			sourceTree = "<group>";
+		};
 		68D32C4928CFCF1E007E6EDE = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +111,8 @@
 		68D32C5428CFCF1E007E6EDE /* Ma Seconde Cabane */ = {
 			isa = PBXGroup;
 			children = (
+				689C9F2228D0DC5E00DE95D0 /* Stripe */,
+				689C9F2128D0DB0000DE95D0 /* Ma-Seconde-Cabane-Info.plist */,
 				6878D9E128CFDD4D007BF35A /* Data */,
 				68D32C6628CFD30C007E6EDE /* Components */,
 				68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */,
@@ -149,7 +164,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68D32C6028CFCF1F007E6EDE /* Build configuration list for PBXNativeTarget "Ma Seconde Cabane" */;
 			buildPhases = (
-				510A6048EF8A796EE05D716B /* Graphaello */,
 				68D32C4E28CFCF1E007E6EDE /* Sources */,
 				68D32C4F28CFCF1E007E6EDE /* Frameworks */,
 				68D32C5028CFCF1E007E6EDE /* Resources */,
@@ -161,6 +175,7 @@
 			name = "Ma Seconde Cabane";
 			packageProductDependencies = (
 				68D32C6428CFD0D5007E6EDE /* CodeScanner */,
+				689C9F1F28D0DAB100DE95D0 /* StripeTerminal */,
 			);
 			productName = "Ma Seconde Cabane";
 			productReference = 68D32C5228CFCF1E007E6EDE /* Ma Seconde Cabane.app */;
@@ -196,6 +211,7 @@
 			mainGroup = 68D32C4928CFCF1E007E6EDE;
 			packageReferences = (
 				68D32C6328CFD0D5007E6EDE /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				689C9F1E28D0DAB100DE95D0 /* XCRemoteSwiftPackageReference "stripe-terminal-ios" */,
 			);
 			productRefGroup = 68D32C5328CFCF1E007E6EDE /* Products */;
 			projectDirPath = "";
@@ -226,23 +242,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		510A6048EF8A796EE05D716B /* Graphaello */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Graphaello;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "if ! type \"graphaello\" > /dev/null; then\n  echo \"warning: graphaello is not installed on your machine. Your project won't be updated automatically\"\n  exit 0\nfi\ngraphaello codegen --project $PROJECT_FILE_PATH --apollo derivedData\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		6878D9E428CFDE94007BF35A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -260,6 +259,7 @@
 				68D32C5828CFCF1E007E6EDE /* ContentView.swift in Sources */,
 				6878D9E328CFDD57007BF35A /* Product.swift in Sources */,
 				68D32C5628CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift in Sources */,
+				689C9F2428D0DC9000DE95D0 /* APIClient.swift in Sources */,
 				68D32C6828CFD325007E6EDE /* ProductCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,7 +436,11 @@
 				DEVELOPMENT_TEAM = 73CCF549YB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Ma-Seconde-Cabane-Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to supported card readers.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth access is required in order to connect to supported bluetooth card readers.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used to scan barcodes";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is required in order to accept payments.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -467,7 +471,11 @@
 				DEVELOPMENT_TEAM = 73CCF549YB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Ma-Seconde-Cabane-Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to supported card readers.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth access is required in order to connect to supported bluetooth card readers.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used to scan barcodes";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is required in order to accept payments.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -520,6 +528,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		689C9F1E28D0DAB100DE95D0 /* XCRemoteSwiftPackageReference "stripe-terminal-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stripe/stripe-terminal-ios";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		68D32C6328CFD0D5007E6EDE /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
@@ -531,6 +547,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		689C9F1F28D0DAB100DE95D0 /* StripeTerminal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 689C9F1E28D0DAB100DE95D0 /* XCRemoteSwiftPackageReference "stripe-terminal-ios" */;
+			productName = StripeTerminal;
+		};
 		68D32C6428CFD0D5007E6EDE /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 68D32C6328CFD0D5007E6EDE /* XCRemoteSwiftPackageReference "CodeScanner" */;

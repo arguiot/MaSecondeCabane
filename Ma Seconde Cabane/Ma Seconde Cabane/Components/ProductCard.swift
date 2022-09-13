@@ -8,13 +8,51 @@
 import SwiftUI
 
 struct ProductCard: View {
+    var productID: String
+    
+    @State var product: Product?
+    @State var error = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Spacer()
+            if let product = self.product {
+                HStack {
+                    AsyncImage(url: product.imageURL)
+                    VStack(alignment: .leading) {
+                        Text(product.name)
+                            .bold()
+                        Text(product.description)
+                    }
+                    .foregroundColor(.black)
+                }
+            } else if error {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(.red)
+            } else {
+                ProgressView()
+            }
+            Spacer()
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(5)
+        .preferredColorScheme(.light)
+        .task {
+            do {
+                self.product = try await Product.from(id: productID)
+            } catch {
+                print(error)
+                self.error = true
+            }
+        }
     }
 }
 
 struct ProductCard_Previews: PreviewProvider {
     static var previews: some View {
-        ProductCard()
+        ZStack {
+            ProductCard(productID: "330208693014495824")
+        }
     }
 }
