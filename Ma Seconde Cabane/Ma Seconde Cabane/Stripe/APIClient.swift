@@ -8,10 +8,10 @@
 import Foundation
 import StripeTerminal
 
-class APIClient: NSObject, ConnectionTokenProvider {
+public class APIClient: NSObject, ConnectionTokenProvider {
     
     // This comes from `AppDelegate.backendUrl`, set URL there
-    var baseURLString: String?
+    public var baseURLString: String?
     
     private var baseURL: URL {
         if let urlString = self.baseURLString, let url = URL(string: urlString) {
@@ -23,12 +23,16 @@ class APIClient: NSObject, ConnectionTokenProvider {
     
     // MARK: ConnectionTokenProvider
     fileprivate struct ConnectionToken: Decodable {
-        var secret: String
+        var secret: StripeConnectionTokenObject
+        struct StripeConnectionTokenObject: Decodable {
+            var object: String
+            var secret: String
+        }
     }
-    func fetchConnectionToken() async throws -> String {
+    public func fetchConnectionToken() async throws -> String {
         let url = self.baseURL.appendingPathComponent("connection_token")
         let (data, _) = try await URLSession.shared.data(from: url)
         let token = try JSONDecoder().decode(ConnectionToken.self, from: data)
-        return token.secret
+        return token.secret.secret
     }
 }

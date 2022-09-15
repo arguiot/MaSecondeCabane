@@ -38,14 +38,15 @@ struct ProductCard: View {
         .background(Color.white)
         .cornerRadius(5)
         .preferredColorScheme(.light)
-        .task {
+        .task(id: self.productID, {
+            self.product = nil // Falls back to scanning state
             do {
                 self.product = try await Product.from(id: productID)
             } catch {
                 print(error)
                 self.error = true
             }
-        }
+        })
     }
 }
 
