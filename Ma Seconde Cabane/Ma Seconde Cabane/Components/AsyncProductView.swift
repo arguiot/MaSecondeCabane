@@ -53,7 +53,7 @@ struct AsyncProductView: View {
             do {
                 self.product = try await Product.from(id: productID)
             } catch {
-                print(error)
+                ErrorManager.shared.push(title: "Product Fetching", error: error)
                 self.error = true
             }
         })

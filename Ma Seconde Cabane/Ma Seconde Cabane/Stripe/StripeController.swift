@@ -36,7 +36,7 @@ class StripeController: NSObject, ObservableObject {
         self.readers = []
         self.discoverCancelable = Terminal.shared.discoverReaders(config, delegate: self) { error in
             if let error = error {
-                print("discoverReaders failed: \(error)")
+                ErrorManager.shared.push(title: "Discover Reader", error: error)
                 self.state = .idle
             } else {
                 print("discoverReaders succeeded")
@@ -54,12 +54,16 @@ class StripeController: NSObject, ObservableObject {
         
         Terminal.shared.collectPaymentMethod(createResult) { collectResult, collectError in
             if collectError != nil {
-                print("collectPaymentMethod failed: \\(error)")
+                ErrorManager.shared.push(title: "Collect Payment", error: collectError!)
             } else if let paymentIntent = collectResult {
                 print("collectPaymentMethod succeeded")
                 
                 Task {
-                    try await self.processPayment(paymentIntent)
+                    do {
+                        try await self.processPayment(paymentIntent)
+                    } catch {
+                        ErrorManager.shared.push(title: "Process Payment", error: error)
+                    }
                 }
             }
         }

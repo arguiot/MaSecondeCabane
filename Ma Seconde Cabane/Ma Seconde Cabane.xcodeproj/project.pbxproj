@@ -21,10 +21,13 @@
 		68A2E40D28D7C79600FEC28C /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 68A2E40C28D7C79600FEC28C /* Introspect */; };
 		68A2E40F28D7DE4600FEC28C /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E40E28D7DE4600FEC28C /* Scanner.swift */; };
 		68A2E41228D7E9DA00FEC28C /* BatteryView in Frameworks */ = {isa = PBXBuildFile; productRef = 68A2E41128D7E9DA00FEC28C /* BatteryView */; };
+		68A2E41528D8EEDE00FEC28C /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41428D8EEDE00FEC28C /* ErrorManager.swift */; };
+		68A2E41728D8EF5F00FEC28C /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41628D8EF5E00FEC28C /* ErrorOverlay.swift */; };
+		68A2E41928D8F20400FEC28C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41828D8F20400FEC28C /* ContentView.swift */; };
 		68CCCD8528D3875500035E52 /* StripeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CCCD8428D3875500035E52 /* StripeTests.swift */; };
 		68CCCD8728D3C50000035E52 /* StripeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CCCD8628D3C50000035E52 /* StripeController.swift */; };
 		68D32C5628CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */; };
-		68D32C5828CFCF1E007E6EDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C5728CFCF1E007E6EDE /* ContentView.swift */; };
+		68D32C5828CFCF1E007E6EDE /* ReaderConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C5728CFCF1E007E6EDE /* ReaderConnect.swift */; };
 		68D32C5A28CFCF1F007E6EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68D32C5928CFCF1F007E6EDE /* Assets.xcassets */; };
 		68D32C5D28CFCF1F007E6EDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68D32C5C28CFCF1F007E6EDE /* Preview Assets.xcassets */; };
 		68D32C6528CFD0D5007E6EDE /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 68D32C6428CFD0D5007E6EDE /* CodeScanner */; };
@@ -54,11 +57,14 @@
 		68A2E40628D7BAA500FEC28C /* Checkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkout.swift; sourceTree = "<group>"; };
 		68A2E40928D7BBF300FEC28C /* BigButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonStyle.swift; sourceTree = "<group>"; };
 		68A2E40E28D7DE4600FEC28C /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		68A2E41428D8EEDE00FEC28C /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
+		68A2E41628D8EF5E00FEC28C /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
+		68A2E41828D8F20400FEC28C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		68CCCD8428D3875500035E52 /* StripeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeTests.swift; sourceTree = "<group>"; };
 		68CCCD8628D3C50000035E52 /* StripeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeController.swift; sourceTree = "<group>"; };
 		68D32C5228CFCF1E007E6EDE /* Ma Seconde Cabane.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ma Seconde Cabane.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ma_Seconde_CabaneApp.swift; sourceTree = "<group>"; };
-		68D32C5728CFCF1E007E6EDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		68D32C5728CFCF1E007E6EDE /* ReaderConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderConnect.swift; sourceTree = "<group>"; };
 		68D32C5928CFCF1F007E6EDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68D32C5C28CFCF1F007E6EDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		68D32C6728CFD325007E6EDE /* AsyncProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncProductView.swift; sourceTree = "<group>"; };
@@ -118,6 +124,7 @@
 		68A2E40528D7BA9000FEC28C /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				68D32C5728CFCF1E007E6EDE /* ReaderConnect.swift */,
 				68A2E40628D7BAA500FEC28C /* Checkout.swift */,
 				68A2E40E28D7DE4600FEC28C /* Scanner.swift */,
 			);
@@ -130,6 +137,15 @@
 				68A2E40928D7BBF300FEC28C /* BigButtonStyle.swift */,
 			);
 			path = Low;
+			sourceTree = "<group>";
+		};
+		68A2E41328D8EEC100FEC28C /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				68A2E41428D8EEDE00FEC28C /* ErrorManager.swift */,
+				68A2E41628D8EF5E00FEC28C /* ErrorOverlay.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		68D32C4928CFCF1E007E6EDE = {
@@ -153,15 +169,16 @@
 		68D32C5428CFCF1E007E6EDE /* Ma Seconde Cabane */ = {
 			isa = PBXGroup;
 			children = (
+				68A2E41328D8EEC100FEC28C /* Error */,
 				68A2E40528D7BA9000FEC28C /* Pages */,
 				689C9F2228D0DC5E00DE95D0 /* Stripe */,
 				689C9F2128D0DB0000DE95D0 /* Ma-Seconde-Cabane-Info.plist */,
 				6878D9E128CFDD4D007BF35A /* Data */,
 				68D32C6628CFD30C007E6EDE /* Components */,
 				68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */,
-				68D32C5728CFCF1E007E6EDE /* ContentView.swift */,
 				68D32C5928CFCF1F007E6EDE /* Assets.xcassets */,
 				68D32C5B28CFCF1F007E6EDE /* Preview Content */,
+				68A2E41828D8F20400FEC28C /* ContentView.swift */,
 			);
 			path = "Ma Seconde Cabane";
 			sourceTree = "<group>";
@@ -309,15 +326,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68D32C5828CFCF1E007E6EDE /* ContentView.swift in Sources */,
+				68D32C5828CFCF1E007E6EDE /* ReaderConnect.swift in Sources */,
 				68A2E40A28D7BBF300FEC28C /* BigButtonStyle.swift in Sources */,
+				68A2E41528D8EEDE00FEC28C /* ErrorManager.swift in Sources */,
 				68A2E40428D7B9F900FEC28C /* ProductView.swift in Sources */,
 				6878D9E328CFDD57007BF35A /* Product.swift in Sources */,
 				68D32C5628CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift in Sources */,
 				68A2E3FD28D7AE7400FEC28C /* CartView.swift in Sources */,
+				68A2E41728D8EF5F00FEC28C /* ErrorOverlay.swift in Sources */,
 				689C9F2428D0DC9000DE95D0 /* APIClient.swift in Sources */,
 				68CCCD8728D3C50000035E52 /* StripeController.swift in Sources */,
 				68A2E40728D7BAA500FEC28C /* Checkout.swift in Sources */,
+				68A2E41928D8F20400FEC28C /* ContentView.swift in Sources */,
 				68D32C6828CFD325007E6EDE /* AsyncProductView.swift in Sources */,
 				68A2E40F28D7DE4600FEC28C /* Scanner.swift in Sources */,
 				68A2E3FF28D7AFEA00FEC28C /* Cart.swift in Sources */,
@@ -506,6 +526,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -544,6 +565,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

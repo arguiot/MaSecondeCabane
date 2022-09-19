@@ -44,7 +44,7 @@ struct Checkout: View {
                     do {
                         try await stripeController.collectPayment()
                     } catch {
-                        print(error)
+                        ErrorManager.shared.push(title: "Collect Payment", error: error)
                     }   
                 }
             } label: {
