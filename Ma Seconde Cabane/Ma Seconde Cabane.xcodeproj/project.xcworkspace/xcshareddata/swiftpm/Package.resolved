@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "batteryview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/theMomax/BatteryView",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a800142347e2fc5e344a547fb29b6d46c3dddcf1"
+      }
+    },
+    {
       "identity" : "codescanner",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/twostraws/CodeScanner",
@@ -10,12 +19,30 @@
       }
     },
     {
+      "identity" : "pow",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/movingparts-io/Pow",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5e09c815b3bd1bfdf67e5f887a425cf830801192"
+      }
+    },
+    {
       "identity" : "stripe-terminal-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stripe/stripe-terminal-ios",
       "state" : {
         "branch" : "master",
         "revision" : "003a0714164115d1a1b436c1abeb61c59446ff29"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "d3cbf32788250741d397cfb5bcd532c37aa1096d"
       }
     }
   ],

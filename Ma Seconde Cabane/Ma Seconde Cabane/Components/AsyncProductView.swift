@@ -7,29 +7,39 @@
 
 import SwiftUI
 
-struct ProductCard: View {
+struct AsyncProductView: View {
     var productID: String
+    
+    @Binding var isShown: Bool
     
     @State var product: Product?
     @State var error = false
+    
+    
     var body: some View {
         HStack {
-            Spacer()
             if let product = self.product {
-                HStack {
-                    AsyncImage(url: product.imageURL)
-                    VStack(alignment: .leading) {
-                        Text(product.name)
-                            .bold()
-                        Text(product.description)
+                ProductView(product: product) {
+                    Button {
+                        // Add to basket
+                        Cart.shared.products.append(product)
+                        isShown = false
+                    } label: {
+                        // Icon with green circle background
+                        Image(systemName: "cart.badge.plus")
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .background(Color.green)
+                            .clipShape(Circle())
                     }
-                    .foregroundColor(.black)
                 }
             } else if error {
+                Spacer()
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.largeTitle)
                     .foregroundColor(.red)
             } else {
+                Spacer()
                 ProgressView()
             }
             Spacer()
@@ -53,7 +63,7 @@ struct ProductCard: View {
 struct ProductCard_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            ProductCard(productID: "330208693014495824")
+            AsyncProductView(productID: "330208693014495824", isShown: .constant(true))
         }
     }
 }

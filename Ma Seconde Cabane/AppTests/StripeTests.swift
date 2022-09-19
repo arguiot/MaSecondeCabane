@@ -10,7 +10,7 @@ import Ma_Seconde_Cabane
 
 final class StripeTests: XCTestCase {
     func testConnectionToken() async throws {
-        let apiClient = APIClient()
+        let apiClient = APIClient.shared
         apiClient.baseURLString = "https://masecondecabane.com/api/pos/"
         
         let token = try await apiClient.fetchConnectionToken()

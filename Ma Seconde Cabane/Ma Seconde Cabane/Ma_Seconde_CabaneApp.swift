@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             fatalError("You must provide a backend URL to run this app.")
         }
         
-        let apiClient = APIClient()
+        let apiClient = APIClient.shared
         apiClient.baseURLString = backendUrl
         Terminal.setTokenProvider(apiClient)
         AppDelegate.apiClient = apiClient
