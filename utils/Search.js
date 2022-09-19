@@ -42,8 +42,8 @@ export default class Search {
                     en: ["vest", "sweat"]
                 },
                 "Pantalons, Jupes & Shorts": {
-                    fr: ["pantalon", "jean", "jupe", "short"],
-                    en: ["trouser", "jean", "skirt", "short"]
+                    fr: ["pantalon", "salopette", "jean", "jupe", "short"],
+                    en: ["trouser", "overall", "jean", "skirt", "short"]
                 },
                 "Plage": {
                     fr: ["plage"],
@@ -55,7 +55,7 @@ export default class Search {
                 },
                 "Robes & Combinaisons": {
                     fr: ["robe", "combi"],
-                    en: ["dress", "overall"]
+                    en: ["dress", "jumpsuit"]
                 },
                 "Vestes, Manteaux & Doudounes": {
                     fr: ["veste", "manteau", "doudoune"],

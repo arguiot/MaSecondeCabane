@@ -1,3 +1,5 @@
+import { DELIVERY_FLOOR, DELIVERY_PRICE } from '../../lib/Parameters';
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const YOUR_DOMAIN = 'https://masecondecabane.com/checkout';
@@ -7,7 +9,7 @@ export default async (req, res) => {
     const body = JSON.parse(req.body)
     
     const deliveryPrice = price => {
-        return (price >= 40) ? 0 : 900
+        return (price >= DELIVERY_FLOOR) ? 0 : DELIVERY_PRICE * 100
     }
 
     const items = body.cart.map(entry => {

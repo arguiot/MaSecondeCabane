@@ -8,7 +8,7 @@ import {
     graphQLServer
 } from "../../utils/fauna"
 import bodyParser from "body-parser"
-import sendgrid, { send } from "@sendgrid/mail"
+import sendgrid from "@sendgrid/mail"
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);

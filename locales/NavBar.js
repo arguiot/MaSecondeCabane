@@ -1,3 +1,5 @@
+import { DELIVERY_FLOOR } from "../lib/Parameters";
+
 export default {
     girl: {
         fr: "Filles",
@@ -16,7 +18,7 @@ export default {
         en: "About"
     },
     promo: {
-        fr: "Livraison gratuite pour les commandes de plus de 40$",
-        en: "Free shipping for orders over $40",
+        fr: `Livraison gratuite pour les commandes de plus de ${DELIVERY_FLOOR}$`,
+        en: `Free shipping for orders over $${DELIVERY_FLOOR}`,
     }
 }

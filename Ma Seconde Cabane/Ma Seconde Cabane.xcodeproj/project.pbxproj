@@ -1,0 +1,694 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6878D9E328CFDD57007BF35A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9E228CFDD57007BF35A /* Product.swift */; };
+		6878D9EB28CFDE95007BF35A /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9EA28CFDE95007BF35A /* AppTests.swift */; };
+		6878D9F228CFDEAB007BF35A /* DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9F128CFDEAB007BF35A /* DataTests.swift */; };
+		689C9F2028D0DAB100DE95D0 /* StripeTerminal in Frameworks */ = {isa = PBXBuildFile; productRef = 689C9F1F28D0DAB100DE95D0 /* StripeTerminal */; };
+		689C9F2428D0DC9000DE95D0 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C9F2328D0DC9000DE95D0 /* APIClient.swift */; };
+		68A2E3FD28D7AE7400FEC28C /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E3FC28D7AE7400FEC28C /* CartView.swift */; };
+		68A2E3FF28D7AFEA00FEC28C /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E3FE28D7AFEA00FEC28C /* Cart.swift */; };
+		68A2E40228D7B4FE00FEC28C /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = 68A2E40128D7B4FE00FEC28C /* Pow */; };
+		68A2E40428D7B9F900FEC28C /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E40328D7B9F900FEC28C /* ProductView.swift */; };
+		68A2E40728D7BAA500FEC28C /* Checkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E40628D7BAA500FEC28C /* Checkout.swift */; };
+		68A2E40A28D7BBF300FEC28C /* BigButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E40928D7BBF300FEC28C /* BigButtonStyle.swift */; };
+		68A2E40D28D7C79600FEC28C /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 68A2E40C28D7C79600FEC28C /* Introspect */; };
+		68A2E40F28D7DE4600FEC28C /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E40E28D7DE4600FEC28C /* Scanner.swift */; };
+		68A2E41228D7E9DA00FEC28C /* BatteryView in Frameworks */ = {isa = PBXBuildFile; productRef = 68A2E41128D7E9DA00FEC28C /* BatteryView */; };
+		68A2E41528D8EEDE00FEC28C /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41428D8EEDE00FEC28C /* ErrorManager.swift */; };
+		68A2E41728D8EF5F00FEC28C /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41628D8EF5E00FEC28C /* ErrorOverlay.swift */; };
+		68A2E41928D8F20400FEC28C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41828D8F20400FEC28C /* ContentView.swift */; };
+		68A2E41B28D9039C00FEC28C /* ClientInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41A28D9039C00FEC28C /* ClientInfo.swift */; };
+		68CCCD8528D3875500035E52 /* StripeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CCCD8428D3875500035E52 /* StripeTests.swift */; };
+		68CCCD8728D3C50000035E52 /* StripeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CCCD8628D3C50000035E52 /* StripeController.swift */; };
+		68D32C5628CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */; };
+		68D32C5828CFCF1E007E6EDE /* ReaderConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C5728CFCF1E007E6EDE /* ReaderConnect.swift */; };
+		68D32C5A28CFCF1F007E6EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68D32C5928CFCF1F007E6EDE /* Assets.xcassets */; };
+		68D32C5D28CFCF1F007E6EDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68D32C5C28CFCF1F007E6EDE /* Preview Assets.xcassets */; };
+		68D32C6528CFD0D5007E6EDE /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 68D32C6428CFD0D5007E6EDE /* CodeScanner */; };
+		68D32C6828CFD325007E6EDE /* AsyncProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C6728CFD325007E6EDE /* AsyncProductView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6878D9EC28CFDE95007BF35A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 68D32C4A28CFCF1E007E6EDE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68D32C5128CFCF1E007E6EDE;
+			remoteInfo = "Ma Seconde Cabane";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6878D9E228CFDD57007BF35A /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		6878D9E828CFDE94007BF35A /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6878D9EA28CFDE95007BF35A /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
+		6878D9F128CFDEAB007BF35A /* DataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTests.swift; sourceTree = "<group>"; };
+		689C9F2128D0DB0000DE95D0 /* Ma-Seconde-Cabane-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Ma-Seconde-Cabane-Info.plist"; sourceTree = SOURCE_ROOT; };
+		689C9F2328D0DC9000DE95D0 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		68A2E3FC28D7AE7400FEC28C /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		68A2E3FE28D7AFEA00FEC28C /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
+		68A2E40328D7B9F900FEC28C /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		68A2E40628D7BAA500FEC28C /* Checkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkout.swift; sourceTree = "<group>"; };
+		68A2E40928D7BBF300FEC28C /* BigButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonStyle.swift; sourceTree = "<group>"; };
+		68A2E40E28D7DE4600FEC28C /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		68A2E41428D8EEDE00FEC28C /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
+		68A2E41628D8EF5E00FEC28C /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
+		68A2E41828D8F20400FEC28C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		68A2E41A28D9039C00FEC28C /* ClientInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInfo.swift; sourceTree = "<group>"; };
+		68CCCD8428D3875500035E52 /* StripeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeTests.swift; sourceTree = "<group>"; };
+		68CCCD8628D3C50000035E52 /* StripeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeController.swift; sourceTree = "<group>"; };
+		68D32C5228CFCF1E007E6EDE /* Ma Seconde Cabane.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ma Seconde Cabane.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ma_Seconde_CabaneApp.swift; sourceTree = "<group>"; };
+		68D32C5728CFCF1E007E6EDE /* ReaderConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderConnect.swift; sourceTree = "<group>"; };
+		68D32C5928CFCF1F007E6EDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		68D32C5C28CFCF1F007E6EDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		68D32C6728CFD325007E6EDE /* AsyncProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncProductView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6878D9E528CFDE94007BF35A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68D32C4F28CFCF1E007E6EDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68A2E40228D7B4FE00FEC28C /* Pow in Frameworks */,
+				68A2E40D28D7C79600FEC28C /* Introspect in Frameworks */,
+				68A2E41228D7E9DA00FEC28C /* BatteryView in Frameworks */,
+				68D32C6528CFD0D5007E6EDE /* CodeScanner in Frameworks */,
+				689C9F2028D0DAB100DE95D0 /* StripeTerminal in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6878D9E128CFDD4D007BF35A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6878D9E228CFDD57007BF35A /* Product.swift */,
+				68A2E3FE28D7AFEA00FEC28C /* Cart.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		6878D9E928CFDE95007BF35A /* AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				6878D9EA28CFDE95007BF35A /* AppTests.swift */,
+				6878D9F128CFDEAB007BF35A /* DataTests.swift */,
+				68CCCD8428D3875500035E52 /* StripeTests.swift */,
+			);
+			path = AppTests;
+			sourceTree = "<group>";
+		};
+		689C9F2228D0DC5E00DE95D0 /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				689C9F2328D0DC9000DE95D0 /* APIClient.swift */,
+				68CCCD8628D3C50000035E52 /* StripeController.swift */,
+			);
+			path = Stripe;
+			sourceTree = "<group>";
+		};
+		68A2E40528D7BA9000FEC28C /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				68D32C5728CFCF1E007E6EDE /* ReaderConnect.swift */,
+				68A2E40628D7BAA500FEC28C /* Checkout.swift */,
+				68A2E40E28D7DE4600FEC28C /* Scanner.swift */,
+				68A2E41A28D9039C00FEC28C /* ClientInfo.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		68A2E40828D7BBE800FEC28C /* Low */ = {
+			isa = PBXGroup;
+			children = (
+				68A2E40928D7BBF300FEC28C /* BigButtonStyle.swift */,
+			);
+			path = Low;
+			sourceTree = "<group>";
+		};
+		68A2E41328D8EEC100FEC28C /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				68A2E41428D8EEDE00FEC28C /* ErrorManager.swift */,
+				68A2E41628D8EF5E00FEC28C /* ErrorOverlay.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		68D32C4928CFCF1E007E6EDE = {
+			isa = PBXGroup;
+			children = (
+				68D32C5428CFCF1E007E6EDE /* Ma Seconde Cabane */,
+				6878D9E928CFDE95007BF35A /* AppTests */,
+				68D32C5328CFCF1E007E6EDE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		68D32C5328CFCF1E007E6EDE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				68D32C5228CFCF1E007E6EDE /* Ma Seconde Cabane.app */,
+				6878D9E828CFDE94007BF35A /* AppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		68D32C5428CFCF1E007E6EDE /* Ma Seconde Cabane */ = {
+			isa = PBXGroup;
+			children = (
+				68A2E41328D8EEC100FEC28C /* Error */,
+				68A2E40528D7BA9000FEC28C /* Pages */,
+				689C9F2228D0DC5E00DE95D0 /* Stripe */,
+				689C9F2128D0DB0000DE95D0 /* Ma-Seconde-Cabane-Info.plist */,
+				6878D9E128CFDD4D007BF35A /* Data */,
+				68D32C6628CFD30C007E6EDE /* Components */,
+				68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */,
+				68D32C5928CFCF1F007E6EDE /* Assets.xcassets */,
+				68D32C5B28CFCF1F007E6EDE /* Preview Content */,
+				68A2E41828D8F20400FEC28C /* ContentView.swift */,
+			);
+			path = "Ma Seconde Cabane";
+			sourceTree = "<group>";
+		};
+		68D32C5B28CFCF1F007E6EDE /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				68D32C5C28CFCF1F007E6EDE /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		68D32C6628CFD30C007E6EDE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				68A2E40828D7BBE800FEC28C /* Low */,
+				68D32C6728CFD325007E6EDE /* AsyncProductView.swift */,
+				68A2E3FC28D7AE7400FEC28C /* CartView.swift */,
+				68A2E40328D7B9F900FEC28C /* ProductView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6878D9E728CFDE94007BF35A /* AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6878D9EE28CFDE95007BF35A /* Build configuration list for PBXNativeTarget "AppTests" */;
+			buildPhases = (
+				6878D9E428CFDE94007BF35A /* Sources */,
+				6878D9E528CFDE94007BF35A /* Frameworks */,
+				6878D9E628CFDE94007BF35A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6878D9ED28CFDE95007BF35A /* PBXTargetDependency */,
+			);
+			name = AppTests;
+			productName = AppTests;
+			productReference = 6878D9E828CFDE94007BF35A /* AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		68D32C5128CFCF1E007E6EDE /* Ma Seconde Cabane */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68D32C6028CFCF1F007E6EDE /* Build configuration list for PBXNativeTarget "Ma Seconde Cabane" */;
+			buildPhases = (
+				68D32C4E28CFCF1E007E6EDE /* Sources */,
+				68D32C4F28CFCF1E007E6EDE /* Frameworks */,
+				68D32C5028CFCF1E007E6EDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Ma Seconde Cabane";
+			packageProductDependencies = (
+				68D32C6428CFD0D5007E6EDE /* CodeScanner */,
+				689C9F1F28D0DAB100DE95D0 /* StripeTerminal */,
+				68A2E40128D7B4FE00FEC28C /* Pow */,
+				68A2E40C28D7C79600FEC28C /* Introspect */,
+				68A2E41128D7E9DA00FEC28C /* BatteryView */,
+			);
+			productName = "Ma Seconde Cabane";
+			productReference = 68D32C5228CFCF1E007E6EDE /* Ma Seconde Cabane.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		68D32C4A28CFCF1E007E6EDE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					6878D9E728CFDE94007BF35A = {
+						CreatedOnToolsVersion = 14.0;
+						TestTargetID = 68D32C5128CFCF1E007E6EDE;
+					};
+					68D32C5128CFCF1E007E6EDE = {
+						CreatedOnToolsVersion = 14.0;
+					};
+				};
+			};
+			buildConfigurationList = 68D32C4D28CFCF1E007E6EDE /* Build configuration list for PBXProject "Ma Seconde Cabane" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 68D32C4928CFCF1E007E6EDE;
+			packageReferences = (
+				68D32C6328CFD0D5007E6EDE /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				689C9F1E28D0DAB100DE95D0 /* XCRemoteSwiftPackageReference "stripe-terminal-ios" */,
+				68A2E40028D7B4FE00FEC28C /* XCRemoteSwiftPackageReference "Pow" */,
+				68A2E40B28D7C79600FEC28C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				68A2E41028D7E9DA00FEC28C /* XCRemoteSwiftPackageReference "BatteryView" */,
+			);
+			productRefGroup = 68D32C5328CFCF1E007E6EDE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				68D32C5128CFCF1E007E6EDE /* Ma Seconde Cabane */,
+				6878D9E728CFDE94007BF35A /* AppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6878D9E628CFDE94007BF35A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68D32C5028CFCF1E007E6EDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68D32C5D28CFCF1F007E6EDE /* Preview Assets.xcassets in Resources */,
+				68D32C5A28CFCF1F007E6EDE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6878D9E428CFDE94007BF35A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6878D9EB28CFDE95007BF35A /* AppTests.swift in Sources */,
+				68CCCD8528D3875500035E52 /* StripeTests.swift in Sources */,
+				6878D9F228CFDEAB007BF35A /* DataTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68D32C4E28CFCF1E007E6EDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68D32C5828CFCF1E007E6EDE /* ReaderConnect.swift in Sources */,
+				68A2E40A28D7BBF300FEC28C /* BigButtonStyle.swift in Sources */,
+				68A2E41528D8EEDE00FEC28C /* ErrorManager.swift in Sources */,
+				68A2E40428D7B9F900FEC28C /* ProductView.swift in Sources */,
+				6878D9E328CFDD57007BF35A /* Product.swift in Sources */,
+				68D32C5628CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift in Sources */,
+				68A2E41B28D9039C00FEC28C /* ClientInfo.swift in Sources */,
+				68A2E3FD28D7AE7400FEC28C /* CartView.swift in Sources */,
+				68A2E41728D8EF5F00FEC28C /* ErrorOverlay.swift in Sources */,
+				689C9F2428D0DC9000DE95D0 /* APIClient.swift in Sources */,
+				68CCCD8728D3C50000035E52 /* StripeController.swift in Sources */,
+				68A2E40728D7BAA500FEC28C /* Checkout.swift in Sources */,
+				68A2E41928D8F20400FEC28C /* ContentView.swift in Sources */,
+				68D32C6828CFD325007E6EDE /* AsyncProductView.swift in Sources */,
+				68A2E40F28D7DE4600FEC28C /* Scanner.swift in Sources */,
+				68A2E3FF28D7AFEA00FEC28C /* Cart.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6878D9ED28CFDE95007BF35A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68D32C5128CFCF1E007E6EDE /* Ma Seconde Cabane */;
+			targetProxy = 6878D9EC28CFDE95007BF35A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6878D9EF28CFDE95007BF35A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 73CCF549YB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ArthurG.AppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ma Seconde Cabane.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Ma Seconde Cabane";
+			};
+			name = Debug;
+		};
+		6878D9F028CFDE95007BF35A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 73CCF549YB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ArthurG.AppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ma Seconde Cabane.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Ma Seconde Cabane";
+			};
+			name = Release;
+		};
+		68D32C5E28CFCF1F007E6EDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		68D32C5F28CFCF1F007E6EDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		68D32C6128CFCF1F007E6EDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Ma Seconde Cabane/Preview Content\"";
+				DEVELOPMENT_TEAM = 73CCF549YB;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Ma-Seconde-Cabane-Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to supported card readers.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth access is required in order to connect to supported bluetooth card readers.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used to scan barcodes";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is required in order to accept payments.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ArthurG.Ma-Seconde-Cabane";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) GRAPHAELLO_MA_SECONDE_CABANE_TARGET";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		68D32C6228CFCF1F007E6EDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Ma Seconde Cabane/Preview Content\"";
+				DEVELOPMENT_TEAM = 73CCF549YB;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Ma-Seconde-Cabane-Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to supported card readers.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth access is required in order to connect to supported bluetooth card readers.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used to scan barcodes";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is required in order to accept payments.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ArthurG.Ma-Seconde-Cabane";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "GRAPHAELLO_MA_SECONDE_CABANE_TARGET $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6878D9EE28CFDE95007BF35A /* Build configuration list for PBXNativeTarget "AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6878D9EF28CFDE95007BF35A /* Debug */,
+				6878D9F028CFDE95007BF35A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68D32C4D28CFCF1E007E6EDE /* Build configuration list for PBXProject "Ma Seconde Cabane" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68D32C5E28CFCF1F007E6EDE /* Debug */,
+				68D32C5F28CFCF1F007E6EDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68D32C6028CFCF1F007E6EDE /* Build configuration list for PBXNativeTarget "Ma Seconde Cabane" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68D32C6128CFCF1F007E6EDE /* Debug */,
+				68D32C6228CFCF1F007E6EDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		689C9F1E28D0DAB100DE95D0 /* XCRemoteSwiftPackageReference "stripe-terminal-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stripe/stripe-terminal-ios";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		68A2E40028D7B4FE00FEC28C /* XCRemoteSwiftPackageReference "Pow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/movingparts-io/Pow";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		68A2E40B28D7C79600FEC28C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		68A2E41028D7E9DA00FEC28C /* XCRemoteSwiftPackageReference "BatteryView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/theMomax/BatteryView";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		68D32C6328CFD0D5007E6EDE /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		689C9F1F28D0DAB100DE95D0 /* StripeTerminal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 689C9F1E28D0DAB100DE95D0 /* XCRemoteSwiftPackageReference "stripe-terminal-ios" */;
+			productName = StripeTerminal;
+		};
+		68A2E40128D7B4FE00FEC28C /* Pow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68A2E40028D7B4FE00FEC28C /* XCRemoteSwiftPackageReference "Pow" */;
+			productName = Pow;
+		};
+		68A2E40C28D7C79600FEC28C /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68A2E40B28D7C79600FEC28C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+		68A2E41128D7E9DA00FEC28C /* BatteryView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68A2E41028D7E9DA00FEC28C /* XCRemoteSwiftPackageReference "BatteryView" */;
+			productName = BatteryView;
+		};
+		68D32C6428CFD0D5007E6EDE /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68D32C6328CFD0D5007E6EDE /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 68D32C4A28CFCF1E007E6EDE /* Project object */;
+}

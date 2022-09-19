@@ -102,7 +102,7 @@ class Sitemap extends React.Component {
     res
   }) {
     if (typeof result == "undefined") {
-      result = await graphQLClient.request(query, { size: 1000 })
+      result = await graphQLClient.request(query, { size: 10000 })
       console.log("GraphQL query")
     }
     res.setHeader('Content-Type', 'text/xml');

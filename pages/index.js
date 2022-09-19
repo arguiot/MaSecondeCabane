@@ -50,11 +50,18 @@ function Home({ products, router, photos, t }) {
 	const [PRODUCTS, setProducts] = React.useState([])
 	React.useEffect(() => {
 		setImage(photos[Math.floor(Math.random() * photos.length)])
-		const array = [
+		const productSet = new Set([
 			...shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true && e.sexe != "Garçon"))).slice(0, 6), // Girls + Mixte
 			...shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true && e.sexe != "Fille"))).slice(0, 6) // Boys + Mixte
-		]
-		setProducts(shuffle(array))
+		])
+
+		// Make sure there is always 12 elements in uniq
+		while (productSet.size < 12) {
+			const p = shuffle(products.filter(e => (e.waitingForCollect != true && e.quantity >= 1 && e.favorite == true)))[0]
+			productSet.add(p)
+		}
+
+		setProducts(shuffle([...productSet]))
 	}, [])
 	// Search logic
 
@@ -214,7 +221,7 @@ export async function getStaticProps({ locale }) {
 	})
 
 	const query = AllProducts
-	const result = await graphQLClient.request(query, { size: 1000 })
+	const result = await graphQLClient.request(query, { size: 10000 })
 	
 	// Locales
 	const locales = Object.fromEntries(Object.entries(Locales).map(line => [

@@ -57,8 +57,8 @@ export function getCategory(category, lang) {
             en: "Vests & Sweatshirts"
         },
         "Pantalons, Jupes & Shorts": {
-            fr: "Pantalons, Jupes & Shorts",
-            en: "Trousers, Skirts & Shorts"
+            fr: "Pantalons, Salopettes, Jupes & Shorts",
+            en: "Trousers, Overalls, Skirts & Shorts"
         },
         "Plage": {
             fr: "Plage",
@@ -70,7 +70,7 @@ export function getCategory(category, lang) {
         },
         "Robes & Combinaisons": {
             fr: "Robes & Combinaisons",
-            en: "Dresses & Overalls"
+            en: "Dresses & Jumpsuits"
         },
         "Vestes, Manteaux & Doudounes": {
             fr: "Vestes, Manteaux & Doudounes",
