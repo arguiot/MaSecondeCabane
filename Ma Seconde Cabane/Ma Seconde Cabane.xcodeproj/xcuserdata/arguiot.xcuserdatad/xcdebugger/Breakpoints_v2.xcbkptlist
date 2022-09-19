@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
             endingLineNumber = "54"
-            landmarkName = "collectPayment()"
+            landmarkName = "collectPayment(cart:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -48,84 +48,6 @@
                   startingLineNumber = "56"
                   endingLineNumber = "56"
                   offsetFromSymbolStart = "196">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8A1AE9F5-DA81-4A20-9742-2F0F2F4DAFA1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ma Seconde Cabane/Stripe/StripeController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "collectPayment()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8A1AE9F5-DA81-4A20-9742-2F0F2F4DAFA1 - 1596b8bdba9e2cce"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for Ma_Seconde_Cabane.StripeController.collectPayment() async throws -&gt; ()"
-                  moduleName = "Ma Seconde Cabane"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arguiot/Developer/masecondecabane/Ma%20Seconde%20Cabane/Ma%20Seconde%20Cabane/Stripe/StripeController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50"
-                  offsetFromSymbolStart = "304">
-               </Location>
-               <Location
-                  uuid = "8A1AE9F5-DA81-4A20-9742-2F0F2F4DAFA1 - de4e483aefd4ca17"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for Ma_Seconde_Cabane.StripeController.collectPayment() async throws -&gt; ()"
-                  moduleName = "Ma Seconde Cabane"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arguiot/Developer/masecondecabane/Ma%20Seconde%20Cabane/Ma%20Seconde%20Cabane/Stripe/StripeController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50"
-                  offsetFromSymbolStart = "52">
-               </Location>
-               <Location
-                  uuid = "8A1AE9F5-DA81-4A20-9742-2F0F2F4DAFA1 - 8e40ebeeb3f170cc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for Ma_Seconde_Cabane.StripeController.collectPayment() async throws -&gt; ()"
-                  moduleName = "Ma Seconde Cabane"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arguiot/Developer/masecondecabane/Ma%20Seconde%20Cabane/Ma%20Seconde%20Cabane/Stripe/StripeController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50"
-                  offsetFromSymbolStart = "52">
-               </Location>
-               <Location
-                  uuid = "8A1AE9F5-DA81-4A20-9742-2F0F2F4DAFA1 - baa804b0286516c3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for Ma_Seconde_Cabane.StripeController.collectPayment() async throws -&gt; ()"
-                  moduleName = "Ma Seconde Cabane"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arguiot/Developer/masecondecabane/Ma%20Seconde%20Cabane/Ma%20Seconde%20Cabane/Stripe/StripeController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50"
-                  offsetFromSymbolStart = "44">
                </Location>
             </Locations>
          </BreakpointContent>

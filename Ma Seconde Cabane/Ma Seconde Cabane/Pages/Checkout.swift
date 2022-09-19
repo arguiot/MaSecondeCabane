@@ -42,7 +42,7 @@ struct Checkout: View {
                 // Checkout
                 Task {
                     do {
-                        try await stripeController.collectPayment()
+                        try await stripeController.collectPayment(cart: self.cart, email: <#String#>)
                     } catch {
                         ErrorManager.shared.push(title: "Collect Payment", error: error)
                     }   

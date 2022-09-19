@@ -45,11 +45,11 @@ class StripeController: NSObject, ObservableObject {
         }
     }
     
-    func collectPayment() async throws {
-        let params = PaymentIntentParameters(amount: 1000,
+    func collectPayment(cart: Cart, email: String) async throws {
+        let params = PaymentIntentParameters(amount: UInt(cart.total),
                                              currency: "cad",
                                              paymentMethodTypes: ["card_present","interac_present"])
-        
+        params.receiptEmail = email
         let createResult = try await Terminal.shared.createPaymentIntent(params)
         
         Terminal.shared.collectPaymentMethod(createResult) { collectResult, collectError in
