@@ -57,6 +57,7 @@
 		6818D0EF28D9370F00AB5268 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		68702E1228D9FCCF007ED1EC /* applepay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = applepay.json; sourceTree = "<group>"; };
 		68702E1428DA02D5007ED1EC /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
+		68702E1628DA3562007ED1EC /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		6878D9E228CFDD57007BF35A /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		6878D9E828CFDE94007BF35A /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6878D9EA28CFDE95007BF35A /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
@@ -178,6 +179,7 @@
 		68D32C4928CFCF1E007E6EDE = {
 			isa = PBXGroup;
 			children = (
+				68702E1628DA3562007ED1EC /* Secrets.xcconfig */,
 				68D32C5428CFCF1E007E6EDE /* Ma Seconde Cabane */,
 				6878D9E928CFDE95007BF35A /* AppTests */,
 				68D32C5328CFCF1E007E6EDE /* Products */,
@@ -429,6 +431,7 @@
 		};
 		68D32C5E28CFCF1F007E6EDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68702E1628DA3562007ED1EC /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -489,6 +492,7 @@
 		};
 		68D32C5F28CFCF1F007E6EDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68702E1628DA3562007ED1EC /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

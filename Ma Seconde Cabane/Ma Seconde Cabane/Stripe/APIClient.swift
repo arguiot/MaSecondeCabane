@@ -7,6 +7,7 @@
 
 import Foundation
 import StripeTerminal
+import CryptoKit
 
 public class APIClient: NSObject, ConnectionTokenProvider {
     public static let shared = APIClient()
@@ -21,6 +22,15 @@ public class APIClient: NSObject, ConnectionTokenProvider {
             fatalError("Base URL is invalid")
         }
     }
+
+    // MARK: Token
+    var accessToken: String {
+        let token = Bundle.main.infoDictionary?["POS_TOKEN"] as? String
+        // SHA256 hash of the token
+        let hash = SHA256.hash(data: token!.data(using: .utf8)!)
+        let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
+        return hashString
+    }
     
     // MARK: ConnectionTokenProvider
     fileprivate struct ConnectionToken: Decodable {
@@ -32,7 +42,9 @@ public class APIClient: NSObject, ConnectionTokenProvider {
     }
     public func fetchConnectionToken() async throws -> String {
         let url = self.baseURL.appendingPathComponent("connection_token")
-        let (data, _) = try await URLSession.shared.data(from: url)
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        let (data, _) = try await URLSession.shared.data(for: request)
         let token = try JSONDecoder().decode(ConnectionToken.self, from: data)
         return token.secret.secret
     }
@@ -58,6 +70,7 @@ public class APIClient: NSObject, ConnectionTokenProvider {
         request.httpMethod = "POST"
         // Set Headers
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         // Set HTTP Request Body
         request.httpBody = parameters.data(using: .utf8)
         

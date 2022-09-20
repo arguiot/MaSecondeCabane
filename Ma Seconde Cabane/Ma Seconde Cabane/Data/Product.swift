@@ -33,7 +33,9 @@ public struct Product: Codable {
     public static func from(id: String) async throws -> Product {
         guard id != "" else { throw URLError(.badURL) }
         let url = URL(string: "https://masecondecabane.com/api/pos/product/\(id)")!
-        let (data, _) = try await URLSession.shared.data(from: url)
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(APIClient.shared.accessToken)", forHTTPHeaderField: "Authorization")
+        let (data, _) = try await URLSession.shared.data(for: request)
         let decoder = JSONDecoder()
         let product = try decoder.decode(Product.self, from: data)
         return product
