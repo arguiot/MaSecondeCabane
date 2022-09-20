@@ -37,6 +37,16 @@ public class APIClient: NSObject, ConnectionTokenProvider {
         return token.secret.secret
     }
     
+    enum CapturePaymentError: LocalizedError {
+        case noResponse
+        var errorDescription: String? {
+            switch self {
+            case .noResponse:
+                return "Le serveur n'a pas capturé le paiement. Vous ne serez pas facturé."
+            }
+        }
+    }
+    
     func capturePaymentIntent(_ paymentIntentId: String) async throws {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config, delegate: nil, delegateQueue: OperationQueue.main)
@@ -46,8 +56,16 @@ public class APIClient: NSObject, ConnectionTokenProvider {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        // Set Headers
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        // Set HTTP Request Body
         request.httpBody = parameters.data(using: .utf8)
         
-        let (_, _) = try await session.data(for: request)
+        let (data, _) = try await session.data(for: request)
+        
+        // Print out response string
+        let responseString = String(data: data, encoding: .utf8)
+        
+        guard responseString != "" else { throw CapturePaymentError.noResponse }
     }
 }

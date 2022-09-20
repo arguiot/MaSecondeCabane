@@ -15,7 +15,7 @@ struct Scanner: View {
     
     var body: some View {
         ZStack {
-            CodeScannerView(codeTypes: [.code128], scanMode: .oncePerCode) { response in
+            CodeScannerView(codeTypes: [.code128], scanMode: .continuous) { response in
                 if case let .success(result) = response {
                     productID = result.string
                     showCard = true
@@ -43,7 +43,7 @@ struct Scanner: View {
                     .frame(height: 100)
                 // Long green button for checkout
                 NavigationLink(isActive: $showCheckout) {
-                    Checkout()
+                    Checkout(showCheckout: $showCheckout)
                 } label: {
                     Button("Checkout", action: {
                         // Checkout

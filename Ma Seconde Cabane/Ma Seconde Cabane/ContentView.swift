@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var stripeController = StripeController()
+    
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             ReaderConnect()
             ErrorOverlay()
         }
+        .environmentObject(stripeController)
     }
 }
 

@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      of your Heroku app.
      static var backendUrl: String? = "https://your-app.herokuapp.com"
      */
-    static var backendUrl: String? = "https://masecondecabane.com/api/pos/"
+    static var backendUrl: String? = "https://dev.masecondecabane.com/api/pos/"
     
     static var apiClient: APIClient?
     

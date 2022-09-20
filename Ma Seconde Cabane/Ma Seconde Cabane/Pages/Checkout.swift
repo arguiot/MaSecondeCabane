@@ -9,7 +9,10 @@ import SwiftUI
 
 struct Checkout: View {
     @ObservedObject var cart = Cart.shared
-    @EnvironmentObject var stripeController: StripeController
+    
+    @State var continuePage = false
+    @Binding var showCheckout: Bool
+    
     var body: some View {
         VStack {
             List {
@@ -38,18 +41,16 @@ struct Checkout: View {
                 Text("\(String(format: "%.2f", Double(cart.tax) / 100))$")
             }
             .padding()
-            Button {
-                // Checkout
-                Task {
-                    do {
-                        try await stripeController.collectPayment(cart: self.cart, email: <#String#>)
-                    } catch {
-                        ErrorManager.shared.push(title: "Collect Payment", error: error)
-                    }   
-                }
+            NavigationLink(isActive: $continuePage) {
+                ClientInfo(showCheckout: $showCheckout)
             } label: {
-                Text("Checkout - \(String(format: "%.2f", Double(cart.total) / 100))$")
-            }.buttonStyle(BigButtonStyle())
+                Button {
+                    // Checkout
+                    self.continuePage = true
+                } label: {
+                    Text("Continuer - \(String(format: "%.2f", Double(cart.total) / 100))$")
+                }.buttonStyle(BigButtonStyle())
+            }
         }
         .navigationTitle("Current Sale (\(cart.products.count))")
         .navigationBarTitleDisplayMode(.inline)
@@ -69,6 +70,6 @@ struct Checkout: View {
 
 struct Checkout_Previews: PreviewProvider {
     static var previews: some View {
-        Checkout()
+        Checkout(showCheckout: .constant(true))
     }
 }

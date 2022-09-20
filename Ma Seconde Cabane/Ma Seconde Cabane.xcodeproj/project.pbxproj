@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6818D0EB28D935B100AB5268 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818D0EA28D935B100AB5268 /* PaymentView.swift */; };
+		6818D0ED28D936F500AB5268 /* checkout.json in Resources */ = {isa = PBXBuildFile; fileRef = 6818D0EC28D936F500AB5268 /* checkout.json */; };
+		6818D0F028D9370F00AB5268 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818D0EF28D9370F00AB5268 /* LottieView.swift */; };
+		68702E1328D9FCCF007ED1EC /* applepay.json in Resources */ = {isa = PBXBuildFile; fileRef = 68702E1228D9FCCF007ED1EC /* applepay.json */; };
+		68702E1528DA02D5007ED1EC /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 68702E1428DA02D5007ED1EC /* success.json */; };
 		6878D9E328CFDD57007BF35A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9E228CFDD57007BF35A /* Product.swift */; };
 		6878D9EB28CFDE95007BF35A /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9EA28CFDE95007BF35A /* AppTests.swift */; };
 		6878D9F228CFDEAB007BF35A /* DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878D9F128CFDEAB007BF35A /* DataTests.swift */; };
+		688176F028D94EA4009473F3 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 688176EF28D94EA4009473F3 /* Lottie */; };
 		689C9F2028D0DAB100DE95D0 /* StripeTerminal in Frameworks */ = {isa = PBXBuildFile; productRef = 689C9F1F28D0DAB100DE95D0 /* StripeTerminal */; };
 		689C9F2428D0DC9000DE95D0 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C9F2328D0DC9000DE95D0 /* APIClient.swift */; };
 		68A2E3FD28D7AE7400FEC28C /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E3FC28D7AE7400FEC28C /* CartView.swift */; };
@@ -46,6 +52,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6818D0EA28D935B100AB5268 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
+		6818D0EC28D936F500AB5268 /* checkout.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = checkout.json; sourceTree = "<group>"; };
+		6818D0EF28D9370F00AB5268 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		68702E1228D9FCCF007ED1EC /* applepay.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = applepay.json; sourceTree = "<group>"; };
+		68702E1428DA02D5007ED1EC /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		6878D9E228CFDD57007BF35A /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		6878D9E828CFDE94007BF35A /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6878D9EA28CFDE95007BF35A /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
@@ -89,12 +100,24 @@
 				68A2E41228D7E9DA00FEC28C /* BatteryView in Frameworks */,
 				68D32C6528CFD0D5007E6EDE /* CodeScanner in Frameworks */,
 				689C9F2028D0DAB100DE95D0 /* StripeTerminal in Frameworks */,
+				688176F028D94EA4009473F3 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6818D0EE28D936F900AB5268 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				6818D0EC28D936F500AB5268 /* checkout.json */,
+				68702E1228D9FCCF007ED1EC /* applepay.json */,
+				68702E1428DA02D5007ED1EC /* success.json */,
+				6818D0EF28D9370F00AB5268 /* LottieView.swift */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		6878D9E128CFDD4D007BF35A /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +153,7 @@
 				68A2E40628D7BAA500FEC28C /* Checkout.swift */,
 				68A2E40E28D7DE4600FEC28C /* Scanner.swift */,
 				68A2E41A28D9039C00FEC28C /* ClientInfo.swift */,
+				6818D0EA28D935B100AB5268 /* PaymentView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -172,6 +196,7 @@
 		68D32C5428CFCF1E007E6EDE /* Ma Seconde Cabane */ = {
 			isa = PBXGroup;
 			children = (
+				6818D0EE28D936F900AB5268 /* Lottie */,
 				68A2E41328D8EEC100FEC28C /* Error */,
 				68A2E40528D7BA9000FEC28C /* Pages */,
 				689C9F2228D0DC5E00DE95D0 /* Stripe */,
@@ -245,6 +270,7 @@
 				68A2E40128D7B4FE00FEC28C /* Pow */,
 				68A2E40C28D7C79600FEC28C /* Introspect */,
 				68A2E41128D7E9DA00FEC28C /* BatteryView */,
+				688176EF28D94EA4009473F3 /* Lottie */,
 			);
 			productName = "Ma Seconde Cabane";
 			productReference = 68D32C5228CFCF1E007E6EDE /* Ma Seconde Cabane.app */;
@@ -284,6 +310,7 @@
 				68A2E40028D7B4FE00FEC28C /* XCRemoteSwiftPackageReference "Pow" */,
 				68A2E40B28D7C79600FEC28C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				68A2E41028D7E9DA00FEC28C /* XCRemoteSwiftPackageReference "BatteryView" */,
+				688176EE28D94EA4009473F3 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 68D32C5328CFCF1E007E6EDE /* Products */;
 			projectDirPath = "";
@@ -308,7 +335,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				68D32C5D28CFCF1F007E6EDE /* Preview Assets.xcassets in Resources */,
+				6818D0ED28D936F500AB5268 /* checkout.json in Resources */,
+				68702E1528DA02D5007ED1EC /* success.json in Resources */,
 				68D32C5A28CFCF1F007E6EDE /* Assets.xcassets in Resources */,
+				68702E1328D9FCCF007ED1EC /* applepay.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +368,9 @@
 				68A2E41B28D9039C00FEC28C /* ClientInfo.swift in Sources */,
 				68A2E3FD28D7AE7400FEC28C /* CartView.swift in Sources */,
 				68A2E41728D8EF5F00FEC28C /* ErrorOverlay.swift in Sources */,
+				6818D0EB28D935B100AB5268 /* PaymentView.swift in Sources */,
 				689C9F2428D0DC9000DE95D0 /* APIClient.swift in Sources */,
+				6818D0F028D9370F00AB5268 /* LottieView.swift in Sources */,
 				68CCCD8728D3C50000035E52 /* StripeController.swift in Sources */,
 				68A2E40728D7BAA500FEC28C /* Checkout.swift in Sources */,
 				68A2E41928D8F20400FEC28C /* ContentView.swift in Sources */,
@@ -620,6 +652,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		688176EE28D94EA4009473F3 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		689C9F1E28D0DAB100DE95D0 /* XCRemoteSwiftPackageReference "stripe-terminal-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stripe/stripe-terminal-ios";
@@ -663,6 +703,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		688176EF28D94EA4009473F3 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 688176EE28D94EA4009473F3 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		689C9F1F28D0DAB100DE95D0 /* StripeTerminal */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 689C9F1E28D0DAB100DE95D0 /* XCRemoteSwiftPackageReference "stripe-terminal-ios" */;

@@ -10,7 +10,7 @@ import StripeTerminal
 import BatteryView
 
 struct ReaderConnect: View {
-    @StateObject var stripeController = StripeController()
+    @EnvironmentObject var stripeController: StripeController
     
     func imageFor(reader: Reader) -> Image {
         switch reader.deviceType {
@@ -122,12 +122,19 @@ struct ReaderConnect: View {
                             Text("Software: ") + Text(selectedReader.deviceSoftwareVersion ?? "Unknown")
                         }
                     }
+                    List {
+                        Section("Emplacement") {
+                            HStack { Text("Nom"); Spacer(); Text(selectedReader.location?.displayName ?? "Unknown") }
+                            HStack { Text("ID"); Spacer(); Text(selectedReader.location?.stripeId ?? "Unknown") }
+                        }
+                    }
                     Spacer()
                     NavigationLink(isActive: $scanning) {
                         Scanner()
                     } label: {
                         Button("Commencer à scanner") {
                             // Start Scanning
+                            Cart.shared.products = [] // Empty cart
                             scanning.toggle()
                         }
                         .buttonStyle(BigButtonStyle())
@@ -137,7 +144,6 @@ struct ReaderConnect: View {
             }
         }
         .navigationViewStyle(.stack)
-        .environmentObject(stripeController)
         .task {
             await stripeController.discoverReaders()
         }
