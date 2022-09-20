@@ -59,12 +59,23 @@ public class APIClient: NSObject, ConnectionTokenProvider {
         }
     }
     
+    struct PaymentIntentPayload: Encodable {
+        var payment_intent_id: String
+        
+        struct CartItem: Encodable {
+            var product: String
+            var quantity: Int
+        }
+        var items: [CartItem]
+    }
+    
     func capturePaymentIntent(_ paymentIntentId: String) async throws {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config, delegate: nil, delegateQueue: OperationQueue.main)
         let url = self.baseURL.appendingPathComponent("capture_payment_intent")
         
-        let parameters = "{\"payment_intent_id\": \"\(paymentIntentId)\"}"
+        let payload = PaymentIntentPayload(payment_intent_id: paymentIntentId, items: Cart.shared.products.map { PaymentIntentPayload.CartItem(product: $0._id, quantity: 1) })
+        let encoder = JSONEncoder()
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -72,7 +83,7 @@ public class APIClient: NSObject, ConnectionTokenProvider {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         // Set HTTP Request Body
-        request.httpBody = parameters.data(using: .utf8)
+        request.httpBody = try encoder.encode(payload)
         
         let (data, _) = try await session.data(for: request)
         

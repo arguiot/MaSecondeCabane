@@ -8,6 +8,7 @@
 import SwiftUI
 import StripeTerminal
 
+@MainActor
 class StripeController: NSObject, ObservableObject {
     
     var discoverCancelable: Cancelable?
@@ -34,10 +35,17 @@ class StripeController: NSObject, ObservableObject {
     }
     @Published var paymentState = PaymentState.createIntent
     
-    func discoverReaders() async {
+    func discoverReaders(simulated: Bool) async {
+        if let cancellable = self.discoverCancelable {
+            do {
+                try await cancellable.cancel()
+            } catch {
+                ErrorManager.shared.push(title: "Cancel discovery", error: error)
+            }
+        }
         let config = DiscoveryConfiguration(
             discoveryMethod: .bluetoothScan,
-            simulated: true
+            simulated: simulated
         )
         self.state = .discovery
         self.readers = []

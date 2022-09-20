@@ -68,11 +68,13 @@ struct ReaderConnect: View {
     
     @State var selectedReaderSerial = ""
     @State var scanning = false
+    @State var simulated = false
     
     var body: some View {
         NavigationView {
             if stripeController.state == .discovery {
                 List {
+                    Toggle("Simulated", isOn: $simulated)
                     Section {
                         ForEach(stripeController.readers, id: \.serialNumber) { reader in
                             HStack {
@@ -100,6 +102,7 @@ struct ReaderConnect: View {
                         HStack {
                             ProgressView()
                             Text("Searching")
+                                .padding()
                         }
                     }
 
@@ -127,6 +130,16 @@ struct ReaderConnect: View {
                             HStack { Text("Nom"); Spacer(); Text(selectedReader.location?.displayName ?? "Unknown") }
                             HStack { Text("ID"); Spacer(); Text(selectedReader.location?.stripeId ?? "Unknown") }
                         }
+                        Button("Disconnect", role: .destructive) {
+                            Task {
+                                do {
+                                    try await Terminal.shared.disconnectReader()
+                                    await stripeController.discoverReaders(simulated: simulated)
+                                } catch {
+                                    ErrorManager.shared.push(title: "Unable to disconnect", error: error)
+                                }
+                            }
+                        }
                     }
                     Spacer()
                     NavigationLink(isActive: $scanning) {
@@ -144,8 +157,8 @@ struct ReaderConnect: View {
             }
         }
         .navigationViewStyle(.stack)
-        .task {
-            await stripeController.discoverReaders()
+        .task(id: simulated) {
+            await stripeController.discoverReaders(simulated: simulated)
         }
     }
 }

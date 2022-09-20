@@ -8,6 +8,7 @@
 import Foundation
 import StripeTerminal
 
+@MainActor
 class ErrorManager: ObservableObject {
     static let shared = ErrorManager()
     
