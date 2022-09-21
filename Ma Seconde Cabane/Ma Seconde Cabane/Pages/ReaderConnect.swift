@@ -95,6 +95,7 @@ struct ReaderConnect: View {
                                     } catch {
                                         ErrorManager.shared.push(title: "Connect Reader", error: error)
                                     }
+                                    self.selectedReaderSerial = ""
                                 }
                             }
                         }

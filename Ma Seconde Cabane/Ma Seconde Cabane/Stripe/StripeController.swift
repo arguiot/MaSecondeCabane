@@ -36,9 +36,16 @@ class StripeController: NSObject, ObservableObject {
     @Published var paymentState = PaymentState.createIntent
     
     func discoverReaders(simulated: Bool) async {
-        if let cancellable = self.discoverCancelable {
+        self.state = .discovery
+        self.readers = []
+        
+    cancelCheck: if let cancellable = self.discoverCancelable {
             do {
+                guard cancellable.completed == false else { break cancelCheck }
                 try await cancellable.cancel()
+                self.state = .discovery
+                self.readers = []
+                try await Task.sleep(nanoseconds: 2 * 1_000_000_000) // Wait for task to actually cancel
             } catch {
                 ErrorManager.shared.push(title: "Cancel discovery", error: error)
             }
@@ -47,8 +54,7 @@ class StripeController: NSObject, ObservableObject {
             discoveryMethod: .bluetoothScan,
             simulated: simulated
         )
-        self.state = .discovery
-        self.readers = []
+        
         self.discoverCancelable = Terminal.shared.discoverReaders(config, delegate: self) { error in
             if let error = error {
                 ErrorManager.shared.push(title: "Discover Reader", error: error)
