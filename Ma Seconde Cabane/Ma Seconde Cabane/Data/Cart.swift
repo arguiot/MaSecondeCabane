@@ -15,8 +15,14 @@ class Cart: ObservableObject {
     var subtotal: Int {
         return products.reduce(0) { $0 + $1.price }
     }
+    var gst: Int {
+        return subtotal * 5
+    }
+    var qst: Int {
+        return Int(round(Double(subtotal) * 9.975))
+    }
     var tax: Int {
-        return subtotal * 20 // 20%
+        return gst + qst
     }
     var total: Int {
         return subtotal * 100 + tax

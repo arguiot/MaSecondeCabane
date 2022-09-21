@@ -93,3 +93,65 @@ public class APIClient: NSObject, ConnectionTokenProvider {
         guard responseString != "" else { throw CapturePaymentError.noResponse }
     }
 }
+
+
+// MARK: - Locations
+extension APIClient {
+    
+    struct Location: Codable {
+        var display_name: String
+        var address: Address
+        struct Address: Codable {
+            var city: String?
+            var country: String
+            var line1: String
+            var line2: String?
+            var postal_code: String?
+            var state: String?
+        }
+    }
+    
+    struct LocationObject: Decodable {
+        var id: String
+        var display_name: String
+        var address: Location.Address
+    }
+    
+    func listLocations() async throws -> [LocationObject] {
+        let url = self.baseURL.appendingPathComponent("list_locations")
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        let (data, _) = try await URLSession.shared.data(for: request)
+        
+        struct Locations: Decodable {
+            var data: [LocationObject]
+        }
+        
+        let locations = try JSONDecoder().decode(Locations.self, from: data)
+        
+        return locations.data
+    }
+    
+    func createLocation(location: Location) async throws {
+        let url = self.baseURL.appendingPathComponent("create_location")
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONEncoder().encode(location)
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let _ = try JSONDecoder().decode(LocationObject.self, from: data)
+    }
+
+    func deleteLocation(locationId: String) async throws {
+        let url = self.baseURL.appendingPathComponent("delete_location")
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONEncoder().encode(["id": locationId])
+        
+        let (_, _) = try await URLSession.shared.data(for: request)
+    }
+}

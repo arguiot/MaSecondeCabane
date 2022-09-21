@@ -28,6 +28,17 @@ struct PaymentView: View {
         case .collectPayment:
             VStack {
                 LottieView(lottieFile: "applepay", to: 0.52)
+                Button("Annuler") {
+                    Task {
+                        do {
+                            try await self.stripeController.collectCancelable?.cancel()
+                            showCheckout = false
+                        } catch {
+                            ErrorManager.shared.push(title: "Collect Payment", error: error)
+                        }
+                    }
+                }
+                .buttonStyle(BigButtonStyle(color: .red))
                 Text("Attente du paiement...")
             }
         case .processPayment:
@@ -43,6 +54,7 @@ struct PaymentView: View {
         case .done(let id):
             VStack {
                 LottieView(lottieFile: "success")
+                    .frame(width: 200)
                 Text("C'est bon!")
             }
             .task(id: id) {

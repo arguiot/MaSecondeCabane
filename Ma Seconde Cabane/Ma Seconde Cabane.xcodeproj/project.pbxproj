@@ -31,6 +31,8 @@
 		68A2E41728D8EF5F00FEC28C /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41628D8EF5E00FEC28C /* ErrorOverlay.swift */; };
 		68A2E41928D8F20400FEC28C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41828D8F20400FEC28C /* ContentView.swift */; };
 		68A2E41B28D9039C00FEC28C /* ClientInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E41A28D9039C00FEC28C /* ClientInfo.swift */; };
+		68ADBA8D28DB622100FF08BF /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADBA8C28DB622100FF08BF /* Locations.swift */; };
+		68ADBA8F28DB93B500FF08BF /* ReaderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADBA8E28DB93B500FF08BF /* ReaderInfo.swift */; };
 		68CCCD8528D3875500035E52 /* StripeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CCCD8428D3875500035E52 /* StripeTests.swift */; };
 		68CCCD8728D3C50000035E52 /* StripeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CCCD8628D3C50000035E52 /* StripeController.swift */; };
 		68D32C5628CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C5528CFCF1E007E6EDE /* Ma_Seconde_CabaneApp.swift */; };
@@ -74,6 +76,8 @@
 		68A2E41628D8EF5E00FEC28C /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
 		68A2E41828D8F20400FEC28C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		68A2E41A28D9039C00FEC28C /* ClientInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInfo.swift; sourceTree = "<group>"; };
+		68ADBA8C28DB622100FF08BF /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
+		68ADBA8E28DB93B500FF08BF /* ReaderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderInfo.swift; sourceTree = "<group>"; };
 		68CCCD8428D3875500035E52 /* StripeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeTests.swift; sourceTree = "<group>"; };
 		68CCCD8628D3C50000035E52 /* StripeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeController.swift; sourceTree = "<group>"; };
 		68D32C5228CFCF1E007E6EDE /* Ma Seconde Cabane.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ma Seconde Cabane.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,10 +155,12 @@
 			isa = PBXGroup;
 			children = (
 				68D32C5728CFCF1E007E6EDE /* ReaderConnect.swift */,
+				68ADBA8E28DB93B500FF08BF /* ReaderInfo.swift */,
 				68A2E40628D7BAA500FEC28C /* Checkout.swift */,
 				68A2E40E28D7DE4600FEC28C /* Scanner.swift */,
 				68A2E41A28D9039C00FEC28C /* ClientInfo.swift */,
 				6818D0EA28D935B100AB5268 /* PaymentView.swift */,
+				68ADBA8C28DB622100FF08BF /* Locations.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -376,8 +382,10 @@
 				68CCCD8728D3C50000035E52 /* StripeController.swift in Sources */,
 				68A2E40728D7BAA500FEC28C /* Checkout.swift in Sources */,
 				68A2E41928D8F20400FEC28C /* ContentView.swift in Sources */,
+				68ADBA8D28DB622100FF08BF /* Locations.swift in Sources */,
 				68D32C6828CFD325007E6EDE /* AsyncProductView.swift in Sources */,
 				68A2E40F28D7DE4600FEC28C /* Scanner.swift in Sources */,
+				68ADBA8F28DB93B500FF08BF /* ReaderInfo.swift in Sources */,
 				68A2E3FF28D7AFEA00FEC28C /* Cart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

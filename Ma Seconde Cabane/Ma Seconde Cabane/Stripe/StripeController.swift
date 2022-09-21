@@ -15,15 +15,10 @@ class StripeController: NSObject, ObservableObject {
     var collectCancelable: Cancelable?
     
     
-    enum ControllerState: Equatable {
-        case idle
-        case discovery
-        case ready
-    }
-    
-    @Published var state = ControllerState.idle
     @Published var readers = [Reader]()
     @Published var selectedReader: Reader? = nil
+    
+    @Published var locationID = ""
     
     enum PaymentState: Equatable {
         case none
@@ -36,14 +31,15 @@ class StripeController: NSObject, ObservableObject {
     @Published var paymentState = PaymentState.createIntent
     
     func discoverReaders(simulated: Bool) async {
-        self.state = .discovery
+        // Only connect if we aren't currently connected.
+        guard Terminal.shared.connectionStatus == .notConnected else { return }
+        
         self.readers = []
         
     cancelCheck: if let cancellable = self.discoverCancelable {
             do {
                 guard cancellable.completed == false else { break cancelCheck }
                 try await cancellable.cancel()
-                self.state = .discovery
                 self.readers = []
                 try await Task.sleep(nanoseconds: 2 * 1_000_000_000) // Wait for task to actually cancel
             } catch {
@@ -58,10 +54,8 @@ class StripeController: NSObject, ObservableObject {
         self.discoverCancelable = Terminal.shared.discoverReaders(config, delegate: self) { error in
             if let error = error {
                 ErrorManager.shared.push(title: "Discover Reader", error: error)
-                self.state = .idle
             } else {
                 print("discoverReaders succeeded")
-                self.state = .ready
             }
         }
     }
@@ -82,7 +76,7 @@ class StripeController: NSObject, ObservableObject {
         
         self.paymentState = .collectPayment
         
-        Terminal.shared.collectPaymentMethod(createResult) { collectResult, collectError in
+        self.collectCancelable = Terminal.shared.collectPaymentMethod(createResult) { collectResult, collectError in
             if collectError != nil {
                 ErrorManager.shared.push(title: "Collect Payment", error: collectError!)
             } else if let paymentIntent = collectResult {
@@ -118,7 +112,7 @@ class StripeController: NSObject, ObservableObject {
 
 extension StripeController: DiscoveryDelegate {
     func terminal(_ terminal: Terminal, didUpdateDiscoveredReaders readers: [Reader]) {
-        self.state = .discovery
+        guard Terminal.shared.connectionStatus == .notConnected else { return }
         self.readers = readers
     }
     
@@ -134,7 +128,7 @@ extension StripeController: DiscoveryDelegate {
                 //
                 // Since the simulated reader is not associated with a real location, we recommend
                 // specifying its existing mock location.
-                locationId: selectedReader.locationId!
+                locationId: locationID
             )
             Terminal.shared.connectBluetoothReader(selectedReader, delegate: self, connectionConfig: connectionConfig) { reader, error in
                 if let reader = reader {

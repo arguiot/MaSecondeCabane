@@ -36,9 +36,15 @@ struct Checkout: View {
             }
             Spacer()
             HStack {
-                Text("Tax")
+                Text("TPS")
                 Spacer()
-                Text("\(String(format: "%.2f", Double(cart.tax) / 100))$")
+                Text("\(String(format: "%.2f", Double(cart.gst) / 100))$")
+            }
+            .padding(.horizontal)
+            HStack {
+                Text("TVQ")
+                Spacer()
+                Text("\(String(format: "%.2f", Double(cart.qst) / 100))$")
             }
             .padding()
             NavigationLink(isActive: $continuePage) {

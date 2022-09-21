@@ -12,7 +12,16 @@ struct ContentView: View {
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            ReaderConnect()
+            if stripeController.selectedReader == nil {
+                NavigationView {
+                    Locations()
+                }
+                
+            } else {
+                NavigationView {
+                    ReaderInfo()
+                }
+            }
             ErrorOverlay()
         }
         .environmentObject(stripeController)
