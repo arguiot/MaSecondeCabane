@@ -27,7 +27,6 @@ struct ProductView<Content: View>: View {
                 Text(product.description)
                 Text(String(product.price)).bold() + Text("$")
             }
-            .foregroundColor(.black)
             
             content
         }

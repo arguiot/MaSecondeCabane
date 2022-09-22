@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import StripeTerminal
 
 struct PaymentView: View {
     @EnvironmentObject var stripeController: StripeController
-    @Binding var showCheckout: Bool
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         switch stripeController.paymentState {
@@ -32,10 +34,12 @@ struct PaymentView: View {
                     Task {
                         do {
                             try await self.stripeController.collectCancelable?.cancel()
-                            showCheckout = false
                         } catch {
-                            ErrorManager.shared.push(title: "Collect Payment", error: error)
+                            if error as NSError != NSError(domain: ErrorDomain, code: 2020) {
+                                ErrorManager.shared.push(title: "Collect Payment", error: error)
+                            }
                         }
+                        self.dismiss()
                     }
                 }
                 .buttonStyle(BigButtonStyle(color: .red))
@@ -60,8 +64,9 @@ struct PaymentView: View {
             .task(id: id) {
                 Cart.shared.products = [] // Empty cart
                 // Delay to let the user see the success animation
-                await Task.sleep(2 * 1_000_000_000) // 2 seconds
-                showCheckout = false
+                try! await Task.sleep(nanoseconds: 15 * 1_000_000_00) // 1.5 seconds
+                // Send payment success notification to dismiss the view
+                NotificationCenter.default.post(name: .paymentSuccess, object: nil)
             }
         }
     }
@@ -69,6 +74,6 @@ struct PaymentView: View {
 
 struct PaymentView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentView(showCheckout: .constant(true))
+        PaymentView()
     }
 }

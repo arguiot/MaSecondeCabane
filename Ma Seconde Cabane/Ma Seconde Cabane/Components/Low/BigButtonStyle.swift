@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BigButtonStyle: ButtonStyle {
     var color: Color
-    init(color: Color = .blue) {
+    init(color: Color = .accentColor) {
         self.color = color
     }
     func makeBody(configuration: Self.Configuration) -> some View {

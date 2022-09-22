@@ -77,8 +77,10 @@ class StripeController: NSObject, ObservableObject {
         self.paymentState = .collectPayment
         
         self.collectCancelable = Terminal.shared.collectPaymentMethod(createResult) { collectResult, collectError in
-            if collectError != nil {
-                ErrorManager.shared.push(title: "Collect Payment", error: collectError!)
+            if collectError != nil, let nsError = collectError as? NSError {
+                if nsError.domain == ErrorDomain && nsError.code != 2020 { // Cancelled
+                    ErrorManager.shared.push(title: "Collect Payment", error: collectError!)
+                }
             } else if let paymentIntent = collectResult {
                 print("collectPaymentMethod succeeded")
                 

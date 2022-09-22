@@ -43,13 +43,16 @@ struct Scanner: View {
                     .frame(height: 100)
                 // Long green button for checkout
                 NavigationLink(isActive: $showCheckout) {
-                    Checkout(showCheckout: $showCheckout)
+                    Checkout()
                 } label: {
                     Button("Checkout", action: {
                         // Checkout
                         self.showCheckout.toggle()
+                        NotificationCenter.default.addObserver(forName: .paymentSuccess, object: nil, queue: .main) { _ in
+                            self.showCheckout = false
+                        }
                     })
-                    .buttonStyle(BigButtonStyle(color: .green))
+                    .buttonStyle(BigButtonStyle())
                     .cornerRadius(5)
                     .disabled(Cart.shared.products.isEmpty)
                     .opacity(Cart.shared.products.isEmpty ? 0.5 : 1)
@@ -58,6 +61,10 @@ struct Scanner: View {
             .padding()
         }
     }
+}
+
+extension Notification.Name {
+    static let paymentSuccess = Notification.Name("paymentSuccess")
 }
 
 struct Scanner_Previews: PreviewProvider {

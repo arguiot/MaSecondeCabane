@@ -16,11 +16,12 @@ struct ContentView: View {
                 NavigationView {
                     Locations()
                 }
-                
+                .navigationViewStyle(.stack)
             } else {
                 NavigationView {
                     ReaderInfo()
                 }
+                .navigationViewStyle(.stack)
             }
             ErrorOverlay()
         }

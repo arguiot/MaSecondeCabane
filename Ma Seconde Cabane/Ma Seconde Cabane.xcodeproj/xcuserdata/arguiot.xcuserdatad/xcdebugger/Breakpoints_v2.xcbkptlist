@@ -20,5 +20,84 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "78DB6C2F-EB03-4723-A8B9-1AB91DCC3FEB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ma Seconde Cabane/Pages/PaymentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "78DB6C2F-EB03-4723-A8B9-1AB91DCC3FEB - 2c4edbda7300b70"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #1 () -&gt; () in closure #3 () -&gt; SwiftUI.TupleView&lt;(Ma_Seconde_Cabane.LottieView, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.Text)&gt; in Ma_Seconde_Cabane.PaymentView.body.getter : some"
+                  moduleName = "Ma Seconde Cabane"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arguiot/Developer/masecondecabane/Ma%20Seconde%20Cabane/Ma%20Seconde%20Cabane/Pages/PaymentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  uuid = "78DB6C2F-EB03-4723-A8B9-1AB91DCC3FEB - 4cb29d3ed817776e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #1 () -&gt; () in closure #3 () -&gt; SwiftUI.TupleView&lt;(Ma_Seconde_Cabane.LottieView, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.Text)&gt; in Ma_Seconde_Cabane.PaymentView.body.getter : some"
+                  moduleName = "Ma Seconde Cabane"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arguiot/Developer/masecondecabane/Ma%20Seconde%20Cabane/Ma%20Seconde%20Cabane/Pages/PaymentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "78DB6C2F-EB03-4723-A8B9-1AB91DCC3FEB - abb7957fae7a116f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #1 () -&gt; () in closure #3 () -&gt; SwiftUI.TupleView&lt;(Ma_Seconde_Cabane.LottieView, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.Text)&gt; in Ma_Seconde_Cabane.PaymentView.body.getter : some"
+                  moduleName = "Ma Seconde Cabane"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arguiot/Developer/masecondecabane/Ma%20Seconde%20Cabane/Ma%20Seconde%20Cabane/Pages/PaymentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "440">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "45D1CC9A-F34D-4177-864B-576ACFBA947B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ma Seconde Cabane/Pages/PaymentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -11,7 +11,7 @@ struct Checkout: View {
     @ObservedObject var cart = Cart.shared
     
     @State var continuePage = false
-    @Binding var showCheckout: Bool
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
@@ -48,7 +48,7 @@ struct Checkout: View {
             }
             .padding()
             NavigationLink(isActive: $continuePage) {
-                ClientInfo(showCheckout: $showCheckout)
+                ClientInfo()
             } label: {
                 Button {
                     // Checkout
@@ -76,6 +76,6 @@ struct Checkout: View {
 
 struct Checkout_Previews: PreviewProvider {
     static var previews: some View {
-        Checkout(showCheckout: .constant(true))
+        Checkout()
     }
 }

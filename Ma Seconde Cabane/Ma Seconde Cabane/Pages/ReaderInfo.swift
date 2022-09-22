@@ -93,12 +93,13 @@ struct ReaderInfo: View {
                         Task {
                             do {
                                 try await Terminal.shared.disconnectReader()
-                                
+                                self.stripeController.selectedReader = nil
                             } catch {
                                 ErrorManager.shared.push(title: "Unable to disconnect", error: error)
                             }
                         }
                     }
+                    .foregroundColor(.red)
                 }
                 Spacer()
                 NavigationLink(isActive: $scanning) {
