@@ -45,7 +45,7 @@ struct AsyncProductView: View {
             Spacer()
         }
         .padding()
-        .background(Color.white)
+        .background(Color(UIColor.systemBackground))
         .cornerRadius(5)
         .preferredColorScheme(.light)
         .task(id: self.productID, {

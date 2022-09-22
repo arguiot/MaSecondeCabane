@@ -7,10 +7,9 @@
 
 import SwiftUI
 import StripeTerminal
-import BatteryView
 
 struct ReaderConnect: View {
-    @StateObject var stripeController = StripeController()
+    @EnvironmentObject var stripeController: StripeController
     
     func imageFor(reader: Reader) -> Image {
         switch reader.deviceType {
@@ -53,93 +52,47 @@ struct ReaderConnect: View {
             return "Unknown"
         }
     }
-    func batteryStatusConvert(reader: Reader) -> BatteryState {
-        if reader.batteryStatus == .unknown {
-            return .unknown
-        }
-        if reader.isCharging == 1 {
-            return .charging
-        }
-        if reader.batteryLevel == 1 {
-            return .full
-        }
-        return .unplugged
-    }
     
     @State var selectedReaderSerial = ""
-    @State var scanning = false
+    @State var simulated = false
     
     var body: some View {
-        NavigationView {
-            if stripeController.state == .discovery {
-                List {
-                    Section {
-                        ForEach(stripeController.readers, id: \.serialNumber) { reader in
-                            HStack {
-                                imageFor(reader: reader)
-                                Text(nameFor(reader: reader))
-                                Spacer()
-                                if selectedReaderSerial == reader.serialNumber {
-                                    ProgressView()
-                                }
-                            }
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                Task {
-                                    do {
-                                        self.selectedReaderSerial = reader.serialNumber
-                                        try await stripeController.connectToReader(selectedReader: reader)
-                                        stripeController.state = .ready
-                                    } catch {
-                                        ErrorManager.shared.push(title: "Connect Reader", error: error)
-                                    }
-                                }
-                            }
-                        }
-                    } header: {
-                        HStack {
-                            ProgressView()
-                            Text("Searching")
-                        }
-                    }
-
-                    
-                }
-                .navigationTitle(.constant("Reader Discovery"))
-            }
-            if stripeController.state == .ready, let selectedReader = stripeController.selectedReader {
-                VStack {
+        List {
+            Toggle("Simulated", isOn: $simulated)
+            Section {
+                ForEach(stripeController.readers, id: \.serialNumber) { reader in
                     HStack {
-                        imageFor(reader: selectedReader)
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                        VStack(alignment: .leading) {
-                            Battery(.constant(Float(selectedReader.batteryLevel ?? 0)),
-                                    .constant(batteryStatusConvert(reader: selectedReader))
-                            )
-                            .frame(height: 10)
-                            Text("Serial Number: ") + Text(selectedReader.serialNumber)
-                            Text("Software: ") + Text(selectedReader.deviceSoftwareVersion ?? "Unknown")
+                        imageFor(reader: reader)
+                        Text(nameFor(reader: reader))
+                        Spacer()
+                        if selectedReaderSerial == reader.serialNumber {
+                            ProgressView()
                         }
                     }
-                    Spacer()
-                    NavigationLink(isActive: $scanning) {
-                        Scanner()
-                    } label: {
-                        Button("Commencer à scanner") {
-                            // Start Scanning
-                            scanning.toggle()
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        Task {
+                            do {
+                                self.selectedReaderSerial = reader.serialNumber
+                                try await stripeController.connectToReader(selectedReader: reader)
+                            } catch {
+                                ErrorManager.shared.push(title: "Connect Reader", error: error)
+                            }
+                            self.selectedReaderSerial = ""
                         }
-                        .buttonStyle(BigButtonStyle())
                     }
                 }
-                .navigationTitle(Text(nameFor(reader: selectedReader)))
+            } header: {
+                HStack {
+                    ProgressView()
+                    Text("Searching")
+                        .padding()
+                }
             }
         }
-        .navigationViewStyle(.stack)
-        .environmentObject(stripeController)
-        .task {
-            await stripeController.discoverReaders()
+        .navigationTitle("Reader Discovery")
+        .task(id: simulated) {
+            await stripeController.discoverReaders(simulated: simulated)
         }
     }
 }

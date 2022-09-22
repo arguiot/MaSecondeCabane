@@ -7,8 +7,10 @@ export default async (req, res) => {
     if (!verifyToken(token)) {
         return res.status(401).json({ error: "Invalid token" });
     }
-    // Create location
-    const location = await stripe.terminal.locations.create(req.body);
+    // Get id from request body
+    const { id } = req.body;
+    // Delete location
+    const status = await stripe.terminal.locations.del(id);
 
-    res.status(200).json(location);
+    res.status(200).json(status);
 }

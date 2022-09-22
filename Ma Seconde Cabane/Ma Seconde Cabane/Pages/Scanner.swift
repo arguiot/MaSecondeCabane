@@ -15,7 +15,7 @@ struct Scanner: View {
     
     var body: some View {
         ZStack {
-            CodeScannerView(codeTypes: [.code128], scanMode: .oncePerCode) { response in
+            CodeScannerView(codeTypes: [.code128], scanMode: .continuous) { response in
                 if case let .success(result) = response {
                     productID = result.string
                     showCard = true
@@ -48,8 +48,11 @@ struct Scanner: View {
                     Button("Checkout", action: {
                         // Checkout
                         self.showCheckout.toggle()
+                        NotificationCenter.default.addObserver(forName: .paymentSuccess, object: nil, queue: .main) { _ in
+                            self.showCheckout = false
+                        }
                     })
-                    .buttonStyle(BigButtonStyle(color: .green))
+                    .buttonStyle(BigButtonStyle())
                     .cornerRadius(5)
                     .disabled(Cart.shared.products.isEmpty)
                     .opacity(Cart.shared.products.isEmpty ? 0.5 : 1)
@@ -58,6 +61,10 @@ struct Scanner: View {
             .padding()
         }
     }
+}
+
+extension Notification.Name {
+    static let paymentSuccess = Notification.Name("paymentSuccess")
 }
 
 struct Scanner_Previews: PreviewProvider {

@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var stripeController = StripeController()
+    
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            ReaderConnect()
+            if stripeController.selectedReader == nil {
+                NavigationView {
+                    Locations()
+                }
+                .navigationViewStyle(.stack)
+            } else {
+                NavigationView {
+                    ReaderInfo()
+                }
+                .navigationViewStyle(.stack)
+            }
             ErrorOverlay()
         }
+        .environmentObject(stripeController)
     }
 }
 

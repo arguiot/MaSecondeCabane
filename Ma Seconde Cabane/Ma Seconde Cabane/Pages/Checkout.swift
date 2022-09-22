@@ -9,7 +9,10 @@ import SwiftUI
 
 struct Checkout: View {
     @ObservedObject var cart = Cart.shared
-    @EnvironmentObject var stripeController: StripeController
+    
+    @State var continuePage = false
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         VStack {
             List {
@@ -33,23 +36,27 @@ struct Checkout: View {
             }
             Spacer()
             HStack {
-                Text("Tax")
+                Text("TPS")
                 Spacer()
-                Text("\(String(format: "%.2f", Double(cart.tax) / 100))$")
+                Text("\(String(format: "%.2f", Double(cart.gst) / 100))$")
+            }
+            .padding(.horizontal)
+            HStack {
+                Text("TVQ")
+                Spacer()
+                Text("\(String(format: "%.2f", Double(cart.qst) / 100))$")
             }
             .padding()
-            Button {
-                // Checkout
-                Task {
-                    do {
-                        try await stripeController.collectPayment(cart: self.cart, email: <#String#>)
-                    } catch {
-                        ErrorManager.shared.push(title: "Collect Payment", error: error)
-                    }   
-                }
+            NavigationLink(isActive: $continuePage) {
+                ClientInfo()
             } label: {
-                Text("Checkout - \(String(format: "%.2f", Double(cart.total) / 100))$")
-            }.buttonStyle(BigButtonStyle())
+                Button {
+                    // Checkout
+                    self.continuePage = true
+                } label: {
+                    Text("Continuer - \(String(format: "%.2f", Double(cart.total) / 100))$")
+                }.buttonStyle(BigButtonStyle())
+            }
         }
         .navigationTitle("Current Sale (\(cart.products.count))")
         .navigationBarTitleDisplayMode(.inline)
