@@ -14,22 +14,26 @@ struct ErrorOverlay: View {
     var body: some View {
         VStack(alignment: .leading) {
             if manager.errors.count > 0 {
-                VStack {
-                    if showDetails {
-                        ForEach(manager.errors) { error in
-                            VStack(alignment: .leading) {
-                                Text(error.title)
-                                    .bold()
-                                Text(error.error.localizedDescription)
+                ScrollView {
+                    VStack {
+                        if showDetails {
+                            ForEach(manager.errors) { error in
+                                VStack(alignment: .leading) {
+                                    Text(error.title)
+                                        .bold()
+                                    Text(error.error.localizedDescription)
+                                }
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.red)
+                                .cornerRadius(5)
+                                .transition(.push(from: .leading))
+                                .rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
                             }
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.red)
-                            .cornerRadius(5)
-                            .transition(.push(from: .leading))
                         }
                     }
                 }
+                .rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
                 Button {
                     showDetails.toggle()
                 } label: {

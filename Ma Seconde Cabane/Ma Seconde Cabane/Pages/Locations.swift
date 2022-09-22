@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StripeTerminal
 
 struct Locations: View {
     @State var locations = [APIClient.LocationObject]()
@@ -23,8 +24,18 @@ struct Locations: View {
         }
     }
     
+    @State var testMode = false
+    
     var body: some View {
         List {
+            Section("Environment") {
+                Toggle("Mode Test", isOn: $testMode)
+                    .task(id: testMode) {
+                        APIClient.shared.baseURLString = testMode ? "https://dev.masecondecabane.com/api/pos/" : "https://masecondecabane.com/api/pos/"
+                        Terminal.shared.clearCachedCredentials()
+                        await refresh()
+                    }
+            }
             Section("Veuillez choisir ou créer un emplacement pour le magasin") {
                 ForEach(locations, id: \.id) { location in
                     NavigationLink {
