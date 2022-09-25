@@ -30,7 +30,7 @@
     "jsbarcode": "^3.11.3",
     "jsonwebtoken": "^8.5.1",
     "lunr": "^2.3.9",
-    "next": "^11.1.4",
+    "next": "^12.1.0",
     "next-auth": "^3.3.0",
     "nextjs-progressbar": "^0.0.7",
     "print-js": "^1.4.0",
