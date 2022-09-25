@@ -53,8 +53,16 @@ type ProductLine @embedded {
   quantity: Int!
 }
 
+type WebsiteConfig @collection(name: "websiteConfig") {
+  locked: Boolean! # if the website is locked for pop up store
+  popUpAddress: Address! # Address of the pop up store
+  freeShipping: Int! # Minimum amount for free shipping
+  delayDelivery: String # (Optional) Delay for delivery as a message
+}
+
 type Query {
   allProducts: [Product!]! @index(name: "all_products")
   allOrders: [Order!]! @index(name: "all_orders")
   allRequest: [Request!]! @index(name: "all_requests")
+  allConfigs: [WebsiteConfig!]! @index(name: "website_config")
 }

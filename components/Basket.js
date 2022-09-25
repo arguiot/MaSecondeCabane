@@ -32,6 +32,16 @@ export default function Basket({
     const [stock, setStock] = React.useState(false)
     const handleClick = async (event) => {
         setCheckout(true)
+        // Verify if website isn't locked
+        const config = await fetch("/api/config").then(data => data.json())
+        if (config.locked) {
+            setCheckout(false)
+            setStock(false)
+            // Redirect to popup page
+            router.push("/popup?locked=true")
+            return
+        }
+
         const available = await Manager.checkAvailability()
         if (available != true) {
             setCheckout(false)

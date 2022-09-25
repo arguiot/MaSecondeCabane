@@ -565,6 +565,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ma-Seconde-Cabane-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to supported card readers.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth access is required in order to connect to supported bluetooth card readers.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used to scan barcodes";
@@ -604,6 +605,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ma-Seconde-Cabane-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to supported card readers.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth access is required in order to connect to supported bluetooth card readers.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used to scan barcodes";
