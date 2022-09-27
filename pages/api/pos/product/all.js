@@ -11,5 +11,13 @@ export default async (req, res) => {
     const { allProducts } = await graphQLClient.request(query, {
         size: 10000
     })
-    res.status(200).json(allProducts.data)
+    // Filter out the products that are not available
+    const products = allProducts.data.filter(product => {
+        // If the product is waiting for collect, it is not available
+        if (product.waitingForCollect == true) return false
+        // If the product is not in stock, it is not available
+        if (product.quantity < 1) return false
+        return true
+    })
+    res.status(200).json(products)
 }

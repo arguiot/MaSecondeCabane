@@ -41,3 +41,30 @@ public struct Product: Codable {
         return product
     }
 }
+
+class RemoteCatalog: ObservableObject {
+    var internalCatalog = [Product]()
+    @Published var products = [Product]()
+    
+    func fetch() async throws {
+        let url = URL(string: "https://masecondecabane.com/api/pos/product/all")!
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(APIClient.shared.accessToken)", forHTTPHeaderField: "Authorization")
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decoder = JSONDecoder()
+        self.internalCatalog = try decoder.decode([Product].self, from: data)
+        self.products = self.internalCatalog
+    }
+
+    func search(query: String) {
+        // If the query is empty, we show all the products
+        if query == "" {
+            self.products = self.internalCatalog
+            return
+        }
+        // Otherwise, we filter the products by name, description and id
+        self.products = self.internalCatalog.filter { product in
+            product.name.lowercased().contains(query.lowercased()) || product.description.lowercased().contains(query.lowercased()) || product._id.lowercased().contains(query.lowercased())
+        }
+    }
+}

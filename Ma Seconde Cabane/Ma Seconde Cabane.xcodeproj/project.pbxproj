@@ -41,6 +41,7 @@
 		68D32C5D28CFCF1F007E6EDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68D32C5C28CFCF1F007E6EDE /* Preview Assets.xcassets */; };
 		68D32C6528CFD0D5007E6EDE /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 68D32C6428CFD0D5007E6EDE /* CodeScanner */; };
 		68D32C6828CFD325007E6EDE /* AsyncProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D32C6728CFD325007E6EDE /* AsyncProductView.swift */; };
+		68DBDF0828E3675800A5DE9F /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DBDF0728E3675800A5DE9F /* Catalog.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		68D32C5928CFCF1F007E6EDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68D32C5C28CFCF1F007E6EDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		68D32C6728CFD325007E6EDE /* AsyncProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncProductView.swift; sourceTree = "<group>"; };
+		68DBDF0728E3675800A5DE9F /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 				68A2E41A28D9039C00FEC28C /* ClientInfo.swift */,
 				6818D0EA28D935B100AB5268 /* PaymentView.swift */,
 				68ADBA8C28DB622100FF08BF /* Locations.swift */,
+				68DBDF0728E3675800A5DE9F /* Catalog.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				68ADBA8D28DB622100FF08BF /* Locations.swift in Sources */,
 				68D32C6828CFD325007E6EDE /* AsyncProductView.swift in Sources */,
 				68A2E40F28D7DE4600FEC28C /* Scanner.swift in Sources */,
+				68DBDF0828E3675800A5DE9F /* Catalog.swift in Sources */,
 				68ADBA8F28DB93B500FF08BF /* ReaderInfo.swift in Sources */,
 				68A2E3FF28D7AFEA00FEC28C /* Cart.swift in Sources */,
 			);
@@ -559,7 +563,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Ma Seconde Cabane/Preview Content\"";
 				DEVELOPMENT_TEAM = 73CCF549YB;
 				ENABLE_PREVIEWS = YES;
@@ -599,7 +603,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Ma Seconde Cabane/Preview Content\"";
 				DEVELOPMENT_TEAM = 73CCF549YB;
 				ENABLE_PREVIEWS = YES;

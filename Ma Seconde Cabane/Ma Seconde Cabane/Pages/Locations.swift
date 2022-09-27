@@ -121,6 +121,18 @@ struct LocationForm: View {
                 .disabled(processing)
             }
             .navigationTitle("Nouvel emplacement")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        showSheet.toggle()
+                    } label: {
+                        Image("Dismiss")
+                            .resizable()
+                            .frame(width: 28, height: 28)
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                }
+            }
         }
     }
 }

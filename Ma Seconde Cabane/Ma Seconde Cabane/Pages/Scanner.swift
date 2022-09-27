@@ -12,7 +12,8 @@ struct Scanner: View {
     @State var productID = ""
     @State var showCard = false
     @State var showCheckout = false
-    
+    @State var showCatalog = false
+    @ObservedObject var cart = Cart.shared
     var body: some View {
         ZStack {
             CodeScannerView(codeTypes: [.code128], scanMode: .continuous) { response in
@@ -21,7 +22,20 @@ struct Scanner: View {
                     showCard = true
                 }
             }
-            .edgesIgnoringSafeArea(.vertical)
+            .edgesIgnoringSafeArea(.bottom)
+            // Translucent Rectagle with red line crossing it, to show the user where to scan
+            ZStack {
+                Rectangle()
+                    .foregroundColor(.white)
+                    .opacity(0.2)
+                    .frame(width: 300, height: 100)
+                    .cornerRadius(10)
+                Rectangle()
+                    .foregroundColor(.red)
+                    .frame(width: 350, height: 1)
+                    .opacity(0.5)
+            }
+            .offset(y: -200)
             VStack {
                 Spacer()
                 if showCard {
@@ -54,12 +68,24 @@ struct Scanner: View {
                     })
                     .buttonStyle(BigButtonStyle())
                     .cornerRadius(5)
-                    .disabled(Cart.shared.products.isEmpty)
-                    .opacity(Cart.shared.products.isEmpty ? 0.5 : 1)
+                    .disabled(cart.products.isEmpty)
+                    .opacity(cart.products.isEmpty ? 0.5 : 1)
                 }
             }
             .padding()
         }
+        .toolbar {
+            Button {
+                showCatalog.toggle()
+            } label: {
+                Label("Chercher", systemImage: "magnifyingglass")
+            }
+            .sheet(isPresented: $showCatalog) {
+                Catalog()
+            }
+        }
+        .navigationTitle("Scanner")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

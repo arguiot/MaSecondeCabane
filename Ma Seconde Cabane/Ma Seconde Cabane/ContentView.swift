@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var stripeController = StripeController()
-    
+    @StateObject var remoteCatalog = RemoteCatalog()
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             if stripeController.selectedReader == nil {
@@ -26,6 +26,7 @@ struct ContentView: View {
             ErrorOverlay()
         }
         .environmentObject(stripeController)
+        .environmentObject(remoteCatalog)
     }
 }
 
