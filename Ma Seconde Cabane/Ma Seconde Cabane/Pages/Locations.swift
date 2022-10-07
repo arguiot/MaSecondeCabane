@@ -26,6 +26,8 @@ struct Locations: View {
     
     @State var testMode = false
     
+    @State var showHistory = false
+
     var body: some View {
         List {
             Section("Environment") {
@@ -75,7 +77,18 @@ struct Locations: View {
         .sheet(isPresented: $showSheet) { Task { await refresh() } } content: {
             LocationForm(showSheet: $showSheet)
         }
-
+        .toolbar { // Show history sheet
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showHistory.toggle()
+                }) {
+                    Image(systemName: "clock")
+                }
+            }
+        }
+        .sheet(isPresented: $showHistory) {
+            SalesHistory()
+        }
     }
 }
 

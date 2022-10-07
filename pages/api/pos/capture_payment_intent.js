@@ -15,38 +15,42 @@ export default async (req, res) => {
     const items = body.items
     let articles = []
     for (var i = 0; i < items.length; i++) {
-        const entry = items[i]
-        const query = ProductByID
-        const {
-            findProductByID
-        } = await graphQLServer.request(query, {
-            id: entry.product
-        })
-        articles.push(findProductByID)
-        const updateQuery = UpdateProduct
-        const variables = {
-            id: entry.product,
-            data: {
-                name: findProductByID.name,
-                description: findProductByID.description,
-                price: findProductByID.price,
-                quantity: findProductByID.quantity - entry.quantity,
-                image: findProductByID.image,
-                creation: findProductByID.creation,
-                sexe: findProductByID.sexe,
-                size: findProductByID.size,
-                brand: findProductByID.brand,
-                etat: findProductByID.etat,
-                tags: findProductByID.tags,
-                favorite: findProductByID.favorite,
-                type: findProductByID.type,
-                composition: findProductByID.composition
+        try {
+            const entry = items[i]
+            const query = ProductByID
+            const {
+                findProductByID
+            } = await graphQLServer.request(query, {
+                id: entry.product
+            })
+            articles.push(findProductByID)
+            const updateQuery = UpdateProduct
+            const variables = {
+                id: entry.product,
+                data: {
+                    name: findProductByID.name,
+                    description: findProductByID.description,
+                    price: findProductByID.price,
+                    quantity: findProductByID.quantity - entry.quantity,
+                    image: findProductByID.image,
+                    creation: findProductByID.creation,
+                    sexe: findProductByID.sexe,
+                    size: findProductByID.size,
+                    brand: findProductByID.brand,
+                    etat: findProductByID.etat,
+                    tags: findProductByID.tags,
+                    favorite: findProductByID.favorite,
+                    type: findProductByID.type,
+                    composition: findProductByID.composition
+                }
             }
+            const {
+                updateProduct
+            } = await graphQLServer.request(updateQuery, variables)
+            console.log(`Updated Product ${updateProduct._id}`)
+        } catch (err) {
+            console.log(err)
         }
-        const {
-            updateProduct
-        } = await graphQLServer.request(updateQuery, variables)
-        console.log(`Updated Product ${updateProduct._id}`)
     }
 
     res.status(200).json({ intent });

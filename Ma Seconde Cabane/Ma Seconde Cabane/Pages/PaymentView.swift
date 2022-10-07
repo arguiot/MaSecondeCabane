@@ -62,6 +62,9 @@ struct PaymentView: View {
                 Text("C'est bon!")
             }
             .task(id: id) {
+                // Save the sale
+                Sales.addSale(products: Cart.shared.products)
+
                 Cart.shared.products = [] // Empty cart
                 // Delay to let the user see the success animation
                 try! await Task.sleep(nanoseconds: 15 * 1_000_000_00) // 1.5 seconds

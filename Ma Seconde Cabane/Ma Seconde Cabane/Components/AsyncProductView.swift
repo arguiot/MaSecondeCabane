@@ -52,6 +52,9 @@ struct AsyncProductView: View {
             self.product = nil // Falls back to scanning state
             do {
                 self.product = try await Product.from(id: productID)
+                if !Cart.shared.products.contains(where: { $0._id == self.product?._id }) {
+                    Cart.shared.products.append(self.product!)
+                }
             } catch {
                 ErrorManager.shared.push(title: "Product Fetching", error: error)
                 self.error = true
