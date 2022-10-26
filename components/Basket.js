@@ -191,7 +191,7 @@ export default function Basket({
                 </Row>
             </Card>
             <Spacer y={1} />
-            {/* <Note>{ t.delay }</Note> */}
+            <Note>{ t.delay }</Note>
             <Spacer y={1} />
             <Grid.Container gap={2} justify="flex-end">
                 <Grid xs={24} md={ 7 }>
