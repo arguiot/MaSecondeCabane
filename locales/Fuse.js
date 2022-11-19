@@ -93,6 +93,10 @@ export function getComposition(product, lang) {
             fr: "N/A",
             en: "N/A"
         },
+        "Angora": {
+            fr: "Angora",
+            en: "Angora"
+        },
         "Coton": {
             fr: "Coton",
             en: "Cotton"
@@ -132,6 +136,10 @@ export function getComposition(product, lang) {
         "Polyester": {
             fr: "Polyester",
             en: "Polyester"
+        },
+        "Viscose": {
+            fr: "Viscose",
+            en: "Viscose"
         }
     }
     return product.composition.map(comp => compositionList[comp][lang.split("-")[0]]).join(", ")
