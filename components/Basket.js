@@ -11,7 +11,7 @@ import Locales from "../locales/Basket"
 import { getDescription, getSize } from "../locales/Fuse";
 import { Minus, Plus } from "@geist-ui/react-icons";
 import React from "react";
-import { DELIVERY_FLOOR, DELIVERY_PRICE } from "../lib/Parameters";
+import { DELIVERY_PRICE } from "../lib/Parameters";
 import { useConfig } from "../pages/_app";
 
 export default function Basket({
@@ -106,7 +106,7 @@ export default function Basket({
                 </Modal>
     }
 
-    const deliveryPrice = (Manager.subtotal >= DELIVERY_FLOOR) ? 0 : DELIVERY_PRICE
+    const deliveryPrice = (Manager.subtotal >= config.freeShipping) ? 0 : DELIVERY_PRICE
 
     const fieldset = product => <Fieldset>
         <Fieldset.Content>
