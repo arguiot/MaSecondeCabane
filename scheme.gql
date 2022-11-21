@@ -53,11 +53,17 @@ type ProductLine @embedded {
   quantity: Int!
 }
 
+type Promo @embedded {
+  fr: String!
+  en: String!
+}
+
 type WebsiteConfig @collection(name: "websiteConfig") {
   locked: Boolean! # if the website is locked for pop up store
   popUpAddress: Address! # Address of the pop up store
   freeShipping: Int! # Minimum amount for free shipping
   delayDelivery: String # (Optional) Delay for delivery as a message
+  promo: Promo! # Promo message
 }
 
 type Query {

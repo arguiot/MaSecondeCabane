@@ -9,6 +9,27 @@ import React from "react";
 import { FilterContextProvider } from '../components/FilterContext';
 import Promo from '../components/Promo'
 
+// Config context + hook
+const defaultConfig = {
+	locked: false,
+	popUpAddress: {
+		street: "5000 rue d'Iberville, Suite 320",
+		city: "Montreal",
+		country: "CA, QC",
+		zipCode: "H2H 2S6"
+	},
+	freeShipping: 90,
+	promo: {
+		fr: "Livraison gratuite pour les commandes de plus de XX$",
+		en: "Free shipping for orders over $XX"
+	}
+}
+export const Config = React.createContext(defaultConfig)
+
+export function useConfig() {
+	return React.useContext(Config)
+}
+
 function MyApp({
 	Component,
 	pageProps
@@ -37,21 +58,25 @@ function MyApp({
 
 	const theme = useTheme()
 
-  return (
-    <GeistProvider theme={{
+	const passedConfig = pageProps.config || defaultConfig
+
+	return (
+	<GeistProvider theme={{
 		type: themeType,
 		palette: {
 			foreground: "#007577"
 		}
-	  }}>
+		}}>
 		<FilterContextProvider>
-		  	<CssBaseline />
-			<Component {...pageProps} />
-			<NextNProgress color="var(--text-color)" />
-			<Promo />
+			<Config.Provider value={passedConfig}>
+				<CssBaseline />
+				<Component {...pageProps} />
+				<NextNProgress color="var(--text-color)" />
+				<Promo />
+			</Config.Provider>
 		</FilterContextProvider>
 	</GeistProvider>
-  )
+	)
 }
 export default MyApp
 

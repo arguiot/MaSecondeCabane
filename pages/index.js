@@ -208,6 +208,7 @@ function Home({ products, router, photos, t }) {
 export default withRouter(Home)
 
 import Locales from "../locales/index"
+import getConfig from '../lib/config'
 
 export async function getStaticProps({ locale }) {
 	const unsplash = new Unsplash({ accessKey: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS });
@@ -229,11 +230,15 @@ export async function getStaticProps({ locale }) {
 		line[1][locale.split("-")[0]]
 	]))
 
+	// Config
+	const config = await getConfig()
+
     return {
         props: {
 			products: result.allProducts.data,
 			photos,
-			t: locales
+			t: locales,
+			config
         },
         revalidate: 1800
     }

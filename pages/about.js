@@ -49,6 +49,7 @@ export default function About({ t }) {
 }
 
 import Locales from "../locales/About"
+import getConfig from "../lib/config"
 
 export async function getStaticProps({ locale }) {
     // Locales
@@ -56,9 +57,12 @@ export async function getStaticProps({ locale }) {
 		line[0],
 		line[1][locale.split("-")[0]]
     ]))
+    // Config
+    const config = await getConfig()
     return {
         props: {
-            t: locales
+            t: locales,
+            config
         }
     }
 }

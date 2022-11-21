@@ -1,8 +1,8 @@
-import { AllConfigs } from "../../lib/Requests"
-import { graphQLClient } from "../../utils/fauna"
+import getConfig from "../../lib/config"
 
 export default async (req, res) => {
-    const response = await graphQLClient.request(AllConfigs, { size: 1 })
-    const { data } = response.allConfigs
-    res.status(200).json(data[0])
+    // Get the config
+    const config = await getConfig()
+    // Return the config
+    res.status(200).json(config)
 }

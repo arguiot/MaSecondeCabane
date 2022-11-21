@@ -2,6 +2,7 @@ import { Notification, NotificationCenter } from "@arguiot/broadcast.js";
 import { useState,useEffect } from "react";
 import { useRouter } from 'next/router'
 import Locales from "../locales/NavBar";
+import { useConfig } from "../pages/_app";
 export default function Promo() {
     const [show, setShow] = useState(true);
     // const [counter, setCounter] = useState("00d 00h 00m 00s");
@@ -31,10 +32,9 @@ export default function Promo() {
     }, []);
 
     const router = useRouter()
-    const t = Object.fromEntries(Object.entries(Locales).map(line => [
-		line[0],
-		line[1][router.locale.split("-")[0]]
-    ]))
+    const config = useConfig()
+
+    const promoText = (config.promo[router.locale.split("-")[0]] || config.promo.en).replace("XX", config.freeShipping)
 
     return <>
     { show && <div className="promo">
@@ -66,7 +66,7 @@ export default function Promo() {
                 }
             }
         `}</style>
-        <span>{`${t.promo}`}</span>
+        <span>{ promoText }</span>
         <button className="x-button" onClick={() => { setShow(false); NotificationCenter.default.post(new Notification("promo", false)) }}>&times;</button>
     </div>}
     </>

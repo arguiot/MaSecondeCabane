@@ -7,6 +7,7 @@ import { withRouter } from "next/router"
 import Link from "next/link"
 import Locales from "../locales/Checkout"
 import React from "react";
+import getConfig from "../lib/config"
 
 export async function getStaticProps({ locale }) {
     // Locales
@@ -14,9 +15,12 @@ export async function getStaticProps({ locale }) {
 		line[0],
 		line[1][locale.split("-")[0]]
     ]))
+    // Config
+    const config = await getConfig()
     return {
         props: {
-            t: locales
+            t: locales,
+            config
         }
     }
 }

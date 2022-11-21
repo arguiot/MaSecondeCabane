@@ -12,6 +12,7 @@ import { getDescription, getSize } from "../locales/Fuse";
 import { Minus, Plus } from "@geist-ui/react-icons";
 import React from "react";
 import { DELIVERY_FLOOR, DELIVERY_PRICE } from "../lib/Parameters";
+import { useConfig } from "../pages/_app";
 
 export default function Basket({
     bindings
@@ -30,10 +31,12 @@ export default function Basket({
     const [delivery, setDelivery] = React.useState(true)
     const [checkout, setCheckout] = React.useState(false)
     const [stock, setStock] = React.useState(false)
+
+    const config = useConfig()
+
     const handleClick = async (event) => {
         setCheckout(true)
         // Verify if website isn't locked
-        const config = await fetch("/api/config").then(data => data.json())
         if (config.locked) {
             setCheckout(false)
             setStock(false)

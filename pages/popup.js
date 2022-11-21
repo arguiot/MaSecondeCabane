@@ -45,12 +45,13 @@ function MapPopUp({ setAddress }) {
         showsUserLocation: true
     })
 
+    const config = useConfig()
+
     // Fetch config, get the location
     React.useEffect(async () => {
         if (typeof mapkit == "undefined") { return }
         if (typeof map == "undefined") { return }
 
-        const config = await fetch("/api/config").then(data => data.json())
         const location = config.popUpAddress
         const addr = `${location.street}, ${location.zipCode} ${location.city}, ${location.country}`
 
@@ -86,15 +87,20 @@ import Locales from "../locales/popup"
 import { withRouter } from "next/router"
 import Footer from "../components/Footer"
 import React from "react"
+import getConfig from "../lib/config"
+import { useConfig } from "./_app"
 export async function getStaticProps({ locale }) {
     // Locales
 	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
 		line[0],
 		line[1][locale.split("-")[0]]
     ]))
+    // Config
+    const config = await getConfig()
     return {
         props: {
-            t: locales
+            t: locales,
+            config
         }
     }
 }
