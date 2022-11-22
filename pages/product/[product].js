@@ -260,6 +260,7 @@ export default function ProductPage({ product, t }) {
 import Locales from "../../locales/[Product]"
 import { getCategory, getComposition, getSex, getSize } from '../../locales/Fuse'
 import { NotificationCenter } from '@arguiot/broadcast.js'
+import getConfig from "../../lib/config"
 
 export async function getStaticProps({ params, locale }) {
     if (typeof params.product != "string") {
@@ -281,10 +282,14 @@ export async function getStaticProps({ params, locale }) {
             line[1][locale.split("-")[0]]
         ]))
         
+        // Config
+        const config = await getConfig()
+
         return {
             props: {
                 product: result.findProductByID,
-                t: locales
+                t: locales,
+                config
             },
             revalidate: 3600
         }
