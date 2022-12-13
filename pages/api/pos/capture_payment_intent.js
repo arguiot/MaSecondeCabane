@@ -31,6 +31,7 @@ export default async (req, res) => {
                     name: findProductByID.name,
                     description: findProductByID.description,
                     price: findProductByID.price,
+                    waitingForCollect: false, // We set this to false because the product is now sold
                     quantity: findProductByID.quantity - entry.quantity,
                     image: findProductByID.image,
                     creation: findProductByID.creation,
