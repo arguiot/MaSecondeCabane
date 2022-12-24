@@ -18,14 +18,26 @@ class ErrorManager: ObservableObject {
         var title: String
     }
     
+    struct MessageObject: Identifiable {
+        var id: UUID
+        var message: String
+        var title: String
+    }
+    
     enum RandomError: LocalizedError {
         case badError
     }
     
     @Published var errors: [ErrorObject] = []
+    @Published var messages: [MessageObject] = []
     
     func push(title: String, error: Error) {
         print(title, error)
         errors.append(ErrorObject(id: .init(), error: error, title: title))
+    }
+    
+    func push(title: String, message: String) {
+        print(title, message)
+        messages.append(MessageObject(id: .init(), message: message, title: title))
     }
 }

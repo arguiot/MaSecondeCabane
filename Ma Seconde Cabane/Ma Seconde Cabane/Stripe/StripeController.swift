@@ -60,7 +60,7 @@ class StripeController: NSObject, ObservableObject {
         }
     }
     
-    func collectPayment(cart: Cart, email: String, firstName: String, lastName: String) async throws {
+    func collectPayment(cart: Cart, email: String?, firstName: String, lastName: String) async throws {
         let params = PaymentIntentParameters(amount: UInt(cart.total),
                                              currency: "cad",
                                              paymentMethodTypes: ["card_present","interac_present"])
@@ -135,6 +135,7 @@ extension StripeController: DiscoveryDelegate {
             Terminal.shared.connectBluetoothReader(selectedReader, delegate: self, connectionConfig: connectionConfig) { reader, error in
                 if let reader = reader {
                     print("Successfully connected to reader: \(reader)")
+                    ErrorManager.shared.push(title: "Reader Connected", message: "Connected")
                     self.selectedReader = reader
                     continuation.resume(returning: reader)
                 } else if let error = error {
@@ -158,6 +159,7 @@ extension StripeController: BluetoothReaderDelegate {
     
     func reader(_ reader: Reader, didStartInstallingUpdate update: ReaderSoftwareUpdate, cancelable: Cancelable?) {
         // Show UI communicating that a required update has started installing
+        ErrorManager.shared.push(title: "Reader Updating...", message: update.description)
     }
     
     func reader(_ reader: Reader, didReportReaderSoftwareUpdateProgress progress: Float) {
@@ -166,6 +168,10 @@ extension StripeController: BluetoothReaderDelegate {
     
     func reader(_ reader: Reader, didFinishInstallingUpdate update: ReaderSoftwareUpdate?, error: Error?) {
         // Report success or failure of the update
+        if let error = error {
+            ErrorManager.shared.push(title: "Update Failed", error: error)
+        }
+        ErrorManager.shared.push(title: "Reader Finished Update", message: update?.description ?? "Done.")
     }
     
     func reader(_ reader: Reader, didReportAvailableUpdate update: ReaderSoftwareUpdate) {

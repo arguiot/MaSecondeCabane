@@ -30,7 +30,7 @@ struct ClientInfo: View {
                 }
             }
             Spacer()
-            if firstName != "" && lastName != "" && email.isEmail {
+            if firstName != "" && lastName != "" {
                 NavigationLink(isActive: $pay) {
                     PaymentView()
                         .navigationBarBackButtonHidden(true)
@@ -40,7 +40,7 @@ struct ClientInfo: View {
                         pay.toggle()
                         Task {
                             do {
-                                try await stripeController.collectPayment(cart: self.cart, email: email, firstName: firstName, lastName: lastName)
+                                try await stripeController.collectPayment(cart: self.cart, email: email.isEmail ? email : nil, firstName: firstName, lastName: lastName)
                             } catch {
                                 ErrorManager.shared.push(title: "Collect Payment", error: error)
                             }
