@@ -135,7 +135,7 @@ export default async (req, res) => {
                 } = await graphQLServer.request(query, {
                     id: entry.product
                 })
-                articles.push(findProductByID)
+                articles.push({ ...findProductByID, quantity: entry.quantity })
                 const updateQuery = UpdateProduct
                 const variables = {
                     id: entry.product,
@@ -186,7 +186,7 @@ export default async (req, res) => {
                 <ul>
                 <li>Description: ${article.description}</li>
                 <li>Prix: ${article.price}$</li>
-                <li>Identifiant: <a href="https://masecondecabane.com/product/${article.id}">${article.id}</a></li>
+                <li>Identifiant: <a href="https://masecondecabane.com/product/${article._id}">${article._id}</a></li>
                 <li>Quantité: ${article.quantity}</li>
                 </ul>
                 </li>
