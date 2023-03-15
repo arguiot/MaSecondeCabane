@@ -8,7 +8,7 @@ export default {
         en: "Online store of quality second hand clothing for children from 0 to 12 years old. Buy and sell your used items on Ma Seconde Cabane in Montreal, Quebec and Canada. Clothing, shoes, accessories... your first choice!"
     },
     heroDesc: {
-        fr: "Vêtement de seconde main de qualité pour les enfants",
+        fr: "Vêtements de seconde main de qualité pour les enfants",
         en: "Quality second hand clothing for children"
     },
     searchPlaceholder: {
