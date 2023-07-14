@@ -80,8 +80,8 @@ export default {
         en: "QST"
     },
     delay: {
-        fr: "Toutes les commandes seront expédiées à partir du 6 mars 2023.",
-        en: "All orders placed will be shipped as of March 6, 2023."
+        fr: "Toutes les commandes seront expédiées à partir du 15 août 2023.",
+        en: "All orders placed will be shipped as of August 15, 2023."
     },
     continue: {
         fr: "Continuer à magasiner",
