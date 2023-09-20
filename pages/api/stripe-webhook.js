@@ -36,8 +36,8 @@ function runMiddleware(req, res, fn) {
 
 export default async (req, res) => {
     // Run the middleware
-    await runMiddleware(req, res, bodyParser.raw({type: 'application/json'}))
-  
+    await runMiddleware(req, res, bodyParser.raw({ type: 'application/json' }))
+
     let event;
 
     // Only verify the event if you have an endpoint secret defined.
@@ -85,7 +85,7 @@ export default async (req, res) => {
             } else {
                 const tmp = await new Promise((resolve, reject) => {
                     stripe.checkout.sessions.listLineItems(session.id, { limit: 100, expand: ['data.price.product'] }, (err, lineItems) => {
-                        if(err) {
+                        if (err) {
                             return reject(err);
                         }
                         resolve(lineItems)
@@ -193,7 +193,7 @@ export default async (req, res) => {
                 `))}
                 </ol>`
             }
-        
+
             try {
                 await sendgrid.send(msg);
             } catch (error) {
@@ -205,7 +205,7 @@ export default async (req, res) => {
             const paymentMethod = event.data.object;
             console.log('PaymentMethod was attached to a Customer!');
             break;
-            // ... handle other event types
+        // ... handle other event types
         default:
             // Unexpected event type
             return res.status(400).end();

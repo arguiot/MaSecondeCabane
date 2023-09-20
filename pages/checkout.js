@@ -11,9 +11,9 @@ import getConfig from "../lib/config"
 
 export async function getStaticProps({ locale }) {
     // Locales
-	const locales = Object.fromEntries(Object.entries(Locales).map(line => [
-		line[0],
-		line[1][locale.split("-")[0]]
+    const locales = Object.fromEntries(Object.entries(Locales).map(line => [
+        line[0],
+        line[1][locale.split("-")[0]]
     ]))
     // Config
     const config = await getConfig()
@@ -50,31 +50,31 @@ function Checkout({ router, t }) {
         <Row justify="center">
             <CheckCircle size={96} />
         </Row>
-        <Text h1 align="center">{ t.thanks }</Text>
-        <Text h2 align="center">{ t.receive }</Text>
+        <Text h1 align="center">{t.thanks}</Text>
+        <Text h2 align="center">{t.receive}</Text>
     </Page>
 
     const oups = <Page>
         <Row justify="center">
             <AlertTriangle size={96} />
         </Row>
-        <Text h1 align="center">{ t.oups }</Text>
-        <Text h2 align="center">{ t.problem }</Text>
+        <Text h1 align="center">{t.oups}</Text>
+        <Text h2 align="center">{t.problem}</Text>
         <Row justify="center">
             <Link href="/">
-                <Button type="secondary">{ t.back }</Button>
+                <Button type="secondary">{t.back}</Button>
             </Link>
         </Row>
-        
+
     </Page>
     return <>
-	<Head>
-		<title>Ma Seconde Cabane - Checkout</title>
-		<link rel="icon" href="/favicon.ico" />
-	</Head>
-	<NavBar />
-        { success? succeeded : oups }
-    <Footer />
+        <Head>
+            <title>Ma Seconde Cabane - Checkout</title>
+            <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <NavBar />
+        {success ? succeeded : oups}
+        <Footer />
     </>
 }
 

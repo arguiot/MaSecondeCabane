@@ -33,20 +33,18 @@ export default function ProductCard({ product }) {
             return "1 month"
         } else if (lang == "en-CA") {
             return size
-            .replace("mois", "months")
-            .replace("ans", "years")
+                .replace("mois", "months")
+                .replace("ans", "years")
         }
         return size
     }
 
-    return <Link href={ `/${router.locale}/product/${product._id}` }>
-    <a>
+    return <Link href={`/${router.locale}/product/${product._id}`}>
         <Card width="300" hoverable style={{ cursor: "pointer", textAlign: "center" }}>
-            <Image width={ 300 } height={ 300 } src={ `https://images.masecondecabane.com/${product.image}?auto=compress&w=300&h=300&fit=crop` } style={{ objectFit: 'cover' }} alt={ product.name } loading="lazy"/>
-            <Text h4 className={ styles.name }>{ product.name }</Text>
-            <Text small className={ styles.truncate }>{ `${getDescription(product, router.locale)} - ${getSize(product, router.locale)}` }</Text>
-            <Text h4 style={{ color: "#ea4335" }}>{ product.price }$</Text>
+            <Image width={300} height={300} src={`https://images.masecondecabane.com/${product.image}?auto=compress&w=300&h=300&fit=crop`} style={{ objectFit: 'cover' }} alt={product.name} loading="lazy" />
+            <Text h4 className={styles.name}>{product.name}</Text>
+            <Text small className={styles.truncate}>{`${getDescription(product, router.locale)} - ${getSize(product, router.locale)}`}</Text>
+            <Text h4 style={{ color: "#ea4335" }}>{product.price}$</Text>
         </Card>
-    </a>
     </Link>
 }
