@@ -1,9 +1,11 @@
-import sendgrid, { send } from "@sendgrid/mail"
-import { graphQLClient } from "../../utils/fauna";
-import { CreateRequest } from "../../lib/Requests"
+import sendgrid from "@sendgrid/mail"
+import { db } from "../../db";
+import { address, customer, request } from "../../db/schema";
+import { sql } from "drizzle-orm";
+import { NextApiRequest, NextApiResponse } from "next";
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
-export default async (req, res) => {
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY!);
+export default async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method != "POST") {
 		res.status(400).json({
 			error: "Expected POST request"
@@ -23,31 +25,32 @@ export default async (req, res) => {
 		country
 	} = req.body
 
-	const query = CreateRequest
-	const variables = {
-		data: {
-			customer: {
-				firstName: fname,
-				lastName: lname,
-				address: {
-					street,
-					city,
-					zipCode: postal,
-					country
-				},
-				telephone: phone,
-				email
-			},
-			description,
-			done: false
-		}
-	}
+	await db.transaction(async tx => {
+		await tx.insert(address).values({
+			street,
+			city,
+			zipCode: postal,
+			country
+		});
 
-	await graphQLClient.request(query, variables)
-	
+		await tx.insert(customer).values({
+			firstName: fname,
+			lastName: lname,
+			telephone: phone,
+			email,
+			addressId: sql`LAST_INSERT_ID()`.mapWith(address._id)
+		})
+
+		await tx.insert(request).values({
+			description,
+			done: false,
+			customerId: sql`LAST_INSERT_ID()`.mapWith(customer._id)
+		})
+	});
+
 	const msg = {
 		to: "contact@masecondecabane.com", // contact@masecondecabane.com
-        from: "demandes@masecondecabane.com",
+		from: "demandes@masecondecabane.com",
 		replyTo: email,
 		subject: `Nouvelle demande: ${fname} ${lname}`,
 		html: `<h1>Informations de contact</h1>
@@ -67,7 +70,7 @@ export default async (req, res) => {
 		res.status(200).json({
 			success: true
 		})
-	} catch (error) {
+	} catch (error: any) {
 		console.error(error);
 
 		if (error.response) {

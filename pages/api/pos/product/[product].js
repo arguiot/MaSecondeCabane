@@ -1,5 +1,4 @@
-import { ProductByID } from "../../../../lib/Requests"
-import { graphQLClient } from "../../../../utils/fauna"
+import { productById } from "../../../../db/requests/products";
 import { verifyToken } from "../connection_token";
 
 export default async (req, res) => {
@@ -8,9 +7,6 @@ export default async (req, res) => {
         return res.status(401).json({ error: "Invalid token" });
     }
     const { product } = req.query
-    const query = ProductByID
-    const { findProductByID } = await graphQLClient.request(query, {
-        id: product
-    })
+    const findProductByID = await productById(product)
     res.status(200).json(findProductByID)
 }

@@ -1,5 +1,5 @@
 import "../styles/globals.scss";
-import { GeistProvider, CssBaseline, useTheme } from "@geist-ui/react";
+import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import NextNProgress from "nextjs-progressbar";
 import React from "react";
 import { FilterContextProvider } from "../components/FilterContext";
@@ -74,8 +74,6 @@ function MyApp({ Component, pageProps }) {
             md.removeEventListener("change", updateThemeType);
         };
     }, [pageProps.config]);
-
-    const theme = useTheme();
 
     return (
         <GeistProvider

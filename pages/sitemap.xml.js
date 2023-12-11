@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  AllProducts
-} from '../lib/Requests';
-import {
-  graphQLClient
-} from '../utils/fauna';
+import { allProducts } from '../db/requests/products';
 
 const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml">
         ${products
-          .map(({ _id }) => {
-            return `
+    .map(({ _id }) => {
+      return `
                     <url>
                         <loc>https://masecondecabane.com/product/${_id}</loc>
                         <xhtml:link 
@@ -28,8 +23,8 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
                           href="https://masecondecabane.com/product/${_id}"/>
                     </url>
                 `;
-          })
-          .join('')}
+    })
+    .join('')}
           <url>
             <loc>https://masecondecabane.com/</loc>
             <xhtml:link 
@@ -93,8 +88,6 @@ const createSitemap = (products) => `<?xml version="1.0" encoding="UTF-8"?>
     </urlset>
     `;
 
-const query = AllProducts
-
 let result;
 
 class Sitemap extends React.Component {
@@ -102,11 +95,10 @@ class Sitemap extends React.Component {
     res
   }) {
     if (typeof result == "undefined") {
-      result = await graphQLClient.request(query, { size: 10000 })
-      console.log("GraphQL query")
+      result = await allProducts()
     }
     res.setHeader('Content-Type', 'text/xml');
-    res.write(createSitemap(result.allProducts.data));
+    res.write(createSitemap(result));
     res.end();
   }
 }

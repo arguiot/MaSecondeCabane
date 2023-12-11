@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Divider, Image, Page, Row, Spacer, Text } from "@geist-ui/react"
+import { Divider, Image, Page, Row, Text } from "@geist-ui/react"
 import Head from "next/head"
 import Footer from "../components/Footer"
 import NavBar from "../components/NavBar"

@@ -3,9 +3,6 @@ import Head from 'next/head'
 import NavBar from '../../components/NavBar'
 import { Page, Text, Grid, Button, Collapse, Spacer, Row, Spinner, Description, Table, Link, Tooltip, useToasts } from '@geist-ui/react'
 import Manager from '../../lib/CartManager'
-import { graphQLClient } from '../../utils/fauna'
-import { gql } from 'graphql-request'
-import { ProductByID } from '../../lib/Requests'
 import Footer from '../../components/Footer'
 import styles from "../../styles/Product.module.scss"
 import dynamic from 'next/dynamic'
@@ -31,15 +28,15 @@ export default function ProductPage({ product, t }) {
     // initially until getStaticProps() finishes running
     if (router.isFallback) {
         return <>
-        <Head>
-            <title>Loading</title>
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <NavBar />
-        <Spacer y={5} />
-        <Row justify="center">
-            <Spinner size="large" />
-        </Row>
+            <Head>
+                <title>Loading</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <NavBar />
+            <Spacer y={5} />
+            <Row justify="center">
+                <Spinner size="large" />
+            </Row>
         </>
     }
 
@@ -141,10 +138,10 @@ export default function ProductPage({ product, t }) {
         {
             property: t.condition,
             detail: <Row align="middle">
-            <Text>{ etat(product.etat) }</Text>
-            <Tooltip text={ etatHelp(product.etat) } type="dark" className={ styles.infoHelp }>
-                <Info size={16}/>
-            </Tooltip>
+                <Text>{etat(product.etat)}</Text>
+                <Tooltip text={etatHelp(product.etat)} type="dark" className={styles.infoHelp}>
+                    <Info size={16} />
+                </Tooltip>
             </Row>
         },
         {
@@ -162,98 +159,100 @@ export default function ProductPage({ product, t }) {
 
     return (<>
         <Head>
-            <title>Ma Seconde Cabane - { product.name }</title>
+            <title>Ma Seconde Cabane - {product.name}</title>
             <link rel="icon" href="/favicon.ico" />
-            <meta name="description" content={ getDescription(product, router.locale) } />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-                "@context" : "http://schema.org",
-                "@type" : "Product",
-                "name" : product.name,
-                "image" : `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop`,
-                "description" : getDescription(product, router.locale),
-                "url": `https://masecondecabane.com/product/${product._id}`,
-                "sku": `${product._id}`,
-                "brand" : {
-                    "@type" : "Brand",
-                    "name" : "Ma Seconde Cabane",
-                    "logo" : "https://store.arguiot.vercel.app/logo.svg"
-                },
-                "offers" : {
-                    "@type" : "Offer",
-                    "price" : `${product.price}`,
-                    "priceCurrency": "CAD",
-                    "availability": (product.quantity > 0 && product.waitingForCollect != true) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-                    "priceValidUntil": new Date(new Date().getTime() + 5 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10), // In 5 days
-                },
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": starsEtat(product.etat),
-                    "reviewCount": "1"
-                }
-            })}} />
+            <meta name="description" content={getDescription(product, router.locale)} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                    "@context": "http://schema.org",
+                    "@type": "Product",
+                    "name": product.name,
+                    "image": `https://images.masecondecabane.com/${product.image}?auto=compress&w=150&h=150&fit=crop`,
+                    "description": getDescription(product, router.locale),
+                    "url": `https://masecondecabane.com/product/${product._id}`,
+                    "sku": `${product._id}`,
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "Ma Seconde Cabane",
+                        "logo": "https://store.arguiot.vercel.app/logo.svg"
+                    },
+                    "offers": {
+                        "@type": "Offer",
+                        "price": `${product.price}`,
+                        "priceCurrency": "CAD",
+                        "availability": (product.quantity > 0 && product.waitingForCollect != true) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                        "priceValidUntil": new Date(new Date().getTime() + 5 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10), // In 5 days
+                    },
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": starsEtat(product.etat),
+                        "reviewCount": "1"
+                    }
+                })
+            }} />
         </Head>
         <NavBar />
         <Page>
             <Grid.Container gap={8} justify="center">
-                <Grid xs={24} md={12} className={ styles.image }>
-                    <Skeleton display={ !imageLoaded }/>
-                    <ReactImageZoom width={ 500 } height={400} img={ `https://images.masecondecabane.com/${product.image}?auto=format&w=1000&q=75` } zoomPosition="original" />
+                <Grid xs={24} md={12} className={styles.image}>
+                    <Skeleton display={!imageLoaded} />
+                    <ReactImageZoom width={500} height={400} img={`https://images.masecondecabane.com/${product.image}?auto=format&w=1000&q=75`} zoomPosition="original" />
                 </Grid>
                 <Grid xs={24} md={12}>
-                    <Text h3>{ product.name }</Text>
-                    <Text p>{ getDescription(product, router.locale) }</Text>
-                    <Description title={ t.size } content={ getSize(product.size, router.locale) }/>
+                    <Text h3>{product.name}</Text>
+                    <Text p>{getDescription(product, router.locale)}</Text>
+                    <Description title={t.size} content={getSize(product.size, router.locale)} />
                     <Spacer y={.8} />
-                    <Description title={ t.condition } content={ etat(product.etat) } />
+                    <Description title={t.condition} content={etat(product.etat)} />
                     <Spacer y={1} />
                     <Row justify="center" style={{ alignItems: "center" }}>
-                        <Button onClick={ addToCart } size="large" type="secondary" style={{ width: "100%" }} shadow disabled={ 
+                        <Button onClick={addToCart} size="large" type="secondary" style={{ width: "100%" }} shadow disabled={
                             (product.quantity < 1) || (!Manager.checkStock(product._id, product.quantity))
-                         } >{ t.addToBasket }</Button>
+                        } >{t.addToBasket}</Button>
                         <Spacer x={1} />
-                        <Text h2 className={ styles.normalFont } style={{ color: "#ea4335", margin: "0" }}>{ product.price }$</Text>
+                        <Text h2 className={styles.normalFont} style={{ color: "#ea4335", margin: "0" }}>{product.price}$</Text>
                     </Row>
                     {
-                        product.quantity < 1 && <Text i align="center">{ t.noStock }</Text>
+                        product.quantity < 1 && <Text i align="center">{t.noStock}</Text>
                     }
                     <Spacer y={2} />
                     <Collapse.Group>
-                        <Collapse title={ t.details }>
-                            <Table data={table} className={ styles.table }>
-                                <Table.Column prop="property" label={ t.property } />
-                                <Table.Column prop="detail" label={ t.detail } />
+                        <Collapse title={t.details}>
+                            <Table data={table} className={styles.table}>
+                                <Table.Column prop="property" label={t.property} />
+                                <Table.Column prop="detail" label={t.detail} />
                             </Table>
                         </Collapse>
                     </Collapse.Group>
                 </Grid>
             </Grid.Container>
             <Spacer y={2} />
-            <Text h3>{ t.faq }</Text>
-            <Collapse.Group className={ styles.collapse }>
-                <Collapse title={ t.questionsTitle }>
-                    { t.questionsP1 } <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>. 
-                    <br/>
-                    { t.questionsP2 }
+            <Text h3>{t.faq}</Text>
+            <Collapse.Group className={styles.collapse}>
+                <Collapse title={t.questionsTitle}>
+                    {t.questionsP1} <Link href="mailto:contact@masecondecabane.com" color>contact@masecondecabane.com</Link>.
+                    <br />
+                    {t.questionsP2}
                 </Collapse>
-                <Collapse title={ t.controlledTitle }>
-                    { t.controlledContent }<br/>
-                    { t.weDefine }
-                    <ul className={ styles.list }>
-                        <li>{ t.goodConditions }</li>
-                        <li>{ t.excellentConditions }</li>
-                        <li>{ t.newWithLabel }</li>
+                <Collapse title={t.controlledTitle}>
+                    {t.controlledContent}<br />
+                    {t.weDefine}
+                    <ul className={styles.list}>
+                        <li>{t.goodConditions}</li>
+                        <li>{t.excellentConditions}</li>
+                        <li>{t.newWithLabel}</li>
                     </ul>
                 </Collapse>
-                <Collapse title={ t.paymentTitle }>
-                    { t.paymentContent }
+                <Collapse title={t.paymentTitle}>
+                    {t.paymentContent}
                 </Collapse>
-                <Collapse title={ t.whenArrive }>
-                    { t.whenArriveContent }
+                <Collapse title={t.whenArrive}>
+                    {t.whenArriveContent}
                 </Collapse>
             </Collapse.Group>
         </Page>
         <Footer />
-        </>
+    </>
     )
 }
 
@@ -261,6 +260,8 @@ import Locales from "../../locales/[Product]"
 import { getCategory, getComposition, getSex, getSize } from '../../locales/Fuse'
 import { NotificationCenter } from '@arguiot/broadcast.js'
 import getConfig from "../../lib/config"
+import { productById } from '../../db/requests/products'
+import { db } from '../../db'
 
 export async function getStaticProps({ params, locale }) {
     if (typeof params.product != "string") {
@@ -271,29 +272,26 @@ export async function getStaticProps({ params, locale }) {
 
     try {
         const { product } = params
-        const query = ProductByID
-        const result = await graphQLClient.request(query, {
-            id: product
-        })
+        const result = await productById(product)
 
         // Locales
         const locales = Object.fromEntries(Object.entries(Locales).map(line => [
             line[0],
             line[1][locale.split("-")[0]]
         ]))
-        
+
         // Config
         const config = await getConfig()
 
         return {
             props: {
-                product: result.findProductByID,
+                product: result,
                 t: locales,
                 config
             },
             revalidate: 3600
         }
-    } catch(e) {
+    } catch (e) {
         console.log(e);
         return {
             notFound: true
@@ -302,24 +300,17 @@ export async function getStaticProps({ params, locale }) {
 }
 
 export async function getStaticPaths({ locales }) {
-    const query = gql`
-    query AllProducts($size: Int) {
-        allProducts(_size: $size) {
-            data {
-                _id
-            }
+    const result = await db.query.products.findMany({
+        columns: {
+            _id: true,
         }
-    }
-    `
-    const result = await graphQLClient.request(query, { size: 5000 })
-
-    const { data } = result.allProducts
+    })
 
     const modifier = lang => {
         return entry => {
             return {
                 params: {
-                    product: entry._id
+                    product: entry._id.toString()
                 },
                 locale: lang
             }
@@ -327,13 +318,13 @@ export async function getStaticPaths({ locales }) {
     }
     let paths = []
     locales.forEach(lang => {
-        paths = paths.concat(data.map(modifier(lang)))
+        paths = paths.concat(result.map(modifier(lang)))
     })
     return {
-      // Only `/posts/1` and `/posts/2` are generated at build time
-      paths,
-      // Enable statically generating additional pages
-      // For example: `/posts/3`
-      fallback: true,
+        // Only `/posts/1` and `/posts/2` are generated at build time
+        paths,
+        // Enable statically generating additional pages
+        // For example: `/posts/3`
+        fallback: true,
     }
-  }
+}

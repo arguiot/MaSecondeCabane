@@ -23,10 +23,10 @@ class Animation extends React.Component {
     }
     render() {
         return (
-            <div className={ this.className }>
+            <div className={this.className}>
                 <Badge.Anchor placement="topRight">
-                    { Manager.numberOfItems > 0 &&
-                        <Badge size="mini">{ Manager.numberOfItems }</Badge>
+                    {Manager.numberOfItems > 0 &&
+                        <Badge size="mini">{Manager.numberOfItems}</Badge>
                     }
                     {
                         Manager.numberOfItems == 0 ? <img src="/bag.svg" width={32} height={32} alt="Panier" /> : <Lottie options={this.defaultOptions} height={32} width={32} isClickToPauseDisabled={true} />

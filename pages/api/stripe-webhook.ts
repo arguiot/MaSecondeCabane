@@ -1,17 +1,12 @@
-import {
-    AllOrders,
-    CreateOrder,
-    ProductByID,
-    UpdateProduct
-} from '../../lib/Requests';
-import {
-    graphQLServer
-} from "../../utils/fauna"
 import bodyParser from "body-parser"
 import sendgrid from "@sendgrid/mail"
+import { db } from '../../db';
+import { address, customer, order, orderProductLine, products } from '../../db/schema';
+import { eq, sql, count } from "drizzle-orm";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY!);
 const endpointSecret = process.env.STRIPE_WEBHOOK
 
 // first we need to disable the default body parser
@@ -21,9 +16,9 @@ export const config = {
     },
 }
 
-function runMiddleware(req, res, fn) {
+function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: any) {
     return new Promise((resolve, reject) => {
-        fn(req, res, (result) => {
+        fn(req, res, (result: any) => {
             if (result instanceof Error) {
                 return reject(result)
             }
@@ -34,7 +29,7 @@ function runMiddleware(req, res, fn) {
 }
 
 
-export default async (req, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Run the middleware
     await runMiddleware(req, res, bodyParser.raw({ type: 'application/json' }))
 
@@ -51,7 +46,7 @@ export default async (req, res) => {
                 signature,
                 endpointSecret
             );
-        } catch (err) {
+        } catch (err: any) {
             console.log(`⚠️  Webhook signature verification failed.`, err.message);
             return res.status(400).send(`Webhook Error: ${err.message}`);
         }
@@ -65,26 +60,30 @@ export default async (req, res) => {
 
             const paymentIntent = session.payment_intent;
             // Check that the order isn't already in DB
-            const { allOrders } = await graphQLServer.request(AllOrders)
-            if (allOrders.data.map(entry => entry.stripeID).includes(paymentIntent.id)) {
+            const lines = await db.select({
+                value: count()
+            }).from(order).where(eq(order.stripeID, paymentIntent.id))
+            if (lines.reduce((a, b) => a + b.value, 0) > 0) {
                 return res.status(202).send(`Webhook Error: Stripe order already exists in DB`);
             }
             // Create Order
             const names = paymentIntent.shipping.name.split(" ")
-            const query = CreateOrder
 
-            let items = {}
+            let items: {
+                product: number;
+                quantity: number;
+            }[] = []
 
             if (paymentIntent.metadata.order) {
-                items = JSON.parse(paymentIntent.metadata.order).map(entry => {
+                items = JSON.parse(paymentIntent.metadata.order).map((entry: any) => {
                     return {
-                        product: entry.id,
+                        product: Number(entry.id),
                         quantity: entry.quantity
                     }
                 })
             } else {
-                const tmp = await new Promise((resolve, reject) => {
-                    stripe.checkout.sessions.listLineItems(session.id, { limit: 100, expand: ['data.price.product'] }, (err, lineItems) => {
+                const tmp: any = await new Promise((resolve, reject) => {
+                    stripe.checkout.sessions.listLineItems(session.id, { limit: 100, expand: ['data.price.product'] }, (err: Error, lineItems: any) => {
                         if (err) {
                             return reject(err);
                         }
@@ -92,75 +91,48 @@ export default async (req, res) => {
                     })
                 })
                 // console.error( { tmp } )
-                items = tmp.data.map(entry => {
+                items = tmp.data.map((entry: any) => {
                     return {
-                        product: entry.price.product.metadata.id,
+                        product: Number(entry.price.product.metadata.id),
                         quantity: entry.quantity
                     }
-                }).filter(entry => entry.product) // Make sure we don't have any empty entries
+                }).filter((entry: any) => entry.product) // Make sure we don't have any empty entries
             }
 
-
-            const variables = {
-                data: {
+            await db.transaction(async tx => {
+                await tx.insert(address).values({
+                    street: paymentIntent.shipping.address.line1,
+                    city: paymentIntent.shipping.address.city,
+                    zipCode: paymentIntent.shipping.address.postal_code,
+                    country: `${paymentIntent.shipping.address.country}, ${paymentIntent.shipping.address.state}`
+                });
+                await tx.insert(customer).values({
+                    email: paymentIntent.receipt_email || paymentIntent.charges.data[0].billing_details.email || "Inconnue",
+                    firstName: names[0],
+                    lastName: names.slice(1).join(" "),
+                    telephone: "None", //paymentIntent.shipping.phone,
+                    addressId: sql`LAST_INSERT_ID()`.mapWith(address._id),
+                })
+                const ord = await tx.insert(order).values({
                     stripeID: paymentIntent.id,
                     total: paymentIntent.amount / 100,
-                    customer: {
-                        email: paymentIntent.receipt_email || paymentIntent.charges.data[0].billing_details.email || "Inconnue",
-                        firstName: names[0],
-                        lastName: names.slice(1).join(" "),
-                        telephone: "None", //paymentIntent.shipping.phone,
-                        address: {
-                            street: paymentIntent.shipping.address.line1,
-                            city: paymentIntent.shipping.address.city,
-                            zipCode: paymentIntent.shipping.address.postal_code,
-                            country: `${paymentIntent.shipping.address.country}, ${paymentIntent.shipping.address.state}`
-                        }
-                    },
-                    line: items,
+                    customerId: sql`LAST_INSERT_ID()`.mapWith(customer._id),
                     delivery: paymentIntent.metadata.delivery == "true",
                     done: false
+                });
+                for (const line of items) {
+                    await tx.insert(orderProductLine).values({
+                        orderId: Number(ord.insertId),
+                        productId: line.product,
+                        quantity: line.quantity,
+                    })
+                    await tx.update(products).set({
+                        quantity: sql`${products.quantity} - ${line.quantity}`
+                    }).where(eq(products._id, line.product))
                 }
-            }
-            const {
-                createOrder
-            } = await graphQLServer.request(query, variables)
-            // Update Quantities
-            let articles = []
-            for (var i = 0; i < items.length; i++) {
-                const entry = items[i]
-                const query = ProductByID
-                const {
-                    findProductByID
-                } = await graphQLServer.request(query, {
-                    id: entry.product
-                })
-                articles.push({ ...findProductByID, quantity: entry.quantity })
-                const updateQuery = UpdateProduct
-                const variables = {
-                    id: entry.product,
-                    data: {
-                        name: findProductByID.name,
-                        description: findProductByID.description,
-                        price: findProductByID.price,
-                        quantity: findProductByID.quantity - entry.quantity,
-                        image: findProductByID.image,
-                        creation: findProductByID.creation,
-                        sexe: findProductByID.sexe,
-                        size: findProductByID.size,
-                        brand: findProductByID.brand,
-                        etat: findProductByID.etat,
-                        tags: findProductByID.tags,
-                        favorite: findProductByID.favorite,
-                        type: findProductByID.type,
-                        composition: findProductByID.composition
-                    }
-                }
-                const {
-                    updateProduct
-                } = await graphQLServer.request(updateQuery, variables)
-                console.log(`Updated Product ${updateProduct._id}`)
-            }
+            })
+
+            const articles = await db.select().from(products).where(sql`${products._id} IN (${sql.join(items.map(item => item.product))})`)
 
             const msg = {
                 to: "contact@masecondecabane.com",
@@ -199,7 +171,6 @@ export default async (req, res) => {
             } catch (error) {
                 console.error(error);
             }
-            console.log(`Created order: ${createOrder._id}`)
             break;
         case 'payment_method.attached':
             const paymentMethod = event.data.object;

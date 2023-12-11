@@ -1,11 +1,9 @@
 import { Text, AutoComplete, Row, Col, Spacer, Image, Page, Grid, Divider } from '@geist-ui/react'
 import { Search } from '@geist-ui/react-icons'
 import Head from 'next/head'
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useState } from 'react'
 import NavBar from '../components/NavBar'
 import styles from '../styles/Home.module.scss'
-import { graphQLClient } from '../utils/fauna'
-import { AllProducts } from '../lib/Requests'
 import pStyles from '../styles/ProductCard.module.scss'
 import Link from 'next/link'
 import ProductCard from '../components/ProductCard'
@@ -213,6 +211,7 @@ export default withRouter(Home)
 
 import Locales from "../locales/index"
 import getConfig from '../lib/config'
+import { allProducts } from '../db/requests/products'
 
 export async function getStaticProps({ locale }) {
     let photos = [];
@@ -239,8 +238,7 @@ export async function getStaticProps({ locale }) {
     }
 
 
-    const query = AllProducts
-    const result = await graphQLClient.request(query, { size: 10000 })
+    const result = await allProducts()
 
     // Locales
     const locales = Object.fromEntries(Object.entries(Locales).map(line => [
@@ -253,7 +251,7 @@ export async function getStaticProps({ locale }) {
 
     return {
         props: {
-            products: result.allProducts.data,
+            products: result,
             photos,
             t: locales,
             config
