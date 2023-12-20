@@ -1,6 +1,7 @@
-import { bigint, customType, serial } from 'drizzle-orm/mysql-core';
+import { bigint, customType } from 'drizzle-orm/mysql-core';
+import { randomBytes } from 'crypto';
 
-const _ID = customType<{
+export const _ID = customType<{
     data: string;
     notNull: true;
     default: true;
@@ -12,9 +13,7 @@ const _ID = customType<{
         fromDriver(value: unknown): string {
             if (typeof value === 'undefined' || value === null) {
                 // Generate a random 32-bit integer
-                const bytes = new Uint32Array(1);
-                crypto.getRandomValues(bytes);
-                return bytes[0].toString();
+                return randomBytes(4).readUInt32BE(0).toString();
             }
             return value.toString();
         },
@@ -26,9 +25,7 @@ const _ID = customType<{
 
 export const ID = (name: string) => bigint(name, { mode: "number", unsigned: true }).unique().notNull()
     .$defaultFn(() => {
-        const bytes = new Uint32Array(1);
-        crypto.getRandomValues(bytes);
-        return bytes[0]
+        return randomBytes(4).readUInt32BE(0);
     });
 
-export const dID = (name: string) => bigint(name, { mode: "number", unsigned: true })
+export const dID = (name: string) => bigint(name, { mode: "number", unsigned: true });
