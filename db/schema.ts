@@ -5,7 +5,7 @@ import { relations } from 'drizzle-orm';
 
 export const products = mysqlTable('Products', {
     _id: ID('id').autoincrement().primaryKey(),
-    _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime()),
+    _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime() * 1000),
     name: varchar('name', { length: 255 }).notNull(),
     description: text('description').notNull(),
     descriptionEn: text('descriptionEn'),
@@ -63,7 +63,7 @@ export const customerRelation = relations(customer, ({ one, many }) => ({
 
 export const request = mysqlTable('Request', {
     _id: ID('id').autoincrement().primaryKey(),
-    _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime()),
+    _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime() * 1000),
     customerId: dID('customerId').references(() => customer._id).notNull(),
     description: text('description').notNull(),
     done: boolean('done'),
@@ -82,7 +82,7 @@ export const requestRelation = relations(request, ({ one, many }) => ({
 
 export const order = mysqlTable('Order', {
     _id: ID('id').autoincrement().primaryKey(),
-    _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime()),
+    _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime() * 1000),
     customerId: dID('customerId').references(() => customer._id).notNull(),
     stripeID: varchar('stripeID', { length: 255 }).notNull(),
     total: float('total').notNull(),
