@@ -2,7 +2,7 @@ import bodyParser from "body-parser"
 import sendgrid from "@sendgrid/mail"
 import { db } from '../../db';
 import { address, customer, order, orderProductLine, products } from '../../db/schema';
-import { eq, sql, count } from "drizzle-orm";
+import { eq, sql, count, inArray } from "drizzle-orm";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
@@ -132,7 +132,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 }
             })
 
-            const articles = await db.select().from(products).where(sql`${products._id} IN (${sql.join(items.map(item => item.product))})`)
+            const articles = await db.select().from(products).where(inArray(products._id, items.map(item => item.product)))
 
             const msg = {
                 to: "contact@masecondecabane.com",
