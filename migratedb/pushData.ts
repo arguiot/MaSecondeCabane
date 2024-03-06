@@ -29,10 +29,10 @@ const pushData = async () => {
                 ..._order,
                 customerId: sql`LAST_INSERT_ID()`.mapWith(customer._id),
                 _id: Number(_order._id),
-            });
+            }).returning({ insertId: order._id });
             for (const line of _order.line) {
                 await tx.insert(orderProductLine).values({
-                    orderId: Number(ord.insertId),
+                    orderId: Number(ord[0].insertId),
                     productId: Number(line.product),
                     quantity: line.quantity,
                 });

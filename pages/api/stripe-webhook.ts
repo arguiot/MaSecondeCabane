@@ -119,10 +119,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     customerId: sql`LAST_INSERT_ID()`.mapWith(customer._id),
                     delivery: paymentIntent.metadata.delivery == "true",
                     done: false
-                });
+                }).returning({ insertId: order._id });
                 for (const line of items) {
                     await tx.insert(orderProductLine).values({
-                        orderId: Number(ord.insertId),
+                        orderId: Number(ord[0].insertId),
                         productId: line.product,
                         quantity: line.quantity,
                     })
