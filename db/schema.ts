@@ -104,7 +104,7 @@ export const orderRelation = relations(order, ({ one, many }) => ({
     line: many(orderProductLine),
 }));
 
-export const orderProductLine = masecondecabane.table('OrderProductLine', {
+export const orderProductLine = masecondecabane.table('orderproductline', {
     _id: ID('id').primaryKey(),
     orderId: dID('orderid').references(() => order._id).notNull(),
     productId: dID('productid').references(() => products._id).notNull(),
