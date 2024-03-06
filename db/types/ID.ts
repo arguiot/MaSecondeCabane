@@ -1,4 +1,4 @@
-import { bigint, customType } from 'drizzle-orm/mysql-core';
+import { bigint, customType } from 'drizzle-orm/pg-core';
 import { randomBytes } from 'crypto';
 
 export const _ID = customType<{
@@ -23,9 +23,9 @@ export const _ID = customType<{
     },
 );
 
-export const ID = (name: string) => bigint(name, { mode: "number", unsigned: true }).unique().notNull()
+export const ID = (name: string) => bigint(name, { mode: "number" }).unique().notNull()
     .$defaultFn(() => {
         return randomBytes(4).readUInt32BE(0);
     });
 
-export const dID = (name: string) => bigint(name, { mode: "number", unsigned: true });
+export const dID = (name: string) => bigint(name, { mode: "number" });

@@ -1,18 +1,20 @@
-import { index, int, text, varchar, mysqlTable, boolean, float, json } from 'drizzle-orm/mysql-core';
+import { index, integer, text, varchar, boolean, doublePrecision, json, pgSchema } from 'drizzle-orm/pg-core';
 import { moment } from './types/moment';
 import { ID, dID } from './types/ID';
 import { relations } from 'drizzle-orm';
 
-export const products = mysqlTable('Products', {
-    _id: ID('id').autoincrement().primaryKey(),
+export const masecondecabane = pgSchema("masecondecabane")
+
+export const products = masecondecabane.table('products', {
+    _id: ID('id').primaryKey(),
     _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime() * 1000),
     name: varchar('name', { length: 255 }).notNull(),
     description: text('description').notNull(),
-    descriptionEn: text('descriptionEn'),
-    price: int('price').notNull(),
-    boughtPrice: int('boughtPrice'),
-    waitingForCollect: boolean('waitingForCollect'),
-    quantity: int('quantity').notNull(),
+    descriptionEn: text('descriptionen'),
+    price: integer('price').notNull(),
+    boughtPrice: integer('boughtprice'),
+    waitingForCollect: boolean('waitingforcollect'),
+    quantity: integer('quantity').notNull(),
     image: varchar('image', { length: 255 }).notNull(),
     sexe: varchar('sexe', { length: 255 }).notNull(),
     size: varchar('size', { length: 255 }).notNull(),
@@ -29,23 +31,23 @@ export const products = mysqlTable('Products', {
     }
 });
 
-export const address = mysqlTable('Address', {
-    _id: ID('id').autoincrement().primaryKey(),
+export const address = masecondecabane.table('address', {
+    _id: ID('id').primaryKey(),
     street: varchar('street', { length: 255 }).notNull(),
     city: varchar('city', { length: 255 }).notNull(),
     country: varchar('country', { length: 255 }).notNull(),
-    zipCode: varchar('zipCode', { length: 20 }).notNull(),
+    zipCode: varchar('zipcode', { length: 20 }).notNull(),
 }, (table) => {
     return {
         addressIdx: index("address_idx").on(table._id),
     }
 });
 
-export const customer = mysqlTable('Customer', {
-    _id: ID('id').autoincrement().primaryKey(),
-    firstName: varchar('firstName', { length: 255 }).notNull(),
-    lastName: varchar('lastName', { length: 255 }).notNull(),
-    addressId: ID('addressId').references(() => address._id).notNull(),
+export const customer = masecondecabane.table('customer', {
+    _id: ID('id').primaryKey(),
+    firstName: varchar('firstname', { length: 255 }).notNull(),
+    lastName: varchar('lastname', { length: 255 }).notNull(),
+    addressId: ID('addressid').references(() => address._id).notNull(),
     telephone: varchar('telephone', { length: 255 }).notNull(),
     email: varchar('email', { length: 255 }).notNull(),
 }, (table) => {
@@ -61,10 +63,10 @@ export const customerRelation = relations(customer, ({ one, many }) => ({
     }),
 }));
 
-export const request = mysqlTable('Request', {
-    _id: ID('id').autoincrement().primaryKey(),
+export const request = masecondecabane.table('request', {
+    _id: ID('id').primaryKey(),
     _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime() * 1000),
-    customerId: dID('customerId').references(() => customer._id).notNull(),
+    customerId: dID('customerid').references(() => customer._id).notNull(),
     description: text('description').notNull(),
     done: boolean('done'),
 }, (table) => {
@@ -80,12 +82,12 @@ export const requestRelation = relations(request, ({ one, many }) => ({
     }),
 }));
 
-export const order = mysqlTable('Order', {
-    _id: ID('id').autoincrement().primaryKey(),
+export const order = masecondecabane.table('order', {
+    _id: ID('id').primaryKey(),
     _ts: moment('ts').notNull().$defaultFn(() => new Date().getTime() * 1000),
-    customerId: dID('customerId').references(() => customer._id).notNull(),
-    stripeID: varchar('stripeID', { length: 255 }).notNull(),
-    total: float('total').notNull(),
+    customerId: dID('customerid').references(() => customer._id).notNull(),
+    stripeID: varchar('stripeid', { length: 255 }).notNull(),
+    total: doublePrecision('total').notNull(),
     done: boolean('done'),
     delivery: boolean('delivery').notNull().default(false),
 }, (table) => {
@@ -102,11 +104,11 @@ export const orderRelation = relations(order, ({ one, many }) => ({
     line: many(orderProductLine),
 }));
 
-export const orderProductLine = mysqlTable('OrderProductLine', {
-    _id: ID('id').autoincrement().primaryKey(),
-    orderId: dID('orderId').references(() => order._id).notNull(),
-    productId: dID('productId').references(() => products._id).notNull(),
-    quantity: int('quantity').notNull(),
+export const orderProductLine = masecondecabane.table('OrderProductLine', {
+    _id: ID('id').primaryKey(),
+    orderId: dID('orderid').references(() => order._id).notNull(),
+    productId: dID('productid').references(() => products._id).notNull(),
+    quantity: integer('quantity').notNull(),
 }, (table) => {
     return {
         orderProductLineIdx: index("orderProductLine_idx").on(table._id),
@@ -124,14 +126,14 @@ export const orderProductLineRelation = relations(orderProductLine, ({ one, many
     }),
 }));
 
-export const websiteConfig = mysqlTable('WebsiteConfig', {
-    _id: ID('id').autoincrement().primaryKey(),
+export const websiteConfig = masecondecabane.table('websiteconfig', {
+    _id: ID('id').primaryKey(),
     locked: boolean('locked').notNull(),
-    popUpAddressId: ID('popUpAddressId').references(() => address._id),
-    freeShipping: int('freeShipping').notNull(),
-    delayDelivery: varchar('delayDelivery', { length: 255 }),
-    promoFr: varchar('promoFr', { length: 255 }).notNull(),
-    promoEn: varchar('promoEn', { length: 255 }).notNull(),
+    popUpAddressId: ID('popupaddressid').references(() => address._id),
+    freeShipping: integer('freeshipping').notNull(),
+    delayDelivery: varchar('delaydelivery', { length: 255 }),
+    promoFr: varchar('promofr', { length: 255 }).notNull(),
+    promoEn: varchar('promoen', { length: 255 }).notNull(),
 });
 
 export const websiteConfigRelation = relations(websiteConfig, ({ one, many }) => ({

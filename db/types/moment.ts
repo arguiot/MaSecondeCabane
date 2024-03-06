@@ -1,4 +1,4 @@
-import { customType } from 'drizzle-orm/mysql-core';
+import { customType } from 'drizzle-orm/pg-core';
 
 export const moment = customType<{
     data: number;

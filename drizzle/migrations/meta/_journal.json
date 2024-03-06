@@ -1,12 +1,19 @@
 {
   "version": "5",
-  "dialect": "mysql",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1701875668037,
-      "tag": "0000_nebulous_stature",
+      "when": 1709753620330,
+      "tag": "0000_same_starbolt",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709759571000,
+      "tag": "0001_aromatic_edwin_jarvis",
       "breakpoints": true
     }
   ]

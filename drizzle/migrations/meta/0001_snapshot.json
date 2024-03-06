@@ -1,12 +1,12 @@
 {
-  "id": "fe84cbe1-3272-4f68-808b-61d294d2962a",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "c3b5daf5-ba56-42c1-99a8-a3eeead29561",
+  "prevId": "fe84cbe1-3272-4f68-808b-61d294d2962a",
   "version": "5",
   "dialect": "pg",
   "tables": {
     "Address": {
       "name": "Address",
-      "schema": "",
+      "schema": "masecondecabane",
       "columns": {
         "id": {
           "name": "id",
@@ -62,7 +62,7 @@
     },
     "Customer": {
       "name": "Customer",
-      "schema": "",
+      "schema": "masecondecabane",
       "columns": {
         "id": {
           "name": "id",
@@ -145,7 +145,7 @@
     },
     "Order": {
       "name": "Order",
-      "schema": "",
+      "schema": "masecondecabane",
       "columns": {
         "id": {
           "name": "id",
@@ -228,7 +228,7 @@
     },
     "OrderProductLine": {
       "name": "OrderProductLine",
-      "schema": "",
+      "schema": "masecondecabane",
       "columns": {
         "id": {
           "name": "id",
@@ -305,7 +305,7 @@
     },
     "Products": {
       "name": "Products",
-      "schema": "",
+      "schema": "masecondecabane",
       "columns": {
         "id": {
           "name": "id",
@@ -445,7 +445,7 @@
     },
     "Request": {
       "name": "Request",
-      "schema": "",
+      "schema": "masecondecabane",
       "columns": {
         "id": {
           "name": "id",
@@ -515,7 +515,7 @@
     },
     "WebsiteConfig": {
       "name": "WebsiteConfig",
-      "schema": "",
+      "schema": "masecondecabane",
       "columns": {
         "id": {
           "name": "id",
@@ -596,7 +596,9 @@
     }
   },
   "enums": {},
-  "schemas": {},
+  "schemas": {
+    "masecondecabane": "masecondecabane"
+  },
   "_meta": {
     "schemas": {},
     "tables": {},

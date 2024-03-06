@@ -4,7 +4,6 @@ import NextNProgress from "nextjs-progressbar";
 import React from "react";
 import { FilterContextProvider } from "../components/FilterContext";
 import Promo from "../components/Promo";
-import getConfig from "../lib/config";
 
 // Config context + hook
 const defaultConfig = {
@@ -59,7 +58,7 @@ function MyApp({ Component, pageProps }) {
             if (expiration > Date.now()) {
                 setPassedConfig(config);
             } else {
-                const newConfig = await getConfig();
+                const newConfig = await fetch("/api/config").then((res) => res.json());
                 setConfig(newConfig);
             }
         };
