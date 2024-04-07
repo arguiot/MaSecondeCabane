@@ -14,6 +14,7 @@ module.exports = {
             zlib: false,
             http: false,
             https: false,
+            perf_hooks: false,
         };
         config.externals.push(
             "pino-pretty",
