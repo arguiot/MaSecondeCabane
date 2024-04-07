@@ -9,6 +9,11 @@ module.exports = {
             os: false,
             path: false,
             stream: false,
+            net: false,
+            tls: false,
+            zlib: false,
+            http: false,
+            https: false,
         };
         config.externals.push(
             "pino-pretty",
