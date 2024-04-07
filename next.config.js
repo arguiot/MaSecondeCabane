@@ -5,7 +5,10 @@ module.exports = {
     webpack: (config) => {
         config.resolve.fallback = {
             fs: false,
-            crypto: require.resolve("crypto-browserify")
+            crypto: require.resolve("crypto-browserify"),
+            os: false,
+            path: false,
+            stream: false,
         };
         config.externals.push(
             "pino-pretty",
