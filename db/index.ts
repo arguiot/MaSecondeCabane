@@ -5,7 +5,7 @@ import * as schema from './schema';
 const user = process.env.PGUSER;
 const password = process.env.PGPASSWORD;
 const host = process.env.PGHOST;
-const port = 5432;
+const port = "5432";
 const database = process.env.PGPASSWORD;
 
 const queryClient = postgres("postgres://username:password@host.com:5432/database", {
