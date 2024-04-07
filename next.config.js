@@ -3,7 +3,10 @@ module.exports = {
         STRIPE_PUBLIC: process.env.STRIPE_PUBLIC,
     },
     webpack: (config) => {
-        config.resolve.fallback = { fs: false };
+        config.resolve.fallback = {
+            fs: false,
+            crypto: require.resolve("crypto-browserify")
+        };
         config.externals.push(
             "pino-pretty",
             "lokijs",
