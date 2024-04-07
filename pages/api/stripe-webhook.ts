@@ -100,23 +100,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             await db.transaction(async tx => {
-                await tx.insert(address).values({
+                const _address = await tx.insert(address).values({
                     street: paymentIntent.shipping.address.line1,
                     city: paymentIntent.shipping.address.city,
                     zipCode: paymentIntent.shipping.address.postal_code,
                     country: `${paymentIntent.shipping.address.country}, ${paymentIntent.shipping.address.state}`
-                });
-                await tx.insert(customer).values({
+                }).returning({ insertId: address._id });
+                const _customer = await tx.insert(customer).values({
                     email: paymentIntent.receipt_email || paymentIntent.charges.data[0].billing_details.email || "Inconnue",
                     firstName: names[0],
                     lastName: names.slice(1).join(" "),
                     telephone: "None", //paymentIntent.shipping.phone,
-                    addressId: sql`LAST_INSERT_ID()`.mapWith(address._id),
-                })
+                    addressId: _address[0].insertId,
+                }).returning({ insertId: customer._id });
                 const ord = await tx.insert(order).values({
                     stripeID: paymentIntent.id,
                     total: paymentIntent.amount / 100,
-                    customerId: sql`LAST_INSERT_ID()`.mapWith(customer._id),
+                    customerId: _customer[0].insertId,
                     delivery: paymentIntent.metadata.delivery == "true",
                     done: false
                 }).returning({ insertId: order._id });
