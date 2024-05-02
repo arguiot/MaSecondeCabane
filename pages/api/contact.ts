@@ -26,25 +26,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	} = req.body
 
 	await db.transaction(async tx => {
-		await tx.insert(address).values({
+		const _address = await tx.insert(address).values({
 			street,
 			city,
 			zipCode: postal,
 			country
-		});
+		}).returning({ id: address._id })
 
-		await tx.insert(customer).values({
+		const _customer = await tx.insert(customer).values({
 			firstName: fname,
 			lastName: lname,
 			telephone: phone,
 			email,
-			addressId: sql`LAST_INSERT_ID()`.mapWith(address._id)
-		})
+			addressId: _address[0].id
+		}).returning({ id: customer._id })
 
 		await tx.insert(request).values({
 			description,
 			done: false,
-			customerId: sql`LAST_INSERT_ID()`.mapWith(customer._id)
+			customerId: _customer[0].id
 		})
 	});
 
